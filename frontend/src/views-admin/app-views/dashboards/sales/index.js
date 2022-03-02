@@ -100,7 +100,7 @@ const WeeklyRevenue = () => {
 
 const DisplayDataSet = () => (
 	<Row gutter={16}>
-		<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+		<Col xs={24} sm={12} lg={6}>
 			<DataDisplayWidget 
 				icon={<FileDoneOutlined />} 
 				value="11,831"
@@ -109,6 +109,8 @@ const DisplayDataSet = () => (
 				vertical={true}
 				avatarSize={55}
 			/>
+		</Col>
+		<Col xs={24} sm={12} lg={6}>
 			<DataDisplayWidget 
 				icon={<BarChartOutlined />} 
 				value="$6,922"
@@ -118,7 +120,7 @@ const DisplayDataSet = () => (
 				avatarSize={55}
 			/>
 		</Col>
-		<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+		<Col xs={24} sm={12} lg={6}>
 			<DataDisplayWidget 
 				icon={<SyncOutlined />} 
 				value="26.9%"
@@ -127,6 +129,8 @@ const DisplayDataSet = () => (
 				vertical={true}
 				avatarSize={55}
 			/>
+		</Col>
+		<Col xs={24} sm={12} lg={6}>
 			<DataDisplayWidget 
 				icon={<UserSwitchOutlined />} 
 				value="873"
@@ -299,7 +303,7 @@ const tableColumns = [
 ]
 
 const RecentOrder = () => (
-	<Card title="Recent Order">
+	<Card title="History">
 		<Table
 			pagination={false}
 			columns={tableColumns} 
@@ -313,25 +317,7 @@ const SalesDashboard = () => {
 
 	return (
 		<>
-			<Row gutter={16}>
-				<Col xs={24} sm={24} md={24} lg={16} xl={15} xxl={14}>
-					<WeeklyRevenue />
-				</Col>
-				<Col xs={24} sm={24} md={24} lg={8} xl={9} xxl={10}>
-					<DisplayDataSet />
-				</Col>
-			</Row>
-			<Row gutter={16}>
-				<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={7} >
-					<TopProduct />
-				</Col>
-				<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={7}>
-					<SalesByCategory />
-				</Col>
-				<Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={10}>
-					<Customers />
-				</Col>
-			</Row>
+			<DisplayDataSet />
 			<Row gutter={16}>
 				<Col xs={24} sm={24} md={24} lg={24}>
 					<RecentOrder />

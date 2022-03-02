@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components'
 
-import AuthService from "../../services/auth.service";
+import AuthService from "services/auth.service";
 
 const UserProfile = styled.div`
 	position: relative;

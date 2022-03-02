@@ -4,8 +4,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import {Button} from "antd";
 import CheckButton from "react-validation/build/button";
-import AuthService from "../../../services/auth.service";
-import { required, is_email } from "views-user/services/validator";
+import AuthService from "services/auth.service";
+import { required, is_email } from "services/validator";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;

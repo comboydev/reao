@@ -58,7 +58,7 @@ const adminSignin = (req, res) => {
 
 const getUsers = (req, res) => {
   User
-    .find()
+    .find({ role: 'user'})
     .exec((err, data) => {
       if (!err && data != null) {
         res.header("Access-Control-Expose-Headers", 'Content-Range');
