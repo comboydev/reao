@@ -1,0 +1,17 @@
+.p-contact{
+    width: 100%;
+    height: 41.04166vw;
+    background-image: url('../../img/contact.png');
+    background-size: cover;
+    padding: 6.3229166vw 29.921875vw 5.104166vw;
+}
+
+@media screen and (max-width: 750px) {
+    .p-contact{
+        width: 100%;
+        @include height_calc(980);
+        background: #a78754;
+        padding: calc(161.9/750)*100+vw calc(80/750)*100+vw 0;
+    }
+    
+}

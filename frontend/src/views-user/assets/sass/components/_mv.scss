@@ -1,0 +1,107 @@
+// .c-mv{
+//     right: 0;
+//     position: absolute;
+//     width: 90.78125vw;
+//     height: 39.21875vw;
+//     background-color: $mv-background-color;
+//     // background-image: url('../../img/mv.png');
+//     background-size: contain;
+//     background-repeat: no-repeat;
+// }
+.mv_slide {
+    overflow: hidden;
+    position: absolute;
+    width: 90.78125vw;
+    height: 39.21875vw;
+    content: '';
+    top: 0px;
+    right: 0;
+    z-index: 0;
+    background-color: #1A1816;
+}
+.mv_slide:after {
+    position: absolute;
+    width: 90.78125vw;
+    height: 39.21875vw;
+    content: '';
+    top: 0px;
+    right: 0;
+    z-index: 0;
+}
+
+.mv_slide li {
+    width: 90.78125vw;
+    height: 39.21875vw;
+    position: absolute;
+    top: 0px;
+    right:0;
+    background-position: 50% 50%;
+    background-repeat: none;
+    z-index: 0;
+    animation: imageAnimation 20s infinite 0s;
+}
+
+@keyframes imageAnimation{
+    0% {
+        transform: scale(1);
+        transform-origin: center;
+        background-image: url('../../img/mv_slider_1.png');
+    }
+    50% {
+        transform: scale(1.2);
+        transform-origin: center;
+        background-image: url('../../img/mv_slider_1.png');
+    }
+    51% {
+        transform: scale(1);
+        transform-origin: center;
+        background-image: url('../../img/mv_slider_2.png');
+    }
+
+    100%{
+        transform: scale(1.2);
+        background-image: url('../../img/mv_slider_2.png');
+    }
+}
+
+@keyframes imageAnimation_sp{
+    0% {
+        transform: scale(1);
+        transform-origin: center;
+        background-image: url('../../img/spMv.png');
+    }
+    50% {
+        transform: scale(1.2);
+        transform-origin: center;
+        background-image: url('../../img/spMv.png');
+    }
+    51% {
+        transform: scale(1);
+        transform-origin: center;
+        background-image: url('../../img/spMv.png');
+    }
+
+    100%{
+        transform: scale(1.2);
+        background-image: url('../../img/spMv.png');
+    }
+}
+
+
+
+@media screen and (max-width: 750px) {
+
+    .mv_slide li {
+        background-position: left;
+        background-size: 180% 100%;
+        animation: imageAnimation_sp 20s infinite 0s;
+    }
+
+    .mv_slide li{
+        height: 145.6vw;
+    }
+    .mv_slide{
+        height: 145.6vw;
+        min-height: 600px;
+    }
+}

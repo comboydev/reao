@@ -1,0 +1,122 @@
+.c-changepassword--header {
+  text-align: center;
+  color: #A78754;
+  font-family: "yu-mincho-pr6n", "sans-serif";
+  font-size: 2rem;
+  margin-bottom: 60px;
+}
+
+.c-btn--login.c-btn--logined p::after {
+  content: "MYPAGE";  
+}
+
+.c-btn--signup.c-btn--logined p::after {
+  content: "LOGOUT";
+}
+
+.c-title{
+  text-align: center;
+  color: #A78754;
+  font-family: "yu-mincho-pr6n", "sans-serif";
+  font-size: 2rem;
+  margin-bottom: 60px;
+}
+
+.p-card{
+  padding: 100px 20px;
+  .c-card{
+    max-width: 650px;
+    width: 100%;
+    margin: auto;
+    padding: 50px 20px 70px;
+    background: white;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 15%);
+    font-family: $yuMincho;
+    text-align: center;
+    &--header{
+        font-weight: normal;
+        font-size: 25px;
+        text-align: center;
+        color: #a78754;
+    }
+    &--article{
+        font-weight: normal;
+        font-size: 16px;
+        letter-spacing: 0.05em;
+        text-align: center;
+        color: #332f2d;
+        p{
+            margin-bottom: 30px;
+        }
+        a{
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: underline;
+            color: #A78754;
+            img{
+                height: 40px;
+            }
+        }
+    }
+    &--link{
+        text-decoration: underline;
+        font-size: 15px;
+        font-family: $yuMincho;
+        margin-top: 20px;
+        text-align: center;
+        color: #A78754;
+    }
+  }
+}
+
+
+.c-form{
+  &--input{
+    width: 100%;
+    height: 40px;
+    background: #ececec;
+    padding: 5px 15px;
+    border: 1px solid #cdcbc8;
+  }
+  &--label{
+    font-size: 13px;
+    font-family: $yuMincho;
+    color: #222222;
+    line-height: 1.6;
+    border-bottom: 1px solid #707070;
+    margin-bottom: 15px;
+  }
+  &--itemlabel{
+      font-size: 13px;
+      font-family: $yuMincho;
+      margin-top: 20px;
+      margin-bottom: 5px;
+  }
+  &--checklabel{
+      text-align: center;
+      margin: 20px 0 25px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: $yuMincho;
+      label{
+          font-size: 13px;
+          margin-bottom: 0;
+      }
+      a{
+          color: $text-color-braun;
+      }
+      input{
+          margin-right: 5px;
+      }
+  }
+  &--link{
+    display: block;
+    font-size: 13px;
+    font-family: $yuMincho;
+    text-decoration: underline !important;
+    margin-top: 20px;
+    text-align: center;
+    color: $text-color-braun;
+  }
+}

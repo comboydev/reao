@@ -1,0 +1,15 @@
+.p-complete{
+    width: 100%;
+    height: calc(640/1920)*100+vw;
+    display: grid;
+    place-items: center;
+}
+
+@media screen and (max-width:1000px){
+    .p-complete{
+        width: 100%;
+        height: calc(640/1000)*100+vw;
+        display: grid;
+        place-items: center;
+    }
+}

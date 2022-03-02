@@ -1,0 +1,39 @@
+.p-use{
+    position: relative;
+    margin-top: 9.8125vw;
+    height: 32.239583vw;
+    width: 100%;
+    margin: 9.8125vw 0 0;
+
+
+}
+
+.border-test{
+    display: block;
+    position: fixed;
+    width: 1px;
+    height: 200px;
+    border-left: 1px solid #a78754;
+    margin-top: 29.7135416vw;
+    margin-left: 4.5052083vw;
+    opacity: 0.28;
+    &::before{
+        content: 'SCROLL';
+        display: block;
+        font-size: 20px;
+        color: $text-color-braun;
+        transform: rotate(90deg) translate(-10vw, 0);
+    }
+}
+
+@media screen and (max-width: 750px){
+    .p-use{
+        @include height_calc(1300);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .border-test{
+        display: none;
+    }
+}

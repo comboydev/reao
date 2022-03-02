@@ -1,0 +1,22 @@
+.c-mvimg{
+    position: absolute;
+    right: 14.52vw;
+    top: 1.62638vw;
+    width: 18.59375vw;
+    height: 35.625vw;
+    background-image: url('../../img/phone.png');
+    background-size: cover;
+}
+
+@media screen and (max-width: 750px){
+    .c-mvimg{
+        position: relative;
+        margin: auto;
+        right: 0;
+        top: 45px;
+        width: 156px;
+        height: 333px;
+        background-position: 25% center;
+
+    }
+}

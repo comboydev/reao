@@ -1,0 +1,14 @@
+.c-pcHidden{
+    display: none;
+}
+.c-spHidden{
+    display: block;
+}
+@media screen and (max-width: 750px) {
+    .c-pcHidden{
+        display: block;
+    }
+    .c-spHidden{
+        display: none;
+    }
+}

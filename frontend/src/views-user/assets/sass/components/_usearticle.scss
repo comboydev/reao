@@ -1,0 +1,128 @@
+.c-usearticle{
+    position: relative;
+    top: -5.578125vw;
+    text-align: center;
+    h1{
+        color: $text-color-braun;
+        font-family: $yuMincho;
+        font-size: 2.604166vw;
+    }
+}
+.sell-flow{
+    width: 100%;
+    height: 730px;
+    margin: 144px auto 144px auto;
+    background: url("../../img/sell-flow.png") center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.sel-btn{
+    background-color: #332f2d;
+}
+.sell-coin1{
+    background: url("../../img/sell-coin1.png");
+    background-size: cover;
+    height: 20vw;
+    background-repeat: no-repeat;
+}
+.sell-coin2{
+    background: url("../../img/sell-coin2.png");
+    background-size: cover;
+    height: 20vw;
+    background-repeat: no-repeat;
+}
+.sell-coin-sub{
+    background-color: #eaeaea;
+}
+.sell-coin-step{
+    background:url("../../img/cell-coin-step.png");
+    background-size: 100% 100%;
+}
+.cell-minter-register{
+    background: url("../../img/sell-minter-register.png");
+    background-size: 100% 100%;
+}
+.apply-seller{
+    background: url("../../img/apply-seller.png");
+    background-size: 100% 100%;
+    width: 100px;
+    height: 100px;
+}
+.cell-step-2{
+    background: url("../../img/sell-step-2.png");
+    background-size: 100% 100%;
+    width: 100px;
+    height: 100px;
+}
+.sell-step-3{
+    background: url("../../img/sell-step-3.png");
+    background-size: 100% 100%;
+    width: 100px;
+    height: 100px;
+}
+.sell-step-4{
+    background: url("../../img/sell-step-4.png");
+    background-size: 100% 100%;
+    width: 100px;
+    height: 100px;
+}
+.sell-back-yan{
+    background-color: #f9f8f4;
+    font-family:$yuMincho;
+}
+.t-font{
+    font-family:$yuMincho;
+}
+.confirm-1{
+    background: url("../../img/confirm-sell-1.png");
+    background-size: 100% 100%;
+}
+.confirm-2{
+    background: url("../../img/confirm-sell-2.png");
+    background-size: 100% 100%;
+}
+.confirm-3{
+    background: url("../../img/confirm-sell-3.png");
+    background-size: 100% 100%;
+}
+@media screen and (max-width: 750px){
+    .sell-flow{
+        width: 100%;
+        height: 37.5vw;
+        margin: 50px auto 50px auto;
+    }
+    .c-usearticle{
+        position: relative;
+        @include width_calc(450);
+
+        h1{
+            color: $text-color-braun;
+            font-family: $yuMincho;
+            font-size: calc((40/750)*100)+vw;
+        }
+    }
+}
+@media screen and (max-width: 640px){
+    .apply-seller{
+        width: 70px;
+        height: 70px;
+    }
+    .cell-step-2{
+        width: 70px;
+        height: 70px;
+    }
+    .sell-step-3{
+        width: 70px;
+        height: 70px;
+    }
+    .sell-step-4{
+        width: 70px;
+        height: 70px;
+    }
+    .sell-coin2{
+        height: 40vw;
+    }
+    .sell-coin1{
+        height: 40vw;
+    }
+}

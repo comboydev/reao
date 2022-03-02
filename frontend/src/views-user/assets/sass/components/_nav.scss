@@ -1,0 +1,118 @@
+.c-nav--global{
+    width: 52.80381866vw;
+    display: block;
+}
+
+.c-nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-nav__left{
+    max-width: 750px;
+    width: 100%;
+    margin-right: 20px;
+}
+
+.c-nav--global--signup{
+    width: 45.260416vw;
+    display: block;
+    margin-left: 2.34375vw;
+}
+.c-nav--sub{
+    position: absolute;
+    right: 1.04166vw;
+    top: 1.45833vw;
+}
+.c-nav--sub--signup{
+    position: absolute;
+    right: 1.04166vw;
+    top: 1.45833vw;
+    margin-left: 2.34375vw;
+}
+
+.c-nav--btn__wrap{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.c-nav--mypage{
+    display: flex;
+    justify-content: space-around;
+    width:calc(250/1920)*100+vw;
+    position: absolute;
+    right: 1.04166vw;
+    top:3.333vw;
+}
+.c-nav--sub__menu{
+    display: flex;
+}
+
+.c-nav--global__menu{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.c-nav--global__info{
+    font-size: 13px;
+    font-weight: 400;
+    font-style: normal;
+    color: #222222;
+    font-family: "yu-mincho-pr6n", "sans-serif";
+
+    display: flex;
+    justify-content: flex-end;
+    li{
+        &:nth-of-type(1){
+            display: flex;
+            align-items: center;
+            &::before{
+                content: '';
+                width: 15px;
+                height: 15px;
+                margin-right: 5px;
+                display: inline-block;
+                background: url('../../img/arrow.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+        &:nth-of-type(2){
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+            &::before{
+                content: '';
+                width: 15px;
+                height: 15px;
+                margin-right: 5px;
+                display: inline-block;
+                background: url('../../img/mail.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+}
+
+
+ @media screen and (max-width: 750px) {
+    .c-nav--global{
+        display: none;
+    }
+    .c-nav--global.is-open{
+        transition: all .3s;
+        z-index: 100;
+        position: fixed;
+        top: calc(100/750)*100+vw;
+        width: 100vw;
+        height: 100vh;
+        background: #222222;
+        padding: calc(75/750)*100+vw calc(80/750)*100+vw calc(131/750)*100+vw;
+        display: flex;
+        flex-direction: column;
+        // display: none;
+    }
+
+ }

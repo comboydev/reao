@@ -1,0 +1,81 @@
+.p-apply{
+    padding: 100px 20px;
+    background-color: rgba(167, 135, 84, 0.06)
+}
+
+.c-apply{
+    padding: 100px 20px;
+    max-width: 1024px;
+    margin: auto;
+    background-color: white;
+    font-family: $yuMincho;
+    display: flex;
+    justify-content: center;
+
+    .l-content{
+        max-width: 450px;
+        width: 50%;
+        padding-top: 20px;
+        padding-right: 50px;
+        &--header{
+            font-size: 20px;
+            letter-spacing: 0.1em;
+            line-height: 42px;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        &--txt{
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 2;
+            text-align: justify;
+            letter-spacing: 1.28px;
+            color: #111111;
+        }
+        .c-linkbox{
+            width: 100%;
+            max-width: 400px;
+            font-size: 15px;
+            margin-top: 40px;
+            padding: 24px;
+            border: 1px solid #E5E5E5;
+            position: relative;
+            &::before{
+                content: '';
+                position: absolute;
+                width: 60px;
+                height: 1px;
+                background: #E5E5E5;
+                top: 50%;
+                right: 10%;
+            }
+        }
+    }
+    .r-content{
+        max-width: 400px;
+        width: 50%;
+        img{
+            width: 100%;
+        }
+    }
+
+    @include mq(sm2){
+        padding: 70px;
+        flex-direction: column-reverse;
+        .l-content{
+            max-width: 100%;
+            width: 100%;
+            padding-right: 0;
+            &--header{
+                margin-bottom: 20px;
+            }
+        }    
+        .r-content{
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+    @include mq(smt){
+        padding: 40px 20px;
+    }
+}

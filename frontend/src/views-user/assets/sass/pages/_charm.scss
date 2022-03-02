@@ -1,0 +1,21 @@
+.p-charm{
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+    width: 100%;
+    height: 73.697916vw;
+    padding-top: 14.53125vw;
+    margin-bottom: 9.578125vw;
+    background-image: url('../../img/coins.png');
+    background-size: 89.4270833vw 32.083vw;
+    background-repeat: no-repeat;
+    background-position:left top; 
+}
+
+@media screen and (max-width: 750px){
+    .p-charm{
+        @include height_calc(2715);
+        position: relative;
+        margin-bottom: 0;
+    }
+}

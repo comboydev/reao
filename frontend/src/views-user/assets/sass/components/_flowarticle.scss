@@ -1,0 +1,351 @@
+.p-flow{
+    width: 100%;
+    position: relative;
+    padding-top: 130px;
+    margin-top: -130px;
+    @include mq(){
+        padding-top: 100px;
+        margin-top: -100px;
+    }
+}
+
+
+.c-flowarticle{
+    font-family: $yuMincho;
+    h1{
+        // position: absolute;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        font-size: 2.604166vw;
+        color: $text-color-braun;
+        // transform: translate(0, -6.385416vw);
+        &::after{
+            content: 'Flow';
+            font-size: 0.78125vw;
+            margin-top: 0.8854166vw;
+        }
+    }
+}
+
+.c-flowlist-wrap{
+    margin-top: 30px;
+    padding: 20px 20px 130px;
+    background-color: rgba(167, 135, 84, 0.06);
+    font-family: $yuMincho;
+    .c-btn--signup--long{
+        transform: none;
+    }
+}
+
+.c-flowlist{
+    margin: 30px auto 0;
+    max-width: vw(1000);
+    width: 100%;
+    p{
+        font-size: 2.34375vw;
+        color: $text-color-braun;
+    }
+    span{
+        font-size: 1.04166vw;
+        color: $text-color-black;
+    }
+    &--buy{
+        display: flex;
+        align-items: center;
+        margin-bottom: 3.125vw;
+        p{
+            margin-bottom: 0.729166vw;
+            &::after{
+                content: '01';
+                position: absolute;
+                right: 18.75vw;
+                font-family: $garamond;
+                font-size: 10.41666vw;
+                transform: translate(0, -0.729166vw);
+                opacity: 13%;
+                line-height: 0;
+            }
+        }
+        &__img{
+            width: 19.04322916vw;
+            height: 12.135416vw;
+            margin: 0 3.354166vw 0 0;
+            background-image: url('../../img/buy.png');
+            background-size: cover;
+        }
+    }
+    &--manage{
+        display: flex;
+        align-items: center;
+        margin-bottom: 3.125vw;
+        p{
+            margin-bottom: 0.729166vw;
+            &::after{
+                content: '02';
+                position: absolute;
+                right: 18.75vw;
+                font-family: $garamond;
+                font-size: 10.41666vw;
+                transform: translate(0, -0.729166vw);
+                opacity: 13%;
+                line-height: 0;
+            }
+        }
+        &__img{
+            width: 19.04322916vw;
+            height: 12.135416vw;
+            margin: 0 3.354166vw 0 0;
+            background-image: url('../../img/manage.png');
+            background-size: cover;
+        }
+    }
+    &--ex{
+        display: flex;
+        align-items: center;
+        margin-bottom: 3.125vw;
+        p{
+            margin-bottom: 0.729166vw;
+            &::after{
+                content: '03';
+                position: absolute;
+                right: 18.75vw;
+                font-family: $garamond;
+                font-size: 10.41666vw;
+                transform: translate(0, -0.729166vw);
+                opacity: 13%;
+                line-height: 0;
+            }
+        }
+        &__img{
+            width: 19.04322916vw;
+            height: 12.135416vw;
+            margin: 0 3.354166vw 0 0;
+            background-image: url('../../img/ex.png');
+            background-size: cover;
+
+        }
+    }
+    &--trade{
+        display: flex;
+        align-items: center;
+        margin-bottom: 3.125vw;
+        p{
+            margin-bottom: 0.729166vw;
+            &::after{
+                content: '04';
+                position: absolute;
+                right: 18.75vw;
+                font-family: $garamond;
+                font-size: 10.41666vw;
+                transform: translate(0, -0.729166vw);
+                opacity: 13%;
+                line-height: 0;
+            }
+        }
+        &__img{
+            width: 19.04322916vw;
+            height: 12.135416vw;
+            margin: 0 3.354166vw 0 0;
+            background-image: url('../../img/trade.png');
+            background-size: cover;
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .c-flowarticle{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        h1{
+            // position: absolute;
+            // top: calc(-130/750)*100+vw;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            font-size: calc(40/750)*100+vw;
+            line-height: calc(68/750)*100+vw;
+            color: $text-color-braun;
+            transform: initial;
+            &::after{
+                content: 'Flow';
+                font-size: calc(45/750)*100+vw;
+                line-height: calc(55/750)*100+vw;
+            }
+        }
+    }
+    .c-flowlist-wrap{
+        .c-btn--signup--long{
+            bottom: unset;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    
+    .c-flowlist{
+        margin-top: 4.58854166vw;
+        @include width_calc(500);
+        @include height_calc(2522.18);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        &--buy{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            width: 100%;
+            margin-bottom: 3.125vw;
+            div{
+                position: relative;
+                width: 100%;
+                p{
+                    margin-bottom: 0.729166vw;
+                    margin-top: 0.729166vw;
+                    font-size: calc(40/750)*100+vw;
+                    line-height: calc(68/750)*100+vw;
+                    &::after{
+                        content: '01';
+                        position: absolute;
+                        right: 0;
+                        font-family: $garamond;
+                        font-size: calc(180/750)*100+vw;
+                        margin-top: calc(20/750)*100+vw;
+                        opacity: 13%;
+                        line-height: 0;
+                    }
+                }
+                span{
+                    font-size: calc(26/750)*100+vw;
+                }
+            }
+            &__img{
+                @include width_calc(500.08);
+                @include height_calc(318.68);
+                background-image: url('../../img/buy.png');
+                background-size: cover;
+                margin: 0;
+            }
+        }
+        &--manage{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            width: 100%;
+            margin-bottom: 3.125vw;
+            div{
+                position: relative;
+                width: 100%;
+                p{
+                    margin-bottom: 0.729166vw;
+                    margin-top: 0.729166vw;
+                    font-size: calc(40/750)*100+vw;
+                    line-height: calc(68/750)*100+vw;
+                    &::after{
+                        content: '02';
+                        position: absolute;
+                        right: 0;
+                        font-family: $garamond;
+                        font-size: calc(180/750)*100+vw;
+                        margin-top: calc(20/750)*100+vw;
+                        opacity: 13%;
+                        line-height: 0;
+                    }
+                }
+                span{
+                    font-size: calc(26/750)*100+vw;
+                }
+            }
+            &__img{
+                @include width_calc(500.08);
+                @include height_calc(318.68);
+                background-image: url('../../img/manage.png');
+                background-size: cover;
+                margin: 0;
+            }
+        }
+        &--ex{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            width: 100%;
+            margin-bottom: 3.125vw;
+            div{
+                position: relative;
+                width: 100%;
+                p{
+                    margin-bottom: 0.729166vw;
+                    margin-top: 0.729166vw;
+                    font-size: calc(40/750)*100+vw;
+                    line-height: calc(68/750)*100+vw;
+                    &::after{
+                        content: '03';
+                        position: absolute;
+                        right: 0;
+                        font-family: $garamond;
+                        font-size: calc(180/750)*100+vw;
+                        margin-top: calc(20/750)*100+vw;
+                        opacity: 13%;
+                        line-height: 0;
+                    }
+                }
+                span{
+                    font-size: calc(26/750)*100+vw;
+                }
+            }
+            &__img{
+                @include width_calc(500.08);
+                @include height_calc(318.68);
+                background-image: url('../../img/ex.png');
+                background-size: cover;
+                margin: 0;
+            }
+        }
+        &--trade{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            width: 100%;
+            margin-bottom: 3.125vw;
+            div{
+                position: relative;
+                width: 100%;
+                p{
+                    margin-bottom: 0.729166vw;
+                    margin-top: 0.729166vw;
+                    font-size: calc(40/750)*100+vw;
+                    line-height: calc(68/750)*100+vw;
+                    &::after{
+                        content: '04';
+                        position: absolute;
+                        right: 0;
+                        font-family: $garamond;
+                        font-size: calc(180/750)*100+vw;
+                        margin-top: calc(20/750)*100+vw;
+                        opacity: 13%;
+                        line-height: 0;
+                    }
+                }
+                span{
+                    font-size: calc(26/750)*100+vw;
+                }
+            }
+            &__img{
+                @include width_calc(500.08);
+                @include height_calc(318.68);
+                background-image: url('../../img/trade.png');
+                background-size: cover;
+                margin: 0;
+            }
+        }
+    }
+}

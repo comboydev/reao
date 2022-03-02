@@ -1,0 +1,602 @@
+.c-coin{
+    display: grid;
+    grid-template-columns: 28.4375vw 28.4375vw;
+    grid-template-rows: 27.70833vw 27.70833vw;
+    gap: 1.5104166vw 2.0833vw;
+    justify-content: center;
+
+    ul{
+        background: linear-gradient(#fff 0%, rgba(255, 255, 255, 0.56) 43.84%, rgba(214, 196, 167, 0) 100%);
+        border: 1px solid #ede6dc;
+        z-index: 1;
+        
+    }
+    li{
+        display: flex;
+    }
+
+}
+
+.c-coin__lion{
+    padding: 2.75520833vw 1.85937vw 1.609375vw 2.5vw;
+    font-family: $yuMincho;
+    color: $text-color-black;
+    span{
+        font-size: 0.78125vw;
+        line-height: 1.45833vw;
+    }
+    &::before{
+        content: '';
+        display: block;
+        margin: 0 auto 2.0729166vw;
+
+        width: 11.40625vw;
+        height: 11.25vw;
+        background-image: url('../../img/lion.png');
+        background-size: contain;
+    }
+    &__name{
+        font-size: 1.04166vw;
+        color: $coin-name-color;
+    }
+    &__price{
+
+    }
+    &__pricehigh{
+        position: absolute;
+        font-size: 1.3020833vw;
+        transform: translate(10.4166vw);
+        line-height: 1.3020833vw;
+    }
+    &__pricelow{
+        position: absolute;
+        font-size: 0.78125vw;
+        transform: translate(4.9vw,0.20833vw);
+    }
+}
+
+.c-coin__crown{
+    padding: 2.75520833vw 1.85937vw 1.609375vw 2.5vw;
+    font-family: $yuMincho;
+    color: $text-color-black;
+    span{
+        font-size: 0.78125vw;
+        line-height: 1.45833vw;
+    }
+    &::before{
+        content: '';
+        display: block;
+        margin: 0 auto 2.0729166vw;
+
+        width: 11.40625vw;
+        height: 11.25vw;
+        background-image: url('../../img/crown.png');
+        background-size: contain;
+    }
+    &__name{
+        font-size: 1.04166vw;
+        color: $coin-name-color;
+        margin-left: 1.21354166vw;
+    }
+    &__price{
+        // margin-top: 1.45833vw;
+
+    }
+    &__pricehigh{
+        position: absolute;
+        font-size: 1.3020833vw;
+        transform: translate(10.4166vw);
+        line-height: 1.3020833vw;
+    }
+    &__pricelow{
+        position: absolute;
+        font-size: 0.78125vw;
+        transform: translate(3.15vw,0.20833vw);
+    }
+}
+
+.c-coin__guinea{
+    padding: 2.75520833vw 1.85937vw 1.609375vw 2.5vw;
+    font-family: $yuMincho;
+    color: $text-color-black;
+    span{
+        font-size: 0.78125vw;
+        line-height: 1.45833vw;
+    }
+    &::before{
+        content: '';
+        display: block;
+        margin: 0 auto 2.0729166vw;
+
+        width: 11.40625vw;
+        height: 11.25vw;
+        background-image: url('../../img/guinea.png');
+        background-size: contain;
+    }
+    &__name{
+        font-size: 1.04166vw;
+        color: $coin-name-color;
+        margin-left: 1.21354166vw;
+    }
+    &__price{
+        // margin-top: 1.45833vw;
+
+    }
+    &__pricehigh{
+        position: absolute;
+        font-size: 1.3020833vw;
+        transform: translate(10.4166vw);
+        line-height: 1.3020833vw;
+    }
+    &__pricelow{
+        position: absolute;
+        font-size: 0.78125vw;
+        transform: translate(3.15vw,0.20833vw);
+    }
+}
+
+.c-coin__bavaria{
+    padding: 2.75520833vw 1.85937vw 1.609375vw 2.5vw;
+    font-family: $yuMincho;
+    color: $text-color-black;
+    span{
+        font-size: 0.78125vw;
+        line-height: 1.45833vw;
+    }
+    &::before{
+        content: '';
+        display: block;
+        margin: 0 auto 2.0729166vw;
+
+        width: 11.40625vw;
+        height: 11.25vw;
+        background-image: url('../../img/bavaria.png');
+        background-size: contain;
+    }
+    &__name{
+        font-size: 1.04166vw;
+        color: $coin-name-color;
+        margin-left: 1.21354166vw;
+    }
+    &__price{
+        // margin-top: 1.45833vw;
+
+    }
+    &__pricehigh{
+        position: absolute;
+        font-size: 1.3020833vw;
+        transform: translate(10.4166vw);
+        line-height: 1.3020833vw;
+    }
+    &__pricelow{
+        position: absolute;
+        font-size: 0.78125vw;
+        transform: translate(3.15vw,0.20833vw);
+    }
+}
+@media screen and (max-width: 1500px) {
+    .c-coin{
+        &__lion{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+            }
+        }
+        &__crown{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+            }
+        }
+        &__guinea{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+            }
+        }
+        &__bavaria{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1150px) {
+    .c-coin{
+        &__lion{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+                width: 9.40625vw;
+                height: 9.25vw;
+            }
+        }
+        &__crown{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+                width: 9.40625vw;
+                height: 9.25vw;
+            }
+        }
+        &__guinea{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+                width: 9.40625vw;
+                height: 9.25vw;
+            }
+        }
+        &__bavaria{
+            padding: 2vw 1.609375vw 2.5vw;
+            &::before{
+                margin: 0 auto 1vw;
+                width: 9.40625vw;
+                height: 9.25vw;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1100px) and (min-width: 751px){
+    .c-coin{
+        display: grid;
+        grid-template-columns: 38.4375vw 38.4375vw;
+        grid-template-rows: 30.70833vw 30.70833vw;
+        gap: 1.5104166vw 2.0833vw;
+    }
+}
+
+@media screen and (max-width: 750px){
+    .c-coin{
+        @include height_calc(1937);
+        margin-top: calc(50/750)*100+vw;
+        background: initial;
+        position: relative;
+        display: grid;
+        grid-template-columns: calc(375/750)*100+vw calc(375/750)*100+vw; 
+        grid-template-rows: calc(766/750)*100+vw calc(766/750)*100+vw; 
+        gap: 0;
+        ul{
+            background: linear-gradient(#fff 0%, rgba(255, 255, 255, 0.56) 43.84%, rgba(214, 196, 167, 0) 100%);
+            border: 1px solid #ede6dc;
+        }
+        .c-coin__lion{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
+            li{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                &:nth-of-type(3){
+                    display: block;
+                }
+            }
+            &::before{
+                content: '';
+                display: block;
+                margin: 0 auto 2.0729166vw;
+                @include width_calc(282.92);
+                @include height_calc(279.04);
+                background-image: url('../../img/lion.png');
+                background-size: contain;
+            }
+            &::after{
+                content: '';
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                // margin: 0 auto 2.0729166vw;
+                @include width_calc(79);
+                @include height_calc(79);
+                background-image: url('../../img/right_bottom.png');
+                background-size: contain;
+            }
+            &__nameHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__name{
+                font-size: calc(23/750)*100+vw;
+                color: $coin-name-color;
+            }
+            &__greadHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__gread{
+                font-size: calc(23/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__printNumber{
+                font-size: calc(23/750)*100+vw;
+                line-height: 1.3020833vw;
+            }
+            &__price{
+                position: relative;
+                div{
+                    position: relative;
+                    display: flex;
+                    justify-content: flex-end;
+                    padding-right: 10px;
+                }
+            }
+            &__priceHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__priceHigh{
+                font-size: calc(33/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__ownerPriceHeader{
+                font-size: calc(20/750)*100+vw;
+
+            }
+            &__ownerPrice{
+                position: relative;
+                &__price{
+                    text-align: center;
+                }
+            }
+        }
+        .c-coin__crown{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
+            li{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                &:nth-of-type(3){
+                    display: block;
+                }
+            }
+            &::before{
+                content: '';
+                display: block;
+                margin: 0 auto 2.0729166vw;
+                @include width_calc(282.92);
+                @include height_calc(279.04);
+                background-image: url('../../img/crown.png');
+                background-size: contain;
+            }
+            &::after{
+                content: '';
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                // margin: 0 auto 2.0729166vw;
+                @include width_calc(79);
+                @include height_calc(79);
+                background-image: url('../../img/right_bottom.png');
+                background-size: contain;
+            }
+            &__nameHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__name{
+                font-size: calc(23/750)*100+vw;
+                color: $coin-name-color;
+            }
+            &__greadHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__gread{
+                font-size: calc(23/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__printNumber{
+                font-size: calc(23/750)*100+vw;
+                line-height: 1.3020833vw;
+            }
+            &__price{
+                position: relative;
+                div{
+                    position: relative;
+                    display: flex;
+                    justify-content: flex-end;
+                    padding-right: 10px;
+                }
+            }
+            &__priceHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__priceHigh{
+                font-size: calc(33/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__ownerPriceHeader{
+                font-size: calc(20/750)*100+vw;
+
+            }
+            &__ownerPrice{
+                position: relative;
+                &__price{
+                    text-align: center;
+                }
+            }
+        }
+        .c-coin__guinea{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
+            li{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                &:nth-of-type(3){
+                    display: block;
+                }
+            }
+            &::before{
+                content: '';
+                display: block;
+                margin: 0 auto 2.0729166vw;
+                @include width_calc(282.92);
+                @include height_calc(279.04);
+                background-image: url('../../img/guinea.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &::after{
+                content: '';
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                // margin: 0 auto 2.0729166vw;
+                @include width_calc(79);
+                @include height_calc(79);
+                background-image: url('../../img/right_bottom.png');
+                background-size: contain;
+            }
+            &__nameHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__name{
+                font-size: calc(23/750)*100+vw;
+                color: $coin-name-color;
+            }
+            &__greadHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__gread{
+                font-size: calc(23/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__printNumber{
+                font-size: calc(23/750)*100+vw;
+                line-height: 1.3020833vw;
+            }
+            &__price{
+                position: relative;
+                div{
+                    position: relative;
+                    display: flex;
+                    justify-content: flex-end;
+                    padding-right: 10px;
+                }
+            }
+            &__priceHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__priceHigh{
+                font-size: calc(33/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__ownerPriceHeader{
+                font-size: calc(20/750)*100+vw;
+
+            }
+            &__ownerPrice{
+                position: relative;
+                &__price{
+                    text-align: center;
+                }
+            }
+        }
+        .c-coin__bavaria{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
+            li{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                &:nth-of-type(3){
+                    display: block;
+                }
+            }
+            span{
+                font-size: calc(15/750)*100+vw;
+            }
+            &::before{
+                content: '';
+                display: block;
+                margin: 0 auto 2.0729166vw;
+                @include width_calc(282.92);
+                @include height_calc(279.04);
+                background-image: url('../../img/bavaria.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &::after{
+                content: '';
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                // margin: 0 auto 2.0729166vw;
+                @include width_calc(79);
+                @include height_calc(79);
+                background-image: url('../../img/right_bottom.png');
+                background-size: contain;
+            }
+            &__nameHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__name{
+                font-size: calc(23/750)*100+vw;
+                color: $coin-name-color;
+            }
+            &__greadHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__gread{
+                font-size: calc(23/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__printNumber{
+                font-size: calc(23/750)*100+vw;
+                line-height: 1.3020833vw;
+            }
+            &__price{
+                position: relative;
+                div{
+                    position: relative;
+                    display: flex;
+                    justify-content: flex-end;
+                    padding-right: 10px;
+                }
+            }
+            &__priceHeader{
+                font-size: calc(20/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__priceHigh{
+                font-size: calc(33/750)*100+vw;
+                color: $text-color-black;
+            }
+            &__ownerPriceHeader{
+                font-size: calc(20/750)*100+vw;
+
+            }
+            &__ownerPrice{
+                position: relative;
+                &__price{
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+.p-antiquecoin{
+    height: 51.30729166vw;
+    margin-bottom: 125.9px;
+    &::before{
+        content: '';
+        display: inline-block;
+        // margin: 0 auto 2.0729166vw;
+        position: absolute;
+        right: 13.802083vw;
+        width: 13.9583vw;
+        height: 21.6145833vw;
+        margin-top: 4.03125vw;
+        background-image: url('../../img/coin_right.png');
+        background-size: contain;
+    }
+    &::after{
+        content: '';
+        display: inline-block;
+        left: 8.54166vw;
+        transform: translate(0, -6.458336vw);
+        position: relative;
+        right: 0;
+        width: 13.64583vw;
+        height: 9.0625vw;
+        background-image: url('../../img/coin_bottom.png');
+        background-size: contain;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .p-antiquecoin{
+        @include height_calc(1468);
+        position: relative;
+        margin-bottom: calc(100/750)*100+vw;
+
+    &::before{
+        content: '';
+        display: inline-block;
+        margin: 0;
+        position: absolute;
+        right: calc(31/750)*100+vw;
+        top: calc(114.1/750)*100+vw;
+        @include width_calc(268);
+        @include height_calc(415);
+        background-image: url('../../img/coin_right.png');
+        background-size: contain;
+    }
+    &::after{
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: calc(-51/750)*100+vw;
+        top: calc(380/750)*100+vw;
+        width: calc(262/750)*100+vw;
+        height: calc(174/750)*100+vw;
+        background-image: url('../../img/coin_bottom.png');
+        background-size: contain;
+    }
+    }   
+}

@@ -1,0 +1,102 @@
+.c-memberContact{
+    width: calc(900/1920)*100+vw;
+    background: #f9f8f4;
+    margin-top: calc(70.8/1920)*100+vw;
+    padding: calc(31.3/1920)*100+vw calc(62/1920)*100+vw calc(65/1920)*100+vw calc(61/1920)*100+vw;
+    p{
+        font-size: calc(18/1920)*100+vw;
+
+    }
+    &Header{
+        font-size: calc(40/1920)*100+vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: calc(66.2/1920)*100+vw;
+        &::after{
+            content: 'Contact';
+            font-size: 15px;
+            font-family: CormorantGaramond-Medium;
+            font-weight: normal;
+            color: #a78754;
+        }
+    }
+    form{
+        display: table;
+        width: 100%;
+        div{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2vw;
+        }
+        label{
+            font-size: calc(18/1920)*100+vw;
+        }
+        input{
+            width: calc(500/1920)*100+vw;
+            height: 2.5em;
+            background: #fff;
+            border: 1px solid #bfbfbf;
+        }
+    }
+    &__field{
+        align-items: flex-start ;
+        textarea{
+            width: calc(500/1920)*100+vw;
+            background: #fff;
+            border: 1px solid #bfbfbf;
+        }
+    }
+    &Btn{
+        width: calc(770/1920)*100+vw;
+        height: calc(88/1920)*100+vw;
+        margin-top: calc(66/1920)*100+vw;
+        background: #a78754;
+        color: #fff;
+        font-size: calc(20/1920)*100+vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .c-memberContact {
+        width: 80vw;
+        padding: 4vw;
+        p {
+            font-size: 4vw;
+        }
+        &Header {
+            font-size: 6vw;
+        }
+        form {
+            div {
+                display: block;
+                margin-top: 4vw;
+            }
+            label {
+                font-size: 4vw;
+            }
+            label {
+                font-size: 4vw;
+            }
+            input {
+                width: 100%;
+            }
+        }
+        &__field {
+            textarea {
+                width: 100%;
+            }
+        }
+        &Btn {
+            width: 72vw;
+            font-size: 4vw;
+            height: 10vw;
+            margin-top: 5vw;
+        }
+    }
+}
