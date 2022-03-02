@@ -11,7 +11,7 @@ const Product = props => {
 		<Switch>
 			<Redirect exact from={`${match.url}`} to={`${match.url}/list`} />
 			<Route path={`${match.url}/add`} component={AddProduct} />
-			<Route path={`${match.url}/edit/:id`} component={EditProduct} />
+			{/* <Route path={`${match.url}/edit/:id`} component={EditProduct} /> */}
 			<Route path={`${match.url}/list`} component={ProductList} />
 			<Route path={`${match.url}/orders`} component={Orders} />
 		</Switch>

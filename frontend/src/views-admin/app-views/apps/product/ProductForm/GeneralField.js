@@ -1,8 +1,8 @@
-import React from 'react'
-import { Input, Row, Col, Card, Form, Upload, InputNumber, message, Select } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Input, Row, Col, Card, Form, Upload, InputNumber, message, Select,  Button } from 'antd';
 import { ImageSvg } from 'assets/svg/icon';
 import CustomIcon from 'components/util-components/CustomIcon'
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined,  PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -11,43 +11,58 @@ const rules = {
 	name: [
 		{
 			required: true,
-			message: 'Please enter product name',
+			message: 'Required',
+		}
+	],
+	grade: [
+		{
+			required: true,
+			message: 'Required',
 		}
 	],
 	description: [
 		{
 			required: true,
-			message: 'Please enter product description',
+			message: 'Required',
 		}
 	],
 	price: [
 		{
 			required: true,
-			message: 'Please enter product price',
+			message: 'Required',
 		}
 	],
-	comparePrice: [		
+	refPrice: [		
+		{
+			required: true,
+			message: 'Required',
+		}
+	],
+	numberOfCoins: [
+		{
+			required: true,
+			message: 'Required',
+		}
+	],
+	minNumberOfCoins: [
+		{
+			required: true,
+			message: 'Required'
+		}
 	],
 	taxRate: [		
 		{
 			required: true,
-			message: 'Please enter tax rate',
-		}
-	],
-	cost: [		
-		{
-			required: true,
-			message: 'Please enter item cost',
+			message: 'Required',
 		}
 	]
 }
 
 const imageUploadProps = {
-  name: 'file',
-	multiple: true,
+  	name: 'file',
 	listType: "picture-card",
 	showUploadList: false,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76'
+  	action: process.env.REACT_APP_API_URL + '/api/admin/file'
 }
 
 const beforeUpload = file => {
@@ -55,57 +70,88 @@ const beforeUpload = file => {
   if (!isJpgOrPng) {
     message.error('You can only upload JPG/PNG file!');
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  const isLt2M = file.size / 1024 / 1024 < 5;
   if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
+    message.error('Image must smaller than 5MB!');
   }
   return isJpgOrPng && isLt2M;
 }
 
-const categories = ['Cloths', 'Bags', 'Shoes', 'Watches', 'Devices']
+const grades = [
+	'',
+	'PF 66★ ULTRA CAMEO',
+	'PR65 CAMEO'
+];
 const tags = ['Cotton', 'Nike', 'Sales', 'Sports', 'Outdoor', 'Toys', 'Hobbies' ]
 
-const GeneralField = props => (
+
+const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUploadChange}) => {
+	
+	return(
 	<Row gutter={16}>
 		<Col xs={24} sm={24} md={17}>
-			<Card title="Basic Info">
-				<Form.Item name="name" label="Product name" rules={rules.name}>
-					<Input placeholder="Product Name" />
+			<Card title="Coin Info">
+				<Form.Item name="name" label="コイン名" rules={rules.name}>
+					<Input placeholder="Coin Name" />
 				</Form.Item>
-				<Form.Item name="description" label="Description" rules={rules.description}>
-					<Input.TextArea rows={4} />
+				<Form.Item name="grade" label="グレード" rules={rules.grade}>
+					{/* <Input placeholder="Grade" /> */}
+					<Select className="w-100" placeholder="Grade">
+						{
+							grades.map(elm => (
+								<Option key={elm} value={elm}>{elm}</Option>
+							))
+						}
+					</Select>
+				</Form.Item>
+				<Form.Item name="description" label="説明" rules={rules.description}>
+					<Input.TextArea rows={4} placeholder="Description" />
 				</Form.Item>
 			</Card>
 			<Card title="Pricing">
 				<Row gutter={16}>
 					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="price" label="Price" rules={rules.price}>
-						<InputNumber
-							className="w-100"
-							formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-							parser={value => value.replace(/\$\s?|(,*)/g, '')}
-						/>
-						</Form.Item>
-					</Col>
-					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="comparePrice" label="Compare price" rules={rules.comparePrice}>
+						<Form.Item name="refPrice" label="参考取引価格" rules={rules.refPrice}>
 							<InputNumber
 								className="w-100"
 								value={0}
-								formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								parser={value => value.replace(/\$\s?|(,*)/g, '')}
+								formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								parser={value => value.replace(/\￥\s?|(,*)/g, '')}
 							/>
 						</Form.Item>
 					</Col>
 					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="cost" label="Cost per item" rules={rules.cost}>
-							<InputNumber
-								className="w-100"
-								formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								parser={value => value.replace(/\$\s?|(,*)/g, '')}
+						<Form.Item name="numberOfCoins" label="発行枚数（枚）" rules={rules.numberOfCoins}>
+							<InputNumber placeholder='Number of coins'
+								className='w-100'
+								min={100}
+								step={100}
 							/>
 						</Form.Item>
 					</Col>
+					
+					<Col xs={24} sm={24} md={12}>
+						<Form.Item name="price" label="オーナー権価格" rules={rules.price}>
+						<InputNumber
+							className="w-100"
+							formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+							parser={value => value.replace(/\￥\s?|(,*)/g, '')}
+							step = {5000}
+							min = {5000}
+						/>
+						</Form.Item>
+					</Col>
+
+					<Col xs={24} sm={24} md={12}>
+						<Form.Item name="minNumberOfCoins" label="最低購入可能口数（枚）" rules={rules.minNumberOfCoins}>
+							<InputNumber placeholder='Minimum number of coins' 
+								className='w-100'
+								step={5}
+								min={5}
+							/>
+						</Form.Item>
+					</Col>
+				
 					<Col xs={24} sm={24} md={12}>
 						<Form.Item name="taxRate" label="Tax rate" rules={rules.taxRate}>
 							<InputNumber
@@ -121,47 +167,41 @@ const GeneralField = props => (
 			</Card>
 		</Col>
 		<Col xs={24} sm={24} md={7}>
-			<Card title="Media">
-				<Dragger {...imageUploadProps} beforeUpload={beforeUpload} onChange={e=> props.handleUploadChange(e)}>
+			{
+				coin_images.map((image, index) => (
+				<Card key={index} title={index === 0 && 'Coin images'}>
 					{
-						props.uploadedImg ? 
-						<img src={props.uploadedImg} alt="avatar" className="img-fluid" /> 
-						: 
-						<div>
-							{
-								props.uploadLoading ? 
-								<div>
-									<LoadingOutlined className="font-size-xxl text-primary"/>
-									<div className="mt-3">Uploading</div>
-								</div> 
-								: 
-								<div>
-									<CustomIcon className="display-3" svg={ImageSvg}/>
-									<p>Click or drag file to upload</p>
-								</div>
-							}
-						</div>
+						index > 0 &&
+						<MinusCircleOutlined 
+							style={{ position: 'absolute', top:'5px', right: '5px'}} 
+							onClick={() => { removeCoinImage(index)}} 
+						/>
 					}
-				</Dragger>
-			</Card>
-			<Card title="Organization">
-				<Form.Item name="category" label="Category" >
-					<Select className="w-100" placeholder="Category">
+					<Dragger 
+						{...imageUploadProps} 
+						beforeUpload={beforeUpload} 
+						onChange={e=> handleUploadChange(e, index)}
+						
+					>
 						{
-							categories.map(elm => (
-								<Option key={elm} value={elm}>{elm}</Option>
-							))
+							image.uri ? 
+							<img src={image.uri} alt="avatar" className="img-fluid" /> 
+							: 
+							<div>
+								<CustomIcon className="display-3" svg={ImageSvg}/>
+								<p>Click or drag coin image to upload</p>
+							</div>
 						}
-					</Select>
-				</Form.Item>
-				<Form.Item name="tags" label="Tags" >
-				<Select mode="tags" style={{ width: '100%' }} placeholder="Tags">
-					{tags.map(elm => <Option key={elm}>{elm}</Option>)}
-				</Select>
-				</Form.Item>
-			</Card>
+					</Dragger>
+				</Card>
+			))}
+		
+			<Button type="dashed" onClick={addCoinImage} className="w-100">
+				<PlusOutlined /> Add Image
+			</Button>
 		</Col>
 	</Row>
-)
+	);
+}
 
 export default GeneralField

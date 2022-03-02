@@ -9,9 +9,9 @@ const router = express.Router();
 // router.route("/api/test/mod").get(authJwt.verifyToken, authJwt.isModerator, controller.moderatorBoard);
 // router.route("/api/test/admin").get(authJwt.verifyToken, authJwt.isAdmin, controller.adminBoard);
 
-router.route("/users")
+router.route("/admin/users")
     .get(userCtrl.get)
-router.route("/users/:id")
+router.route("/admin/users/:id")
     .get(userCtrl.getOne)
     .put(userCtrl.put)
     .delete(userCtrl.delete);
