@@ -569,7 +569,7 @@ const Home = () => {
                 </p>
             </button>
         </section>
-        {/* <section className="p-apply" id="p-apply">
+        <section className="p-apply" id="p-apply">
             <div className="c-apply">
                 <div className="l-content">
                     <h2 className="l-content--header">お持ちのアート作品を<br/>無料査定・買取させていただきます。</h2>
@@ -585,7 +585,7 @@ const Home = () => {
                     <img src="/image/apply.png" alt="apply"/>
                 </div>
             </div>
-        </section> */}
+        </section>
       </div>
     );
 }

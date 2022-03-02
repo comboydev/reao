@@ -56,7 +56,20 @@ const adminSignin = (req, res) => {
   })
 };
 
+const getUsers = (req, res) => {
+  User
+    .find({ role: 'user'})
+    .exec((err, data) => {
+      if (!err && data != null) {
+        res.header("Access-Control-Expose-Headers", 'Content-Range');
+        res.setHeader("Content-Range", '0-' + data.length + '/' + data.length);
+        
+        res.status(200).json(data);
+      }
+    });
+}
 
 export default {
-  adminSignin
+  adminSignin,
+  getUsers,
 }

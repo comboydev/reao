@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { isEmail } from "validator";
-import AuthService from "../../../services/auth.service";
+import AuthService from "services/auth.service";
 
 const API_URL = process.env.REACT_APP_API_URL;
 

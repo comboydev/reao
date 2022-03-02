@@ -61,7 +61,6 @@ URL：${FRONT_URL}/\n
 ○●------------------------------------------●○
 `
 
-
 const generateGeneralToken = (str) => {
   const verificationToken = jwt.sign(
     { id: str },
@@ -70,7 +69,6 @@ const generateGeneralToken = (str) => {
   );
   return verificationToken;
 }
-
 
 const signup = (req, res) => {
   const user = new User({
@@ -131,6 +129,8 @@ const signup = (req, res) => {
   });
 
 };
+
+
 
 
 const  addMember = (req, res) => {
@@ -522,7 +522,6 @@ const signin = (req, res) => {
   })
 };
 
-
 const verifyEmail = (req, res) => {
   EmailActivate.findOneAndDelete({
     token: req.body.token,
@@ -557,7 +556,6 @@ const verifyEmail = (req, res) => {
     return res.status(500).send({ message: 'エラーが発生しました' });
   })
 }
-
 
 const sendLinkOfVerifyEmail = async (req, res) => {
 

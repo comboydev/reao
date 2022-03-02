@@ -194,7 +194,7 @@ const dashBoardNavTree = [{
       path: `${APP_PREFIX_PATH}/dashboard/users`,
       title: 'sidenav.dashboard.users',
       icon: UserOutlined,
-      breadcrumb: true,
+      breadcrumb: false,
       submenu: []
     },
   ]
@@ -230,14 +230,14 @@ const appsNavTree = [{
           breadcrumb: false,
           submenu: []
         },
-        {
-          key: 'apps-ecommerce-editProduct',
-          path: `${APP_PREFIX_PATH}/product/edit/12`,
-          title: 'sidenav.product.edit',
-          icon: '',
-          breadcrumb: false,
-          submenu: []
-        },
+        // {
+        //   key: 'apps-ecommerce-editProduct',
+        //   path: `${APP_PREFIX_PATH}/product/edit/12`,
+        //   title: 'sidenav.product.edit',
+        //   icon: '',
+        //   breadcrumb: false,
+        //   submenu: []
+        // },
         {
           key: 'apps-ecommerce-orders',
           path: `${APP_PREFIX_PATH}/product/orders`,

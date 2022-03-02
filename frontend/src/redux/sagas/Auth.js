@@ -17,7 +17,7 @@ import {
 } from "../actions/Auth";
 
 import FirebaseService from 'services/FirebaseService';
-import AuthService from 'views-user/services/auth.service';
+import AdminService from 'services/admin.service';
 
 export function* signInWithFBEmail() {
   yield takeEvery(SIGNIN, function* ({payload}) {
@@ -35,11 +35,11 @@ export function* signInWithFBEmail() {
 		// }
 
 		try{
-			const response = yield call( AuthService.adminLogin, email, password ); 
+			const response = yield call( AdminService.adminLogin, email, password ); 
 			if (response.data.status_code === 200) {
 				delete response.data.status_code;
 				let token = response.data;
-				AuthService.setCurrentAdmin(token);
+				AdminService.setCurrentAdmin(token);
 				yield put(authenticated(token.accessToken));
 			} else {
 				yield put(showAuthMessage(response.data.message));

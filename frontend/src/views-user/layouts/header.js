@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import EventBus from "../services/EventBus";
+import EventBus from "services/EventBus";
 import { useHistory, Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive'
-import AuthService from "../services/auth.service";
+import AuthService from "services/auth.service";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/dropdown';
 
