@@ -37,13 +37,17 @@ expose: [
 ],
 };
 
+//app.use(cors(corsOptions))   
+app.use(cors({origin: true}));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(cookieParser())
 app.use(compress())
 app.use(helmet())
-//app.use(cors(corsOptions))   
-app.use(cors())
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 app.use('/', adminRoute);
 app.use('/', authRoute);
