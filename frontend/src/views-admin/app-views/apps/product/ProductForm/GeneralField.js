@@ -62,7 +62,7 @@ const imageUploadProps = {
   	name: 'file',
 	listType: "picture-card",
 	showUploadList: false,
-  	action: ''
+  	action: process.env.REACT_APP_API_URL + '/api/admin/file'
 }
 
 const beforeUpload = file => {
