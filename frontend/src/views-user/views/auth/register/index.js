@@ -4,8 +4,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Button } from 'antd';
-import AuthService from "../../../services/auth.service";
-import { is_password, required, is_email } from "views-user/services/validator";
+import AuthService from "services/auth.service";
+import { is_password, required, is_email } from "services/validator";
 
 
 export default class Register extends Component {

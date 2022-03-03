@@ -194,7 +194,7 @@ const dashBoardNavTree = [{
       path: `${APP_PREFIX_PATH}/dashboard/users`,
       title: 'sidenav.dashboard.users',
       icon: UserOutlined,
-      breadcrumb: true,
+      breadcrumb: false,
       submenu: []
     },
   ]

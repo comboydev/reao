@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import {BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import AuthService from "./services/auth.service";
+import AuthService from "services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/sass/index.scss";
 import './assets/js';

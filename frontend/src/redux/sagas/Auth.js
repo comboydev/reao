@@ -17,7 +17,7 @@ import {
 } from "../actions/Auth";
 
 import FirebaseService from 'services/FirebaseService';
-import AuthService from 'views-user/services/auth.service';
+import AuthService from 'services/auth.service';
 
 export function* signInWithFBEmail() {
   yield takeEvery(SIGNIN, function* ({payload}) {
