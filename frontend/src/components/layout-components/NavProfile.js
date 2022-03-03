@@ -1,50 +1,40 @@
 import React from "react";
 import { Menu, Dropdown, Avatar } from "antd";
+import { Link } from "react-router-dom"
 import { connect } from 'react-redux'
 import { 
   EditOutlined, 
-  SettingOutlined, 
-  ShopOutlined, 
-  QuestionCircleOutlined, 
+  SettingOutlined,
   LogoutOutlined 
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
 import { signOut } from 'redux/actions/Auth';
+import AdminService from 'services/admin.service';
 
 const menuItem = [
 	{
-		title: "Edit Profile",
+		title: "Add Product",
 		icon: EditOutlined ,
-		path: "/"
+		path: "/admin/product/add"
     },
     
     {
-		title: "Account Setting",
+		title: "Setting",
 		icon: SettingOutlined,
-		path: "/"
-    },
-    {
-		title: "Billing",
-		icon: ShopOutlined ,
-		path: "/"
-	},
-    {
-		title: "Help Center",
-		icon: QuestionCircleOutlined,
-		path: "/"
-	}
+		path: "/admin/setting"
+    }
 ]
 
 export const NavProfile = ({signOut}) => {
-  const profileImg = "/img/avatars/thumb-1.jpg";
+  const admin = AdminService.getCurrentAdmin();
+
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
-          <Avatar size={45} src={profileImg} />
           <div className="pl-3">
-            <h4 className="mb-0">Charlie Howard</h4>
-            <span className="text-muted">Frontend Developer</span>
+            <h4 className="mb-0">{admin.id}</h4>
+            <span className="text-muted">{admin.email}</span>
           </div>
         </div>
       </div>
@@ -53,10 +43,10 @@ export const NavProfile = ({signOut}) => {
           {menuItem.map((el, i) => {
             return (
               <Menu.Item key={i}>
-                <a href={el.path}>
+                <Link to={el.path}>
                   <Icon type={el.icon} />
                   <span className="font-weight-normal">{el.title}</span>
-                </a>
+                </Link>
               </Menu.Item>
             );
           })}
@@ -74,7 +64,7 @@ export const NavProfile = ({signOut}) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <Avatar src={profileImg} />
+          <Avatar src={admin.avatar ? admin.avatar: '/image/user.png'} />
         </Menu.Item>
       </Menu>
     </Dropdown>

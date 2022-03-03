@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
 import { Card, Table, Tag, Tooltip, message, Button } from 'antd';
 import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import UserView from './UserView';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import userData from "assets/data/user-list.data.json";
+import AdminService from "services/admin.service"
 
 export const UserList = () => {
 
@@ -14,9 +14,12 @@ export const UserList = () => {
 	const [selectedUser, setSelectedUser] = useState(null);
 
 
-	// useEffect(()=>{
-	// 	axios.get('')
-	// })
+	useEffect(()=>{
+		AdminService.adminGetUsers()
+		.then(res=>{
+			console.log(res.data);
+		})
+	}, [])
 
 
 	const deleteUser = userId => {

@@ -11,14 +11,6 @@ class AuthService {
       })
   }
 
-  async adminLogin(email, password) {
-    return await axios
-      .post(API_URL + "/api/admin/auth/signin", {
-        email,
-        password
-      })
-  }
-
   async register(email, password) {
     return await axios.post(API_URL + "/api/auth/signup", {
       email,
@@ -114,19 +106,6 @@ class AuthService {
     localStorage.setItem("user", JSON.stringify(data));
   }
 
-  getCurrentAdmin(){
-    try {
-      return JSON.parse(localStorage.getItem('auth_token'));
-    }
-    catch (ex) {
-      console.log("getCurrentAdmin ", ex)
-      return null
-    }
-  }
-
-  setCurrentAdmin(data) {
-    localStorage.setItem("auth_token", JSON.stringify(data));
-  }
 }
 
 export default new AuthService();
