@@ -6,5 +6,9 @@ router.route("/api/admin/auth/signin").post(AdminCtrl.adminSignin);
 
 router.route("/api/admin/user/list").get(AdminCtrl.getUsers);
 
+router.route("/api/admin/file").post((req, res)=>{
+    res.send({message: 'success'});
+})
+
 
 export default router;

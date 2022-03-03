@@ -5,22 +5,6 @@ var jwt = require("jsonwebtoken");
 const mailer = require("./mailer");
 const API_URL = process.env.API_URL;
 
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
-};
-
-exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
-};
-
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
-};
-
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
-};
-
 
 // TODO: add filter, sort, range
 exports.get = (req, res) => {
