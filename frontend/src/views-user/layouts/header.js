@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EventBus from "services/EventBus";
 import { useHistory, Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive'
-import AuthService from "services/auth.service";
+import UserService from "services/user.service";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/dropdown';
 
@@ -21,10 +21,10 @@ const NavRight = ({currentUser, className, handleLogout}) => {
     <div className={`c-nav__right ${className}`}>
         <ul className="c-nav--global__info">
           <li>
-            <a href="/company">会社概要</a>
+            <Link to="/company">会社概要</Link>
           </li>
           <li>
-            <a href="/contact">お問い合わせ</a>
+            <Link to="/contact-us">お問い合わせ</Link>
           </li>
         </ul>
         {
@@ -60,11 +60,7 @@ const NavRight = ({currentUser, className, handleLogout}) => {
                 aria-haspopup="true" 
                 aria-expanded="false"
               >
-                <img src={
-                  currentUser.avatar 
-                  ? currentUser.avatar 
-                  : "/image/user.png" 
-                } 
+                <img src={ currentUser.avatar } 
                 style={{ borderRadius: '50%' }}
                 alt="user"/>
               </button>
@@ -104,7 +100,7 @@ const NavRight = ({currentUser, className, handleLogout}) => {
 
 const Header = () => {
   
-  const currentUser = AuthService.getCurrentUser();
+  const currentUser = UserService.getCurrentUser();
   const [isOpen, setOpen] = useState(false);
 
   useEffect(()=>{
@@ -119,7 +115,7 @@ const Header = () => {
 
 
   const logOut = () => {
-    AuthService.logout();
+    UserService.logout();
     window.location.href = '/';
   }
 

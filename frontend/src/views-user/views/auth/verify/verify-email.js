@@ -1,67 +1,53 @@
-import React, {useEffect, useState} from "react";
-import { Link, useHistory } from "react-router-dom";
-import { isEmail } from "validator";
-import AuthService from "services/auth.service";
-
-const API_URL = process.env.REACT_APP_API_URL;
-
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import UserService from "services/user.service";
+import { message } from "antd";
 
 const VerifyEmail = (props) => {
 
   const history = useHistory();
-  const [loaded, setLoaded] = useState(false);
-  const [success, setSuccess] = useState(undefined);
   const { token } = props.match.params;
 
   useEffect(()=>{
 
-    AuthService.verifyEmail(token)
+    UserService.verifyEmail(token)
     .then((res) => {
-      setLoaded(true);
       switch(res.data.status_code){
         case 200: {
-          let user = AuthService.getCurrentUser();
-          if(user){
-            user.status.emailVerified = true;
-            user.email = res.data.email;
-            AuthService.setCurrentUser(user);
+          message.success(res.data.message);
+          if( UserService.getCurrentUser() ){
+            let user = res.data.user;
+            delete user.password;
+            UserService.setCurrentUser(user);
+            history.push('/mypage');
+          } else {
+            history.push('/login');
           }
-          setSuccess(true);
           break;
         }
         case 400: {
-          setSuccess(false);
+          message.error(res.data.message, ()=>{
+            history.push('/verify/email');
+          });
           break;
         }
         case 401: {
-          history.push('/login');
+          message.error(res.data.message, () =>{
+            history.push('/verify/email');
+          });
           break;
         }
         default: break;
       }
     })
     .catch(err => {
-      setLoaded(true);
-      setSuccess(false);
+      message.error(err.response.data.message, ()=>{
+        history.push('/verify/email');
+      });
     })
   }, []);
 
-  return (
-    <section className="p-card" style={{ minHeight: '550px' }}>
-      {
-        loaded &&
-          <div className="c-card">
-            <h2 className="c-card--header mb-4 mt-4">メールアドレスの認証が<br/>完了しました！</h2>
-            {
-              !AuthService.getCurrentUser() &&
-              <p className="c-card--article mb-5">
-                すでに登録されている方は<br/>こちらから<Link to="/login">ログイン</Link>してください
-              </p>
-            }
-          </div>
-      }
-    </section>
-  );
+  return null;
 }
 
 

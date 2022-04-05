@@ -1,9 +1,10 @@
-import React, { lazy, Suspense } from "react";
-import {BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import AuthService from "services/auth.service";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/sass/index.scss";
-import './assets/js';
+import React, { lazy, Suspense, useEffect } from "react";
+import {BrowserRouter as Router, Switch, Route, Redirect, useLocation } from "react-router-dom";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import UserService from "services/user.service";
 
 // import AuthVerify from "./service/auth-verify";
 import Header    from     "./layouts/header";
@@ -20,11 +21,11 @@ const parseJwt = (token) => {
 };
 
 function RouteInterceptor({ children, ...rest }) {
-  const user = AuthService.getCurrentUser();
+  const user = UserService.getCurrentUser();
   if (user) {
     const decodedJwt = parseJwt(user.accessToken);
     if (decodedJwt.exp * 1000 < Date.now()) {
-      AuthService.logout();
+      UserService.logout();
       return;
     }
   }
@@ -36,7 +37,7 @@ function RouteInterceptor({ children, ...rest }) {
           if(!user) 
             return <Redirect to={{ pathname: '/login', state: { from: location } }}/>
           else{
-            if(!user.status.emailVerified){
+            if(!user.emailVerified){
               return <Redirect to={{ pathname: '/verify/email', state: { from: location } }}/>
             } else {
               return children;
@@ -49,59 +50,68 @@ function RouteInterceptor({ children, ...rest }) {
 }
 
 
+const RouteHandler = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 
 const  UserApp = () => {
   return (
   <main>
     <Router>
+      <RouteHandler/>
       <Switch>
         <React.Fragment>
           <Header/>
-          <div style={{ minHeight: '600px' }}>
-          <Suspense fallback={<Loading cover="page"/>}>
-            <Switch>
-              <Route exact path="/" component={lazy(() => import(`./views/common/home`))} />
-              <Route exact path="/policy" component={lazy(() => import(`./views/common/policy`))} />
-              <Route exact path="/rules" component={lazy(() => import(`./components/rules.component`))} />
-              <Route exact path="/contact" component={lazy(() => import(`./views/common/contact`))} />
-              <Route exact path="/contact/complete" component={lazy(() => import(`./views/common/contact/complete`))} />
-              <Route exact path="/preparation" component={lazy(() => import(`./components/preparation.component`))} />
-              
-              
-              <Route exact path="/login" component={lazy(() => import(`./views/auth/login/index`))} />
-              <Route exact path="/register" component={lazy(() => import(`./views/auth/register`))} />
-              <Route exact path="/verify/email" component={lazy(() => import(`./views/auth/verify`))} />
-              <Route exact path="/verify/email/:token" component={lazy(() => import(`./views/auth/verify/verify-email`))} />
-              <Route exact path="/verify/email/complete/:token" component={lazy(() => import(`./views/auth/verify/complete`))} />
-              <Route exact path="/forgot-password" component={lazy(() => import(`./views/auth/forgot-password`))} />
+            <Suspense fallback={<Loading cover="page"/>}>
+              <div style={{ minHeight: '600px' }}>
+                <Switch>
+                  <Route exact path="/" component={lazy(() => import(`./views/common/home`))} />
+                  <Route exact path="/terms" component={lazy(() => import(`./views/common/terms`))} />
+                  <Route exact path="/sct-law" component={lazy(() => import(`./views/common/sct-law`))} />
+                  <Route exact path="/privace-policy" component={lazy(() => import(`./views/common/privace-policy`))} />
+                  <Route exact path="/company" component = {lazy(() => import(`./views/common/company`))} />
+                  <Route exact path="/contact-us" component={lazy(() => import(`./views/common/contact`))} />
+                  <Route exact path="/contact-us/complete" component={lazy(() => import(`./views/common/contact/complete`))} />
+                  <Route exact path="/preparation" component={lazy(() => import(`./components/preparation.component`))} />
+                  <Route exact path="/exhibit" component = {lazy(() => import(`./views/common/exhibit`))} />
+                  
+                  
+                  <Route exact path="/login" component={lazy(() => import(`./views/auth/login/index`))} />
+                  <Route exact path="/register" component={lazy(() => import(`./views/auth/register`))} />
+                  <Route exact path="/verify/email" component={lazy(() => import(`./views/auth/verify`))} />
+                  <Route exact path="/verify/email/:token" component={lazy(() => import(`./views/auth/verify/verify-email`))} />
+                  <Route exact path="/forgot-password" component={lazy(() => import(`./views/auth/forgot-password`))} />
+                  <Route exact path="/forgot-password/reset/:token" component={lazy(() => import(`./views/auth/forgot-password/reset`))} />
 
 
-              <RouteInterceptor path="/">
-                <Route exact path="/mypage" component={lazy(() => import(`./views/mypage`))} />
-                <Route exact path="/profile" component={lazy(() => import(`./views/profile`))} />
-                <Route exact path="/profile/change-password" component={lazy(() => import(`./views/profile/change-password`))} />
-                
-                <Route exact path="/coins" component={lazy(() => import(`./views/coins`))} />
-                <Route exact path="/coins/owned">
-                  <Redirect to="/preparation" />
-                </Route>
-
-                <Route exact path="/sct" component={lazy(() => import(`./components/sct.component`))} />
-                <Route exact path="/transaction" component = {lazy(() => import(`./views/Transaction`))} />
-                <Route exact path="/company" component = {lazy(() => import(`./views/common/company`))} />
-                <Route exact path="/service" component = {lazy(() => import(`./views/Service`))} />
-                <Route exact path="/production" component = {lazy(() => import(`./views/ProductDetail`))} />
-                <Route exact path="/sell" component = {lazy(() => import(`./views/Sell`))} />
-                <Route exact path="/confirm" component = {lazy(() => import(`./views/Confirm`))} />
-              </RouteInterceptor>
-            </Switch>
-
+                  <RouteInterceptor path="/">
+                    <Route exact path="/mypage" component={lazy(() => import(`./views/mypage`))} />
+                    <Route exact path="/profile" component={lazy(() => import(`./views/profile`))} />
+                    <Route exact path="/profile/change-password" component={lazy(() => import(`./views/profile/change-password`))} />
+                    
+                    <Route exact path="/coins" component={lazy(() => import(`./views/coin`))} />
+                    <Route exact path="/coins/detail/:id" component = {lazy(() => import(`./views/coin/detail`))} />
+                    <Route exact path="/coins/purchase/:id" component = {lazy(() => import(`./views/coin/purchase`))} />
+                    <Route exact path="/coins/owned">
+                      <Redirect to="/preparation" />
+                    </Route>
+                    
+                  </RouteInterceptor>
+              </Switch>
+              </div>
             <Footer />
           </Suspense> 
-          </div>
         </React.Fragment>
       </Switch>
     </Router>
+    <ToastContainer autoClose={4000}/>
     </main>
   );
 }

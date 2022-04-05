@@ -1,15 +1,27 @@
-import mongoose from 'mongoose'
+var mongoose = require('mongoose');
 
-const Contact = mongoose.model(
-  "Contact",
-  new mongoose.Schema({
-    username: String,
-    furigana: String,
-    phoneNumber: String,
-    email: String,
-    title: String,
-    content: String
-  })
-);
+var ContactSchema = new mongoose.Schema({
+  name: String,
+  furigana: String,
+  phoneNumber: String,
+  email: String,
+  title: String,
+  content: String,
+  starred: {
+    type: Boolean,
+    default: false,
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
+  label: {
+    type: String,
+    default: 'new'     //new, replied
+  }
+}, {timestamps:{ createdAt: 'created_at', updatedAt: 'updated_at' }}
+).set('toJSON', {
+  virtuals: true
+});
 
-export default Contact;
+module.exports =  mongoose.model('Contact', ContactSchema)

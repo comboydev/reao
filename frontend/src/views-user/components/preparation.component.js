@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthService from "services/auth.service";
+import UserService from "services/user.service";
 
 const Preparation = () => {
     return(
     <section className="p-card">
-        <div className="c-card">
+        <div className="c-card text-center">
             <div className="c-card--header">
                 <h1>只今準備中です</h1>
             </div>
@@ -16,7 +16,7 @@ const Preparation = () => {
                 <a href="https://lin.ee/2CfvHFM"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" border="0"></img></a>
             </div>
             <Link to={
-                AuthService.getCurrentUser() 
+                UserService.getCurrentUser() 
                 ? '/mypage' : '/' } 
                 className="c-card--link">
                     トップに戻る

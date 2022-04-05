@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* -------------------
   MIXIN
 --------------------*/
@@ -17,12 +16,12 @@
 // px to vw
 // =========================================
 @function vw($size) {
-    @return calc($size / 1600) * 100vw;
-  }
+  @return calc($size / 1600) * 100vw;
+}
   
-  @function vw2($size) {
-    @return calc($size / 390) * 100vw;
-  }
+@function vw2($size) {
+  @return calc($size / 390) * 100vw;
+}
   
   
   // =========================================

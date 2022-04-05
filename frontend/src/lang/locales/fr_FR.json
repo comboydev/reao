@@ -8,7 +8,9 @@
     "sidenav.dashboard.users": "Users",
 
     "sidenav.apps": "Applications",
+    "sidenav.apps.coins": "Coins",
 	"sidenav.apps.mail": "Courrier",
+    "sidenav.apps.news": "News",
     "sidenav.apps.chat": "Bavarder",
     "sidenav.apps.calendar": "Calendrier",
     "sidenav.apps.project": "Projet",
@@ -26,6 +28,11 @@
 	"sidenav.product.add": "Ajouter un produit",
 	"sidenav.product.list": "Liste de produits",
 	"sidenav.product.orders": "Orders",
+
+    "sidenav.coin": "Coins",
+	"sidenav.coin.edit": "Edit Coin",
+	"sidenav.coin.add": "Add Coin",
+	"sidenav.coin.list": "Coin List",
     
 	"sidenav.components": "Composants",
 	"sidenav.components.general": "Général",

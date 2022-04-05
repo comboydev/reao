@@ -1,13 +1,3 @@
-// .c-mv{
-//     right: 0;
-//     position: absolute;
-//     width: 90.78125vw;
-//     height: 39.21875vw;
-//     background-color: $mv-background-color;
-//     // background-image: url('../../img/mv.png');
-//     background-size: contain;
-//     background-repeat: no-repeat;
-// }
 .mv_slide {
     overflow: hidden;
     position: absolute;
@@ -45,22 +35,22 @@
     0% {
         transform: scale(1);
         transform-origin: center;
-        background-image: url('../../img/mv_slider_1.png');
+        background-image: url('../../img/mv_pc_slide_1.png');
     }
     50% {
         transform: scale(1.2);
         transform-origin: center;
-        background-image: url('../../img/mv_slider_1.png');
+        background-image: url('../../img/mv_pc_slide_1.png');
     }
     51% {
         transform: scale(1);
         transform-origin: center;
-        background-image: url('../../img/mv_slider_2.png');
+        background-image: url('../../img/mv_pc_slide_2.png');
     }
 
     100%{
         transform: scale(1.2);
-        background-image: url('../../img/mv_slider_2.png');
+        background-image: url('../../img/mv_pc_slide_2.png');
     }
 }
 
@@ -68,40 +58,58 @@
     0% {
         transform: scale(1);
         transform-origin: center;
-        background-image: url('../../img/spMv.png');
+        background-image: url('../../img/mv_sp_slide_1.png');
     }
     50% {
         transform: scale(1.2);
         transform-origin: center;
-        background-image: url('../../img/spMv.png');
+        background-image: url('../../img/mv_sp_slide_1.png');
     }
     51% {
         transform: scale(1);
         transform-origin: center;
-        background-image: url('../../img/spMv.png');
+        background-image: url('../../img/mv_sp_slide_2.png');
     }
 
     100%{
         transform: scale(1.2);
-        background-image: url('../../img/spMv.png');
+        background-image: url('../../img/mv_sp_slide_2.png');
     }
 }
 
 
 
-@media screen and (max-width: 750px) {
-
+@include mq(sm2) {
     .mv_slide li {
-        background-position: left;
-        background-size: 180% 100%;
+        background-size: cover;
         animation: imageAnimation_sp 20s infinite 0s;
     }
 
     .mv_slide li{
-        height: 145.6vw;
+        height: 130vw;
     }
     .mv_slide{
-        height: 145.6vw;
-        min-height: 600px;
+        height: 130vw;
+        min-height: 130vw;
+    }
+}
+
+@include mq(smt){
+    .mv_slide li{
+        height: 150vw;
+    }
+    .mv_slide{
+        height: 150vw;
+        min-height: 150vw;
+    }
+}
+
+@include mq(sm3){
+    .mv_slide li{
+        height: 170vw;
+    }
+    .mv_slide{
+        height: 170vw;
+        min-height: 170vw;
     }
 }

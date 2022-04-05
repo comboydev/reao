@@ -96,180 +96,131 @@ const Home = () => {
           </div>
         </section>
         <section className="p-coin" id="p-coin">
-          <article className="c-coinarticle">
-            <h1>
-              取り扱いコイン
-            </h1>
-          </article>
-          <div className="c-coin">
-            <ul className="c-coin__lion">
-              <li>
-                <p className="c-coin__lion__nameHeader">
-                  ・コイン名:
-                </p>
-                <p className="c-coin__lion__name">
-                  1839 G.BRITAIN 5 Sov W&R-279<br/>UNA AND THE LION
-                </p>
-              </li>
-              <li>
-              <p className="c-coin__lion__greadHeader">
-                            ・グレード:
-                        </p>
-                        <p className="c-coin__lion__gread">
-                            PF 66★ ULTRA CAMEO
-                        </p>
-              </li>
-              <li>
-              <p className="c-coin__lion__printNumber">
-                            ・発行枚数:400枚
-                        </p>
-              </li>
-              <li className="c-coin__lion__price">
-              <p className="c-coin__lion__priceHeader">
-                            ・参考取引価格:
-                        </p>
-                        <div>
-                            <p className="c-coin__lion__priceHigh">
-                                10,000万円～<br/>
-                            </p>
+            <article className="c-coinarticle">
+                <h1>
+                取り扱いコイン
+                </h1>
+            </article>
+            <div className="c-coin--list">
+                <div className="c-coin">
+                    <ul>
+                        <div className="c-coin__image">
+                            <img src="/img/home/lion.png" alt="fantation"/>
                         </div>
-              </li>
-              <li className="c-coin__lion__ownerPrice">
-                        <p className="c-coin__lion__ownerPriceHeader">
-                            ・オーナー権価格:
-                        </p>
-                        <p className="c-coin__lion__ownerPrice__price">
-                            10000円
-                        </p>
-                    </li>
-            </ul>
+                        <li className="c-coin__name">
+                            <dt>・コイン名:</dt>
+                            <dd>1839 G.BRITAIN 5 Sov W&R-279 UNA AND THE LION</dd>
+                        </li>
+                        <li className="c-coin__grade">
+                            <dt>・グレード:</dt>
+                            <dd>PF 66★ ULTRA CAMEO</dd>
+                        </li>
+                        <li className="c-coin__numberOfCoins">
+                            <dt>・発行枚数:</dt>
+                            <dd>400枚</dd>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li className="c-coin__refPrice">
+                            <dt>・参考取引価格:</dt>
+                            <dd>10,000万円～</dd>
+                        </li>
+                        <li className="c-coin__cost">
+                            <dt>・オーナー権価格:</dt>
+                            <dd>10000円</dd>
+                        </li>
+                    </ul>
+                </div>
 
-
-            <ul className="c-coin__crown">
-              <li>
-              <p className="c-coin__crown__nameHeader">
-                            ・コイン名:
-                        </p>
-                <p className="c-coin__crown__name">
-                  1847 Crown Great Britain Gothic
-                </p>
-              </li>
-              <li>
-              <p className="c-coin__crown__greadHeader">
-                            ・グレード:
-                        </p>
-                        <p className="c-coin__crown__gread">
-                            PR65 CAMEO
-                        </p>
-              </li>
-              <li>
-              <p className="c-coin__crown__printNumber">
-                            ・発行枚数:8000枚
-                        </p>
-              </li>
-              <li className="c-coin__crown__price">
-              <p className="c-coin__crown__priceHeader">
-                            ・参考取引価格:
-                        </p>
-                        <div>
-                            <p className="c-coin__crown__priceHigh">
-                                400万円～<br/>
-                            </p>
+                <div className="c-coin">
+                    <ul>
+                        <div className="c-coin__image">
+                            <img src="/img/home/crown.png" alt="fantation"/>
                         </div>
-              </li>
-              <li className="c-coin__crown__ownerPrice">
-                        <p className="c-coin__crown__ownerPriceHeader">
-                            ・オーナー権価格:
-                        </p>
-                        <p className="c-coin__crown__ownerPrice__price">
-                            10000円
-                        </p>
-                    </li>
-            </ul>
+                        <li className="c-coin__name">
+                            <dt>・コイン名:</dt>
+                            <dd>1847 Crown Great Britain Gothic</dd>
+                        </li>
+                        <li className="c-coin__grade">
+                            <dt>・グレード:</dt>
+                            <dd>PR65 CAMEO</dd>
+                        </li>
+                        <li className="c-coin__numberOfCoins">
+                            <dt>・発行枚数:</dt>
+                            <dd>8000枚</dd>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li className="c-coin__refPrice">
+                            <dt>・参考取引価格:</dt>
+                            <dd>400万円～</dd>
+                        </li>
+                        <li className="c-coin__cost">
+                            <dt>・オーナー権価格:</dt>
+                            <dd>10000円</dd>
+                        </li>
+                    </ul>
+                </div>
 
-            <ul className="c-coin__guinea">
-                    <li>
-                        <p className="c-coin__guinea__nameHeader">
-                            ・コイン名:
-                        </p>
-                        <p className="c-coin__guinea__name">
-                            1895A 10M G.N.GUINEA
-                        </p>
-                    </li>
-                    <li>
-                        <p className="c-coin__guinea__greadHeader">
-                            ・グレード:
-                        </p>
-                        <p className="c-coin__guinea__gread">
-                            PR65 CAMEO
-                        </p>
-                    </li>
-                    <li>
-                        <p className="c-coin__guinea__printNumber">
-                            ・発行枚数:2000枚
-                        </p>
-                    </li>
-                    <li className="c-coin__guinea__price">
-                        <p className="c-coin__guinea__priceHeader">
-                            ・参考取引価格:
-                        </p>
-                        <div>
-                            <p className="c-coin__guinea__priceHigh">
-                                600万円～<br/>
-                            </p>
+                <div className="c-coin">
+                    <ul>
+                        <div className="c-coin__image">
+                            <img src="/img/home/guinea.png" alt="fantation"/>
                         </div>
-                    </li>
-                    <li className="c-coin__guinea__ownerPrice">
-                        <p className="c-coin__guinea__ownerPriceHeader">
-                            ・オーナー権価格:
-                        </p>
-                        <p className="c-coin__guinea__ownerPrice__price">
-                            10000円
-                        </p>
-                    </li>
-                </ul>
+                        <li className="c-coin__name">
+                            <dt>・コイン名:</dt>
+                            <dd>1895A 10M G.N.GUINEA</dd>
+                        </li>
+                        <li className="c-coin__grade">
+                            <dt>・グレード:</dt>
+                            <dd>PR65 CAMEO</dd>
+                        </li>
+                        <li className="c-coin__numberOfCoins">
+                            <dt>・発行枚数:</dt>
+                            <dd>2000枚</dd>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li className="c-coin__refPrice">
+                            <dt>・参考取引価格:</dt>
+                            <dd>600万円～</dd>
+                        </li>
+                        <li className="c-coin__cost">
+                            <dt>・オーナー権価格:</dt>
+                            <dd>10000円</dd>
+                        </li>
+                    </ul>
+                </div>
 
-                <ul className="c-coin__bavaria">
-                    <li>
-                        <p className="c-coin__bavaria__nameHeader">
-                            ・コイン名:
-                        </p>
-                        <p className="c-coin__bavaria__name">
-                            1640 GERMANY 5D BAVARIA FR-196
-                        </p>
-                    </li>
-                    <li>
-                        <p className="c-coin__bavaria__greadHeader">
-                            ・グレード:
-                        </p>
-                        <p className="c-coin__bavaria__gread">
-                            PR65 CAMEO
-                        </p>
-                    </li>
-                    <li>
-                        <p className="c-coin__bavaria__printNumber">
-                            ・発行枚数:<span>不明（※推測100～200枚程度）</span>
-                        </p>
-                    </li>
-                    <li className="c-coin__bavaria__price">
-                        <p className="c-coin__bavaria__priceHeader">
-                            ・参考取引価格:
-                        </p>
-                        <div>
-                            <p className="c-coin__bavaria__priceHigh">
-                                500万円～<br/>
-                            </p>
+                <div className="c-coin">
+                    <ul>
+                        <div className="c-coin__image">
+                            <img src="/img/home/bavaria.png" alt="fantation"/>
                         </div>
-                    </li>
-                    <li className="c-coin__bavaria__ownerPrice">
-                        <p className="c-coin__bavaria__ownerPriceHeader">
-                            ・オーナー権価格:
-                        </p>
-                        <p className="c-coin__bavaria__ownerPrice__price">
-                            10000円
-                        </p>
-                    </li>
-                </ul>
+                        <li className="c-coin__name">
+                            <dt>・コイン名:</dt>
+                            <dd>1640 GERMANY 5D BAVARIA FR-196</dd>
+                        </li>
+                        <li className="c-coin__grade">
+                            <dt>・グレード:</dt>
+                            <dd>PR65 CAMEO</dd>
+                        </li>
+                        <li className="c-coin__numberOfCoins">
+                            <dt>・発行枚数:</dt>
+                            <dd>不明（※推測100～200枚程度）</dd>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li className="c-coin__refPrice">
+                            <dt>・参考取引価格:</dt>
+                            <dd>500万円～</dd>
+                        </li>
+                        <li className="c-coin__cost">
+                            <dt>・オーナー権価格:</dt>
+                            <dd>10000円</dd>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div className="c-allCoinbtn--container">
                 <button className="c-btn c-allCoinbtn" onClick={ e => window.location.href='/coins' }>
@@ -395,15 +346,15 @@ const Home = () => {
                 </h1>
             </article>
             <ul className="c-media-list">
-                <li><div className="c-media-logo"><img src="/image/media/asahi.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/bizocean.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/infoseek.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/linenews.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/nordot.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/reuters.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/sankeibiz.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/sanspo.png" alt="fantation"/></div></li>
-                <li><div className="c-media-logo"><img src="/image/media/zaikei.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/asahi.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/bizocean.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/infoseek.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/linenews.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/nordot.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/reuters.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/sankeibiz.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/sanspo.png" alt="fantation"/></div></li>
+                <li><div className="c-media-logo"><img src="/img/home/media/zaikei.png" alt="fantation"/></div></li>
             </ul>
         </section>
         <section className="p-flow" id="p-flow">
@@ -558,7 +509,7 @@ const Home = () => {
             <p className="c-contactarticle--text">
                 専門のスタッフが24時間365日受け付けておりますので、なんでもお気軽にお問い合わせください。
             </p>
-            <button className="c-btn c-btn--contact" onClick={(e)=>{window.location.href='/contact'}} >
+            <button className="c-btn c-btn--contact" onClick={(e)=>{window.location.href='/contact-us'}} >
                 <p className="c-btn-text">
                     お問い合わせはこちら
                 </p>
@@ -569,7 +520,7 @@ const Home = () => {
                 </p>
             </button>
         </section>
-        <section className="p-apply" id="p-apply">
+        {/* <section className="p-apply" id="p-apply">
             <div className="c-apply">
                 <div className="l-content">
                     <h2 className="l-content--header">お持ちのアート作品を<br/>無料査定・買取させていただきます。</h2>
@@ -582,10 +533,10 @@ const Home = () => {
                     </a>
                 </div>
                 <div className="r-content">
-                    <img src="/image/apply.png" alt="apply"/>
+                    <img src="/img/home/apply.png" alt="apply"/>
                 </div>
             </div>
-        </section>
+        </section> */}
       </div>
     );
 }

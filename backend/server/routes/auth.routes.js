@@ -10,19 +10,17 @@ const router = express.Router();
 //   ],
 //   authCtrl.signup
 // );
-router.route("/api/auth/signup").post(authCtrl.signup);
-router.route("/api/auth/signin").post(authCtrl.signin);
-router.route("/api/auth/changePassword").post(authCtrl.changePassword);
-router.route("/api/auth/verifyEmail").post(authCtrl.verifyEmail);
-router.route("/api/auth/sendLinkOfVerifyEmail").post(authCtrl.sendLinkOfVerifyEmail);
+router.route("/api/user/auth/signup").post(authCtrl.signup);
+router.route("/api/user/auth/signin").post(authCtrl.signin);
+router.route("/api/user/auth/resetPassword/:token").post(authCtrl.resetPassword);
+router.route("/api/user/auth/sendLinkOfResetPassword").post(authCtrl.sendLinkOfResetPassword);
+router.route("/api/user/auth/checkLinkOfResetPassword/:token").get(authCtrl.checkLinkOfResetPassword);
 
+router.route("/api/user/auth/verifyEmail/:token").post(authCtrl.verifyEmail);
+router.route("/api/user/auth/sendLinkOfVerifyEmail").post(authCtrl.sendLinkOfVerifyEmail);
+router.route("/api/user/auth/changePassword").post(authCtrl.changePassword);
 
-router.route("/api/auth/personal-info").post(authCtrl.setPersonalInfo);
-router.route("/api/auth/contact").post(authCtrl.contact);
-router.route("/api/auth/upload-image").post(authCtrl.uploadImage);
-router.route("/api/auth/upload-id").post(authCtrl.uploadID);
-router.route("/api/auth/personal-info").get(authCtrl.getPersonalInfo);
-router.route("/api/auth/quit").post(authCtrl.quit);
+router.route("/api/user/auth/withdrawal").post(authCtrl.withdrawal);
 
 
 export default router;

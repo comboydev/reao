@@ -1,0 +1,56 @@
+
+.p-card{
+    padding: 80px 20px 100px;
+}
+
+.c-card{
+  max-width: 650px;
+  width: 100%;
+  margin: auto;
+  padding: 50px 50px 70px;
+  background: white;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 15%);
+  font-family: $yuMincho;
+  &--header{
+      font-weight: normal;
+      font-size: 25px;
+      text-align: center;
+      color: #a78754;
+  }
+  &--article{
+      font-weight: normal;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      color: #332f2d;
+      p{
+          margin-bottom: 30px;
+      }
+      a{
+          margin-bottom: 20px;
+          display: inline-block;
+          text-decoration: underline;
+          color: #A78754;
+          img{
+              height: 40px;
+          }
+      }
+  }
+  &--link{
+      display: inline-block;
+      font-size: 15px;
+      font-family: $yuMincho;
+      text-decoration: underline !important;
+      margin-top: 20px;
+      text-align: center;
+      color: $text-color-braun;
+  }
+
+  h1, h2, h3, h4, h5, h6, p{
+    line-height: 1.8;
+  }
+
+  @include mq(sm2){
+      padding: 50px vw2(20);
+  }
+}

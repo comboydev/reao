@@ -1,79 +1,97 @@
-const db = require("../models");
+import db from "../models";
+import { _SELL_STATUS } from "../config/constant";
 const Coin = db.coin;
 
-exports.create = async (req, res) => {
-  console.log('create', req.body)
-  if (!req.body.name && !req.body.issueCount && !req.body.referenceTransactionPrice && !req.body.ownershipPrice) {
-    res.status(400).send({ message: "コンテンツを空にすることはできません!" });
-  }
 
-  const coin = new Coin(req.body);
-
-  await coin.save().then(data => {
+const create = async (req, res) => {
+  let { extra, ...coinData } = req.body;
+  let { coinImages, ownerID, wallet, role } = extra;
+  let paths = [];
+  coinImages.map((img, k) => {
+    paths.push(img.uri);
+  })
+  let refImages = [...paths];
+  let mainImage = refImages.shift();
+  
+  let arr = [];
+  let sellStatus;
+  if(role === 'admin') sellStatus = _SELL_STATUS.available;
+  else sellStatus = _SELL_STATUS.default;
+  arr.push({ 
+    ownerID: ownerID, 
+    wallet: wallet, 
+    count: coinData.totalCount, 
+    cost: coinData.cost, 
+    sellStatus: sellStatus  
+  });
+  new Coin({
+    ...coinData,
+    mainImage: mainImage,
+    refImages: refImages,
+    owners: arr,
+  })
+  .save().then(data => {
     res.send({
       message: "コインが正常に登録されました!",
       coin: data
     });
   }).catch(err => {
     res.status(500).send({
-      message: err.message || "コインの作成中にエラーが発生しました!"
+      message: "コインの作成中にエラーが発生しました!"
     });
   });
 };
-// TODO: add filter, sort, range
-exports.get = (req, res) => {
+
+
+const getAllCoins = (req, res) => {
   Coin
     .find()
-    .exec((err, data) => {
-      if (!err && data != null) {
-        res.header("Access-Control-Expose-Headers", 'Content-Range');
-        res.setHeader("Content-Range", '0-' + data.length + '/' + data.length);
-        
+    .sort( { created_at: -1 } )
+    .then(data => {
         return res.status(200).json(data);
-      }
-      if (!err){
-        res.header("Access-Control-Expose-Headers", 'Content-Range');
-        res.setHeader("Content-Range", '0-' + 0 + '/' + 0);
+    })
+    .catch(err => {
+      return res.status(500).send({ message: 'error'});
+    })
+}
 
-        return res.status(200).json([]);
-      }
-      return res.status(500).send({
-        message: err.message || "エラーが発生しました!"
-      })
-    });
-    
-}
-exports.getOne = (req, res) => {
-  Coin
-    .findOne({ _id: req.params.id })
-    .exec((err, data) => {
-      if (!err && data != null) {
-        res.status(200).json(data);
-      }
-    });
-}
-exports.put = (req, res) => {
 
+const getCoinOne = (req, res) => {
   Coin
-    .updateOne({ _id: req.body.id }, req.body)
-    .exec((err, data) => {
-      if (!err && data != null) { console.log('exec', data)
-        return res.status(200).json(req.body);
-      }
-      return res.status(500).send({
-        message: err.message || "エラーが発生しました!"
-      })
-    });
+  .findOne({ _id: req.params.id })
+  .then(data => {
+      return res.json(data)
+  })
+  .catch(err => {
+    return res.status(500).send(err);
+  })
 }
-exports.delete = (req, res) => {
-  Coin
-    .deleteOne({ _id: req.params.id })
-    .exec((err, data) => {
-      if (!err && data != null) {
-        return res.status(200).json(data);
-      }
-      return res.status(500).send({
-        message: err.message || "エラーが発生しました!"
-      })
-    });
+
+
+const deleteCoins = (req, res) => {
+  let { ids } = req.body;
+  Coin.find({ _id: ids })
+  .then(coins => {
+    //Delete records in Database
+    Coin.deleteMany({ _id: ids })
+    .then(data => {
+      return res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(500).send(err);
+    })
+  })
+  .catch(err => {
+      return res.status(500).send(err);
+  })
+}
+
+
+export default {
+  create,
+
+  getAllCoins,
+  getCoinOne,
+  deleteCoins
 }

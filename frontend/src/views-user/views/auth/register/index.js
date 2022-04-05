@@ -4,7 +4,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Button } from 'antd';
-import AuthService from "services/auth.service";
+import UserService from "services/user.service";
 import { is_password, required, is_email } from "services/validator";
 
 
@@ -70,7 +70,7 @@ export default class Register extends Component {
       submit: true
     })
 
-    AuthService.register(
+    UserService.register(
       this.state.email,
       this.state.password
     )
@@ -101,9 +101,9 @@ export default class Register extends Component {
   render() {
     return (
       <div>
-        <section className="p-signup">
+        <section className="p-card">
           <h1 className="c-signup--header">会員登録</h1>
-          <div className="c-signup">
+        <div className="c-card max-w500 mt-5 c-signup">
             <h2 className="c-signup--header--sub">
               すでに登録されている方は<br/>こちらから<Link to="/login">ログイン</Link>してください
             </h2>
@@ -168,15 +168,15 @@ export default class Register extends Component {
 
                       <p className="c-form--checklabel">
                         <input type="checkbox" id="agree" />
-                        <label htmlFor="agree"><a href="/rules" target="_blank">利用規約</a>に同意する</label>
+                        <label htmlFor="agree"><Link to="/terms" target="_blank">利用規約</Link>に同意する</label>
                       </p>
                       
-                      <Button type="primary" 
+                      <Button 
                         htmlType="submit" 
                         className="c-btn c-btn-regist"
                         block 
                         loading={this.state.submit}>
-                        { !this.state.submit && <span>新規登録</span> }
+                        <span>新規登録</span>
                       </Button>
 
                     </div>
@@ -189,20 +189,24 @@ export default class Register extends Component {
                   />
                 </Form>
               </div>
-              <div className="c-signup--box__sns">
+              {/* <div className="c-signup--box__sns">
                 <p className="c-form--label">
                   SNSでユーザー登録
                 </p>
-                <Button className="c-btn c-btn-social c-btn-social--facebook">
+                <Button type="primary"
+                  className="c-btn c-btn-social c-btn-social--facebook"
+                >
                   Facebookで登録
                 </Button>
-                <Button className="c-btn c-btn-social c-btn-social--twitter">
+                <Button type="primary"
+                  className="c-btn c-btn-social c-btn-social--twitter">
                   Twitterで登録
                 </Button>
-                <Button className="c-btn c-btn-social c-btn-social--line">
+                <Button type="primary"                                                      
+                  className="c-btn c-btn-social c-btn-social--line">                                          
                   LINEで登録
-                </Button>
-              </div>
+                </Button>                                                                                             
+              </div>                                                                 */}
             </div>
           </div>
         </section>
