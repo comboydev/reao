@@ -1,11 +1,25 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EventBus from "services/EventBus";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Menu, Dropdown } from 'antd';
 import { useMediaQuery } from 'react-responsive'
 import UserService from "services/user.service";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/dropdown';
 
+const AboutMenu = (
+  <Menu className="py-3 px-1">
+    <Menu.Item primary>
+      <Link to="/terms">利用規約</Link>
+    </Menu.Item>
+    <Menu.Item primary>
+      <Link to="/privace-policy">プライバシーポリシー</Link>
+    </Menu.Item>
+    <Menu.Item primary>
+      <Link to="/sct-law">特定商取引法に基づく表記</Link>
+    </Menu.Item>
+  </Menu>
+);
 
 const NavRight = ({currentUser, className, handleLogout}) => {
 
@@ -157,9 +171,11 @@ const Header = () => {
                       </a>
                     </li>
                     <li className="c-menuitem--global c-menuitem--global--service">
-                      <a href="/#p-apply">
-                        本サービスについて
-                      </a>
+                      <Dropdown overlay={AboutMenu}>
+                        <a className="ant-dropdown-link" href>
+                          本サービスについて
+                        </a>
+                      </Dropdown>
                     </li>
                   </ul>
                 )}
