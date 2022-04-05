@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components'
-
-import AuthService from "services/auth.service";
+import ContactSection from "../../components/contact.component";
+import UserService from "services/user.service";
 
 const UserProfile = styled.div`
 	position: relative;
 	img{
 		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+		object-fit: cover;
 	}
 `;
 
@@ -26,28 +29,25 @@ const UserRole = styled.div`
 		position: absolute;
 		color: white;
 		font-size: 20px;
-		font-family: "trajan-pro-3", "serif";
+		font-family: "serif";
 		margin-top: 40px;
 		left: 50%;
 		transform: translateX(-50%);
+		white-space: nowrap;
 	}
 `;
 
 const MyPage = () => {
 
 	const [newsList, setNewsList] = useState([]);
-	const user = AuthService.getCurrentUser();
+	const user = UserService.getCurrentUser();
 
 	return (
 		<>
 			<div className="c-memberTop-header">
 				<UserProfile>
-					<img src={
-						user.avatar 
-						? user.avatar 
-						: "/image/user.png" 
-					} alt="user"/>
-					<UserRole role={user.id}>一般会員</UserRole>
+					<img src={ user.avatar } alt="user"/>
+					<UserRole role={user.nickname}>一般会員</UserRole>
 				</UserProfile>
 			</div>
 			<section className="c-memberTop__content">
@@ -81,47 +81,21 @@ const MyPage = () => {
 							<p>本人確認</p>
 						</div>
 					</Link>
-					<Link className="c-memberTop-menu__item -owner" to = '/preparation'>
+					<Link className="c-memberTop-menu__item -owner" to = '/coins'>
 						<div>
 							<p>購入可能</p>
 							<p>オーナー権確認</p>
 						</div>
 					</Link>
-					<Link className="c-memberTop-menu__item -trade" to='/preparation'>
+					<Link className="c-memberTop-menu__item -trade" to='/coins/owned'>
 						<p>取引</p>
 					</Link>
-					<Link className="c-memberTop-menu__item -contact" to='/contact'>
+					<Link className="c-memberTop-menu__item -contact" to='/contact-us'>
 						<p>お問い合わせ</p>
 					</Link>
 				</div>
 			</section>
-			<section className="p-contact">
-				<article className="c-contactarticle">
-					<h1>
-						お問い合わせ
-					</h1>
-				</article>
-				<ul className="c-contactarticle--list">
-					<li>
-						FANTATIONのご利用で不明な点がある方
-					</li>
-					<li>
-						ご購入の相談をされたい方
-					</li>
-					<li>
-						お持ちのアンティークコインを売りたい方
-					</li>
-				</ul>
-				<p className="c-contactarticle--text">
-					専門のスタッフが24時間365日受け付けておりますので、<br />なんでもお気軽にお問い合わせください。
-				</p>
-				<button className="c-btn--contact" onClick={(e) => { window.location.href = '/contact' }}>
-					<p className="c-btn-text">
-						お問い合わせはこちら
-					</p>
-				</button>
-
-			</section>
+			<ContactSection/>
 		</>
 	)
 }

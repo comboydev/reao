@@ -49,3 +49,35 @@
     color: $text-color-braun;
   }
 }
+
+
+.c-form--item{
+  display: flex;
+  margin: 25px 0;
+  div{
+      width: 100%;
+  }
+  label{
+    max-width: 150px;
+    width: 100%;
+    margin: 0;
+    padding-top: 8px;
+    padding-right: 20px;
+  }
+  select {
+    appearance: inner-spin-button;
+  }
+  textarea{
+    min-height: 200px;
+  }
+
+  @include mq(sm2){
+    display: block;
+    margin: 20px 0;
+    label{
+        font-size: 15px;
+        margin-bottom: 5px;
+        max-width: 100%;
+    }
+  }
+}

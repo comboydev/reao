@@ -1,48 +1,36 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 
-const Coin = mongoose.model(
-  "Coin",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      validate: {
-        isAsync: true,
-        validator: function (value, isValid) {
-          const self = this;
-          return self.constructor.findOne({ name: value })
-            .exec(function (err, coin) {
-              if (err) {
-                throw err;
-              }
-              else if (coin) {
-                if (self.id === coin.id) {  // if finding and saving then it's valid even for existing name
-                  return isValid(true);
-                }
-                return isValid(false);
-              }
-              else {
-                return isValid(true);
-              }
-
-            })
-        },
-        message: 'このコイン名は既に登録されています!'
-      },
-    },
-    grade: String,
-    issueCount: Number,
-    referenceTransactionPrice: Number,
-    ownershipPrice: Number,
-    date: String,
-    material: String,
-    diameter: String,
-    weight: String,
-    auctionWinningBidCount: Number,
-    auctionWinningBidRate: Number
-  }).set('toJSON', {
-    virtuals: true
-  })
+var OwnerSchema = new mongoose.Schema({
+  ownerID: String,
+  wallet: String,
+  count: Number,
+  minCount: {type: Number, default: 1},
+  cost: Number,
+  sellStatus: {
+    type: Number,
+    default: -1,            //購入可能状態 -1: impossible    0: appling     1: possible.
+  }
+}, {timestamps:{ createdAt: 'created_at', updatedAt: 'updated_at' }}
 );
 
-export default Coin;
+var CoinSchema =  new mongoose.Schema({
+  name: String,
+  grade: String,
+  coinDescription: String,
+  gradeDescription: String,
+  mainImage: Object,
+  totalCount: Number,       //Number Of  coin Ownerships
+  minCount: {type: Number, default: 1},  //Number of purchased ownerships
+  cost: Number,
+  refPrice: Number,
+  refImages: Array,
+  taxRate: Number,
+  owners: [OwnerSchema],
+  hashCode: String,
+}, {timestamps:{ createdAt: 'created_at', updatedAt: 'updated_at' }}
+).set('toJSON', {
+  virtuals: true
+});
+
+
+module.exports = mongoose.model('Coin', CoinSchema)

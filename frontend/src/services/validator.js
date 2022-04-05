@@ -1,4 +1,4 @@
-import { isEmail } from "validator";
+import { isEmail, isMobilePhone } from "validator";
 
 const required = value => {
   if (!value) {
@@ -31,8 +31,30 @@ const is_password = value => {
   }
 };
 
+const vpassword = value => {
+  if (!value) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        この項目は必須です！
+      </div>
+    );
+  }
+};
+
+const is_phoneNumber = value => {
+  if(!isMobilePhone(value)){
+    return (
+      <div className="alert alert-danger" role="alert">
+        電話番号が条件に合わないです。
+      </div>
+    );
+  }
+};
+
 export {
   is_password,
   is_email,
+  is_phoneNumber,
+  vpassword,
   required
 }

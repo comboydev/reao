@@ -4,7 +4,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import {Button} from "antd";
 import CheckButton from "react-validation/build/button";
-import AuthService from "services/auth.service";
+import UserService from "services/user.service";
 import { required, is_email } from "services/validator";
 
 
@@ -28,12 +28,12 @@ export default function Login() {
     setMessage('');
     setSubmit(true);
     
-    AuthService.login(email, password)
+    UserService.login(email, password)
     .then(response => {
         setSubmit(false);
         if(response.data.status_code === 200){
           delete response.data.status_code;
-          AuthService.setCurrentUser(response.data);
+          UserService.setCurrentUser(response.data);
           window.location.href = "/mypage";
         } else {
           setMessage(response.data.message);
@@ -52,12 +52,12 @@ export default function Login() {
     });
   }
 
-  if(AuthService.getCurrentUser()) return <Redirect to="/mypage"/>
+  if(UserService.getCurrentUser()) return <Redirect to="/mypage"/>
   return (
     <div>
-      <section className="p-signin">
+      <section className="p-card">
         <h1 className="c-signin--header">ログイン</h1>
-        <div className="c-signin">
+        <div className="c-card max-w500 mt-5">
           <h2 className="c-signin--header--sub">
             まだ登録がお済みでない方は<br/>こちらから<Link to="/register">会員登録</Link>してください
           </h2>
@@ -95,12 +95,12 @@ export default function Login() {
                   onChange={(e)=>setPassword(e.target.value)}
                   validations={[required]}
                 />
-                <Button type="primary" 
+                <Button
                   htmlType="submit" 
-                  className="c-btn c-btn-regist signin"
+                  className="c-btn c-btn-regist mt-4"
                   block 
                   loading={submit}>
-                  {!submit && <span>ログイン</span> }
+                  <span>ログイン</span>
                 </Button>
 
                 <Link to="/forgot-password" className="c-form--link">パスワードの再設定</Link>
@@ -112,20 +112,23 @@ export default function Login() {
                 />
               </Form>
             </div>
-            <div className="c-signin--box__sns">
+            {/* <div className="c-signin--box__sns">
               <p className="c-signin--formlabel">
                 SNSでログイン
               </p>
-              <Button className="c-btn c-btn-social c-btn-social--facebook">
+              <Button type="primary"
+                className="c-btn c-btn-social c-btn-social--facebook">
                 Facebookでログイン
               </Button>
-              <Button className="c-btn c-btn-social c-btn-social--twitter">
+              <Button type="primary"
+                className="c-btn c-btn-social c-btn-social--twitter">
                 Twitterでログイン
               </Button>
-              <Button className="c-btn c-btn-social c-btn-social--line">
+              <Button type="primary"
+                className="c-btn c-btn-social c-btn-social--line">
                 LINEでログイン
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

@@ -8,7 +8,9 @@
     "sidenav.dashboard.users": "用户清单",
     
     "sidenav.apps": "应用",
+    "sidenav.app.coins": "コイン",
 	"sidenav.apps.mail": "邮件",
+    "sidenav.apps.news": "消息",
     "sidenav.apps.chat": "聊天室",
     "sidenav.apps.calendar": "日历",
     "sidenav.apps.project": "项目",
@@ -26,6 +28,11 @@
 	"sidenav.product.add": "添加产品",
 	"sidenav.product.list": "产品列表",
 	"sidenav.product.orders": "注文",
+
+    "sidenav.coin": "コイン管理",
+    "sidenav.coin.edit": "コインの編集",
+    "sidenav.coin.add": "コインを追加",
+    "sidenav.coin.list": "コインリスト",
 
 	"sidenav.components": "组件",
 	"sidenav.components.general": "通用",

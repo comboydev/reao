@@ -5,7 +5,7 @@ footer{
 }
 
 .p-footer{
-    max-width: 1240px;
+    max-width: 1000px;
     width: 100%;
     padding:0 20px;
     margin: auto;
@@ -19,7 +19,15 @@ footer{
         color: #A78754;
         font-family: "trajan-pro-3", "serif";
     }
-    &__item {
+
+    &__list{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 0 -20px;
+    }
+
+    &__column {
         font-size: 14px;
         font-family: $yuMincho;
         font-weight: 500;
@@ -27,10 +35,32 @@ footer{
         color: rgba(17,17,17,0.8);
         -webkit-transition: all 0.2s ease;
         transition: all 0.2s ease;
-        padding: 0 20px;
+        margin: 0 20px;
         &:first-child{padding-left: 0;}
         &:last-child{padding-right: 0;}
+
+        &--header{
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            border-left: 1px solid #a5955f;
+            padding-left: 16px;
+            span{
+                font-family: $trajan;
+                display: block;
+                font-size: 13px;
+                color: #A78754;
+                padding-bottom: 3px;
+            }
+        }
+        ul{
+            padding-left: 16px;
+            li{
+                padding: 2px 0;
+            }
+        }
     }
+
     &__copyright {
         background: #FFF;
         color: rgba(17,17,17,0.8);
@@ -44,7 +74,7 @@ footer{
     &__follow {
         font-family: $yuMincho;
         font-size: 14px;
-        margin-top: 30px;
+        margin-top: 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -66,16 +96,9 @@ footer{
     }
 
     &__right{
-        max-width: 900px;
+        max-width: 700px;
         width: 100%;
         margin-left: 20px;
-    }
-
-    &__list{
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin-top: 5px;
     }
 
     &__contact{
@@ -121,10 +144,12 @@ footer{
 }
 
 @include mq(sm2){
-    .p-footer__item{
-        width: 50%;
+    .p-footer__list{
+        justify-content: space-evenly;
+    }
+    .p-footer__column{
+        max-width: 200px;
         padding: 10px 0;
-        text-align: center;
     }
     .p-footer__follow{
         flex-direction: column-reverse;
@@ -140,6 +165,16 @@ footer{
 }
 
 @include mq(smt){
-   
-    
+    .p-footer__list{
+        text-align: center;
+    }
+    .p-footer__column{
+        padding: 25px 0;
+        &--header{
+            border: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+        ul{padding: 0;}
+    }
 }

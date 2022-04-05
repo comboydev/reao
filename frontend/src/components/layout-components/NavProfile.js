@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { 
   EditOutlined, 
   SettingOutlined,
-  LogoutOutlined 
+  LogoutOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
 import { signOut } from 'redux/actions/Auth';
@@ -13,9 +14,9 @@ import AdminService from 'services/admin.service';
 
 const menuItem = [
 	{
-		title: "Add Product",
+		title: "Add Coin",
 		icon: EditOutlined ,
-		path: "/admin/product/add"
+		path: "/admin/coins/add"
     },
     
     {
@@ -33,8 +34,8 @@ export const NavProfile = ({signOut}) => {
       <div className="nav-profile-header">
         <div className="d-flex">
           <div className="pl-3">
-            <h4 className="mb-0">{admin.id}</h4>
-            <span className="text-muted">{admin.email}</span>
+            <h4 className="mb-0">{admin?.nickname}</h4>
+            <span className="text-muted">{admin?.email}</span>
           </div>
         </div>
       </div>
@@ -64,7 +65,7 @@ export const NavProfile = ({signOut}) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <Avatar src={admin.avatar ? admin.avatar: '/image/user.png'} />
+          <Avatar src={ admin?.avatar } icon={<UserOutlined />}/>
         </Menu.Item>
       </Menu>
     </Dropdown>

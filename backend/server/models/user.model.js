@@ -1,3 +1,4 @@
+var bcrypt = require("bcryptjs");
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 var Schema = mongoose.Schema;
@@ -11,19 +12,18 @@ var personalSchema = new Schema({
   locationProvince: String,
   locationCity: String,
   extra: String,
-  warrant: String                //証明書
 });
 
 var statusSchema = new Schema({
   sms: { type: Boolean, required: true, default: false },
   emailVerified: { type: Boolean, required: true, default: false },
   identityVerified: { type: Number, required: true, default: -1  },         //1 => verified, 0 => apply now, -1 => no ID 
-  quitConfirmed: { type: Number, required: true, default: -1 },
+  actived: { type: Number, required: true, default: 1 },
 })
 
 
 var UserSchema = new Schema({
-  id: String,
+  nickname: {type: String, default: ""},
   email: {
     type: String,
     required: true,
@@ -32,14 +32,9 @@ var UserSchema = new Schema({
       validator: function (value, isValid) {
         const self = this;
         return self.constructor.findOne({ email: value })
-          .exec(function (err, user) {
-            if (err) {
-              throw err;
-            }
-            else if (user) {
-              if (self.id === user.id) {  // if finding and saving then it's valid even for existing email
-                return isValid(true);
-              }
+          .exec()
+          .then(user => {
+            if (user) {
               return isValid(false);
             }
             else {
@@ -47,14 +42,22 @@ var UserSchema = new Schema({
             }
 
           })
+          .catch(err => {
+            throw err;
+          })
       },
       message: 'このメールアドレスは既に登録されています!'
     },
   },
   password: String,
-  avatar: String,
+  avatar: {type: String, default: '/img/user.png'},
+  warrant: String,                //証明書
+  sms: { type: Boolean, default: false },
+  emailVerified: { type: Boolean, default: false },
+  identityVerified: { type: Number, default: -1  },         //1 => verified, 0 => apply now, -1 => no ID 
+  actived: { type: Number, default: 1 },
+  
   personalInfo: personalSchema,
-  status: statusSchema,
   role: {
     type: String,
     enum: ['admin', 'user'],
@@ -80,6 +83,15 @@ UserSchema.methods.generateVerificationToken = function () {
       { expiresIn: "7d" }
   );
   return verificationToken;
+};
+
+UserSchema.methods.comparePassword = function (passw, cb) {
+  bcrypt.compare(passw, this.password, function (err, isMatch) {
+      if (err) {
+          return cb(err);
+      }
+      cb(null, isMatch);
+  });
 };
 
 

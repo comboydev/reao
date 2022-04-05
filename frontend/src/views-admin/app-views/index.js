@@ -7,19 +7,17 @@ export const AppViews = () => {
   return (
     <Suspense fallback={<Loading cover="content"/>}>
       <Switch>
-        <Route path={`${APP_PREFIX_PATH}/dashboard/default`} component={lazy(() => import(`./dashboards/default`))} />
-        <Route path={`${APP_PREFIX_PATH}/dashboard/analytic`} component={lazy(() => import(`./dashboards/analytic`))} />
-        <Route path={`${APP_PREFIX_PATH}/dashboard/sales`} component={lazy(() => import(`./dashboards/sales`))} />
-        <Route path={`${APP_PREFIX_PATH}/dashboard/users`} component={lazy(() => import(`./dashboards/users`))} />
+        <Route path={`${APP_PREFIX_PATH}/sales`} component={lazy(() => import(`./sales`))} />
+        <Route exact path={`${APP_PREFIX_PATH}/users`} component={lazy(() => import(`./users`))} />
+        <Route exact path={`${APP_PREFIX_PATH}/users/:id`} component={lazy(() => import(`./users/detail`))} />
+        <Route exact path={`${APP_PREFIX_PATH}/orders`} component={lazy(() => import(`./orders`))} />
 
-        <Route path={`${APP_PREFIX_PATH}/mail`} component={lazy(() => import(`./apps/mail`))} />
-        <Route path={`${APP_PREFIX_PATH}/chat`} component={lazy(() => import(`./apps/chat`))} />
-        <Route path={`${APP_PREFIX_PATH}/product`} component={lazy(() => import(`./apps/product`))} />
-        <Route path={`${APP_PREFIX_PATH}/profile`} component={lazy(() => import(`./pages/profile`))} />
-        <Route path={`${APP_PREFIX_PATH}/setting`} component={lazy(() => import(`./pages/setting`))} />
+        <Route path={`${APP_PREFIX_PATH}/coins`} component={lazy(() => import(`./coins`))} />
+        <Route path={`${APP_PREFIX_PATH}/mail`} component={lazy(() => import(`./mail`))} />
+        <Route path={`${APP_PREFIX_PATH}/news`} component={lazy(() => import(`./news`))} />
+        <Route path={`${APP_PREFIX_PATH}/setting`} component={lazy(() => import(`./setting`))} />
+        <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/users`} />
         
-        <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/dashboard/default`} />
-        <Redirect from={`${APP_PREFIX_PATH}/dashboard`} to={`${APP_PREFIX_PATH}/dashboard/default`} />
       </Switch>
     </Suspense>
   )

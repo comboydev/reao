@@ -1,0 +1,35 @@
+.c-company{
+    font-family: $yuMincho;
+    li{
+        display: flex;
+        padding: 15px 30px;
+        border-top: 1px dashed #d1cfcf;
+        &:last-child{
+            border-bottom: 1px dashed #d1cfcf;
+        }
+    }
+    dt{
+        width: 150px;
+        font-weight: bold;
+    }
+    dd{
+        margin: 0;
+    }
+    
+    @include mq(sm2){
+        li{ 
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @include mq(smt){
+        dt{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        li{
+            display: block;
+            text-align: justify;
+        }
+    }
+}

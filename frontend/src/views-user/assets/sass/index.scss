@@ -1,5 +1,5 @@
-@charset "utf-8";
-
+@import "antd/dist/antd.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 /* ==========================================================================
 // base
 // ==========================================================================*/
@@ -25,8 +25,9 @@
 @import "components/featureitem";
 @import "components/use";
 @import "components/usearticle";
-@import "components/coinarticle";
+@import "components/company";
 @import "components/coin";
+@import "components/coin_detail";
 @import "components/assetsarticle";
 @import "components/charmarticle";
 @import "components/antiquecoinarticle";
@@ -42,10 +43,12 @@
 @import "components/memberAuth";
 @import "components/memberContact";
 @import "components/memberTop";
+@import "components/tag";
+@import "components/card";
 
 @import "components/policy";
 @import "components/imagepreview";
-@import "components/complete";
+@import "components/typography";
 
 
 /* -----------------------------------------------------------------
@@ -57,12 +60,8 @@
 @import "pages/charm";
 @import "pages/antiquecoin";
 @import "pages/qa";
-@import "pages/contact";
 
-@import "pages/memberInfo";
 @import "pages/memberAuth";
-@import "pages/memberContact";
-@import "pages/policy";
 @import "pages/complete";
 
 /* ==========================================================================

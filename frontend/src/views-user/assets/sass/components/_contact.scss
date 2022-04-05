@@ -1,17 +1,31 @@
+.p-contact{
+    background-image: url('../../img/contact.png');
+    background-size: cover;
+    padding: 6.3229166vw 26.921875vw 5.104166vw;
+    font-family: $yuMincho;
+    @include mq(sm2){
+        padding: 100px 60px;
+    }
+    @include mq(smt){
+        padding: 70px 20px;
+    }
+}
+
 .c-contactarticle{
     color: #fff;
-    font-family: $yuMincho;
     h1{
-        font-size: 2.604166vw;
+        font-size: 30px;
         text-align: center;
-        margin-bottom: 2.96875vw;
+        margin-bottom: 50px;
+        font-weight: bold;
     }
     &--list{
         font-family: $yuMincho;
-        font-size: 1.45833vw;
+        font-size: 20px;
         color: #fff;
+        line-height: 2;
         list-style-position: inside;
-        margin-bottom: 2.7135416vw;
+        margin-bottom: 30px;
         li{
             &::marker {
                 content: '✓';
@@ -22,43 +36,8 @@
     }
     &--text{
         font-family: $yuMincho;
-        font-size: 1.04166vw;
+        font-size: 16px;
         color: #fff;
-        margin-bottom: 3.020833vw;
-    }
-}
-
-@media screen and (max-width: 750px) {
-    .c-contactarticle{
-        color: #fff;
-        font-family: $yuMincho;
-        h1{
-            font-size: calc(50/750)*100+vw;
-            text-align: center;
-            line-height: calc(85/750)*100+vw;
-            margin-bottom: 2.96875vw;
-        }
-        &--list{
-            font-family: $yuMincho;
-            font-size: calc(28/750)*100+vw;
-            line-height: calc(41/750)*100+vw;
-            color: #fff;
-            list-style-position: inside;
-            margin-bottom: 2.7135416vw;
-            li{
-                &::marker {
-                    content: '✓';
-                    position: relative;
-                    display: inline-block;
-                }
-            }
-        }
-        &--text{
-            font-family: $yuMincho;
-            font-size: calc(28/750)*100+vw;
-            line-height: calc(45/750)*100+vw;
-            color: #fff;
-            margin-bottom: 3.020833vw;
-        }
+        margin-bottom: 30px;
     }
 }

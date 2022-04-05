@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import {Button} from "antd";
 import CheckButton from "react-validation/build/button";
-import AuthService from "services/auth.service";
+import UserService from "services/user.service";
 import { required, is_email } from "services/validator";
-import axios from "axios";
-
-const API_URL = process.env.REACT_APP_API_URL;
-
 
 const VerifyEmailForm = () => {
 
+  var user = UserService.getCurrentUser();
+
   const history = useHistory();
-  const [loaded, setLoaded] = useState(false);
   const [_success, setSuccess] = useState('');
   const [_error, setError] = useState('');
 
@@ -22,10 +19,10 @@ const VerifyEmailForm = () => {
   const [submit, setSubmit] = useState(false);
 
   var form, checkBtn;
-  var user = AuthService.getCurrentUser();
 
+  
   useEffect(()=>{
-    setEmail(user.email);
+    if(user) setEmail(user.email);
   }, [])
 
   
@@ -40,7 +37,8 @@ const VerifyEmailForm = () => {
 
     setSubmit(true);
 
-    AuthService.sendLinkOfVerifyEmail(user.email, email)
+    let current_email = user ? user.email : email;
+    UserService.sendLinkOfVerifyEmail(current_email, email)
     .then(res => {
       setSubmit(false);
       switch(res.data.status_code){
@@ -61,6 +59,7 @@ const VerifyEmailForm = () => {
     })
   }
 
+
   return (
     <div>
       <section className="p-card">
@@ -75,11 +74,7 @@ const VerifyEmailForm = () => {
             ref={c => {
               form = c;
             }}
-            style = {{ 
-              textAlign:'left',
-              maxWidth: '450px',
-              margin: 'auto'
-            }}
+            className="max-w500 m-auto"
           >
             <div className="form-group">
               {_success &&
@@ -99,12 +94,12 @@ const VerifyEmailForm = () => {
               validations={[required, is_email]}
             />
 
-            <Button type="primary" 
+            <Button
               htmlType="submit" 
-              className="c-btn c-btn-regist signin"
+              className="c-btn c-btn-regist mt-4"
               block 
               loading={submit}>
-              {!submit && <span>仮登録メール再送信</span> }
+              <span>仮登録メール再送信</span>
             </Button>
 
             <CheckButton

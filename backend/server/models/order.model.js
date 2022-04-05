@@ -1,16 +1,16 @@
-import mongoose from 'mongoose'
+var mongoose = require('mongoose');
 
-const Order = mongoose.model(
-  "Order",
-  new mongoose.Schema({
-    coinId: String,
-    userId: String,
-    count: Number,
-    date: String,
-    confirmed: Boolean
-  }).set('toJSON', {
-    virtuals: true
-  })
-);
+var OrderSchema = new mongoose.Schema({
+  coin:  {type: mongoose.Schema.Types.ObjectId, ref: 'Coin'},
+  seller: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  buyer: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  count: Number,
+  orderStatus: String,       //Ready, Shipped
+  paymentType: String,       //Bank, CreditCard, Crypto
+  paymentStatus: String      //Pending, Expired, Paid
+}, {timestamps:{ createdAt: 'created_at', updatedAt: 'updated_at' }}
+).set('toJSON', {
+  virtuals: true
+});
 
-export default Order;
+module.exports =  mongoose.model('Order', OrderSchema)

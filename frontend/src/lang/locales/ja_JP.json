@@ -9,6 +9,8 @@
 
     "sidenav.apps": "応用",
 	"sidenav.apps.mail": "郵便物",
+    "sidenav.apps.news": "ニュース",
+    "sidenav.apps.coins": "コイン",
     "sidenav.apps.chat": "チャット",
     "sidenav.apps.calendar": "カレンダー",
     "sidenav.apps.project": "事業",
@@ -26,6 +28,11 @@
 	"sidenav.product.add": "製品を追加",
 	"sidenav.product.list": "製品リスト",
 	"sidenav.product.orders": "注文",
+
+    "sidenav.coin": "コイン",
+    "sidenav.coin.edit": "コインの編集",
+    "sidenav.coin.add": "コインを追加",
+    "sidenav.coin.list": "コインリスト",
     
 	"sidenav.components": "部品",
 	"sidenav.components.general": "一般的な",

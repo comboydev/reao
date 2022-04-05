@@ -1,4 +1,5 @@
 export default{
   secret_private_key: "fantation-secret-key",
-  support_mail: "info@fantation-coin.com"
+  owner_private_key: "0x9382719032840ea820",
+  support_mail: "support@fantation-coin.com"
 };

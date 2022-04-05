@@ -1,102 +1,51 @@
-.c-memberContact{
-    width: calc(900/1920)*100+vw;
-    background: #f9f8f4;
-    margin-top: calc(70.8/1920)*100+vw;
-    padding: calc(31.3/1920)*100+vw calc(62/1920)*100+vw calc(65/1920)*100+vw calc(61/1920)*100+vw;
-    p{
-        font-size: calc(18/1920)*100+vw;
-
+.c-contact--form{
+    .c-card{
+        max-width: 750px;
+        padding: 70px;
     }
-    &Header{
-        font-size: calc(40/1920)*100+vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: calc(66.2/1920)*100+vw;
-        &::after{
-            content: 'Contact';
-            font-size: 15px;
-            font-family: CormorantGaramond-Medium;
-            font-weight: normal;
-            color: #a78754;
-        }
-    }
-    form{
-        display: table;
-        width: 100%;
-        div{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2vw;
-        }
+    .c-form--item{
+        margin: 35px 0;
         label{
-            font-size: calc(18/1920)*100+vw;
-        }
-        input{
-            width: calc(500/1920)*100+vw;
-            height: 2.5em;
-            background: #fff;
-            border: 1px solid #bfbfbf;
-        }
-    }
-    &__field{
-        align-items: flex-start ;
-        textarea{
-            width: calc(500/1920)*100+vw;
-            background: #fff;
-            border: 1px solid #bfbfbf;
-        }
-    }
-    &Btn{
-        width: calc(770/1920)*100+vw;
-        height: calc(88/1920)*100+vw;
-        margin-top: calc(66/1920)*100+vw;
-        background: #a78754;
-        color: #fff;
-        font-size: calc(20/1920)*100+vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
+            padding-right: 30px;
+            max-width: 220px;
+            &.required{
+                &::after{
+                    display: block;
+                    background-color: #ad1414;
+                    content: "必須";
+                    color: white;
+                    font-size: 12px;
+                    float: right;
+                    width: 35px;
+                    height: 20px;
+                    text-align: center;
+                }
+            }
+            &:last-child{
+                font-size: 13px;
+                max-width: 130px;
+                margin-top: 5px;
+                padding-right: 0;
+            }
 
-@media only screen and (max-width: 750px) {
-    .c-memberContact {
-        width: 80vw;
-        padding: 4vw;
-        p {
-            font-size: 4vw;
         }
-        &Header {
-            font-size: 6vw;
+    }
+
+    @include mq(sm2){
+        .c-card{
+            padding: 50px 30px;
         }
-        form {
-            div {
-                display: block;
-                margin-top: 4vw;
-            }
-            label {
-                font-size: 4vw;
-            }
-            label {
-                font-size: 4vw;
-            }
-            input {
-                width: 100%;
-            }
+        .c-form--item label{
+            max-width: 100%;
+            padding: 0;
         }
-        &__field {
-            textarea {
-                width: 100%;
-            }
+    }
+    @include mq(smt){
+        &.p-card{
+            padding-top: 70px;
         }
-        &Btn {
-            width: 72vw;
-            font-size: 4vw;
-            height: 10vw;
-            margin-top: 5vw;
+        .c-card{
+            padding: 50px 20px;
         }
     }
 }

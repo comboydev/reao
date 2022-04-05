@@ -1,15 +1,12 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
+const PurchaseSchema = new mongoose.Schema({
+  from: { type: mongoose.Schema.ObjectId, ref: "User" },
+  to: { type: mongoose.Schema.ObjectId, ref: "User" },
+  created: {
+    type: Date,
+    default: Date.now
+  }
 
-const Purchase = mongoose.model(
-  "Purchase",
-  new mongoose.Schema({
-    coinId: String,
-    userId: String,
-    count: Number,
-    date: String,
-  }).set('toJSON', {
-    virtuals: true
-  })
-);
+});
 
-export default Purchase;
+export default mongoose.model("Purchase", PurchaseSchema);

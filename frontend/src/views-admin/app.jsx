@@ -6,6 +6,7 @@ import Views from './view';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import { THEME_CONFIG } from '../configs/AppConfig';
+import { ToastContainer } from "react-toastify";
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/css/dark-theme.css`,
@@ -24,6 +25,7 @@ function AdminApp() {
           </Router>
         </ThemeSwitcherProvider>
       </Provider>
+			<ToastContainer autoClose={4000}/>
     </div>
   );
 }

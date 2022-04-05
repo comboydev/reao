@@ -9,6 +9,8 @@
 
 	"sidenav.apps": "Apps",
 	"sidenav.apps.mail": "Mail",
+	"sidenav.apps.coins": "Coins",
+	"sidenav.apps.news": "News",
 	"sidenav.apps.chat": "Chat",
 	"sidenav.apps.calendar": "Calendar",
 	"sidenav.apps.project": "Project",
@@ -26,6 +28,11 @@
 	"sidenav.product.add": "Add Product",
 	"sidenav.product.list": "Product List",
 	"sidenav.product.orders": "Orders",
+
+	"sidenav.coin": "Coins",
+	"sidenav.coin.edit": "Edit Coin",
+	"sidenav.coin.add": "Add Coin",
+	"sidenav.coin.list": "Coin List",
 
 	"sidenav.components": "Components",
 	"sidenav.components.general": "General",

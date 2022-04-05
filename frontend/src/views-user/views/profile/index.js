@@ -1,505 +1,509 @@
-import React, { Component, useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import AuthService from "services/auth.service";
-import Dropzone from "react-dropzone";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import moment from "moment";
+import { Modal, Button, Image, message, Popconfirm } from "antd";
+import { ExclamationCircleOutlined, EditOutlined } from '@ant-design/icons';
+import { required, is_phoneNumber } from "services/validator";
+import Loading from "components/shared-components/Loading";
+import UploadImageModal from "views-user/components/uploadImageModal.component";
+import provinces from "./province.json";
+import UserService from "services/user.service";
+const { confirm } = Modal;
 
-const API_URL = process.env.REACT_APP_API_URL;
 
-export default class PersonalInfo extends Component {
-  constructor(props) {
-    super(props);
+const PersonalInfo = () => {
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeFurigana = this.onChangeFurigana.bind(this);
-    this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
-    //this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeBirthday = this.onChangeBirthday.bind(this);
-    this.onChangeLocationProvince = this.onChangeLocationProvince.bind(this);
-    this.onChangeLocationCity = this.onChangeLocationCity.bind(this);
-    this.onChangeExtra = this.onChangeExtra.bind(this);
-    this.submitPersonalInfo = this.submitPersonalInfo.bind(this);
-    //this.onDrop = this.onDrop.bind(this);
-    this.onDropID = this.onDropID.bind(this);
-    this.updateBorder = this.updateBorder.bind(this);
-    this.uploadImage = this.uploadImage.bind(this);
-    this.onQuit = this.onQuit.bind(this);
+  var form, checkBtn;
+  const currentUser =  UserService.getCurrentUser();
+  const history = useHistory();
 
-    this.state = { currentUser: null, userReady: true, };
-  }
-  async componentDidMount() {
-    let currentUser = AuthService.getCurrentUser();
-    
-    await axios.get(`${API_URL}/users/${currentUser.id}`)
-    .then(
-      response => {
-        console.log('then',response.data)
-        currentUser = response.data;
-        AuthService.setCurrentUser(currentUser);
-        
-        this.setState({
-          userReady: true,
-    
-          username: currentUser.username || "",
-          furigana: currentUser.furigana || "",
-          phoneNumber: currentUser.phoneNumber || "",
-          email: currentUser.email || "",
-          birthday: currentUser.birthday || "",
-          locationProvince: currentUser.locationProvince || "",
-          locationCity: currentUser.locationCity || "",
-          extra: currentUser.extra || "",
-          filePath: currentUser.filePath || "",
-          fileID: currentUser.fileID || "",
-          userConfirmed: currentUser.userConfirmed,
-    
-          file: null,
-          errorMsg: '',
-          isPreviewAvailable: false,
-        });
-      })
-  }
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value,
-    });
-  }
-  onChangeFurigana(e) {
-    this.setState({
-      furigana: e.target.value,
-    });
-  }
-  onChangePhoneNumber(e) {
-    this.setState({
-      phoneNumber: e.target.value,
-    });
-  }
-  // onChangeEmail(e) {
-  //   this.setState({
-  //     email: e.target.value,
-  //   });
-  // }
-  onChangeBirthday(e) {
-    this.setState({
-      birthday: e.target.value,
-    });
-  }
-  onChangeLocationProvince(e) {
-    this.setState({
-      locationProvince: e.target.value,
-    });
-  }
-  onChangeLocationCity(e) {
-    this.setState({
-      locationCity: e.target.value,
-    });
-  }
-  onChangeExtra(e) {
-    this.setState({
-      extra: e.target.value,
-    });
-  }
+  const [user, setUser] = useState();
 
-  submitPersonalInfo() {
-    const personalObject = {
-      username: this.state.username,
-      furigana: this.state.furigana,
-      phoneNumber: this.state.phoneNumber,
-      email: this.state.email,
-      birthday: this.state.birthday,
-      locationProvince: this.state.locationProvince,
-      locationCity: this.state.locationCity,
-      extra: this.state.extra,
-    };
-    AuthService.PersonalInfo(personalObject)
-      .then((res) => {
-        console.log('res', res)
-        this.setState({
-          successful: true,
-          message: "個人情報を登録しました。"
-        })
-      })
-      .catch(error => {
-        console.log('error', error)
-        this.setState({
-          successful: false,
-          message: "エラーが発生しました。"
-        })
-      })
+  const [nickname, setNickName] = useState('');
+  const [name, setName] = useState('');
+  const [furigana, setFurigana] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [locationProvince, setLocationProvince] = useState('');
+  const [locationCity, setLocationCity] = useState('');
+  const [extra, setExtra] = useState('');
 
-    this.setState({
-      successful: true,
-      message: "送信中です。"
+  const [enableButton, setEnableButton] = useState(false);
+  const [enbaleIDButton, setEnableIDButton] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const [submit_id, setSubmitID] = useState(false);
+  const [submit_avatar, setSubmitAvatar] = useState(false);
+  const [submit_warrant, setSubmitWarrant] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [showAvatarUploadModal, setShowAvatarUploadModal] = useState(false);
+  const [showWarrantUploadModal, setShowWarrantUploadModal] = useState(false);
+  
+  useEffect(()=>{
+    setLoaded(false);
+    UserService.getPersonalInfo(currentUser._id)
+    .then((res)=>{
+      setLoaded(true);
+      let new_user = res.data;
+      UserService.setCurrentUser(new_user);
+      setUser(new_user);
+      setNickName(new_user.nickname);
+      if(new_user && new_user.personalInfo){
+        setName(new_user.personalInfo.name);
+        setFurigana(new_user.personalInfo.furigana);
+        setPhoneNumber(new_user.personalInfo.phoneNumber);
+        setBirthday(moment(new_user.personalInfo.birthday).format("YYYY-MM-DD"));
+        setLocationProvince(new_user.personalInfo.locationProvince || '北海道');
+        setLocationCity(new_user.personalInfo.locationCity);
+        setExtra(new_user.personalInfo.extra);
+      }
     })
-    if (this.state.ID)
-      this.uploadID();
-  }
-  // onDrop = (files) => {
-  //   const [uploadedFile] = files;
-  //   this.setState({ file: uploadedFile });
+    .catch(err=>{
+      setLoaded(true);
+      message.error("エラーか発生しました。", ()=>{
+        history.push('/mypage');
+      });
+    })
+  },[])
 
-  //   const fileReader = new FileReader();
-  //   fileReader.onload = () => {
-  //     this.setState({ previewSrc: fileReader.result });
-  //   };
-  //   fileReader.readAsDataURL(uploadedFile);
-  //   this.setState({ isPreviewAvailable: uploadedFile.name.match(/\.(jpeg|jpg|png)$/) });
-  //   //this.state.dropRef.current.style.border = '2px dashed #e9ebeb';
-  // }
-  onDropID = (files) => {
-    const [uploadedFile] = files;
-    this.setState({ ID: uploadedFile });
+  useEffect(()=>{
+    setEnableButton(false);
+    let currentUser = UserService.getCurrentUser();
+    if(currentUser){
+      if(name === currentUser.personalInfo?.name
+        && furigana === currentUser.personalInfo?.furigana
+        && phoneNumber === currentUser.personalInfo?.phoneNumber
+        && birthday === moment(currentUser.personalInfo?.birthday).format("YYYY-MM-DD")
+        && locationProvince === currentUser.personalInfo?.locationProvince  
+        && locationCity === currentUser.personalInfo?.locationCity
+        && extra === currentUser.personalInfo?.extra
+      ) {
+        setEnableButton(false);
+      } else { 
+        setEnableButton(true) 
+      }
+    }
+  }, [name, furigana, phoneNumber, birthday, locationProvince, locationCity, extra])
 
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      //this.setState({ previewSrc: fileReader.result });
+
+  useEffect(()=>{
+    setEnableIDButton(false);
+    let currentUser = UserService.getCurrentUser();
+    if(currentUser){
+      if(nickname === currentUser.nickname){
+        setEnableIDButton(false);
+      } else {
+        setEnableIDButton(true);
+      }
+    }
+  }, [nickname])
+
+
+  const handleSubmit = () => {
+    const personalObject = {
+      id: user._id,
+      name: name,
+      furigana: furigana,
+      phoneNumber: phoneNumber,
+      birthday: birthday,
+      locationProvince: locationProvince,
+      locationCity: locationCity,
+      extra: extra,
     };
-    fileReader.readAsDataURL(uploadedFile);
-    // if (this.state.ID)
-    //   this.uploadID();
+
+    setSubmit(true);
+    UserService.updatePersonalInfo(personalObject)
+    .then((res) => {
+      setSubmit(false);
+      UserService.setCurrentUser(res.data);
+      setUser(res.data);
+      setEnableButton(false);
+      message.success("アップロードしました。");
+    })
+    .catch(error => {
+      setSubmit(false); 
+      message.error("失敗しました。");
+    })
   }
-  updateBorder = (dragState) => {
-    if (dragState === 'over') {
-      this.state.dropRef.current.style.border = '2px solid #000';
-    } else if (dragState === 'leave') {
-      this.state.dropRef.current.style.border = '2px dashed #e9ebeb';
+
+
+  const onChangeNickname = (e) => {
+    e.preventDefault();
+    let user = UserService.getCurrentUser();
+    let obj = {
+      id: user._id,
+      nickname: nickname
     }
-  };
-  uploadImage = async () => {
-
-    try {
-      //const { title, description } = state;
-      //if (title.trim() !== '' && description.trim() !== '') {
-      const file = this.state.file;
-      if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        // formData.append('title', title);
-        // formData.append('description', description);
-
-        this.setState({ errorMsg: '' });
-        await axios.post(`${API_URL}/upload`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
-          if (res.data.file_path) {
-            const personalObject = {
-              email: this.state.email,
-              filePath: res.data.file_path
-            };
-            AuthService.upload(personalObject, "image");
-          }
-        });
-        //props.history.push('/list');
-      } else {
-        this.setState({ errorMsg: 'Please select a file to add.' });
-      }
-      //} 
-      //else {
-      //  setErrorMsg('Please enter all the field values.');
-      //}
-    } catch (error) {
-      error.response && this.setState({ errorMsg: error.response.data });
-    }
-  };
-  uploadID = async () => {
-
-    try {
-      const file = this.state.ID;
-      if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        await axios.post(`${API_URL}/upload`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
-          if (res.data.file_path) {
-            const personalObject = {
-              email: this.state.email,
-              filePath: res.data.file_path
-            };
-            AuthService.upload(personalObject, "ID");
-            this.setState({
-              userConfirmed: 0
-            })
-          }
-        });
-      } else {
-        this.setState({ errorMsg: 'Please select a file to add.' });
-      }
-    } catch (error) {
-      error.response && this.setState({ errorMsg: error.response.data });
-    }
-  };
-  onQuit =  () => {
-    AuthService.quit(this.state.email)
-      .then((res) => {
-        console.log('res', res)
-        this.setState({
-          quitMessage: "",
-        })
-      })
-      .catch(error => {
-        console.log('error', error)
-        this.setState({
-          quitMessage: "エラーが発生しました。"
-        })
-      })
-    
-      this.setState({quitMessage: "処理中です。"});
+    setSubmitID(true);
+    UserService.updateNickname(obj)
+    .then(res => {
+      setSubmitID(false);
+      setEnableIDButton(false);
+      message.success("ニック名を変更しました。")
+      UserService.setCurrentUser(res.data);
+      setUser(res.data);
+    })
+    .catch(err => {
+      setSubmitID(false);
+      message.error("失敗しました。");
+    })
   }
-  render() {
 
-    return (
-      <div className="container">
-        {this.state.userReady ? (
-          <div>
-            <section className="p-memberInfo">
-              <div className="c-memberInfo--header">個人情報登録</div>
-              <div className="c-memberInfo">
-                <div className="c-memberInfo__profile">
-                  <div className="c-memberInfo__profile-header">
-                    コレクタープロフィール
-                  </div>
-                  <div className="c-memberInfo__profile-container">
-                    <Dropzone
-                      onDrop={this.onDropID}
-                      onDragEnter={() => this.updateBorder('over')}
-                      onDragLeave={() => this.updateBorder('leave')}
-                      accept={".jpg,.jpeg,.png,.gif,.pdf"}
-                    >
-                      {({ getRootProps, getInputProps }) => (
-                        <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
-                          <input {...getInputProps()} />
-                          {/* <p>Drag and drop a file OR click here to select a file</p> */}
-                          {/* <div className="c-memberInfo__profile-img"></div> */}
-                          {this.state.ID ? (
-                            <p>{this.state.ID.name}</p>
-                          ) : (
-                            this.state.fileID ? (
-                              // <div className="image-preview">
-                              //   <img className="preview-image" src={API_URL + '/' + this.state.filePath.replace('\\', '/')} alt="Preview" />
-                              // </div>
-                              <p>{this.state.fileID.substring(this.state.fileID.lastIndexOf('\\') + 1)}</p>
-                            ) : (
-                              <div className="c-memberInfo__profile-img"></div>
-                            )
-                          )}
-                          {/* {this.state.file && (
-                            <div>
-                              <strong>Selected file:</strong> {this.state.file.name}
-                            </div>
-                          )} */}
-                        </div>
-                      )}
-                    </Dropzone>
-                    <div>
-                      <div className="c-memberInfo__profile-name">
-                        {/* <p>user</p> */}
-                        {this.state.userConfirmed == 1 ? (
-                          <div style={{ background: "#46a711" }}>本人確認済</div>
-                        ) : (
-                          <div>本人確認未</div>
-                        )}
-                      </div>
-                      <div className="c-memberInfo__profile-text">
-                        <p>
-                          アップロード可能なサイズは「JPEG・JPG・GIF・PNG」
-                          ファイルのサイズは7MB以内です。
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+  const onChangeAvatar = (uri) => {
+    if(!uri){
+      message.warning("画像を選択する必要があります。");
+      return;
+    }
+    let user = UserService.getCurrentUser();
+    let obj = {
+      id: user._id,
+      avatar: uri
+    }
+    setSubmitAvatar(true);
+    UserService.updateUserAvatar(obj)
+    .then(res => {
+      setSubmitAvatar(false);
+      UserService.setCurrentUser(res.data);
+      setUser(res.data);
+      message.success("Avatarを変更しました。")
+      window.location.reload();
+    })
+    .catch(err => {
+      setSubmitAvatar(false);
+      message.error("失敗しました。");
+    })
+  }
+
+  const onChangeWarrant = (uri) => {
+    if(!uri){
+      message.warning("身分証を選択する必要があります。");
+      return;
+    }
+    let user = UserService.getCurrentUser();
+    let obj = {
+      id: user._id,
+      warrant: uri
+    }
+    setSubmitWarrant(true);
+    UserService.updateUserWarrant(obj)
+    .then(res => {
+      setSubmitWarrant(false);
+      UserService.setCurrentUser(res.data);
+      setUser(res.data);
+      message.success("身分証を登録しました。\n本人確認申請しました。")
+      setShowWarrantUploadModal(false);
+    })
+    .catch(err => {
+      setSubmitAvatar(false);
+      message.error("失敗しました。");
+    })
+  }
+
+
+  const showConfirm = (e) => {
+    e.preventDefault();
+
+    form.validateAll();
+    if (checkBtn.context._errors.length > 0)
+    return;
+
+    confirm({
+      title: 'Caution',
+      icon: <ExclamationCircleOutlined />,
+      content: "本人確認済みの場合本人確認が解除されることがあります。\n大丈夫ですか？",
+      onOk() {
+        handleSubmit();
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
+
+  const deleteUser = () => {
+    let user = UserService.getCurrentUser();
+    UserService.withdrawal(user._id)
+    .then(res => {
+      UserService.logout();
+      message.success("退会しました！", ()=>{
+        window.location.href="/"
+      });
+    })
+    .catch(err => {
+      message.error("失敗しました。");
+    })
+  }
+
+
+  if(!loaded || !user) return <Loading cover="page"/>
+  return (
+    <div className="c-memberInfo">
+      <section className="p-card">
+        <div className="c-header mb-4">
+          <h3 className="c-header--title">個人情報登録</h3>
+          <p className="c-header--subtitle">Personal Information Management</p>
+        </div>
+        <div className="c-card text-left">
+          <div className="c-memberInfo__profile">
+            <div className="c-memberInfo__profile-header">
+              コレクタープロフィール
+            </div>
+            <div className="c-memberInfo__profile-container my-4">
+              <div className="c-memberInfo__profile-avatar position-relative">
+                <img src={user.avatar} alt="avatar" className="border w-100 h-100"/>
+                <Button 
+                  type="primary" shape="circle" 
+                  icon={<EditOutlined />} 
+                  style={{ 
+                    position: 'absolute',
+                    bottom: 8,
+                    right: 8
+                  }}
+                  onClick = {()=> setShowAvatarUploadModal(true)}
+                  />
+                <UploadImageModal 
+                  title = {"Edit Avatar"}
+                  isModalVisible = {showAvatarUploadModal} 
+                  handleCancel = {()=>{
+                    setShowAvatarUploadModal(false);
+                  }}
+                  loading = {submit_avatar}
+                  handleOk = {onChangeAvatar}
+                />
+              </div>
+              <div>
+                <div className="c-memberInfo__profile-name">
+                  {
+                    user.identityVerified === -1 && <div className="tag bg-danger">本人確認未</div>
+                  }
+                  {
+                    user.identityVerified === 0 && <div className="tag bg-primary">申請中</div>
+                  }
+                  {
+                    user.identityVerified === 1 && <div className="tag bg-success">本人確認済</div>
+                  }
                 </div>
-                <div className="c-memberInfo__form">
-                  <form action="">
-                    <div>
-                      <label htmlFor="">お名前</label>
-                      <input
-                        type="text"
-                        value={this.state.username}
-                        onChange={this.onChangeUsername}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="">フリガナ</label>
-                      <input
-                        type="text"
-                        value={this.state.furigana}
-                        onChange={this.onChangeFurigana}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="">電話番号</label>
-                      <input
-                        type="text"
-                        value={this.state.phoneNumber}
-                        onChange={this.onChangePhoneNumber}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                    {/* <div>
-                      <label htmlFor="">メールアドレス</label>
-                      <input
-                        type="text"
-                        value={this.state.email}
-                        onChange={this.onChangeEmail}
-                        name=""
-                        id=""
-                      />
-                    </div> */}
-                    <div>
-                      <label htmlFor="">生年月日</label>
-                      <input
-                        type="text"
-                        value={this.state.birthday}
-                        onChange={this.onChangeBirthday}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="">都道府県</label>
-                      <input
-                        type="text"
-                        value={this.state.locationProvince}
-                        onChange={this.onChangeLocationProvince}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="">市区町村</label>
-                      <input
-                        type="text"
-                        value={this.state.locationCity}
-                        onChange={this.onChangeLocationCity}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="">それ以降の住所</label>
-                      <input
-                        type="text"
-                        value={this.state.extra}
-                        onChange={this.onChangeExtra}
-                        name=""
-                        id=""
-                      />
-                    </div>
-                  </form>
-                  {!this.state.successful && (
-                    <button onClick={()=>{this.submitPersonalInfo()}}>内容を送信する</button>
-                  )}
-                  {this.state.message && (
-                    <div className="form-group">
-                      <div
-                        className={
-                          this.state.successful
-                            ? "alert alert-success"
-                            : "alert alert-danger"
-                        }
-                        role="alert"
-                      >
-                        {this.state.message}
-                      </div>
-                    </div>
-                  )}
-                  <div className="c-memberInfo__form__status">
-                    <div className="c-memberInfo__form__status--pass">
-                      <div className="c-memberInfo__form__status--pass-header">
-                        パスワード
-                      </div>
-                      <div className="c-memberInfo__form__status--pass">
-                        <Link to="/profile/change-password">パスワードを変更</Link>
-                      </div>
-                    </div>
-                    <div className="c-memberInfo__form__status-user">
-                      <div className="c-memberInfo__form__status-user-header">
-                        会員ステータス
-                      </div>
-                      <div className="c-memberInfo__form__status-user-data">
-                        一般会員
-                      </div>
-                    </div>
-                  </div>
-                  {/* <div className="c-member-out">
-                    <a onClick={()=>this.onQuit()}>ユーザー退会</a>
-                    {this.state.quitMessage && (
-                      <div
-                        className={"alert alert-success"}
-                        role="alert"
-                      >
-                        確認しながらお待ちください。
-                      </div>
-                    )}
-                  </div> */}
+                <div className="c-memberInfo__profile-text">
+                  <p>
+                    アップロード可能なサイズは「JPEG・JPG・GIF・PNG」
+                    ファイルのサイズは7MB以内です。
+                  </p>
                 </div>
               </div>
-            </section>
-            <section className="p-memberAuth">
-              <div className="c-memberAuth--header">
-                <p>本人認証</p>
-              </div>
-              <div className="c-memberAuth">
-                { (this.state.userConfirmed != 0 && this.state.userConfirmed != 1) && (
-                  <div className="c-memberAuth__kyc">
-                    <p>
-                      オーナー権の売却には、本人認証が必要です。
-                      こちらから本人認証を完了させてください。
-                    </p>
-                    {/* <Dropzone
-                      onDrop={this.onDropID}
-                      accept={".pdf,.jpg,.jpeg,.png,.gif"}
-                    >
-                      {({ getRootProps, getInputProps }) => (
-                        <button {...getRootProps({ className: 'drop-zone-trans' })} ref={this.state.dropRef}>本人確認をする
-                          <input {...getInputProps()} />
-                        </button>
-                      )}
-                    </Dropzone> */}
-                    <button>
-                        本人確認をする
-                    </button>
-                  </div>
-                )}
-
-                {(this.state.userConfirmed === 0) && (
-                  <div className="form-group">
-                    <div
-                      className={"alert alert-success"}
-                      role="alert"
-                    >
-                      本人確認は審査中です。
-                    </div>
-                  </div>
-                )}
-                {(this.state.userConfirmed === 1) && (
-                  <div className="form-group">
-                    <div
-                      className={"alert alert-success"}
-                      role="alert"
-                    >
-                      本人認証済みです。
-                    </div>
-                  </div>
-                )}
-                {/* <div className="c-memberAuth__twoStep">
-                  <button>2段階認証を設定する</button>
-                </div> */}
-              </div>
-            </section>
+            </div>
           </div>
-        ) : null}
-      </div>
-    );
-  }
+          <div className="c-memberInfo__form">
+            <Form 
+              onSubmit={onChangeNickname}
+              >
+              <div className="c-form--item">
+                <label htmlFor="id">ニック名</label>
+                <Input
+                  type="text"
+                  id = "id"
+                  className="c-form--input"
+                  value={nickname || ''}
+                  onChange={(e)=>setNickName(e.target.value)}
+                />
+              </div>
+              <Button type="primary" 
+                htmlType="submit" 
+                className="c-btn c-btn--memberInfo mb-5"
+                disabled = {!enbaleIDButton}
+                loading={submit_id}>
+                <span>ニック名を変更</span>
+              </Button>
+            </Form>
+            <Form
+              onSubmit={showConfirm}
+              ref={c => {
+                form = c;
+              }}
+            >
+              <div className="c-form--item">
+                <label htmlFor="name">お名前</label>
+                <Input
+                  type="text"
+                  id="name"
+                  className="c-form--input"
+                  value={name || ''}
+                  onChange={(e)=>setName(e.target.value)}
+                  validations={[required]}
+                  placeholder = "例）鈴木　一郎"
+                />
+              </div>
+              <div className="c-form--item">
+                <label htmlFor="furigana">フリガナ</label>
+                <Input
+                  type="text"
+                  id="furigana"
+                  className="c-form--input"
+                  value={furigana || ''}
+                  onChange={(e)=>setFurigana(e.target.value)}
+                  validations={[required]}
+                  placeholder="例）スズキ　イチロウ"
+                />
+                <label className="pl-md-3 text-left">※全角カタカナ</label>
+              </div>
+              <div className="c-form--item">
+                <label htmlFor="phone">電話番号</label>
+                <Input
+                  type="text"
+                  id="phone"
+                  className="c-form--input"
+                  value={phoneNumber || ''}
+                  onChange={(e)=>setPhoneNumber(e.target.value)}
+                  validations={[required, is_phoneNumber]}
+                  placeholder = "例）0123456789"
+                />
+              </div>
+              <div className="c-form--item">
+                <label htmlFor="birthday">生年月日</label>
+                <Input
+                  type="date"
+                  id="birthday"
+                  className="c-form--input"
+                  value={birthday}
+                  onChange={(e)=>setBirthday(e.target.value)}
+                  validations={[required]}
+                />
+              </div>
+              <div className="c-form--item">
+                <label htmlFor="province">都道府県</label>
+                <select 
+                  id="province"
+                  className="c-form--input"
+                  onChange={e=>setLocationProvince(e.target.value)}
+                  value = {locationProvince}
+                >
+                  {
+                    provinces.map((item, index) => 
+                      <option key={index} value={item.name}>{item.name}</option>
+                    )
+                  }
+                </select>
+              </div>
+              <div className="c-form--item">
+                <label htmlFor="city">市区町村</label>
+                <Input
+                  id="city"
+                  type="text"
+                  className="c-form--input"
+                  value={locationCity || ''}
+                  onChange={(e)=>setLocationCity(e.target.value)}
+                  validations={[required]}
+                />
+              </div>
+              <div className="c-form--item">
+                <label htmlFor="extra">それ以降の住所</label>
+                <Input
+                  id="extra"
+                  type="text"
+                  className="c-form--input"
+                  value={extra || ''}
+                  onChange={(e)=>setExtra(e.target.value)}
+                  validations={[required]}
+                />
+              </div>
+              
+              <Button type="primary" 
+                htmlType="submit" 
+                className="c-btn c-btn--memberInfo my-5"
+                disabled = {!enableButton}
+                loading={submit}>
+                <span>内容を送信する</span>
+              </Button>
+
+              <CheckButton
+                style={{ display: "none" }}
+                ref={c => {
+                  checkBtn = c;
+                }}
+              />
+            </Form>
+            
+            <div className="c-memberInfo__status">
+              <div className="c-memberInfo__status--item">
+                <div className="c-memberInfo__status--item-header">
+                  パスワード
+                </div>
+                <div>
+                  <Link to="/profile/change-password" style={{ fontSize: 15, color: '#A78754' }}>パスワードを変更</Link>
+                </div>
+              </div>
+              <div className="c-memberInfo__status--item">
+                <div className="c-memberInfo__status--item-header">
+                  会員ステータス
+                </div>
+                <div>
+                  一般会員
+                </div>
+              </div>
+            </div>
+            <Popconfirm
+                title="本当に退会しますか？"
+                onConfirm={deleteUser}
+                okText="YES"
+                cancelText="NO"
+              > 
+              <p className="c-form--link text-left d-inline-block" style={{ cursor:'pointer' }}>ユーザー退会</p>
+            </Popconfirm>
+          </div>
+        </div>
+      </section>
+      
+      <section className="p-card">
+
+        <div className="c-header mb-4">
+          <h3 className="c-header--title">本人認証</h3>
+          <p className="c-header--subtitle">Identity Authentication</p>
+        </div>
+
+        <div className="c-card text-center">
+          <h2 className="line-height-2">
+            オーナー権の売却には、本人認証が必要です。<br className="pc-onlyt"/>
+            こちらから本人認証を完了させてください。
+          </h2>
+
+          <Button type="primary" 
+            className="c-btn c-btn--memberInfo mt-4"
+            style={{ maxWidth: 350 }}
+            disabled = { user.identityVerified === 1 }
+            onClick={()=>
+              setShowWarrantUploadModal(true)
+            } >
+            本人確認をする
+          </Button>
+
+          <UploadImageModal 
+            title = {"身分証明書登録"}
+            isModalVisible = {showWarrantUploadModal} 
+            handleCancel = {()=>{
+              setShowWarrantUploadModal(false);
+            }}
+            loading = {submit_warrant}
+            handleOk = {onChangeWarrant}
+          />
+        </div>
+
+        {/* <div className="c-card text-center mt-5">
+          <h1 className="c-memberInfo__profile-header">二段階認証</h1>
+          <h2 className="line-height-2 mt-4">
+            二段階認証が設定されていません。<br className="pc-onlyt"/> 
+            二段階認証はパスワードと電話番号でアカウントを保護します。
+          </h2>
+          <Button type="primary" 
+            className="c-btn c-btn--memberInfo mt-4"
+            style={{ maxWidth: 350 }}>
+            二段階認証を設定する
+          </Button>
+        </div> */}
+      </section>
+    </div>
+  );
 }
+
+
+export default PersonalInfo;

@@ -4,11 +4,15 @@ import coinCtrl from "../controllers/coin.controller";
 
 const router = express.Router();
 
-router.route("/coin").post(coinCtrl.create);
-router.route("/coin/:id").get(coinCtrl.getOne);
-router.route("/coin").get(coinCtrl.get);
-router.route("/coin/:id").put(coinCtrl.put);
-router.route("/coin/:id").delete(coinCtrl.delete);
+router.route("/api/admin/coins/create").post(coinCtrl.create)
+
+router.route("/api/admin/coins/get").get(coinCtrl.getAllCoins)
+router.route("/api/admin/coins/get/:id").get(coinCtrl.getCoinOne)
+router.route("/api/admin/coins/delete").post(coinCtrl.deleteCoins);
+
+router.route("/api/user/coins/get").get(coinCtrl.getAllCoins)
+router.route("/api/user/coins/get/:id").get(coinCtrl.getCoinOne)
+
 
 export default router;
 
