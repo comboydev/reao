@@ -116,9 +116,9 @@ class UserService{
       })
   }
 
-  async submitContact(contentObject) {
+  async submitContact(contactObj) {
     return await axios
-      .post(`${API_URL}/api/user/mails/create`, contentObject)
+      .post(`${API_URL}/api/user/mails/create`, contactObj)
   }
 
   // -----------  Coin Management ------------ //
@@ -130,6 +130,12 @@ class UserService{
   async getCoinOne(coinID){
     return await axios
     .get(`${API_URL}/api/user/coins/get/${coinID}`);
+  }
+
+  // -------------  Transaction --------------- //
+  async orderOwnership(orderObj){
+    return await axios
+    .post(`${API_URL}/api/user/purchase/order/create`, orderObj);
   }
 
 }

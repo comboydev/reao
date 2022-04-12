@@ -12,10 +12,10 @@ router.route("/api/admin/update/avatar").put(AdminCtrl.updateAvatar);
 router.route("/api/admin/update/bankInfo").put(BankCtrl.updateBankInfo);         //Bank Controller
 router.route("/api/admin/get/bankInfo/:userID").get(BankCtrl.getBankInfo);
 
-router.route("/api/admin/users/get").get(AdminCtrl.getAllUsers);
-router.route("/api/admin/users/get/:id").get(AdminCtrl.getUserOne);
-router.route("/api/admin/users/set/confirmed/identity/:id").put(AdminCtrl.setConfirmedIdentity);
-router.route("/api/admin/users/set/disable/:id").put(AdminCtrl.setDisableAccount);
-router.route("/api/admin/users/delete/:id").delete(AdminCtrl.deleteUser);
+router.route("/api/admin/users/all/get").get(AdminCtrl.getAllUsers);
+router.route("/api/admin/users/:id/get").get(AdminCtrl.getUserOne);
+router.route("/api/admin/users/:id/set/confirmed/identity").put(AdminCtrl.setConfirmedIdentity);
+router.route("/api/admin/users/:id/set/disable").put(AdminCtrl.setDisableAccount);
+router.route("/api/admin/users/:id/delete").delete(AdminCtrl.deleteUser);
 
 export default router;

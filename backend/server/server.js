@@ -12,6 +12,7 @@ import adminRoute from "./routes/admin.routes";
 import authRoute from "./routes/auth.routes";
 import userRoute from "./routes/user.routes";
 import coinRoute from "./routes/coin.routes";
+import purchaseRoute from "./routes/purchase.routes";
 import contactRoute from "./routes/contact.routes";
 
 
@@ -42,6 +43,7 @@ app.use(adminRoute);
 app.use(authRoute);
 app.use(userRoute);
 app.use(coinRoute);
+app.use(purchaseRoute);
 app.use(contactRoute);
 
 // app.use(newsRoute);

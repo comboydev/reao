@@ -13,7 +13,7 @@ class AdminService {
       return null
     }
   }
-
+  
   setCurrentAdmin(data) {
     let old = this.getCurrentAdmin();
     if(data.password) delete data.password;
@@ -61,27 +61,27 @@ class AdminService {
   //User ManageMent
   async adminGetUsers() {
     return await axios
-    .get(`${API_URL}/api/admin/users/get`);
+    .get(`${API_URL}/api/admin/users/all/get`);
   }
 
   async adminGetUserOne(userID){
     return await axios
-    .get(`${API_URL}/api/admin/users/get/${userID}`);
+    .get(`${API_URL}/api/admin/users/${userID}/get`);
   }
 
   async adminConfirmIdentity(userID){
     return await axios
-    .put(`${API_URL}/api/admin/users/set/confirmed/identity/${userID}`);
+    .put(`${API_URL}/api/admin/users/${userID}/set/confirmed/identity`);
   }
 
   async adminDisableAccount(userID){
     return await axios
-    .put(`${API_URL}/api/admin/users/set/disable/${userID}`);
+    .put(`${API_URL}/api/admin/users/${userID}/set/disable`);
   }
 
   async adminDeleteUser(userID){
     return await axios
-    .delete(`${API_URL}/api/admin/users/delete/${userID}`);
+    .delete(`${API_URL}/api/admin/users/${userID}/delete`);
   }
 
   //Mail Management.
@@ -147,7 +147,11 @@ class AdminService {
     .post(`${API_URL}/api/admin/coins/delete`, { ids: coinIDs });
   }
 
- 
+  // Order
+  async adminGetAllOrders(){
+    return await axios
+    .get(`${API_URL}/api/admin/orders/get`);
+  }
 }
 
 export default new AdminService();

@@ -57,7 +57,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 				message: 'この項目は必須です!',
 			}
 		],
-		minNumber: [
+		minCount: [
 			{
 				required: true,
 				message: 'この項目は必須です!'
@@ -144,6 +144,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 								min={100}
 								step={100}
 								addonBefore="枚"
+								formatter={value => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 							/>
 						</Form.Item>
 					</Col>
@@ -161,7 +162,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 					</Col>
 
 					{/* <Col xs={24} sm={24} md={12}>
-						<Form.Item name="minNumberOfCoins" label="最低購入可能口数（枚）" rules={rules.minNumberOfCoins}>
+						<Form.Item name="minCount" label="最低購入可能口数（枚）" rules={rules.minCount}>
 							<InputNumber placeholder='Minimum number of coins' 
 								className='w-100'
 								min={1}

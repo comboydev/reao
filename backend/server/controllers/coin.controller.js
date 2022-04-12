@@ -1,6 +1,7 @@
 import db from "../models";
 import { _SELL_STATUS } from "../config/constant";
 const Coin = db.coin;
+const Ownership = db.ownership;
 
 
 const create = async (req, res) => {
@@ -13,27 +14,29 @@ const create = async (req, res) => {
   let refImages = [...paths];
   let mainImage = refImages.shift();
   
-  let arr = [];
-  let sellStatus;
-  if(role === 'admin') sellStatus = _SELL_STATUS.available;
-  else sellStatus = _SELL_STATUS.default;
-  arr.push({ 
-    ownerID: ownerID, 
-    wallet: wallet, 
-    count: coinData.totalCount, 
-    cost: coinData.cost, 
-    sellStatus: sellStatus  
-  });
+  
   new Coin({
     ...coinData,
     mainImage: mainImage,
     refImages: refImages,
-    owners: arr,
   })
-  .save().then(data => {
+  .save().then(async coin =>{
+    let sellStatus;
+    if(role === 'admin') sellStatus = _SELL_STATUS.available;
+    else sellStatus = _SELL_STATUS.default;
+    let ownership = { 
+      coin: coin._id,
+      owner: ownerID, 
+      wallet: wallet, 
+      count: coinData.totalCount, 
+      cost: coinData.cost, 
+      sellStatus: sellStatus  
+    };
+    await new Ownership(ownership).save();
+
     res.send({
       message: "コインが正常に登録されました!",
-      coin: data
+      coin: coin
     });
   }).catch(err => {
     res.status(500).send({
@@ -43,24 +46,24 @@ const create = async (req, res) => {
 };
 
 
-const getAllCoins = (req, res) => {
-  Coin
+const getAllCoins = async (req, res) => {
+  let data = await Coin
     .find()
-    .sort( { created_at: -1 } )
-    .then(data => {
-        return res.status(200).json(data);
-    })
-    .catch(err => {
-      return res.status(500).send({ message: 'error'});
-    })
+    .sort( { created_at: -1 } );
+  return res.json(data);
 }
 
 
 const getCoinOne = (req, res) => {
   Coin
   .findOne({ _id: req.params.id })
-  .then(data => {
-      return res.json(data)
+  .then(async coin => {
+      await Ownership
+        .find({ coin: req.params.id })
+        .then(owners => {
+          coin = {...coin._doc, owners: owners };
+          return res.json(coin)
+        })
   })
   .catch(err => {
     return res.status(500).send(err);
@@ -71,16 +74,11 @@ const getCoinOne = (req, res) => {
 const deleteCoins = (req, res) => {
   let { ids } = req.body;
   Coin.find({ _id: ids })
-  .then(coins => {
+  .then(async () => {
     //Delete records in Database
-    Coin.deleteMany({ _id: ids })
-    .then(data => {
-      return res.send(data);
-    })
-    .catch(err => {
-      console.log(err);
-      return res.status(500).send(err);
-    })
+    await Coin.deleteMany({ _id: ids });
+    await Ownership.deleteMany({ coin: ids });
+    return res.send({status_code: 200});
   })
   .catch(err => {
       return res.status(500).send(err);
