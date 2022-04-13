@@ -1,56 +1,49 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react'
-import { Card, Table, Select, Input, Button, Badge, Menu, Tag } from 'antd';
-import OrderListData from "assets/data/order-list.data.json"
-import { EyeOutlined, FileExcelOutlined, SearchOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import React, {useState, useEffect} from 'react'
+import { Card, Table, Select, Input, Button, Badge, Menu, Tag, message } from 'antd';
+import { EyeOutlined, FileExcelOutlined, SearchOutlined, PlusCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
 import NumberFormat from 'react-number-format';
 import moment from 'moment'; 
-import { DATE_FORMAT_DD_MM_YYYY } from 'constants/DateConstant'
 import utils from 'utils'
+import AdminService from 'services/admin.service';
+import { _PAYMENT_STATUS, _ORDER_STATUS } from 'constants/AppConstant'; 
 
 const { Option } = Select
 
-const getPaymentStatus = status => {
-	if(status === 'Paid') {
-		return 'success'
-	}
-	if(status === 'Pending') {
-		return 'warning'
-	}
-	if(status === 'Expired') {
-		return 'error'
-	}
-	return ''
-}
-
-const getShippingStatus = status => {
-	if(status === 'Ready') {
-		return 'blue'
-	}
-	if(status === 'Shipped') {
-		return 'cyan'
-	}
-	return ''
-}
-
-const paymentStatusList = ['Paid', 'Pending', 'Expired']
 
 const Orders = () => {
 
-	const [list, setList] = useState(OrderListData)
+	const [loaded, setLoaded] = useState(false);
+	const [list, setList] = useState([]);
+	const [_rawData, setRawData] = useState([]);
 	const [selectedRows, setSelectedRows] = useState([])
 	const [selectedRowKeys, setSelectedRowKeys] = useState([])
+
+
+	useEffect(()=>{
+		AdminService.adminGetAllOrders()
+		.then(res => {
+			setLoaded(true);
+			setList(res.data);
+			setRawData(res.data);
+			console.log(res.data);
+		})
+		.catch(err => {
+			console.log(err);
+			message.error("失敗しました。");
+		})
+	}, []);
 
 	const handleShowStatus = value => {
 		if(value !== 'All') {
 			const key = 'paymentStatus'
-			const data = utils.filterArray(OrderListData, key, value)
+			const data = utils.filterArray(_rawData, key, value)
 			setList(data)
 		} else {
-			setList(OrderListData)
+			setList(_rawData)
 		}
 	}
 
@@ -59,13 +52,13 @@ const Orders = () => {
 			<Menu.Item>
 				<Flex alignItems="center">
 					<EyeOutlined />
-					<span className="ml-2">View Details</span>
+					<span className="ml-2">View</span>
 				</Flex>
 			</Menu.Item>
 			<Menu.Item>
 				<Flex alignItems="center">
-					<PlusCircleOutlined />
-					<span className="ml-2">Add to remark</span>
+					<DeleteOutlined />
+					<span className="ml-2">{selectedRows.length > 0 ? `Delete (${selectedRows.length})` : 'Delete'}</span>
 				</Flex>
 			</Menu.Item>
 		</Menu>
@@ -73,57 +66,74 @@ const Orders = () => {
 
 	const tableColumns = [
 		{
-			title: 'ID',
-			dataIndex: 'id'
-		},
-		{
-			title: 'Product',
+			title: 'コイン',
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus size={30} src={record.image} name={record.name}/>
+					<AvatarStatus size={30} src={record.coin.mainImage} name={record.coin.name.slice(0, 10) + '...'}/>
 				</div>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'name')
+			sorter: {
+				compare: (a, b) => {
+					a = a.coin.name.toLowerCase();
+					  b = b.coin.name.toLowerCase();
+					return a > b ? -1 : b > a ? 1 : 0;
+				},
+			},
 		},
 		{
-			title: 'Date',
-			dataIndex: 'date',
-			render: (_, record) => (
-				<span>{moment.unix(record.date).format(DATE_FORMAT_DD_MM_YYYY)}</span>
+			title: '注文日',
+			dataIndex: 'created_at',
+			render: created_at => (
+				<span>{moment(created_at).format("YYYY-MM-DD")}</span>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'date')
+			sorter: (a, b) => utils.antdTableSorter(a, b, 'created_at')
 		},
 		{
-			title: 'Order status',
-			dataIndex: 'orderStatus',
-			render: (_, record) => (
-				<><Tag color={getShippingStatus(record.orderStatus)}>{record.orderStatus}</Tag></>
-			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'orderStatus')
-		},
-		{
-			title: 'Payment status',
-			dataIndex: 'paymentStatus',
-			render: (_, record) => (
-				<><Badge status={getPaymentStatus(record.paymentStatus)} /><span>{record.paymentStatus}</span></>
-			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'paymentStatus')
-		},
-		{
-			title: 'Total',
-			dataIndex: 'amount',
+			title: 'オーナー券価格',
+			dataIndex: 'cost',
 			render: (_, record) => (
 				<span className="font-weight-semibold">
 					<NumberFormat
 						displayType={'text'} 
-						value={(Math.round(record.amount * 100) / 100).toFixed(2)} 
-						prefix={'$'} 
+						value={record.ownership.cost} 
+						prefix={'￥'} 
 						thousandSeparator={true} 
 					/>
 				</span>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'amount')
+			sorter: (a, b) => a.ownership.cost - b.ownership.cost
+		},
+		{
+			title: '注文枚数',
+			dataIndex: 'orderCount',
+			render: (_, record) => (
+				<span className="font-weight-semibold">
+					<NumberFormat
+						displayType={'text'} 
+						value={record.orderCount} 
+						suffix={' 枚'} 
+						thousandSeparator={true} 
+					/>
+				</span>
+			),
+			sorter: (a, b) => utils.antdTableSorter(a, b, 'orderCount')
+		},
+		{
+			title: 'Order Status',
+			dataIndex: 'orderStatus',
+			render: orderStatus => (
+				<><Tag color={_ORDER_STATUS[orderStatus].color}>{_ORDER_STATUS[orderStatus].value}</Tag></>
+			),
+			sorter: (a, b) => utils.antdTableSorter(a, b, 'orderStatus')
+		},
+		{
+			title: 'Payment Status',
+			dataIndex: 'paymentStatus',
+			render: paymentStatus => (
+				<><Badge status={_PAYMENT_STATUS[paymentStatus].color} /><span>{_PAYMENT_STATUS[paymentStatus].value}</span></>
+			),
+			sorter: (a, b) => utils.antdTableSorter(a, b, 'paymentStatus')
 		},
 		{
 			title: '',
@@ -145,12 +155,16 @@ const Orders = () => {
 
 	const onSearch = e => {
 		const value = e.currentTarget.value
-		const searchArray = e.currentTarget.value? list : OrderListData
-		const data = utils.wildCardSearch(searchArray, value)
+		const searchArray = _rawData
+		const data = searchArray.filter(item => {
+			if(item.coin.name.toUpperCase().indexOf(value.toString().toUpperCase()) !== -1)
+				return true;
+			return false;
+		});
 		setList(data)
-		setSelectedRowKeys([])
 	}
 
+	if(!loaded) return null;
 	return (
 		<Card>
 			<Flex alignItems="center" justifyContent="between" mobileFlex={false}>
@@ -166,20 +180,17 @@ const Orders = () => {
 							onChange={handleShowStatus} 
 							placeholder="Status"
 						>
-							<Option value="All">All payment </Option>
-							{paymentStatusList.map(elm => <Option key={elm} value={elm}>{elm}</Option>)}
+							<Option value="All">All</Option>
+							{_PAYMENT_STATUS.map((elm, key) => <Option key={key} value={key}>{elm.value}</Option>)}
 						</Select>
 					</div>
 				</Flex>
-				<div>
-					<Button type="primary" icon={<FileExcelOutlined />} block>Export All</Button>
-				</div>
 			</Flex>
 			<div className="table-responsive">
 				<Table 
 					columns={tableColumns} 
 					dataSource={list} 
-					rowKey='id' 
+					rowKey='_id' 
 					rowSelection={{
 						selectedRowKeys: selectedRowKeys,
 						type: 'checkbox',

@@ -21,8 +21,8 @@ const dashBoardNavTree = [{
   submenu: [
     {
       key: 'dashboards-sales',
-      path: `${APP_PREFIX_PATH}/sales`,
-      title: 'sidenav.dashboard.sales',
+      path: `${APP_PREFIX_PATH}/analytic`,
+      title: 'sidenav.dashboard.analytic',
       icon: FundOutlined,
       breadcrumb: true,
       submenu: []

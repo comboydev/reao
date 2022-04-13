@@ -78,8 +78,15 @@ const  DetailCoin = (props) => {
         {
 			title: '保有枚数',
 			dataIndex: 'count',
-			render: (_, record) => (
-				<span>{ record.count } 枚</span>
+			render: count => (
+				<div>
+					<NumberFormat
+						displayType={'text'} 
+						value={count} 
+						suffix={' 枚'} 
+						thousandSeparator={true} 
+					/>
+				</div>
 			),
 			sorter: {
 				compare: (a, b) => {

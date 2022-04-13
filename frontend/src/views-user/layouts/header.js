@@ -172,7 +172,7 @@ const Header = () => {
                     </li>
                     <li className="c-menuitem--global c-menuitem--global--service">
                       <Dropdown overlay={AboutMenu}>
-                        <a className="ant-dropdown-link" href>
+                        <a className="ant-dropdown-link">
                           本サービスについて
                         </a>
                       </Dropdown>

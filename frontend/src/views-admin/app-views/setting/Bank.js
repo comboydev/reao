@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Form, Button, Input, Row, Col, message } from 'antd';
 import AdminService from 'services/admin.service';
@@ -11,7 +11,7 @@ const Bank = () => {
 	const [submit, setSubmit] = useState(false);
 	const [bank_info, setBankInfo] = useState({});
 	const [loaded, setLoaded] = useState(false);
-	const editBankInfoFromRef = React.createRef();
+	const [form] = Form.useForm();
 
 
 	useEffect(()=>{
@@ -61,7 +61,7 @@ const Bank = () => {
 					<Form
 						name="changePasswordForm"
 						layout="vertical"
-						ref={editBankInfoFromRef}
+						form={form}
 						onFinish={onFinish}
 						initialValues={
 							{ 

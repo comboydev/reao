@@ -28,3 +28,8 @@
 .ant-image-preview-img{
   display: initial;
 }
+
+img, svg { 
+  display: initial;
+  vertical-align: initial;
+}

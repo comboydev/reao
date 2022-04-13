@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom"
-import { Row, Col, Card, Image, message, Table, Tooltip, Tag, Button } from 'antd';
+import { Row, Col, Card, message, Table, Tooltip, Button } from 'antd';
 import NumberFormat from 'react-number-format';
 import moment from "moment";
 import utils from 'utils'
@@ -11,11 +11,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Loading from "components/shared-components/Loading";
 import UserService from 'services/user.service';
-import ContactSection from "../../components/contact.component";
+import ContactSection from "views-user/components/contact.component";
+import CoinInfo from 'views-user/components/coin-info.component';
 
-const DetailCoin = (props) => {
+const CoinDetail = (props) => {
 
-    const avatarSize = 250;
 	const history = useHistory();
 	const [coin, setCoin] = useState();
 
@@ -69,8 +69,15 @@ const DetailCoin = (props) => {
         {
 			title: '保有枚数',
 			dataIndex: 'count',
-			render: (_, record) => (
-				<span>{ record.count } 枚</span>
+			render: count => (
+				<div>
+					<NumberFormat
+						displayType={'text'} 
+						value={count} 
+						suffix={' 枚'} 
+						thousandSeparator={true} 
+					/>
+				</div>
 			),
 			sorter: {
 				compare: (a, b) => {
@@ -110,10 +117,10 @@ const DetailCoin = (props) => {
                                         refPrice: coin.refPrice,
                                         taxRate: coin.taxRate,
                                         totalCount: coin.totalCount,
-                                        owner: record
+                                        ownership: record
                                     }
                                     history.push({
-                                        pathname:`/coins/purchase/${props.match.params.id}`, 
+                                        pathname:`/coins/purchase/order/${props.match.params.id}`, 
                                         state: { ...obj }
                                     }); 
                                 }}>
@@ -122,18 +129,7 @@ const DetailCoin = (props) => {
                 else return null;
             },
             sorter: (a, b) => (a.sellStatus - b.sellStatus)
-		},
-		// {
-		// 	title: '',
-		// 	dataIndex: 'actions',
-		// 	render: (_, elm) => (
-		// 		<div className="text-right d-flex justify-content-end">
-		// 			<Tooltip title="購入する">
-		// 				<Button type="primary" className="mr-2 w-100" icon={<ShoppingCartOutlined />} />
-		// 			</Tooltip>
-		// 		</div>
-		// 	)
-		// }
+		}
 	];
 
     const copyWalletAddress = (address) =>{
@@ -158,52 +154,9 @@ const DetailCoin = (props) => {
                         <div className="l-ttl">販売中</div>
                         <div className="r-ttl">{ coin.name }</div>
                     </div>
-                    <Row gutter={16} className="mt-4 mb-2">
-                        <Col xs={24} md={10} className="mx-auto mb-3">
-                            <Card className="rounded mx-auto text-center" style={{ background: "linear-gradient(135deg,  #fff 40%, rgba(214, 196, 167, 0.2) 100%)" }}>
-                                <Image shape="circle" src={ coin.mainImage } style={{maxWidth: '100%', width: avatarSize}}/>
-                            </Card>
-                        </Col>
-                        <Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
-                            <div className="d-flex border-top border-bottom py-3 ">
-                                <span style={{ width: 180 }}>コイン名</span>
-                                <span className="text-primary font-weight-bold" style={{ fontSize: 18 }}>{coin.name}</span>
-                            </div>
-                            <div className="d-flex border-bottom py-3 ">
-                                <span style={{ width: 180 }}>グレード</span>
-                                <span>{coin.grade}</span>
-                            </div>
-                            <div className="d-flex border-bottom py-3 ">
-                                <span style={{ width: 180 }}>発行枚数</span>
-                                <span>
-                                    <NumberFormat
-                                        displayType={'text'} 
-                                        value={`${coin.totalCount}`} 
-                                        thousandSeparator={true} />
-                                    　枚
-                                </span>
-                            </div>
-                            <div className="d-flex border-bottom py-3 ">
-                                <span style={{ width: 180 }}>参考取引価格</span>
-                                <span>
-                                    <NumberFormat
-                                        displayType={'text'} 
-                                        value={coin.refPrice} 
-                                        prefix={'￥'} 
-                                        thousandSeparator={true} />
-                                    ～
-                                </span>
-                            </div>
-                            <h3 className='pt-3 text-center mb-4'>オーナー権価格:
-                                <span style={{ fontSize: 40, marginLeft: 20 }} className="d-block d-md-inline text-bold">	
-                                    <NumberFormat
-                                        displayType={'text'} 
-                                        value={coin.cost} 
-                                        thousandSeparator={true} />円
-                                </span>
-                            </h3>
-                        </Col>
-                    </Row>
+                    
+                    <CoinInfo coin={coin}/>
+
                     <Card className='py-3 mt-md-0 pre-wrap' style={{ fontSize: 16, textAlign: 'justify' }}>
                         <h2 className="c-title mb-4">コインについて</h2>
                         <p>{ coin.coinDescription }</p>
@@ -262,4 +215,4 @@ const DetailCoin = (props) => {
 }
 
 
-export default DetailCoin;
+export default CoinDetail;

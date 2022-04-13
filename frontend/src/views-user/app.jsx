@@ -97,8 +97,8 @@ const  UserApp = () => {
                     <Route exact path="/profile/change-password" component={lazy(() => import(`./views/profile/change-password`))} />
                     
                     <Route exact path="/coins" component={lazy(() => import(`./views/coin`))} />
-                    <Route exact path="/coins/detail/:id" component = {lazy(() => import(`./views/coin/detail`))} />
-                    <Route exact path="/coins/purchase/:id" component = {lazy(() => import(`./views/coin/purchase`))} />
+                    <Route exact path="/coins/detail/:id" component = {lazy(() => import(`./views/coin/detail/index`))} />
+                    <Route exact path="/coins/purchase/order/:id" component = {lazy(() => import(`./views/coin/purchase/order`))} />
                     <Route exact path="/coins/owned">
                       <Redirect to="/preparation" />
                     </Route>
