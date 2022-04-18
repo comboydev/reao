@@ -534,7 +534,7 @@ const Home = () => {
                     </a>
                 </div>
                 <div className="r-content">
-                    <img src="/img/home/apply.png" alt="apply"/>
+                    <img src="/img/home/lion.png" alt="lion"/>
                 </div>
             </div>
         </section>

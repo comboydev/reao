@@ -15,7 +15,6 @@
     .l-content{
         max-width: 450px;
         width: 50%;
-        padding-top: 20px;
         padding-right: 50px;
         &--header{
             font-size: 20px;
@@ -54,8 +53,11 @@
     .r-content{
         max-width: 400px;
         width: 50%;
+        text-align: center;
         img{
             width: 100%;
+            max-width: 350px;
+            margin-bottom: 50px;
         }
     }
 
