@@ -520,13 +520,14 @@ const Home = () => {
                 </p>
             </button>
         </section>
-        {/* <section className="p-apply" id="p-apply">
+        <section className="p-apply" id="p-apply">
             <div className="c-apply">
                 <div className="l-content">
-                    <h2 className="l-content--header">お持ちのアート作品を<br/>無料査定・買取させていただきます。</h2>
+                    <h2 className="l-content--header">お持ちのアンティークコインを<br/>無料査定・買取させていただきます。</h2>
                     <p className="l-content--txt">
-                        FANTATIONでは、作品を100%買い取らせていただいたり、オーナー権を一部保有しながら多くのオーナー様と作品をシェアしていただくなど、お客様のご要望に合わせたご提案が可能です。
-                        まずはお気軽にお問い合わせください。
+                        FANTATIONではコインの買取も行っております。<br/>
+                        1,000万円を越える高額アンティークコインの買取も可能です。
+                        コインの査定は無料です。<br/>お手持ちのコインの売却を検討されていらっしゃる方はまずは下記より売却相談をください
                     </p>
                     <a href="/">
                         <p className="c-linkbox">お申し込みへ</p>
@@ -536,7 +537,7 @@ const Home = () => {
                     <img src="/img/home/apply.png" alt="apply"/>
                 </div>
             </div>
-        </section> */}
+        </section>
       </div>
     );
 }
