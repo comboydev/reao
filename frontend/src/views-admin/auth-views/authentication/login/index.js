@@ -24,7 +24,7 @@ const Login = props => {
 								</div>
 								<Row justify="center">
 									<Col xs={24} sm={24} md={20} lg={20}>
-										<LoginForm {...props} />
+										<LoginForm allowRedirect={true} />
 									</Col>
 								</Row>
 							</div>

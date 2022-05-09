@@ -152,10 +152,10 @@ const  Profile = (props) => {
 								color={ !userData.emailVerified ? 'volcano' : 'cyan'}>
 								{ !userData.emailVerified ? 'メール認証未' : 'メール認証済み'}
 						</Tag>
-						<Tag className ="text-capitalize" 
+						{/* <Tag className ="text-capitalize" 
 								color={ !userData.actived ? 'volcano' : 'cyan'}>
 								{ !userData.actived ? 'Blocked' : 'Active'}
-						</Tag>
+						</Tag> */}
 						<Card title='個人情報' className='py-3 mt-3'>
 							<Row> 
 								<Col xs={8}>
@@ -242,7 +242,7 @@ const  Profile = (props) => {
 							}}>
 								メッセージを送信
 							</Button>
-							<Popconfirm
+							{/* <Popconfirm
 								title="本当に停止しますか？"
 								onConfirm={handleDisableAccount}
 								okText="YES"
@@ -255,7 +255,7 @@ const  Profile = (props) => {
 								>
 									アカウントを停止する
 								</Button>
-							</Popconfirm>
+							</Popconfirm> */}
 						</Card>
 					</Col>
 				</Row>

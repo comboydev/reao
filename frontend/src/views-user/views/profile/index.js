@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { Steps } from 'antd';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -12,6 +13,7 @@ import UploadImageModal from "views-user/components/uploadImageModal.component";
 import provinces from "./province.json";
 import UserService from "services/user.service";
 const { confirm } = Modal;
+const { Step } = Steps;
 
 
 const PersonalInfo = () => {
@@ -245,6 +247,13 @@ const PersonalInfo = () => {
           <h3 className="c-header--title">個人情報登録</h3>
           <p className="c-header--subtitle">Personal Information Management</p>
         </div>
+        <div className="my-20 max-w750 mx-auto">
+          <Steps  current={user.identityVerified < 1 ? user.identityVerified + 1 : 3}>
+            <Step title="Application" description="本人確認書類提出" />
+            <Step title="Waiting" description="申請中" />
+            <Step title="Complete" description="本人確認完了" />
+          </Steps>
+        </div>
         <div className="c-card text-left">
           <div className="c-memberInfo__profile">
             <div className="c-memberInfo__profile-header">
@@ -282,7 +291,7 @@ const PersonalInfo = () => {
                     user.identityVerified === 0 && <div className="tag bg-primary">申請中</div>
                   }
                   {
-                    user.identityVerified === 1 && <div className="tag bg-success">本人確認済</div>
+                    user.identityVerified === 1 && <div className="tag bg-success">本人確認完了</div>
                   }
                 </div>
                 <div className="c-memberInfo__profile-text">

@@ -37,8 +37,8 @@ const userStatusList = [
 	{ key: 'identityVerified',   label: '本人確認済み', value: 1 },
 	{ key: 'emailVerified',label: 'メール認証未', value: false },
 	{ key: 'emailVerified',label: 'メール認証済み', value: true },
-	{ key: 'actived',         label: 'Actived', value: 1 },
-	{ key: 'actived',         label: 'Blocked', value: 0 },
+	// { key: 'actived',         label: 'Actived', value: 1 },
+	// { key: 'actived',         label: 'Blocked', value: 0 },
 ]
 
 
@@ -138,19 +138,19 @@ export const UserList = () => {
 				compare: (a, b) => a.emailVerified - b.emailVerified,
 			},
 		},
-		{
-			title: 'Status',
-			dataIndex: 'actived',
-			render: actived => (
-				<Tag className ="text-capitalize" 
-					color={ !actived ? 'volcano' : 'cyan'}>
-						{ !actived ? 'Blocked' : 'Active'}
-				</Tag>
-			),
-			sorter: {
-				compare: (a, b) => a.actived - b.actived,
-			},
-		},
+		// {
+		// 	title: 'Status',
+		// 	dataIndex: 'actived',
+		// 	render: actived => (
+		// 		<Tag className ="text-capitalize" 
+		// 			color={ !actived ? 'volcano' : 'cyan'}>
+		// 				{ !actived ? 'Blocked' : 'Active'}
+		// 		</Tag>
+		// 	),
+		// 	sorter: {
+		// 		compare: (a, b) => a.actived - b.actived,
+		// 	},
+		// },
 		{
 			title: '',
 			dataIndex: 'actions',
