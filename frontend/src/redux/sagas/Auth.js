@@ -41,7 +41,6 @@ export function* signInWithFBEmail() {
 				let token = response.data;
 				AdminService.setCurrentAdmin(token);
 				yield put(authenticated(token.accessToken));
-				window.location.href="/admin"
 			} else {
 				yield put(showAuthMessage(response.data.message));
 			}
