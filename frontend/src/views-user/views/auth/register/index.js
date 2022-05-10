@@ -75,11 +75,12 @@ export default class Register extends Component {
       this.state.password
     )
     .then(response => {
-      this.setState({
-        message: response.data.message,
-        successful: true,
-        submit: false
-      });
+      //  login   
+      if(response.data.status_code === 200){
+        delete response.data.status_code;
+        UserService.setCurrentUser(response.data);
+        window.location.href = "/mypage";
+      }
     })
     .catch(error => {
       console.log(error);

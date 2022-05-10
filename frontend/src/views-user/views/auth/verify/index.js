@@ -64,7 +64,7 @@ const VerifyEmailForm = () => {
     <div>
       <section className="p-card">
         <div className="c-card">
-          <h2 className="c-card--header mb-4 mt-4">メールアドレスの認証が<br/>完了していません</h2>
+          <h2 className="c-card--header mb-4 mt-4">登録メールの認証</h2>
           <p className="c-card--article mb-5">
             仮登録メールを再送信します。<br/>
             メールアドレスを確認、修正の上送信してください。
