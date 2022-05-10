@@ -28,17 +28,17 @@ const signup = (req, res) => {
   .then(user => {
     const ttl = new Date();
     ttl.setHours(ttl.getHours() + EXPIRE_TIME);
-    let token = user.generateVerificationToken();
+    let vToken = user.generateVerificationToken();
     const email_activate = new EmailActivate({
       email: user.email,
-      token: token,
+      token: vToken,
       ttl: ttl,
       new_email: user.email,
       type: 'verify_email'
     })
     email_activate.save();             //Save Email Activate for email verification
     
-    let confirm_url = `${FRONT_URL}/verify/email/${token}`;
+    let confirm_url = `${FRONT_URL}/verify/email/${vToken}`;
     let msg = {
       from: config.support_mail, // Sender address
       to: user.email, // List of recipients
@@ -48,16 +48,17 @@ const signup = (req, res) => {
 
     mailer.mailer_reg.sendMail(msg)
     .then(()=>{
-      return res.status(200).send({
-        message: "仮登録完了しました。\n登録したメールアドレスにメール認証\n確認用URLを送信しました。",
-        token: token
+      var aToken = Service.generateGeneralToken(user.id);  // login token
+      return res.send({
+        status_code: 200,
+        ...user._doc,
+        accessToken: aToken
       });
     })
     .catch(err=>{
       console.log("SMTP Error:", err);
       return res.status(500).send({
-        message: "SMTP Error!",
-        token: token
+        message: "SMTP Error!"
       });
     })
   })
