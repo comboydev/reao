@@ -1,0 +1,22 @@
+type OrderTransaction @entity {
+  id: ID!
+  seller: Bytes!
+  buyer: Bytes!
+  nftAddress: Bytes!
+  assetId: Int!
+  tokenSymbol: String!
+  priceInWei: Int!
+  timestamp: Int!
+}
+
+type BidTransaction @entity {
+  id: ID!
+  seller: Bytes!
+  bidder: Bytes!
+  nftAddress: Bytes!
+  assetId: Int!
+  tokenSymbol: String!
+  priceInWei: Int!
+  expiresAt: Int!
+  timestamp: Int!
+}

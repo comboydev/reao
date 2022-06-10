@@ -1,0 +1,25 @@
+specVersion: 0.0.2
+description: Marketplace for Binance Smart Chain
+repository: https://github.com/citizenfi/marketplace
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Fixed_Marketplace
+    network: bsc
+    source:
+      address: "0xD696b194e3318927A5773aB6C4194B23F0A4f4e5"
+      abi: Fixed_Marketplace
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - OrderTransaction
+      abis:
+        - name: Fixed_Marketplace
+          file: ./src/abis/Fixed_Marketplace.json
+      eventHandlers:
+        - event:  OrderSuccessful(bytes32,address,address,indexed address,indexed uint256,string,uint256,uint256)
+          handler: handleOrderSuccessful
+      file: ./src/subgraph/mapping.ts
