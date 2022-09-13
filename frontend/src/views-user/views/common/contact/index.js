@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { Button, message } from "antd";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -7,9 +7,11 @@ import Textarea from "react-validation/build/textarea";
 import CheckButton from "react-validation/build/button";
 import UserService from "services/user.service";
 import { required, is_phoneNumber, is_email } from "services/validator";
+import IntlMessage from "components/util-components/IntlMessage";
+import { connect } from "react-redux";
 
 
-const Contact = () => {
+const Contact = ({ locale }) => {
 
 	var form, checkBtn;
 	const history = useHistory();
@@ -67,17 +69,39 @@ const Contact = () => {
 			message.error("エラーか発生しました。");
 		})
 	}
+
+	const options = locale == 'ja' ?
+		[
+			{ value: 'オーナー権の購入、売却について', label: 'オーナー権の購入、売却について'},
+			{ value: 'コインの出品、買取について', label: 'コインの出品、買取について'},
+			{ value: 'メディア掲載について', label: 'メディア掲載について'},
+			{ value: 'その他の問い合わせ', label: 'その他の問い合わせ'},
+		] : [
+			{ value: 'オーナー権の購入、売却について', label: 'Buying/Selling Ownership'},
+			{ value: 'コインの出品、買取について', label: 'Purchase/Selling Coins'},
+			{ value: 'メディア掲載について', label: 'Media Coverage'},
+			{ value: 'その他の問い合わせ', label: 'Other Inquiries'},
+		]
+		
 	
 	return (
 	<section className="p-card c-contact--form">
-		<div className="c-header mb-4">
-			<h3 className="c-header--title">お問い合わせ</h3>
-			<p className="c-header--subtitle">Contact us</p>
-		</div>
+		{
+			locale === 'ja' ?
+				<div className="c-header">
+					<h3 className="c-header--title">お問い合わせ</h3>
+					<p className="c-header--subtitle">Contact us</p>
+				</div>
+				:
+				<div className="c-header">
+					<h3 className="c-header--title">CONTACT</h3>
+					<p className="c-header--subtitle">お問い合わせ</p>
+				</div> 
+		}
 		<div className="c-card">
 			<p className="text-center">
-				お問い合わせいただいた内容につきましては、折り返しご連絡させていただきます。<br/>
-				※ご連絡までに２～３営業日ほどお時間をいただいております。
+				<IntlMessage id="page.contact.txt1" />	<br/>
+				<IntlMessage id="page.contact.txt2" />	
 			</p>
 			<div className="c-memberInfo__form mt-5">
 				<Form
@@ -87,7 +111,9 @@ const Contact = () => {
 					}}
 				>
 				<div className="c-form--item">
-					<label htmlFor="name" className="required">お名前</label>
+					<label htmlFor="name" className={`required ${locale}`}>
+						<IntlMessage id="page.contact.name" />			
+					</label>
 					<Input
 						type="text"
 						id="name"
@@ -99,7 +125,9 @@ const Contact = () => {
 					/>
 				</div>
 				<div className="c-form--item">
-					<label htmlFor="furigana" className="required">フリガナ</label>
+					<label htmlFor="furigana" className={`required ${locale}`}>
+						<IntlMessage id="page.contact.furigana" />
+					</label>
 					<Input
 						type="text"
 						className="c-form--input"
@@ -109,10 +137,14 @@ const Contact = () => {
 						validations={[required]}
 						placeholder="例）スズキ　イチロウ"
 					/>
-					<label className="pl-md-3 text-left">※全角カタカナ</label>
+					<label className="pl-md-3 text-left">
+						<IntlMessage id="page.contact.full_width" />			
+					</label>
 				</div>
 				<div className="c-form--item">
-					<label htmlFor="phone">電話番号</label>
+					<label htmlFor="phone">
+						<IntlMessage id="page.contact.phone" />
+					</label>
 					<Input
 						type="text"
 						id="phone"
@@ -124,7 +156,9 @@ const Contact = () => {
 					/>
 				</div>
 				<div className="c-form--item">
-					<label htmlFor="email" className="required">メールアドレス</label>
+					<label htmlFor="email" className={`required ${locale}`}>
+						<IntlMessage id="page.contact.email" />
+					</label>
 					<Input
 						type="text"
 						className="c-form--input"
@@ -134,26 +168,33 @@ const Contact = () => {
 						validations={[required, is_email]}
 						placeholder="例）suzukiichiro@mail.ne.jp"
 					/>
-					<label className="pl-md-3 text-left">※半角英数字</label>
+					<label className="pl-md-3 text-left">
+						<IntlMessage id="page.contact.half_width" />
+					</label>
 				</div>
 
 				<div className="c-form--item">
-					<label htmlFor="title">お問い合わせ内容</label>
+					<label htmlFor="title">
+						<IntlMessage id="page.contact.subject" />
+					</label>
 					<select
 						className="c-form--input"
 						id="title"
 						value={title}
 						onChange={(e)=>setTitle(e.target.value)}
 					>
-						<option>オーナー権の購入、売却について</option>
-						<option>コインの出品、買取について</option>
-						<option>メディア掲載について</option>
-						<option>その他のお問い合わせ</option>
+						{
+							options.map((option, idx)=> 
+								<option value={ option.value } key={idx}>{ option.label }</option>
+							)			
+						}			
 					</select>
 				</div>
 
 				<div className="c-form--item">
-					<label htmlFor="content">お問い合わせメッセージ</label>
+					<label htmlFor="content">
+						<IntlMessage id="page.contact.detail" />
+					</label>
 					<Textarea
 						className="c-form--input"
 						id="content"
@@ -168,7 +209,7 @@ const Contact = () => {
 					className="c-btn c-btn--memberInfo my-3"
 					disabled = {!enableBtn}
 					loading={submit}>
-					<span>送信する</span>
+					<span><IntlMessage id="page.contact.submit" /></span>
 				</Button>
 
 				<CheckButton
@@ -185,4 +226,9 @@ const Contact = () => {
 }
 
 
-export default Contact;
+const mapStateToProps = ({ theme }) => {
+  const { locale } =  theme;
+  return { locale }
+};
+
+export default withRouter(connect(mapStateToProps)(Contact));

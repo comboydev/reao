@@ -1,7 +1,11 @@
-const Terms = () => {
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+
+const TermsJP = () => {
     return(
     <section className="p-policy">
-        <div className="c-header mb-4">
+        <div className="c-header">
           <h3 className="c-header--title">利用規約</h3>
           <p className="c-header--subtitle">Terms of Service</p>
         </div>
@@ -775,4 +779,792 @@ const Terms = () => {
     )
 }
 
-export default Terms;
+const TermsEN = () => {
+    return(
+    <section className="p-policy">
+        <div className="c-header">
+          <h3 className="c-header--title">TERMS of SERVICE</h3>
+          <p className="c-header--subtitle">利用規約</p>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Introduction
+            </div>
+            <article>
+                These terms and conditions ("Terms of Use") (hereinafter referred to as "the Company") is a joint venture between the Company and ArtHolic Inc. (hereinafter referred to as "the Company") is an Internet service FANTATION (hereinafter referred to as "the Service") operated by ArtHolic Inc. (hereinafter referred to as the "Company"), which is an Internet service operated by ArtHolic Inc. The terms and conditions of use for all users of the Service (hereinafter referred to as "Members") are set forth below. In order to use the Service, the Member must agree to all of the Terms of Service, and when the Member starts using the Service, the Member is deemed to have agreed to the Terms of Service. In addition to the TOS, please also read the instructions and precautions for using the Service in the website used to provide the Service.
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 1 (Definitions)
+            </div>
+            <article>
+                1. "Ownership Rights" means the right to sell antique coins and other artwork products (collectively, the "Products") listed on the Service and made subject to Ownership Rights. 1. "Ownership Right" means a right of co-ownership under the Civil Code (an ownership right that has the nature of ownership in itself when multiple Ownership Right Holders jointly own the Goods. The same shall apply hereinafter). (iii) "Ownership Interest" means an ownership interest in the Product (meaning an ownership interest in the nature of ownership per se in the case where multiple Ownership Interest Holders jointly own the Product; the same shall apply hereinafter), which entails a personal and exclusive right to receive preferential treatment as provided in Item 11 of this Article, including opportunities to view the Product and information related to products and artists. In addition, when the Product is subject to the Ownership Right, the quantity of the Product to be determined by the Company in its sole discretion (the "Total Number of Quotas") shall be the total number of Quotas to be held by the Company. (The minimum transaction unit of the equally divided co-ownership interest is hereinafter referred to as the "Holding Quota"). The Ownership Interest Holder may hold on the Service a number of Ownership Interests that is an integral multiple of the Holding Quota (the number of Holding Quotas that the Ownership Interest Holder currently holds in effect with respect to the Ownership Interests is hereinafter referred to as the "Holding Quota Number"). The Owner Rights Holder shall not be entitled to hold more than twice the number of Ownership Quotas in the Service. For details, please refer to Article 3 (Ownership).
+            </article>
+            <article>
+                2. Owner Right Holder" means a member who holds Owner Rights (including the Company if the Company holds Owner Rights). (including the Company if the Company owns the Owner Rights).
+            </article>
+            <article>
+                3. "Owner Right Purchaser" means a member who wishes to purchase Owner Rights.
+            </article>
+            <article>
+                4. Owner's General Meeting" means a decision-making body consisting of all Owner Right Holders for each Product, which is held on the Service and hosted by the Company. For details, please refer to Article 20 (Owner's General Meeting).
+            </article>
+            <article>
+                5. "Product" means the Product as defined in Item 1 of this Article.
+            </article>
+            <article>
+                6. "Seller" means a person who exhibits Products on the Service.
+            </article>
+            <article>
+                7. Prospective Vendor" means a person who wishes to list a Product on the Service.
+            </article>
+            <article>
+                8. Initial Transaction" means the first transaction in which the Company sells Ownership to a Member after the Product has been listed on the Service. 9.
+            </article>
+            <article>
+                9. "Member to Member Transaction" means a transaction between Owner Rights Holders and Members on the Service that becomes possible after the Initial Sale. 10.
+            </article>
+            <article>
+                10. "Anti-Social Forces" means organized crime groups, members of organized crime groups, persons who have not been members of organized crime groups for a period of 5 years, quasi-constituents of organized crime groups, companies affiliated with organized crime groups, general assemblymen, etc., socially motivated groups, or special intelligence violent groups, or other similar persons. 11.
+            </article>
+            <article>
+                11. "Benefits" means goods or services related to the Products offered by the Company to Owner Right Holders. Please refer to Article 18 (Special Offers) for the details of possible special offers and the rules for granting and exercising such offers. 12.
+            </article>
+            <article>
+                12. Member" means a person who has been approved for membership in accordance with the procedures set forth in Article 4 (Membership Registration) (excluding those who have withdrawn from membership or had their membership cancelled). Article 2 (Contents of the Service)
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 2 (Contents of the Service)
+            </div>
+            <article>
+                1. The Service is a platform that lowers the financial, physical, and psychological barriers to owning antique coins and other art objects by allowing members to hold ownership rights to the Product, and enables them to collect antique coins and other art objects from small amounts in a full-scale manner. By using the service, members can purchase ownership rights, receive special benefits related to the product, sell their ownership rights in response to purchase order offers from other members, the Company, or other third parties, or list their ownership rights on the marketplace. 
+            </article>
+            <article>
+                2. The Company will (1) sell Owner Rights to Members, (2) provide special offers, and (3) provide and operate a platform for Members to trade Owner Rights with other Members, the Company, and other third parties. Members conduct transactions of ownership rights and exercise of preferential treatment between members at their own risk, and the Company assumes no responsibility for any problems related to transactions of ownership rights between members. In addition, once an ownership transaction has been concluded, it cannot be cancelled for any reason.
+            </article>
+            <article>
+                3. Members may exercise preferential treatment under the management of the Company, which is available only to the owner-rights holders. The details of the preferential treatment will be determined by the Company, but the Company will endeavor to maintain product safety and fairness among members.
+            </article>
+            <article>
+                4. the Company shall not be obligated to purchase or refund the Owner Rights held by each Member. Please use the purchase of Owner Rights with a view to enjoying a special connection with the Products, with full understanding of the risks of loss, etc. described in Article 17 (Notes on the Value of Owner Rights), Paragraphs 2 and 3, and other sections of these Terms of Use.
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 3 (Ownership Rights)
+            </div>
+            <article>
+                1. In order to ensure the stable provision of this service and fairness among members, as well as to preserve the asset value of products, the Company stipulates the following provisions regarding transactions and other matters related to ownership rights in order for members to use this service with peace of mind. In addition, the Company will provide a method for members to recover their investment in the owner-rights held by members in accordance with the details stipulated in Article 15 (Purchase and Sale of Owner-rights) (However, the Company does not guarantee the sale of owner-rights for an amount greater than the amount spent by each member to purchase owner-rights, and is not liable for any loss incurred by members as a result of such sale, etc.). (However, this does not guarantee the sale of the Owner Rights for more than the amount each Member has spent on the purchase of the Owner Rights, and does not compensate for any losses incurred by the Member due to the occurrence of the risks described in Article 17 (Notes on the Value of Owner Rights) and these Terms of Use.) 
+            </article>
+            <article>
+                2. Members may sell all or part of their Ownership Interests only on the Service to other Members or to the Company or its designees in accordance with the Service's transaction rules. Members may not, under any circumstances, sell their Owner Rights (including derivative rights, the same hereinafter) outside of the Service. The same shall apply hereinafter). Member may not assign, lend, succeed, or grant a security interest in all or any part of the Owner Rights (including derivative rights; the same applies hereinafter) outside of the Service, nor may Member make any proprietary use of or accept loans to any person, whether inside or outside of the Service. Similarly, Members may not enter into any agreement to divide the Products in which they hold an ownership interest as co-ownership, nor may they make a claim for partition of co-ownership, whether by court proceedings or otherwise.
+            </article>
+            <article>
+                3. The Member acknowledges that the Company may decide to sell or otherwise dispose of the Product to a third party outside the Service in accordance with a resolution of the Owner's Meeting, and that after such disposal, the consideration for such disposal (excluding consumption tax and other taxes, and less any fees as determined by the Company) will be distributed in proportion to the number of quota shares held. (However, even if the actual amount distributed is less than the value at the time of acquisition of the Owner Rights, the Company shall not be liable for compensation or any other liability.) (3) The member understands and agrees in advance that he/she will not be able to exercise any other owner rights. 
+            </article>
+            <article>
+                4. Member understands and agrees in advance that in the event that the Company disposes of all or part of the Product (including, but not limited to, the case of an out-of-service sale as provided for in the preceding paragraph), Member shall not be liable for any loss or damage arising from such disposal. (4) In the event that the Company disposes of all or part of the Product (including but not limited to an out-of-service sale as stipulated in the preceding paragraph), the Member shall entrust the Company in advance without limitation to sell or otherwise dispose of its own ownership rights as well, to deliver the Product to the seller, and to receive the proceeds of the sale.
+            </article>
+            <article>
+                5. If a member violates the provisions of Paragraph 2 of this Article by disposing of the Owner's Rights (the actions listed in the second and third sentences of Paragraph 2 of this Article; the same shall apply hereinafter in this Article), the member shall not sell the Owner's Rights to the Company. The same shall apply hereinafter in this article). 5. If a Member disposes of Owner Rights in violation of the provisions of Paragraph 2 of this Article, the Member shall pay to the Company as a penalty fee the higher of 10% of the value on the System of the entire Product, the value on the System of the Owner Rights disposed of, or the value reasonably determined by the Company as the amount actually obtained by the Owner Rights Holder as a result of such disposition.
+            </article>
+            <article>
+                6. the Owner Rights are not securities, including shares and collective investment scheme interests, prepaid means of payment, legal tender or cryptographic assets. As such, Owner Rights are not available for any use other than for use in the Service in accordance with these Terms and Conditions. The price of Owner Rights will be determined in initial transactions based on the selling price between the seller who sold the Product to the Company and the Company, the details of discussions and market conditions, and appraisals by third-party institutions, etc. In transactions between members, the price will be determined by matching supply and demand in relative transactions between members. Ownership rights purchased from the Company can also be transferred to other members through the member-to-member transaction function within the Service (in accordance with the provisions of Paragraph 4 of this Article, members must agree in advance that receipt of the sale proceeds from the transfer will be made through the Company). . If the product or artist is popular, there is a possibility that a sale transaction to another member may be concluded at a higher price than the price at the time of purchase. The Company shall not be liable for any loss incurred by a member as a result of transactions between members of the Ownership.
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 4 (Membership Registration)
+            </div>
+            <article>
+                1. A prospective member shall apply for membership by entering the required information in the format designated by the Company.
+            </article>
+            <article>
+                2. To apply for membership, the prospective member's Facebook account, Twitter account, LINE account, or valid e-mail address and password are required.
+            </article>
+            <article>
+                3. If a prospective member is a minor, he/she may only use the service with the prior consent of a legal representative such as a person with parental authority. In addition, the Company may request the consent of a legal representative or the provision of further documents or information from the member on a case-by-case basis as it deems necessary. 
+            </article>
+            <article>
+                4. The Service is currently not available in the United States. This service is not available to U.S. citizens, green card holders (U.S. permanent residents), and foreign PEPs under the Prevention of Transfer of Criminal Proceeds Act. However, the availability of this service in foreign countries and regions other than the U.S. is not guaranteed. 
+            </article>
+            <article>
+                5. Membership applications must be completed by the applicant himself/herself, and accurate information must be entered. A single person may not register for more than one membership.
+            </article>
+            <article>
+                6. Upon approval of the application for membership, the prospective member may begin using the service as a member.
+            </article>
+            <article>
+                7. The Company shall decide whether to approve the membership application based on its complete discretion. 
+                <p>
+                    　(1). if you do not meet the requirements set forth in this article
+                </p>
+                <p>
+                    　(2). if the name, number, or other information of the credit card you are registering with is incomplete, or if there are any problems with the payment by credit card
+                </p>
+                <p>
+                    　(3). if you are attempting to register or have registered under the false identity of another person; 4. if you have provided us with a false name or credit card number when applying for membership
+                </p>
+                <p>
+                    　(4). if all or part of the registration information provided to the Company when applying for membership is inaccurate, or contains falsehoods, errors, or omissions
+                </p>
+                <p>
+                    　(5). in the event that the same person is attempting to obtain or has obtained multiple accounts on the Service
+                </p>
+                <p>
+                    　(6). in the event that a member interferes with the Company's operation or provision of the Service, or with the use of the Service by other members, or engages in any other conduct that interferes with the Company's operation or provision of the Service
+                </p>
+                <p>
+                    　(7). if you are a minor, an adult ward, a person under curatorship or a person under assistance, and you have not obtained the consent of your legal representative, guardian, curator or assistant
+                </p>
+                <p>
+                    　(8). is an anti-social force, or is involved in any interaction or involvement with anti-social forces, such as cooperating with or being involved in the maintenance, operation or management of anti-social forces through the provision of funds or otherwise
+                </p>
+                <p>
+                    　(9). is involved in information products or similar businesses
+                </p>
+                <p>
+                    　(10). any other case in which the Company deems inappropriate.
+                </p>
+            </article>
+            <article>
+                8. The Company shall not be liable for any damage caused by a prospective member's registration, by a member's change of registration details, or by the Company's refusal to approve a prospective member's application for membership.
+            </article>
+        </div>
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 5 (Changes in Registration)
+            </div>
+            <article>
+                1. if there are any changes to the information provided after applying for membership as stipulated in the first paragraph of the preceding article (Membership Registration), the prospective member or members shall notify the Company of such changes without delay in the manner specified by the Company. 2.
+            </article>
+            <article>
+                2. The Company shall not be obligated to compensate for any damages incurred by the prospective member or members as a result of failure to notify the Company in accordance with the preceding paragraph. 
+            </article>
+            <article>
+                3. Notification from the Company to prospective members and members shall be made to the most recent contact information provided by the prospective member or members to the Company.
+            </article>
+        </div>
+        
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 6 (Management of Login ID and Password)
+            </div>
+            <article>
+                Members are responsible for managing their login IDs and passwords that were set up at the time of registration. The Company shall not be obligated to compensate for any damage caused by the leakage of login IDs and passwords or any other reason, except in the case of willful misconduct or gross negligence on the part of the Company.
+            </article>
+        </div>
+        
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 7 (Cancellation of Member Registration, Suspension of Use, etc.)
+            </div>
+            <article>
+                1. If the Company determines that a member falls under any of the following or is likely to fall under any of the following, the Company may, without prior notice, suspend or cancel the member's membership, suspend all or part of the Service, or invalidate any preferential treatment granted by the Company, or any combination thereof The Company may suspend or cancel a member's membership, suspend all or part of the Service, or invalidate the benefits granted by the Company, or any combination thereof. In the event that a member's membership is revoked, the member's right to receive special benefits will become null and void.
+                <p>
+                    　(1). in case of violation of laws and regulations, these Terms of Use, or guidelines separately stipulated by the Company; 2. in case of violation of the login ID or password for the Service; 
+                </p>
+                <p>
+                    　(2). in the event that a member illegally uses or causes to be used his/her login ID or password for the service; 3. in the event that a member violates Article 4 (Member Registration)
+                </p>
+                <p>
+                    　(3). if any of the items in Article 4 (Member Registration) Section 7 are found to apply to you
+                </p>
+                <p>
+                    　(4). in the event of harassment or nuisance to other members; 5. in the event of contact with the registered e-mail address
+                </p>
+                <p>
+                    　(5). if there is no response from the member for a certain period of time after contacting the member's registered e-mail address
+                </p>
+                <p>
+                    　(6). if the payment or transfer information registered by the member is incomplete or changes are not properly notified to the Company, or for any other reason that interferes with the Company's ability to make payments or transfers to the member; 7. if, after registering as a member, the member is found to have violated any of the terms and conditions of the membership agreement
+                </p>
+                <p>
+                    　(7). if a member has not logged in for more than 6 months after registration. 
+                </p>
+                <p>
+                    　(8). if the service is used for fraudulent purposes; 9. if the Company deems it inappropriate to use the service for any other reason
+                </p>
+                <p>
+                    　(9). in any other case the Company deems inappropriate.
+                </p>
+            </article>
+            <article>
+                2. The Company may, at its discretion, withhold payment of any funds that are due to be remitted to a member at the time of suspension or revocation of membership, suspension of use of the Service, or any other action pursuant to this Article. In addition, the Company may also withhold payment in cases where a member is suspected of involvement in illegal activities, etc., at its discretion. 3.
+            </article>
+            <article>
+                3. The Company shall not be liable for any loss or damage incurred by a member as a result of actions taken under this article, except in cases of willful misconduct or gross negligence on the part of the Company
+            </article>
+        </div>
+        
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 8 (Management of Login ID and Password, and Rights Related to Membership)
+            </div>
+            <article>
+                1. Members are responsible for managing and keeping in custody the login ID and password that the Company grants to them. The member shall be responsible for any damage caused by inadequate management of the login ID and password, use by a third party, etc., and the Company shall not be liable for any such damage. 2. In addition, the Company shall not be held liable for any damages related to the inability to log in to the service or any other problems that may occur as a result of the freezing of accounts on social networking services linked to the service.
+            </article>
+            <article>
+                2. The login ID and the right to use the Service associated with the login ID belong exclusively to the Member. A member may not allow anyone other than the member in question (including the member's heirs) to use or transfer the account and the rights to use the service. Member shall not allow any person other than Member (including Member's heirs) to use, transfer, lend, grant a security interest in, or otherwise dispose of, or inherit, the account and the right to use the Service. 
+            </article>
+            <article>
+                3. If a member's login ID or password is divulged to a third party, or if a member suspects that his/her login ID or password is being used by a third party, the member shall immediately notify the Company and follow the Company's instructions, if any. In such cases, the Company may temporarily or completely terminate the account as an unauthorized account.
+            </article>
+        </div>
+        
+        
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 9 (Member's Assurance)
+            </div>
+            <article>
+                Members shall not and shall not in the future fall under any of the categories of antisocial forces, and shall not themselves or by using a third party, engage in violent or unreasonable demands beyond their legal responsibility, use threatening language or violence in connection with transactions, spread rumors, use deceptive means or force, damage the Company's credibility, or engage in other activities that may damage the Company's business or cause damage to the Company's reputation. (2) The member agrees not to engage in any act to damage the Company's credibility or obstruct the Company's business by spreading false information, using deceptive means or using force, or any other similar act.
+            </article>
+        </div><div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 10 (Withdrawal of membership and forfeiture of privilege)
+            </div>
+            <article>
+                1. Members who have not yet purchased Owner Rights may cancel their membership from the Service with the Company's approval after notifying the Company of their "User Cancellation" via Contact Us.
+            </article>
+            <article>
+                2. Members who have a history of purchasing owner rights may withdraw from the Service in the manner specified in the preceding paragraph only if they do not own owner rights at the time of withdrawal.
+            </article>
+            <article>
+                3. Members should exercise their right to receive preferential treatment based on the Owner Rights they hold at their own discretion by the time of withdrawal from the Service. If a member fails to do so by the time of withdrawal from the Service or by the time of the transaction between members of the ownership interest providing such preferential treatment, the right to receive such preferential treatment will become invalid. 
+            </article>
+            <article>
+                4. The Company shall not be liable for any damage incurred by a member based on the measures stipulated in the preceding paragraphs, except in cases of willful misconduct or gross negligence on the part of the Company.
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 11 (Handling of Personal Information)
+            </div>
+            <article>
+                1. The Company may use personal information provided by members within the scope necessary to provide the service and for the purposes specified in the Company's separate privacy policy, and members agree that the Company will handle personal information provided by members in accordance with this privacy policy.
+            </article>
+            <article>
+                2. The Company shall not be liable for any problems or damages arising from the exchange or use of personal information between members. If a member provides personal information to another member, the member must fully understand and agree to the terms of this article before doing so.
+            </article>
+            <article>
+                3. The Company shall not disclose personal information, etc. to any third party other than the member concerned and the transferee of the owner's rights, except in the following cases
+                <p>
+                    　(1). when disclosure is required by law, or when disclosure can be made in accordance with the law
+                </p>
+                <p>
+                    　(2). when disclosure is necessary for the protection of a person's life, body, or property, or for the protection of this service provided by the Company
+                </p>
+                <p>
+                    　(3). when disclosure is especially necessary for the improvement of public health or the sound growth of children
+                </p>
+                <p>
+                    　(4). when it is necessary to cooperate with a government agency, a local government, or an individual or entity entrusted by either of the former two in executing affairs prescribed by laws and regulations; or
+                </p>
+                <p>
+                    　(5). When the entity providing this service is changed due to a joint venture or other reasons, and we deem it necessary to transfer personal information, etc. in order to continue this service
+                </p>
+                <p>
+                    　(6). when aggregating and analyzing personal information for the purpose of improving the quality of this service, developing our related businesses, or marketing our partner companies
+                </p>
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 12 (Prohibitions)
+            </div>
+            <article>
+                1. Members are prohibited from committing any of the following acts in connection with the use of the Service. If the Company determines that a member has committed or is suspected of committing any of the following acts, the Company may, without prior notice, cancel the member's membership or take any other measures specified in Section 2 of this Article. The Company shall not be liable for any damages incurred by a member as a result of these actions.
+                <p>
+                    　(1). any act that violates laws and regulations, the Terms of Service, the Company's separately stipulated usage instructions and precautions, guidelines, transaction rules, etc.
+                </p>
+                <p>
+                    　(2). acts that offend public order and morals
+                </p>
+                <p>
+                    　(3). acts that interfere with the operation of the Company's services
+                </p>
+                <p>
+                    　(4). Actions that may lead to crimes such as fraud
+                </p>
+                <p>
+                    　(5). act of entering false or inaccurate information in the declaration to the Company
+                </p>
+                <p>
+                    　(6). act of inviting purchase by guaranteeing a rise in the price of owner-rights or providing a definite judgment about a rise in the price of owner-rights, act of making other members predict a rise or fall in the price of owner-rights, or act of making other members misunderstand the owner-rights and inducing transactions between members based on such misunderstandings. 
+                </p>
+                <p>
+                    　(7). making the purchase of Owner Rights conditional on the purchase of Owner Rights or as a condition for the provision of specific services or goods outside of the Service, in a manner that unfairly induces or may unfairly induce Members to purchase Owner Rights
+                </p>
+                <p>
+                    　(8). to violate the transaction rules set forth in Article 15 (Purchase and Sale of Ownership Interests), Paragraph 7, or the rules regarding preferential treatment set forth in Article 18 (Preferential Treatment), or to circumvent these rules
+                </p>
+                <p>
+                    　(9). jointly carrying out with other members any of the acts falling under any one of items 1 to 8, or any act that has the potential to fall under such acts, or discussing, considering, or preparing to carry out such acts with other members (not only on the service, but also including communication, etc. on SNS operated by other companies). (This includes communication not only on the service but also on social networking services operated by other companies.
+                </p>
+                <p>
+                    　(10). Infringing the rights of the Company, other members, or other third parties. 
+                </p>
+                <p>
+                    　(11). Defamation, libel, slander, etc. of others.
+                </p>
+                <p>
+                    　(12). Acts of impersonating another person or using another person's account to use the Company's services.  Acts of Vulgar behavior
+                </p>
+                <p>
+                    　(13). to post information that is ethically questionable, vulgar, harmful, or profane, or that may cause disgust to others, or that is related to pornography, prostitution, sex industry, marijuana, or other so-called drugs, or any other related activities
+                </p>
+                <p>
+                    　(14). acts that may cause misunderstanding or confusion to others
+                </p>
+                <p>
+                    　(15). Actions that may cause annoyance or discomfort to other members.
+                </p>
+                <p>
+                    　(16). acts that intend or may induce ethnic discrimination, racial discrimination, or other discrimination (including but not limited to multi-business, selling information products, or recruiting members)
+                </p>
+                <p>
+                    　(17). Any act related to election activities or any act that violates the Public Offices Election Law, the Political Funds Control Law, or any other law or ordinance related to political activities or elections (18) Any act such as the transmission of computer viruses, etc.
+                </p>
+                <p>
+                    　(18). acts that adversely affect the functionality of computer equipment, communication lines, software, etc., such as the transmission of computer viruses
+                </p>
+                <p>
+                    　(19). unauthorized access to the system related to this service
+                </p>
+                <p>
+                    　(20). acts of manipulating the price of the Products or Ownership Interests, or acts of manipulating the market price of the Products or Ownership Interests
+                </p>
+                <p>
+                    　(21). acts for the purpose of money laundering
+                </p>
+                <p>
+                    　(22). offering or demanding prostitution or sexual services
+                </p>
+                <p>
+                    　(23). act of purchasing or selling ownership on behalf of another person
+                </p>
+                <p>
+                    　(24). acts that fall under the category of gambling
+                </p>
+                <p>
+                    　(25). Actions that, by itself or through a third party, make violent demands, unreasonable demands beyond legal responsibility, use threatening language or violence, spread rumors, use deception or force, damage credibility, or obstruct business operations (26) Other actions deemed inappropriate by the Company
+
+                </p>
+                <p>
+                    　(26). other acts that we deem inappropriate.
+                </p>
+            </article>
+            <article>
+                2. The measures of the Company specified in the preceding paragraph shall refer to all measures that the Company determines to be necessary for the protection of users of this service, and include the following. To the extent necessary from the perspective of user protection, the Company can take necessary measures for all members, rather than taking such measures only for members who have committed violations.
+                <p>
+                    　(1). Ownership transaction restrictions (including cancellation of purchase order offer)
+                </p>
+                <p>
+                    　(2). suspension or revocation of membership
+                </p>
+                <p>
+                    　(3). any and all actions, including suspension of all members' ownership transactions
+                </p>
+                <p>
+                    　(4). any other restrictions on the use of the Service
+                </p>
+                <p>
+                    　(5). public announcement of any violations or suspected violations of the Service
+                </p>
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 13 (Exibiting)
+            </div>
+            <article>
+                1. A prospective exhibitor may become an exhibitor and list Products for sale by submitting an application to become an exhibitor and passing an independent examination at the Company's complete and unfettered discretion. The term "Listing" as used herein refers to the listing of the Product on the Company's service as a prerequisite for the sale of the Owner's Rights as stipulated in Article 15 (Purchase and Sale of Owner's Rights).
+            </article>
+            <article>
+                2. The listing of individual Products is subject to review at the Company's complete discretion. Upon approval, the Company will contact you to determine the terms and conditions of the individual listing and proceed with the listing. If the screening process does not result in approval, no fees will be charged.
+            </article>
+            <article>
+                3. The Company does not guarantee the results of the screening process, and is not liable for any loss or damage incurred by members as a result of disapproval, except in cases of willful misconduct or gross negligence on the part of the Company. The Company will not disclose the details of the screening process or the reasons for its results.
+            </article>
+            <article>
+                4. The Company will make a comprehensive judgment based on the information in the member's account at the time of registration, the information in the linked SNS account, and the information entered in the application form, etc. Reasons for disapproval during the screening process include the following
+                <p>
+                    　(1). when all or part of the linked SNS account is not the applicant's personal account (including accounts of companies, brands, services, etc. to which the applicant belongs or operates)
+                </p>
+                <p>
+                    　(2). If the applicant's personal activity on the SNS is not verifiable by the Company or is minimal;
+                </p>
+                <p>
+                    　(3). the applicant is attempting to register or has registered by impersonating another person;
+                </p>
+                <p>
+                    　(4). all or part of the registration information provided to us at the time of registration is inaccurate or contains falsehoods, errors, or omissions; 
+                </p>
+                <p>
+                    　(5). when the registration information provided to us at the time of registration is insufficient and it is difficult to make a judgment;
+                </p>
+                <p>
+                    　(6). you have been suspended from using the service in the past due to a violation of these Terms of Use
+                </p>
+                <p>
+                    　(7). if you have committed or are deemed by the Company to have committed an act that interferes or may interfere with the Company's operation, provision of services, or other members' use of the Service; 
+                </p>
+                <p>
+                    　(8). if you are a minor, an adult ward, a person under curatorship or assistance, and have not obtained the consent of your legal representative, guardian, curator or assistant
+                </p>
+                <p>
+                    　(9).  is an anti-social force, or is involved in any interaction or involvement with anti-social forces, such as cooperating or being involved in the maintenance, operation or management of anti-social forces through the provision of funds or otherwise
+                </p>
+                <p>
+                    　(10). is involved in information products or similar businesses
+                </p>
+                <p>
+                    　(11). if the Company deems that there is a possibility of falling under any of the above items; 
+                </p>
+                <p>
+                    　(12). other cases in which the Company deems inappropriate.
+                </p>
+            </article>
+            <article>
+                5. Products approved as a result of the Company's review will be listed on the Service as Products, and the Company will conduct the sale of ownership rights as stipulated in Article 15 (Purchase and Sale of Ownership Rights), Paragraph 1.
+            </article>
+        </div>
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 14 (Authenticity)
+            </div>
+            <article>
+                The Company will disclose the authenticity of the Product by the slab number of each appraisal company. After confirming this information, members should purchase the ownership rights to the Product at their own risk and discretion.
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 15 (Purchase and Sale of Ownership Interests)
+            </div>
+            <article>
+                1. Members may apply to purchase Owner Rights in relation to Products listed for sale at the unit price and quantity specified on the Service. If the Company receives a purchase offer from a Member for a Product for which the Company is accepting purchase offers from Members, the sale of the Owner's Rights to that Member will take place at the time the offer is made. The quantity of owner-rights sold is limited, and the Company will not provide any compensation even if a prospective owner-rights purchaser is unable to purchase an owner-right. Owner-rights sold may be sold by each Owner-rights holder to other members in accordance with the transaction rules of the Service after a time separately designated by the Company. In addition, a system will be set up on the Service whereby Owner Rights can be sold to the Company or a person designated by the Company at a price deemed fair and reasonable by the Company.
+            </article>
+            <article>
+                2. purchase offers for owner-rights may be cancelled after the fact if the number of owner-rights offered for purchase during the acceptance period is less than the specified quantity for the owner-rights in question. In such a case, the Company will not compensate for any loss incurred by the member as a result of such cancellation. 
+            </article>
+            <article>
+                3. the application for the purchase of owner-rights must be made by the person who wishes to purchase owner-rights, and the correct information must be entered. 
+            </article>
+            <article>
+                4. Members wishing to purchase Owner Rights from another Member must follow the Company's procedures for making a purchase order offer for Owner Rights. 
+            </article>
+            <article>
+                5. Members may not cancel a purchase offer they have made after the purchase has been made. 
+            </article>
+            <article>
+                6. Member may purchase Owner Rights for any number of Owner Rights, subject to the maximum number of Owner Rights available for a Product and the terms and conditions of the Owner Rights transaction.
+            </article>
+            <article>
+                7. purchase of Owner Rights may be made by bank transfer, credit card through the online payment system, or virtual currency (USDT-ERC20 standard). The Company will charge the buyer a fee determined separately by the Company for the purchase of owner-rights and for the execution of transactions between members. The transaction fee varies for each item listed. 
+            </article>
+            <article>
+                8. Members who wish to sell owner-rights must pay the purchase price of the owner-rights to the Company or to a payment processor designated by the Company (hereinafter referred to as the "Payment Receiver"). The payment of the purchase price is completed when the Receiver receives the purchase price from the member who intends to purchase the owner-rights, and the obligation to pay the purchase price by the member who intends to purchase the owner-rights is extinguished. The purchase price will be paid to the member who is the seller of the owner-rights by way of remittance from the Company after deducting a predetermined transaction fee to be received by the Company. Except as stipulated in these Terms of Use, the purchase or sale of ownership rights, once completed, may not be cancelled for any reason. 
+            </article>
+            <article>
+                9. For the protection of users, the Company has established various restrictions on the volume of transactions, the number of transactions, the price range of transactions, and the withdrawal of profits from transactions when members' ownership interests are traded between members. Members must comply with these trading rules. The Company may update the Trading Rules from time to time to protect users. Members should use the Service with the understanding that the Trading Rules may be updated from time to time. 
+            </article>
+            <article>
+                10. If the Company determines that there are any violations of the TOS in connection with the purchase of owner-rights or transactions between members, or that these actions are inappropriate, the Company may restrict or cancel the purchase or sale of owner-rights, or take any other measures stipulated in Article 12 (Prohibited Matters), Paragraph 2. The Company shall not be liable for any damage incurred by a member as a result of actions taken under this paragraph, unless such damage is caused by the Company's willful misconduct or gross negligence.
+            </article>
+            <article>
+                11. transactions for the sale and purchase of owner's rights may be subject to taxation according to current laws and regulations or future legal amendments. Members should be fully aware of this and conduct transactions for the purchase and sale of owner-rights at their own risk and expense. Please note that we do not provide any advice or take any other action regarding taxation matters, including whether or not a transaction is subject to taxation. If there is any question regarding taxation, members are requested to make their own decision at their own responsibility and expense, or seek professional judgment.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 17 (Notes on the Value of Owner Rights)
+            </div>
+            <article>
+                1. Owner's right is a co-ownership right that is supposed to be effective when the Product is listed on the Service. Therefore, please note that after a member loses his/her membership due to withdrawal from the Service, etc., he/she cannot fully exercise the Owner's Right for the relevant Product, nor can he/she exercise the right to receive any preferential treatment arising from the Product. 2.
+            </article>
+            <article>
+                2. members who have purchased ownership rights from the Company may trade their ownership rights among members. Therefore, if a product or an artist is popular, there is a possibility that a sale transaction to another member at a higher price than the price at the time of purchase may be concluded. Conversely, there is a possibility that the price at which you can sell your ownership interest at the time you attempt to sell it will be less than the price at which you purchased the ownership interest. Members should purchase and sell ownership interests with the full understanding that there is a risk of loss associated with such transactions between members. 3.
+            </article>
+            <article>
+                3. the value of owner-rights may be reduced to zero due to theft or loss of merchandise, sale of merchandise, termination of this service, or other reasons. Members should purchase and sell Owner Rights with the full understanding that there is a risk of loss associated with the loss of the economic value of such Owner Rights.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 18 (Preferential Offers)
+            </div>
+            <article>
+                1. the Company may, at its complete and unfettered discretion, from time to time establish preferential treatment for Members holding Ownership Interests, including the opportunity to view all or part of the Products and information related to the Products, issuers and engravers (some Products may not offer preferential treatment). The benefits available may vary among members depending on the number of Owner Rights held, the length of time the Owner Rights have been held, and other factors. No other financial, economic, or physical conditions other than ownership will be imposed on the benefits (except for actual expenses such as transportation). 
+            </article>
+            <article>
+                2. The contents of the special benefits are subject to the value of our products. The content of the preferential treatment will be determined by the Company based on the value and price of the product, and no opinions will be accepted. In addition, members to whom owner rights have been transferred from members who have already received preferential treatment may receive further preferential treatment, or may not receive preferential treatment for certain preferential treatments.Upon receiving notification from the Company that a preferential treatment is to be offered, the member holding owner rights may apply for the treatment on the member's portfolio page or on a separate application form provided by the Company. In the unlikely event that the provision of benefits is delayed or made difficult due to management reasons, unscheduled events, or other unavoidable circumstances, the Company will contact each member holding ownership rights and take the necessary action. 
+            </article>
+            <article>
+                3. The right to receive preferential treatment under the Terms of Use belongs exclusively to the Member. A member may not transfer, lend, or otherwise dispose of these rights and obligations to any person other than the relevant member (including heirs of the relevant member), except as provided in Article 21 (Response in the event of death of a member), Paragraph 2.4.A member may not assign, lend, grant a security interest in, or otherwise dispose of these rights and obligations to any person other than the member (including the member's heirs) or have such person inherit these rights and obligations.
+            </article>
+            <article>
+                4. A member may not assign, lend, grant a security interest in, or otherwise dispose of these rights and obligations to any person other than the member (including the member's heirs) or have such person inherit these rights and obligations. If additional personal information is required in order for a member to exercise the benefits, the member must, at his/her own discretion, provide additional personal information in a manner determined by the Company. 
+            </article>
+            <article>
+                5. The contents of the benefits are subject to change without prior notice. In the event of a change in the details of the benefits, the Company will notify the owner-rights holder of the changed benefits at least one week prior to the date of the change. However, if prior notification is difficult due to unavoidable circumstances, notification will be made promptly after the fact. 6.
+            </article>
+            <article>
+                6. Members should use the service with the understanding that the details of the benefits may be changed after the purchase of owner-rights. The Company shall not be liable for any loss or damage incurred by a Member as a result of changes to the preferential treatment, except in the case of willful misconduct or gross negligence on the part of the Company. 
+            </article>
+            <article>
+                7.  if the Company sells the Product to a third party outside the Service in accordance with the resolution of the Owner's Meeting, the right to receive the preferential treatment related to the Product will be forfeited. Members holding Owner's Rights shall lose the right to receive preferential treatment after the time of such sale, and the Company shall not be liable for any damage incurred by the Member as a result of such sale of the Product.
+            </article>
+        </div>
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 19 (Management of Products and Reporting, etc.)
+            </div>
+            <article>
+                1. The owner-rights holder shall not be liable for any acts of possession, management, preservation (including investigation, analysis, repair, and restoration), or any other acts necessary for the Company's possession, management, preservation (including investigation, analysis, repair, and restoration) of the Product. (2) The Owner Right Holder agrees, in the Company's reasonable discretion, that the Company may take possession, manage, preserve (including investigation, analysis, repair and restoration) and perform all other necessary acts (hereinafter in this Article referred to as "Management and Other Acts") (hereinafter in this Article, "Management and Other Acts") at the Company's reasonable discretion, and shall entrust the Company to perform the Management and Other Acts. In addition, MEDIASEE may sub-consign the performance of the Management Actions to an entity that MEDIASEE deems appropriate. 2.
+            </article>
+            <article>
+                2. The Management or Other Acts shall include the lending of the Product to public or private organizations or institutions and other acts. Such acts may be performed free of charge if the Company determines that such acts contribute to the enhancement of the value of the subject Product. 3.
+            </article>
+            <article>
+                3. In the event that the Company performs any of the acts stipulated in the preceding paragraph, the Company shall report the outline and results of such acts to the owner-right holder of the applicable Product in a timely manner in a manner that the Company deems appropriate.
+            </article>
+            <article>
+                4. Minebea will take out property insurance for all Products. Therefore, in the event of damage or loss of the Products in connection with the management of the Products, etc., the Company will seek to recover as much damage as possible through insurance benefits from the aforementioned property insurance, assuming that the Company is indemnified in accordance with Article 22 (Exemption from Liability), etc. Specifically, in the event of damage to the Products, etc., the Company will seek to recover as much damage as possible through insurance benefits from the aforementioned insurance. Specifically, in the event of damage to the Product, the Company shall repair or restore the Product to the fullest extent possible by applying the insurance benefits for such damage, and in the event of insurance benefits for loss of or damage to the Product, the Company shall pay the amount of such benefits (the Company may deduct reasonable response costs) to the owner of the Product. In the event that insurance benefits are paid for the loss of or rating loss of the Product, the Company shall distribute the amount of such benefits (from which the Company may deduct reasonable response costs) in proportion to the number of quotas held by the Ownership Interest Holders of such Product (if the amount of individual distribution to Ownership Interest Holders includes any fractional amount, the Company shall receive such fraction). (If the amount of individual distribution to the Owner Right Holders includes a fractional amount, the Company shall receive such fractional amount).
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 20 (Owner's General Meeting)
+            </div>
+            <article>
+                1. The General Meeting of Owners may be held by the Company alone, at its sole and absolute discretion, at any time and from time to time, and the Company alone may determine all matters necessary for the holding thereof and the exercise of voting rights (including the contents of the agenda and proposals, the period for exercising voting rights and the method of exercising voting rights; the same shall apply hereinafter in this Article). The same shall apply hereinafter in this Article). (2) The Company may, at any time and from time to time, determine the agenda and other matters necessary for the holding of meetings and the exercise of voting rights (including the contents of agenda items and proposals, the period for exercising voting rights and the method of exercising voting rights). Any person other than the Company (including Members and Owner Right Holders) Even if an Owner Right Holder receives the notice of holding a General Meeting of Owners as stipulated in Paragraph 3, such Owner Right Holder may not conduct any act other than the exercise of voting rights in the form of expressing approval or disapproval of the agenda as determined by the Company.
+            </article>
+            <article>
+                2. General meetings of owners shall be held privately on the Service to persons other than holders of owner-rights. However, at its complete discretion, the Company may disclose to persons other than Owner Right Holders the progress and results of the General Meeting of Owners (the Company will not disclose the details of each Owner Right Holder's approval or disapproval individually).
+            </article>
+            <article>
+                3. The Company will send a notice of the meeting to the Owner Right Holders of the Products that are subject to the resolution of the Owner Meeting, clearly indicating the matters necessary for the exercise of voting rights, at least 10 days prior to the date of the deadline for the exercise of voting rights as determined by the Company.
+            </article>
+            <article>
+                4. Owner Right Holders may exercise their voting rights for the Owner Meeting corresponding to the Product in question, provided that they are currently displayed on the Service as the owner right holder of the Product that is the subject of the resolution. The Owner Right Holder shall have one (1) voting right for each Owner Quota validly held at the time of exercising the voting right for the Owner Meeting, and after the time when the voting right for such Owner Meeting is exercised, the Owner Right Holder may not exercise the voting right again for the same Owner Meeting even if there is a change in the Owner Right Holder.
+            </article>
+            <article>
+                5. Voting rights shall be exercised on the dedicated page provided by the Company on the Service by the deadline for exercising voting rights set by the Company, and no other method of exercising voting rights is permitted. Even if a person holds two or more voting rights, such voting rights may not be exercised in a non-uniform manner (non-uniform exercise), and a person other than the owner-rights holder himself/herself (including other members and owner-rights holders) may not exercise his/her voting rights by proxy, regardless of whether or not he/she has been granted a proxy. (including other members and Owner Right Holders) may not exercise their voting rights, regardless of whether or not they have been granted proxy rights.
+            </article>
+            <article>
+                6. Resolutions at a general meeting of owners shall be adopted by a majority of the total voting rights exercisable with respect to the Product subject to such general meeting of owners. However, if otherwise provided for in these Terms and Conditions, the resolution requirements, etc. stated in such sections shall prevail.
+            </article>
+            <article>
+                7. In addition to the preceding paragraphs, the Company shall take all reasonably possible measures to ensure that the general meeting of owners is conducted fairly and appropriately.
+            </article>
+        </div>
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 21 (Action in the Event of Death of a Member)
+            </div>
+            <article>
+                1. In the event of the death or declaration of disappearance of a member who has held Owner rights, the Company may suspend the account of such member held by such member.
+            </article>
+            <article>
+                2. Notwithstanding the provisions of Article 3 (Ownership), Paragraph 2, heirs of a member who has died or been declared missing may succeed to the ownership rights held by the member who has died or been declared missing by following the conditions and procedures separately stipulated by the Company. 2. The heir who succeeds to the Owner Rights shall, as a member of the Service, comply with the rules stipulated by or agreed upon with the Company, including the Terms of Service, the Listing Agreement, and the Transaction Rules.
+            </article>
+            <article>
+                3. Heirs who wish to succeed to the ownership rights stipulated in the preceding paragraph should contact the Company via the Company's Contact Us page.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 22 (Disclaimer)
+            </div>
+            <article>
+                1. The Company shall not be liable for any loss or damage incurred by a member as a result of the member's use of or inability to use the service, even if such loss or damage is caused by the member's intentional or gross negligence. However, the Company shall not be held liable for damages caused by the intentional or gross negligence of the Company. 
+            </article>
+            <article>
+                2. The Company provides and operates a forum for prospective sellers to list their items, purchase owner-rights, and trade owner-rights among members, and each member should purchase owner-rights at his or her own discretion. The Company does not guarantee that any transaction of owner-rights between members will be completed. 
+            </article>
+            <article>
+                3. Any problems arising between members, such as between sellers and members or parties involved in ownership transactions, in relation to the service must be handled and resolved at the member's own risk, and the Company will not be involved in or be held responsible for any such problems. 
+            </article>
+            <article>
+                4. The Company shall not be liable for the execution or non-execution of the purchase or sale of ownership rights by a member or the failure of a transaction, or for any damage arising from transactions between members of ownership rights, for any reason whatsoever, unless such damage is caused by the Company's intentional or negligent actions.
+            </article>
+            <article>
+                5. Members understand that they may be subject to taxation in connection with their use of the service (including cases where transactions on the service become subject to taxation due to future changes in the law). Members should use the Service in compliance with all applicable laws and regulations. Members should confirm the existence or non-existence of taxation by themselves, and the Company assumes no responsibility whatsoever. 
+            </article>
+            <article>
+                6. The Company shall not be liable for any damages incurred by members as a result of the Service. 6. However, if the contract between the Company and a member regarding the Service (including the Terms of Service) is a consumer contract as defined in the Consumer Contract Act, the Company shall not be liable for any loss or damage incurred by the member. However, if the contract between the Company and a member regarding the Service (including the TOS) is a consumer contract as defined in the Consumer Contract Act, the disclaimer in the TOS shall not apply to the extent that it is in violation of the law. 
+            </article>
+            <article>
+                7. Even in the case of the proviso in the preceding paragraph, the Company shall not be liable for any damage arising from special circumstances (including cases where the Company or a member foresaw or could have foreseen the occurrence of damage) among damages incurred by a member. In no event shall the Company be liable for any damage arising from special circumstances. In any event, the amount of compensation for damages from the Company to a member shall be limited to the amount equivalent to the sum of all commissions and payment agency fees actually received by the Company from the member in the past 3 months, retroactively from the time when the cause of the damage occurred.
+            </article>
+            <article>
+                8. The Company does not guarantee the fitness for a particular purpose of the Service or any infringement of intellectual property rights or other rights resulting from the use of the Service. 
+            </article>
+            <article>
+                9. The Company makes no warranty as to the completeness, accuracy, or reliability of the contents of the Service or information obtained by Members through the Service (including data and expert comments posted on the Service regarding product values and the art market). The Company does not guarantee the completeness, accuracy, certainty, usefulness, etc. of the contents of the Service or information obtained by members through the Service (including data on the value of products and the art market and comments by experts). In addition, the Company shall not be liable for any damages incurred by members in relation to the content of information displayed on the Company's website or other materials provided by the Company regarding the Service, or any changes or updates to such information.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 23 (Suspension or Interruption of the Service)
+            </div>
+            <article>
+                The Company may temporarily suspend or discontinue all or part of the Service without prior notice to members in any of the following cases. The Company shall not be liable for any damages incurred by the member as a result of such suspension or interruption. 
+            </article>
+            <article>
+                1. In the event that the service cannot be provided due to a breakdown or failure of servers, communication lines, or other equipment, or for any other reason
+            </article>
+            <article>
+                2. In the event of periodic or emergency maintenance, inspection, repair, or modification of the system (including servers, communication lines and power supplies, and the buildings that house them)
+            </article>
+            <article>
+                3. When the Service cannot be provided due to fire, power outage, etc.
+            </article>
+            <article>
+                4. When provision of the Service becomes impossible due to natural disasters such as earthquakes, eruptions, floods, or tsunamis;
+            </article>
+            <article>
+                5. When provision of the Service becomes impossible due to war, disturbance, riot, civil commotion, labor strife, or other force majeure;
+            </article>
+            <article>
+                6. In the event that provision of the Service becomes impossible due to laws and regulations or measures based on such laws and regulations
+            </article>
+            <article>
+                7. in the event of trouble, interruption or suspension of service provision, suspension of linkage with this service, specification changes, etc. to external SNS services linked to this service; 
+            </article>
+            <article>
+                8. Any other cases in which the Company deems it necessary to temporarily suspend the Service for operational or technical reasons.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 24 (Treatment upon Termination of the Service)
+            </div>
+            <article>
+                1. If the Company terminates provision of the Service in accordance with the preceding article (Suspension or Interruption of the Service), the Company shall notify members of the termination by posting on its website, sending written notice or an e-mail, or by other means.
+            </article>
+            <article>
+                2. If the Company terminates the Service, all information of all sellers and members will be deleted after a certain grace period as the Company deems appropriate. However, the information may be retained to the extent necessary for the purposes of this Article 4. 
+            </article>
+            <article>
+                3. The right to receive preferential treatment held by a member will expire after the Service is terminated. 
+            </article>
+            <article>
+                4. Prior to the termination of the Service, the Company will use its best efforts to sell the Products currently listed on the Service. If the sale of the Product is successful, the Company will pay the Member holding the ownership rights to the Product sold (excluding consumption tax and other taxes, and deducting the fees prescribed by the Company) in accordance with the provisions of Article 3 (Ownership Rights), Paragraph 3. (excluding consumption tax and other taxes, and deducting fees as prescribed by the Company). (However, even if the actual amount distributed is less than the value at the time of acquisition of the Ownership Interests, the Company shall not be liable for compensation or any other liability.) (However, even if the actual amount distributed is less than the value of the ownership interest at the time of acquisition, the Company shall not be liable for compensation or any other liability.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 25 (Changes to the Service and these Terms of Use, etc.)
+            </div>
+            <article>
+                1. The Company may change the TOS if the change is in the general interest of members, or if the Company determines that the change is reasonable in light of the purpose of the agreement, the necessity of the change, the reasonableness of the changed content, or other circumstances related to the change. 
+            </article>
+            <article>
+                2. If the Company modifies the TOS in accordance with the preceding paragraph, it shall specify the details of the modification and the effective date of the modification, and shall notify members or publicly announce the details of the modification in a manner the Company deems appropriate. The notice or announcement shall be made at least 14 days prior to the effective date of the change, but this period may be shortened if there is an unavoidable and reasonable reason. 
+            </article>
+            <article>
+                3. In the event that the Company changes the Terms of Service in accordance with the provisions of this Article, the terms and conditions of the Service after such change shall be governed by the changed Terms of Service. The Company shall not be liable for any loss or damage incurred by a member as a result of such changes to the Terms of Service, except in cases of willful misconduct or gross negligence on the part of the Company.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 26 (Intellectual Property Rights, etc.)
+            </div>
+            <article>
+                1. Copyrights (including the rights stipulated in Article 27 and Article 28 of the Copyright Act. The same shall apply hereinafter), patent rights, utility model rights (including the right to acquire such rights or to apply for registration of such rights) Members understand that all intellectual property rights (including the right to obtain such rights or to apply for registration of such rights) belong to the Company or third parties licensed to the Company, and that they may not use or disclose such information themselves or have it used by third parties, except with the permission of the Company or third parties licensed to the Company, or when used within the scope of personal use as stipulated in the Copyright Law. 
+            </article>
+            <article>
+                2. The member is not allowed to post information on the service.The Company may freely use photographs and information posted by members on the Service, as well as photographs and videos taken or recorded by the Company during the provision of special offers, for the purpose of advertising and operating the Service. 
+            </article>
+            <article>
+                3. The Company will not verify the content, quality, truth, accuracy, validity, legality, or infringement of third party rights. The Company makes no warranty and assumes no responsibility with respect thereto.
+            </article>
+            <article>
+                4. Members must make their own judgments regarding the content, quality, truth, accuracy, validity, legality, etc. of any content sent or posted by other members. Members shall not engage in any conduct that infringes or may infringe on the copyrights or other rights of other members with respect to such content. The Company shall not be liable for any damages incurred by members or third parties as a result of the use of the Company's content.
+            </article>
+            <article>
+                5. If the Company deems that a member has violated the TOS or acted inappropriately in light of the TOS, the Company may change or delete any content posted on the service by the member without prior notice.
+            </article>
+        </div>
+
+
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 27 (General Terms)
+            </div>
+            <article>
+                1. Notification and communication from the Company to members regarding the Service shall be made by posting notices on the Company's website or in appropriate locations within the application, or by any other method deemed appropriate by the Company. When the Company deems it necessary to notify or contact an individual member, the Company may notify or contact the member at the e-mail address, address, or telephone number in the member's registration information. The Company shall not be liable for any damages incurred due to non-delivery or delay of such notices and communications. 
+            </article>
+            <article>
+                2. Even if any provision or part of a provision of the TOS is determined to be invalid or unenforceable under the Consumer Contract Act or other laws or regulations, the remaining portions of the TOS shall remain in full force and effect, and the Company and members may modify the invalid or unenforceable provision or part to the extent necessary to make it legitimate and enforceable. The remaining portions of these TOS shall remain in full force and effect and shall be construed so as to modify such invalid or unenforceable provision or portion to the extent necessary to make it legal and enforceable and to ensure the intent, legal and economic equivalence and effect of such invalid or unenforceable provision or portion.
+            </article>
+            <article>
+                3. In the event of any ambiguity arising out of or in connection with the Terms of Service, Member shall comply with the provisions of the Company's Terms of Service. In the event that a dispute cannot be resolved in this manner, the Company and the member shall promptly attempt to resolve the dispute through consultation in accordance with the principle of good faith.
+            </article>
+        </div>
+
+
+        
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 28 (Compensation for Damages and Disputes)
+            </div>
+            <article>
+                1. If a member violates the Terms of Service or the Guidelines and causes damage to the Company or a third party, the member shall be obligated to compensate the Company for such damage. However, this provision does not exempt the member from liability for damages under other laws and regulations that the member may have to the Company.
+            </article>
+            <article>
+                2. Members are responsible for all matters related to transactions between members (including, but not limited to, transactions between members with ownership rights). In principle, the Company does not intervene in disputes between members, nor is it obligated to do so, and members may not ask the Company to resolve disputes. However, the Company may intervene in disputes between members if the Company deems it necessary for the smooth operation of the service. 
+            </article>
+            <article>
+                3. In principle, unless otherwise stipulated, the Company will not provide any third party, including other members, with any member information obtained in accordance with these Terms of Use and Privacy Policy. However, in the event that the Company is ordered to do so by a court, public prosecutor's office, or administrative agency, or in the event that the Company is required to comply with a request pursuant to Article 23-2 of the Lawyers Act or other mandatory laws or orders, the Company will, to the extent necessary to comply with such orders, disclose to third parties any member information, transaction records between members, or other records related to members that the Company manages, including but not limited to Article 29 (Governing Law and Jurisdiction)
+            </article>
+        </div>
+        <div className="c-policy">
+            <div className="c-policy--articleHeader">
+                Article 29 (Governing Law and Jurisdiction)
+            </div>
+            <article>
+                The Terms of Use shall be governed by and construed in accordance with the laws of Japan, without regard to principles of equity, and any dispute arising between a member and the Company regarding the Service shall be submitted to the exclusive jurisdiction of the Fukuoka District Court as the court of first instance.
+            </article>
+            <p className="mt-5 text-right">Created at Jan 10, 2021</p>
+        </div>
+    </section>
+    )
+}
+
+const Terms = ({locale}) => {
+    if (locale == 'ja') return <TermsJP />;
+    else return <TermsEN />;
+}
+
+const mapStateToProps = ({ theme }) => {
+  const { locale } =  theme;
+  return { locale }
+};
+
+export default withRouter(connect(mapStateToProps)(Terms));

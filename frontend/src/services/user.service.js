@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_URL } from "configs/AppConfig";
 
-const API_URL = process.env.REACT_APP_API_URL;
 
 class UserService{
   getCurrentUser() {
@@ -56,10 +56,11 @@ class UserService{
   }
 
 
-  async register(email, password) {
+  async register(email, password, introducer) {
     return await axios.post(`${API_URL}/api/user/auth/signup`, {
       email,
-      password
+      password,
+      introducer
     });
   }
 
@@ -86,27 +87,32 @@ class UserService{
   //-----------Identity Management----------//
   async getPersonalInfo(id) {
     return await axios
-      .get(`${API_URL}/api/user/personal-info/${id}`);
+      .get(`${API_URL}/api/user/get/personal-info?id=${id}`);
   }
 
-  async updatePersonalInfo(personalObj) {
+  async getPartners(id) {
     return await axios
-      .put(`${API_URL}/api/user/update/personal-info`, personalObj)
+    .get(`${API_URL}/api/user/get/partners?id=${id}`);
   }
 
-  async updateNickname(obj) {
+  async updatePersonalInfo(payload) {
     return await axios
-      .put(`${API_URL}/api/user/update/nickname`, obj)
+      .put(`${API_URL}/api/user/update/personal-info`, payload)
   }
 
-  async updateUserAvatar(obj) {
+  async updateNickname(payload) {
     return await axios
-    .put(`${API_URL}/api/user/update/avatar`, obj)
+      .put(`${API_URL}/api/user/update/nickname`, payload)
   }
 
-  async updateUserWarrant(obj) {
+  async updateUserAvatar(payload) {
     return await axios
-    .put(`${API_URL}/api/user/update/warrant`, obj)
+    .put(`${API_URL}/api/user/update/avatar`, payload)
+  }
+
+  async updateUserWarrant(payload) {
+    return await axios
+    .put(`${API_URL}/api/user/update/warrant`, payload)
   }
   
   async withdrawal(id) {
@@ -116,26 +122,32 @@ class UserService{
       })
   }
 
-  async submitContact(contactObj) {
+  async submitContact(payload) {
     return await axios
-      .post(`${API_URL}/api/user/mails/create`, contactObj)
+      .post(`${API_URL}/api/user/mails/create`, payload)
   }
 
   // -----------  Coin Management ------------ //
   async getAllCoins(){
     return await axios
-    .get(`${API_URL}/api/user/coins/get`);
+    .get(`${API_URL}/api/user/coins/get`)
   }
 
   async getCoinOne(coinID){
     return await axios
-    .get(`${API_URL}/api/user/coins/get/${coinID}`);
+    .get(`${API_URL}/api/user/coins/get/${coinID}`)
   }
 
   // -------------  Transaction --------------- //
-  async orderOwnership(orderObj){
+  async orderOwnership(payload){
     return await axios
-    .post(`${API_URL}/api/user/purchase/order/create`, orderObj);
+    .post(`${API_URL}/api/user/purchase/order/create`, payload)
+  }
+
+  // ------------- Affiliate Management  --------------- //
+  async updateRewardGroup(payload) {
+    return await axios
+    .put(`${API_URL}/api/user/update/reward-group`, payload)
   }
 
 }

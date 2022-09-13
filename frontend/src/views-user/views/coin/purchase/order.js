@@ -124,7 +124,7 @@ export default function PurchaseRequest(props) {
                 }
             >
                 <div className="tracsaction_header">
-                    <div className="c-header mb-4">
+                    <div className="c-header">
                         <h3 className="c-header--title">注文内容の確認</h3>
                         <p className="c-header--subtitle">Confirm your order</p>
                     </div>

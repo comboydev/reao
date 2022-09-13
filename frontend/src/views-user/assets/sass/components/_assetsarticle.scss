@@ -45,7 +45,7 @@
         right: 0;
         &__inner{
             height: 10.15625vw;
-            width: 31.25vw;
+            width: 38.25vw;
             position: absolute;
             left: 26.1979166vw;
             h1{
@@ -131,7 +131,7 @@
         &--content{
             background: rgba(167, 135, 84, 0.06);
             @include width_calc(670);
-            @include height_calc(1499);
+            @include height_calc(1600);
             padding: 6.5052083vw 0 0 0;
             position: absolute;
             right: 0;

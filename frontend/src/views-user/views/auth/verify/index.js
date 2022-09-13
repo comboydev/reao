@@ -6,6 +6,7 @@ import {Button} from "antd";
 import CheckButton from "react-validation/build/button";
 import UserService from "services/user.service";
 import { required, is_email } from "services/validator";
+import IntlMessage from "components/util-components/IntlMessage";
 
 const VerifyEmailForm = () => {
 
@@ -64,10 +65,12 @@ const VerifyEmailForm = () => {
     <div>
       <section className="p-card">
         <div className="c-card">
-          <h2 className="c-card--header mb-4 mt-4">登録メールの認証</h2>
+          <h2 className="c-card--header mb-4 mt-4">
+            <IntlMessage id="page.auth.verify.email" description="登録メールの認証" />
+          </h2>
           <p className="c-card--article mb-5">
-            仮登録メールを再送信します。<br/>
-            メールアドレスを確認、修正の上送信してください。
+            <IntlMessage id="page.auth.verify.email.t1" description="仮登録メールを再送信します。" /><br/>
+            <IntlMessage id="page.auth.verify.email.t2" description="メールアドレスを確認、修正の上送信してください。" />
           </p>
           <Form
             onSubmit={handleSendLink}
@@ -84,7 +87,9 @@ const VerifyEmailForm = () => {
                 <p className="alert alert-danger alert-bg alert-center">{_error}</p>
               }
             </div>
-            <p className="c-signin--formitemlabel">メールアドレス</p>
+            <p className="c-signin--formitemlabel">
+              <IntlMessage id="page.auth.email" description="メールアドレス" />
+            </p>
             <Input
               type="email"
               className="c-signin--input"
@@ -99,7 +104,9 @@ const VerifyEmailForm = () => {
               className="c-btn c-btn-regist mt-4"
               block 
               loading={submit}>
-              <span>仮登録メール再送信</span>
+              <span>
+                <IntlMessage id="page.auth.verify.email.submit" description="仮登録メール再送信" />
+              </span>
             </Button>
 
             <CheckButton

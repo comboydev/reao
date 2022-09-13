@@ -9,7 +9,7 @@ const ContactComplete = (props) => {
 
     return(
     <section className="p-card">
-        <div className="c-header mb-4">
+        <div className="c-header">
 			<h3 className="c-header--title">お問い合わせ完了</h3>
 			<p className="c-header--subtitle">Completed Contact us</p>
 		</div>

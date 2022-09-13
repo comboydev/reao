@@ -4,21 +4,21 @@ import { _IDVERIFY_STATUS } from "../config/constant";
 const User = db.user;
 
 // TODO: add filter, sort, range
-const get = (req, res) => {
+const getInfo = (req, res) => {
   User
     .findOne({
-      _id: req.params.id
+      _id: req.query.id
     })
+    .populate(['rewardGroup'])
     .exec()
     .then((record) => {
-        return res.json(record);
+      return res.json(record);
     }).catch(err => {
       return res.status(500).send();
     });
-    
 }
 
-const update = (req, res) => {
+const updatePersonalInfo = (req, res) => {
   const updatedUser = {
     personalInfo:{
       name: req.body.name,
@@ -44,7 +44,6 @@ const update = (req, res) => {
       })
     });
 }
-
 
 const updateNickname = (req, res) => {
   const updatedUser = {
@@ -98,11 +97,64 @@ const updateUserWarrant = (req, res) => {
     });
 }
 
+// Affiliant 
+const getPartners = async (req, res) => {
+  let arr = [{ "_id": req.query.id }];
+  let tear1 = await getPartner(arr);
+  let tear2 = await getPartner(tear1);
+  let tear3 = await getPartner(tear2);
+  let tear4 = await getPartner(tear3);
+  let tear5 = await getPartner(tear4);
+  res.json({
+    "tear1": tear1,
+    "tear2": tear2,
+    "tear3": tear3,
+    "tear4": tear4,
+    "tear5": tear5
+  })
+}
+
+const getPartner = async (records) => {
+  let ids = [];
+  for(let x in records){
+    ids.push(records[x]._id);
+  }
+  return await User
+  .find({"introducer": ids})
+  .populate(["introducer"])
+  .exec()
+  .then(res => {
+    let temp = [];
+    for(let y in res){
+      temp.push(res[y]._doc);
+    }
+    return temp;
+  })
+}
+
+const updateRewardGroup = async (req, res) => {
+  try {
+    let id = req.body.id;
+    const updatedUser = {
+      rewardGroup: req.body.rewardGroup
+    };
+    await User.findOneAndUpdate({ _id: id }, updatedUser)
+    let result = await User.findOne({ _id: id }).populate(['rewardGroup'])
+    return res.send(result);
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message || "エラーが発生しました!"
+    })
+  }
+}
+
 
 export default {
-  get,
-  update,
+  getInfo,
+  updatePersonalInfo,
   updateNickname,
   updateUserAvatar,
   updateUserWarrant,
+  updateRewardGroup,
+  getPartners,
 }

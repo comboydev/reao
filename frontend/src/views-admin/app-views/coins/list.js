@@ -38,7 +38,7 @@ const CoinList = () => {
 
 	const dropdownMenu = row => (
 		<Menu key={row.id}>
-			<Menu.Item onClick={() => viewDetails(row)}>
+			<Menu.Item onClick={() => viewDetails(row)} key="view">
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>
@@ -50,7 +50,7 @@ const CoinList = () => {
 				okText="YES"
 				cancelText="NO"
 			> 
-				<Menu.Item>
+				<Menu.Item key="delete">
 						<Flex alignItems="center">
 							<DeleteOutlined />
 							<span className="ml-2">{selectedRows.length > 0 ? `Delete (${selectedRows.length})` : 'Delete'}</span>
@@ -161,12 +161,14 @@ const CoinList = () => {
 	if( !loaded || !list) return null;
 	return (
 		<Card>
-			<Flex alignItems="center" justifyContent="between" mobileFlex={false}>
-				<Flex className="mb-1" mobileFlex={false}>
-					<div className="mr-md-3 mb-3">
-						<Input placeholder="Search" prefix={<SearchOutlined />} onChange={e => onSearch(e)}/>
-					</div>
-				</Flex>
+			<Flex className="mb-3" alignItems="center" justifyContent="between" mobileFlex={false}>
+				<div className="mr-md-3 mb-3">
+					<Input placeholder="Search"
+						prefix={<SearchOutlined />}
+						addonAfter={`Result: ${list?.length}`}
+						onChange={e => onSearch(e)}
+					/>
+				</div>
 				<div>
 					<Button onClick={addCoin} type="primary" icon={<PlusCircleOutlined />} block>Add Coin</Button>
 				</div>

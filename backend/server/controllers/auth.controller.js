@@ -23,6 +23,7 @@ const signup = (req, res) => {
   new User({
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
+    introducer: req.body.introducer,
   })
   .save()
   .then(user => {
@@ -42,7 +43,7 @@ const signup = (req, res) => {
     let msg = {
       from: config.support_mail, // Sender address
       to: user.email, // List of recipients
-      subject: '【FANTATION】　会員登録にお申し込みいただき、ありがとうございます。', // Subject line
+      subject: '【FANTATION】　新規会員登録ありがとうございます。', // Subject line
       text:  registerTempMsg(confirm_url), // Plain text body
     };
 
@@ -173,7 +174,7 @@ const sendLinkOfResetPassword = async (req, res) => {
     })
     .catch(err=>{
       console.log("SMTP Error:", err);
-      return res.status(500).send({ message: 'SMTP Error', token: token });
+      return res.status(500).send({ message: 'SMTP Error' });
     })
   })
   .catch(err => {
@@ -290,7 +291,7 @@ const sendLinkOfVerifyEmail = async (req, res) => {
         })
         .catch(err=>{
           console.log("SMTP Error:", err);
-          return res.status(500).send({ message: 'SMTP Error', token: token });
+          return res.status(500).send({ message: 'SMTP Error' });
         })
       })
       .catch(err => {
@@ -373,16 +374,22 @@ const  changePassword = (req, res) => {
 }
 
 
-const withdrawal = (req, res) => {
-  User.findOneAndDelete({
-    _id: req.body.id
-  })
-  .then(()=>{
-    return res.send({status_code: 200})
-  })
-  .catch(()=>{
-    return res.status(500).send({message: "ERROR!"});
-  })
+const withdrawal = async (req, res) => {
+	try {
+		let id = req.body.id
+		let count = await User.find({ 'introducer': id }).count()
+		if (count > 0) {
+			return res.send({
+				status_code: 400,
+				message: 'アフィリエイトの紐づけが崩れるので削除できません。',
+			})
+		} else {
+			await User.findOneAndDelete({ _id: id })
+			return res.send({ status_code: 200 })
+		}
+	} catch(err) {
+		return res.status(500).send({message: err.toString()})
+	}
 }
 
 

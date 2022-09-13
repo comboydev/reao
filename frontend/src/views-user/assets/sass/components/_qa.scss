@@ -49,49 +49,12 @@
         }
         &__answer{
             display: none;
-        }
-        &__answer.is-open{
-            display: inline-block;
             margin-top: 1vw;
             margin-bottom: 1vw;
-            width: 36.71875vw;
+            width: 40.71875vw;
+            font-size: 1.1vw;
             overflow-wrap: break-word;
-            animation: scale 0.4s ease-in forwards;
-        }
-    }
-}
-
-
-@keyframes scale {
-    0% {
-        height: 0px;
-        opacity: 0;
-    }
-
-    50%{
-        opacity: .5;
-    }
-    100% {
-        height: 4vw;
-        opacity: 1;
-        transform: translate(calc(15/1920)*100+vw);
-    }
-}
-
-@media screen and (max-width: 1300px){
-    @keyframes scale {
-        0% {
-            height: 0px;
-            opacity: 0;
-        }
-    
-        50%{
-            opacity: .5;
-        }
-        100% {
-            height: 7vw;
-            opacity: 1;
-            transform: translate(calc(15/1920)*100+vw);
+            color: #332F2D;
         }
     }
 }
@@ -100,7 +63,7 @@
     .c-qa--list__item{
         width: 80%;
     }
-    .c-qa--list__answer.is-open{
+    .c-qa--list__answer{
         width: 80%;
     }
 }
@@ -111,8 +74,6 @@
         justify-content: center;
         color: $text-color-braun;
         &--header{
-            // position: absolute;
-            // margin-bottom: 4.9479166vw;
             display: flex;
             flex-direction: column;
             text-align: center;
@@ -121,7 +82,8 @@
             color: $text-color-braun;
             &::after{
                 content: 'FAQ';
-                font-size: calc(40/750)*100+vw;
+                font-size: calc(25/750)*100+vw;
+                margin-top: 0;
             }
         }
         &--list{
@@ -155,15 +117,11 @@
             }
             &__answer{
                 display: none;
-            }
-            &__answer.is-open{
-                position: relative;
-                display: block;
                 margin: initial;
                 margin-bottom: 4vw;
                 width: 100%;
                 height: auto;
-                animation: scale 0.4s ease-in forwards;
+                font-size: calc(25/750)*100+vw;
                 p{
                     display: inline-block;
                     height: auto;
@@ -172,23 +130,6 @@
                     }
                 }
             }
-        }
-    }
-    @keyframes scale {
-        0% {
-            height: 0px;
-            opacity: 0;
-        }
-        20%{
-            height: auto;
-        }
-        50%{
-            opacity: .5;
-        }
-        100% {
-            // height: 20.2083333vw;
-            opacity: 1;
-            transform: translate(calc(15/750)*100+vw);
         }
     }
 }

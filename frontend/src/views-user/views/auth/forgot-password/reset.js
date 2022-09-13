@@ -6,7 +6,7 @@ import { Button, message } from "antd";
 import CheckButton from "react-validation/build/button";
 import { required, is_password} from "services/validator";
 import UserService from "services/user.service";
-
+import IntlMessage from "components/util-components/IntlMessage";
 
 export default function ForgotPassword(props) {
 
@@ -108,7 +108,9 @@ export default function ForgotPassword(props) {
                 form = c;
               }}
             >
-              <p className="c-form--itemlabel">パスワード</p>
+              <p className="c-form--itemlabel">
+                <IntlMessage id="page.auth.password" description="パスワード" />
+              </p>
               <Input
                 type="password"
                 className="c-form--input"
@@ -118,12 +120,14 @@ export default function ForgotPassword(props) {
                 validations={[required, is_password]}
               />
               <article>
-                <p>利用できる文字は半角英数字です。</p>
-                <p>英大文字・英小文字・数字それぞれを最低1文字ずつ含む</p>
-                <p>8文字以上で入力ください。</p>
+                <IntlMessage id="page.auth.rule.password.t1" description="利用できる文字は半角英数字です。" /> <br/>
+								<IntlMessage id="page.auth.rule.password.t2" description="英大文字・英小文字・数字それぞれを最低1文字ずつ含む" /> <br/>
+								<IntlMessage id="page.auth.rule.password.t3" description="8文字以上で入力ください。" />
               </article>
 
-              <p className="c-form--itemlabel">パスワード確認</p>
+              <p className="c-form--itemlabel">
+                <IntlMessage id="page.auth.password_confirm" description="パスワード確認" />
+              </p>
               <Input
                 type="password"
                 className="c-form--input"
@@ -138,7 +142,9 @@ export default function ForgotPassword(props) {
                 className="c-btn c-btn-regist mt-4"
                 block 
                 loading={submit}>
-                 <span>再設定</span>
+                  <span>
+                    <IntlMessage id="page.auth.reset.password.submit" description="再設定" />
+                 </span>
               </Button>
               <CheckButton
                 style={{ display: "none" }}

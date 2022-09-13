@@ -6,7 +6,7 @@ import {Button} from "antd";
 import CheckButton from "react-validation/build/button";
 import { required, is_email} from "services/validator";
 import UserService from "services/user.service";
-
+import IntlMessage from "components/util-components/IntlMessage";
 
 export default function ForgotPassword() {
 
@@ -54,12 +54,17 @@ export default function ForgotPassword() {
     <div>
       <section className="p-card">
         <div className="c-header">
-          <h3 className="c-header--title">パスワードの再設定</h3>
-          <p className="c-header--subtitle">Forgot your password?</p>
+          <h3 className="c-header--title">
+            <IntlMessage id="page.auth.forgot.password.title.jp" description="パスワードの再設定" />
+          </h3>
+          <p className="c-header--subtitle">
+            <IntlMessage id="page.auth.forgot.password.title.en" description="Forgot your password?" />
+          </p>
         </div>
         <div className="c-card max-w500 mt-4">
           <h2 className="c-signin--header--sub">
-            登録したメールアドレスに<br/>パスワードリセットリンクをお送りします。
+            <IntlMessage id="page.auth.forgot.password.t1" description="登録したメールアドレスに" /> <br />
+            <IntlMessage id="page.auth.forgot.password.t2" description="パスワードリセットリンクをお送りします。" /> 
           </h2>
           {_success &&
             <p className="alert alert-success alert-bg alert-center">{_success}</p>
@@ -74,7 +79,9 @@ export default function ForgotPassword() {
                 form = c;
               }}
             >
-              <p className="c-form--itemlabel">登録メールアドレス</p>
+              <p className="c-form--itemlabel">
+                <IntlMessage id="page.auth.email" description="登録メール" />
+              </p>
               <Input
                 type="email"
                 className="c-form--input"
@@ -88,7 +95,9 @@ export default function ForgotPassword() {
                 className="c-btn c-btn-regist mt-4"
                 block 
                 loading={submit}>
-                 <span>リセットリンクを送信</span>
+                <span>
+                  <IntlMessage id="page.auth.forgot.password.submit" description="リセットリンクを送信" />
+                </span>
               </Button>
               <CheckButton
                 style={{ display: "none" }}

@@ -5,6 +5,7 @@ import NumberFormat from 'react-number-format';
 import moment from "moment";
 import copy from 'copy-to-clipboard';
 import PageHeaderAlt from 'components/layout-components/PageHeaderAlt'
+import AvatarStatus from 'components/shared-components/AvatarStatus';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -52,30 +53,32 @@ const  DetailCoin = (props) => {
 
 	const tableColumns = [
 		{
+			title: '',
+			dataIndex: 'owner',
+			render: owner => (
+			    <AvatarStatus src={owner.avatar} name={owner.nickname} subTitle={owner.email}/>
+			),
+			sorter: null
+		},
+		{
+		title: 'Wallet',
+		dataIndex: 'wallet',
+		render: wallet => (
+			<Tooltip title="Copy" onClick={() => copyWalletAddress(wallet)} placement="bottom">
+				<span className="pointer">{ wallet.slice(0, 6) + "..." + wallet.slice(-3) }</span>
+			</Tooltip>
+		),
+		sorter: null
+		},
+		{
 			title: '購入日',
 			dataIndex: 'created_at',
 			render: created_at => (
 				<span>{moment(created_at).format("YYYY-MM-DD")} </span>
 			),
-			sorter: (a, b) => moment(a.created_at) - moment(b.created_at)
+			sorter: null
 		},
-        {
-			title: 'Wallet',
-			dataIndex: 'wallet',
-			render: (_, record) => (
-                <Tooltip title="Copy" onClick={() => copyWalletAddress(record.wallet)}>
-                    <span style={{ cursor:'pointer' }}>{ record.wallet.slice(0, 6) + "..." + record.wallet.slice(-3) }</span>
-                </Tooltip>
-			),
-			sorter: {
-				compare: (a, b) => {
-					a = a.email.toLowerCase();
-					  b = b.email.toLowerCase();
-					return a > b ? -1 : b > a ? 1 : 0;
-				},
-			},
-		},
-        {
+        	{
 			title: '保有枚数',
 			dataIndex: 'count',
 			render: count => (
@@ -96,7 +99,7 @@ const  DetailCoin = (props) => {
 				},
 			},
 		},
-        {
+        	{
 			title: '価格',
 			dataIndex: 'cost',
 			render: cost => (
@@ -111,7 +114,7 @@ const  DetailCoin = (props) => {
 			),
 			sorter: (a, b) => utils.antdTableSorter(a, b, 'cost')
 		},
-        {
+        	{
 			title: 'Status',
 			dataIndex: 'sellStatus',
 			render: status => {

@@ -13,5 +13,6 @@ db.contact = require("./contact.model");
 db.coin = require("./coin.model");
 db.order = require("./order.model");
 db.ownership = require("./ownership.model");
+db.reward_group = require("./reward.group.model");
 
 export default db;

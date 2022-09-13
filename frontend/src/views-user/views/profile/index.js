@@ -224,26 +224,30 @@ const PersonalInfo = () => {
     });
   }
 
-  const deleteUser = () => {
-    let user = UserService.getCurrentUser();
-    UserService.withdrawal(user._id)
-    .then(res => {
-      UserService.logout();
-      message.success("退会しました！", ()=>{
-        window.location.href="/"
-      });
-    })
-    .catch(err => {
-      message.error("失敗しました。");
-    })
-  }
+	const deleteUser = () => {
+		let user = UserService.getCurrentUser();
+		UserService.withdrawal(user._id)
+		.then(res => {
+			if (res.data.status_code === 200) {
+				UserService.logout();
+				message.success("退会しました！", ()=>{
+					window.location.href="/"
+				});
+			} else {
+				message.warning(res.data.message);
+			}
+		})
+		.catch(err => {
+			message.error("失敗しました。");
+		})
+	}
 
 
   if(!loaded || !user) return <Loading cover="page"/>
   return (
     <div className="c-memberInfo">
       <section className="p-card">
-        <div className="c-header mb-4">
+        <div className="c-header">
           <h3 className="c-header--title">個人情報登録</h3>
           <p className="c-header--subtitle">Personal Information Management</p>
         </div>
@@ -465,7 +469,7 @@ const PersonalInfo = () => {
       
       <section className="p-card">
 
-        <div className="c-header mb-4">
+        <div className="c-header">
           <h3 className="c-header--title">本人認証</h3>
           <p className="c-header--subtitle">Identity Authentication</p>
         </div>

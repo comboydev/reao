@@ -12,63 +12,12 @@ const { Option } = Select;
 
 const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUploadChange}) => {
 	const rules = {
-		name: [
+		required: [
 			{
 				required: true,
 				message: 'この項目は必須です!',
 			}
 		],
-		grade: [
-			{
-				required: true,
-				message: 'この項目は必須です!',
-			}
-		],
-		description: {
-			coin: [
-				{
-					required: true,
-					message: 'この項目は必須です!',
-				}
-			],
-			grade: [
-				{
-					required: true,
-					message: 'この項目は必須です!',
-				}
-			]
-			
-		},
-		cost: [
-			{
-				required: true,
-				message: 'この項目は必須です!',
-			}
-		],
-		refPrice: [		
-			{
-				required: true,
-				message: 'この項目は必須です!',
-			}
-		],
-		totalCount: [
-			{
-				required: true,
-				message: 'この項目は必須です!',
-			}
-		],
-		minCount: [
-			{
-				required: true,
-				message: 'この項目は必須です!'
-			}
-		],
-		taxRate: [		
-			{
-				required: true,
-				message: 'この項目は必須です!',
-			}
-		]
 	}
 	
 	const imageUploadProps = {
@@ -103,10 +52,10 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 	<Row gutter={16}>
 		<Col xs={24} sm={24} md={17}>
 			<Card title="Coin Info">
-				<Form.Item name="name" label="コイン名" rules={rules.name}>
+				<Form.Item name="name" label="コイン名" rules={rules.required}>
 					<Input placeholder="Coin Name"/>
 				</Form.Item>
-				<Form.Item name="grade" label="グレード" rules={rules.grade}>
+				<Form.Item name="grade" label="グレード" rules={rules.required}>
 					<Input placeholder="Grade" />
 					{/* <Select className="w-100" placeholder="Grade">
 						{
@@ -116,17 +65,17 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 						}
 					</Select> */}
 				</Form.Item>
-				<Form.Item name="coinDescription" label="コインの説明" rules={rules.description.coin}>
+				<Form.Item name="coinDescription" label="コインの説明" rules={rules.required}>
 					<Input.TextArea rows={4} placeholder="Describe Coin" />
 				</Form.Item>
-				<Form.Item name="gradeDescription" label="グレードの説明" rules={rules.description.grade}>
+				<Form.Item name="gradeDescription" label="グレードの説明" rules={rules.required}>
 					<Input.TextArea rows={4} placeholder="Describe Grade" />
 				</Form.Item>
 			</Card>
 			<Card title="Pricing">
 				<Row gutter={16}>
 					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="refPrice" label="参考取引価格" rules={rules.refPrice}>
+						<Form.Item name="refPrice" label="参考取引価格" rules={rules.required}>
 							<InputNumber
 								className="w-100"
 								value={0}
@@ -138,7 +87,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 						</Form.Item>
 					</Col>
 					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="totalCount" label="発行枚数（枚）" rules={rules.totalCount}>
+						<Form.Item name="totalCount" label="発行枚数（枚）" rules={rules.required}>
 							<InputNumber placeholder='Number of coins'
 								className='w-100'
 								min={100}
@@ -150,7 +99,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 					</Col>
 					
 					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="cost" label="オーナー権価格" rules={rules.cost}>
+						<Form.Item name="cost" label="オーナー権価格" rules={rules.required}>
 						<InputNumber
 							className="w-100"
 							step = {5000}
@@ -162,7 +111,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 					</Col>
 
 					{/* <Col xs={24} sm={24} md={12}>
-						<Form.Item name="minCount" label="最低購入可能口数（枚）" rules={rules.minCount}>
+						<Form.Item name="minCount" label="最低購入可能口数（枚）" rules={rules.required}>
 							<InputNumber placeholder='Minimum number of coins' 
 								className='w-100'
 								min={1}
@@ -171,7 +120,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 					</Col> */}
 				
 					<Col xs={24} sm={24} md={12}>
-						<Form.Item name="taxRate" label="Tax rate" rules={rules.taxRate}>
+						<Form.Item name="taxRate" label="Tax rate" rules={rules.required}>
 							<InputNumber
 								className="w-100"
 								min={0}

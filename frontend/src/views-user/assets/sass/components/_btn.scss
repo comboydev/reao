@@ -28,35 +28,28 @@
     font-family: $yuMincho;
 }
 
-.c-btn--login{
-    padding: 5px;
-    background-color: $btn-color-braun;
-    margin-right: 5px;
+.c-btn--login, .c-btn--signup{
+    padding: 0;
     font-family: "yu-mincho-pr6n", "sans-serif";
-    p{
-        font-size: 12px;
-        &::after{
+    min-height: 50px;
+    span{
+        font-size: 15px;
+        &.sub{
             display: block;
-            content: 'LOGIN';
             font-size: 10px;
         }
     }
 }
 
+.c-btn--login{
+    background-color: $btn-color-braun;
+    margin-right: 5px;
+}
+
 .c-btn--signup{
     background-color: $btn-color-black;
-    padding: 5px;
-    border: 1px solid white;
-    font-family: "yu-mincho-pr6n", "sans-serif";
-    p{
-        font-size: 12px;
-        &::after{
-            display: block;
-            content: 'SIGNUP';
-            font-size: 9px;
-        }
-    }
 }
+
 
 .c-btn--back{
     width: 100%;
@@ -77,7 +70,6 @@
     left: 4.5833vw;
     &::after{
         display: block;
-
         font-size: 0.46875vw;
         line-height: 0.520833vw;
     }
@@ -243,32 +235,31 @@
     background: #77603b;
     p{
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         text-align: center;
     }
 }
 .c-btn--contact--black{
     background: #332f2d;
     p{
-        font-size: 16px;
+        font-size: 18px;
         text-align: center;
     }
 }
 
-
-.c-btn--mypage{
+.c-btn--mypage, .c-btn--logout{
     background: #fff;
     border: 1px solid #d8d8d8;    
-    padding: 3px;
+    padding: 0;
     font-family: "yu-mincho-pr6n", "sans-serif";
     color: #222222;
     width: 150px;
     text-align: center;
-    p{
-        font-size: 12px;
-        &::after{
+    min-height: 50px;
+    span{
+        font-size: 15px;
+        &.sub{
             display: block;
-            content: 'MYPAGE';
             font-size: 10px;
             color: #a78754;
         }
@@ -294,24 +285,6 @@
         background-color: red;
         right: 0;
         top: 2px;
-    }
-}
-.c-btn--logout{
-    background: #fff;
-    border: 1px solid #d8d8d8;    
-    padding: 3px;
-    font-family: "yu-mincho-pr6n", "sans-serif";
-    color: #222222;
-    width: 150px;
-    text-align: center;
-    p{
-        font-size: 12px;
-        &::after{
-            display: block;
-            content: 'LOGOUT';
-            font-size: 10px;
-            color: #a78754;
-        }
     }
 }
 

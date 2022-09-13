@@ -20,7 +20,7 @@
             content: '';
             display: block;
             position: absolute;
-            transform: translate(-2.20625vw);
+            transform: translate(-2.20625vw, 0.50625vw);
             width: 1.3572916vw;
             height: 1.033vw;
             background-image: url('../../img/check.png');
@@ -73,10 +73,9 @@
                 display: block;
                 position: absolute;
                 margin: auto 0;
-                transform: translate(-7vw);
-                margin-top: calc((20/750)*100)+vw;
-                @include width_calc(36.59);
-                @include height_calc(27.86);
+                transform: translate(-7vw, 1.5vw);
+                width: vw2(14);
+                height: vw2(10.5);
                 background-image: url('../../img/check.png');
                 background-size: contain;
             }

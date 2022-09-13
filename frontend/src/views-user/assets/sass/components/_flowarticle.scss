@@ -13,15 +13,12 @@
 .c-flowarticle{
     font-family: $yuMincho;
     h1{
-        // position: absolute;
         text-align: center;
-        display: flex;
-        flex-direction: column;
         font-size: 2.604166vw;
         color: $text-color-braun;
-        // transform: translate(0, -6.385416vw);
         &::after{
             content: 'Flow';
+            display: block;
             font-size: 0.78125vw;
             margin-top: 0.8854166vw;
         }
@@ -157,24 +154,19 @@
     .c-flowarticle{
         height: 100%;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
         position: relative;
         h1{
             // position: absolute;
             // top: calc(-130/750)*100+vw;
             text-align: center;
-            display: flex;
-            flex-direction: column;
             font-size: calc(40/750)*100+vw;
             line-height: calc(68/750)*100+vw;
             color: $text-color-braun;
             transform: initial;
             &::after{
                 content: 'Flow';
-                font-size: calc(45/750)*100+vw;
+                display: block;
+                font-size: calc(25/750)*100+vw;
                 line-height: calc(55/750)*100+vw;
             }
         }

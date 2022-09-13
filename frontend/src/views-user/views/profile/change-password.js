@@ -5,7 +5,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import UserService from "services/user.service";
-import { required, vpassword } from "services/validator"
+import { required } from "services/validator"
 
 export default function ChangePassword(){
 
@@ -59,70 +59,68 @@ export default function ChangePassword(){
   }
 
   return (
-    <div>
-      <section className="p-card px-0">
-        <div className="c-header mb-4">
-          <h3 className="c-header--title">パスワードの変更</h3>
-          <p className="c-header--subtitle">Change Password</p>
-        </div>
-        <div className="c-signin">
-          {_success &&
-            <p className="alert alert-success alert-bg alert-center">{_success}</p>
-          }
-          { _error && 
-            <p className="alert alert-danger alert-bg alert-center">{_error}</p>
-          }
-          <div>
-            <Form
-              onSubmit={updatePassword}
+    <section className="p-card px-0">
+      <div className="c-header">
+        <h3 className="c-header--title">パスワードの変更</h3>
+        <p className="c-header--subtitle">Change Password</p>
+      </div>
+      <div className="c-signin">
+        {_success &&
+          <p className="alert alert-success alert-bg alert-center">{_success}</p>
+        }
+        { _error && 
+          <p className="alert alert-danger alert-bg alert-center">{_error}</p>
+        }
+        <div>
+          <Form
+            onSubmit={updatePassword}
+            ref={c => {
+              form = c;
+            }}
+          >
+            <p className="c-form--itemlabel">既存パスワード</p>
+            <Input
+              type="password"
+              className="c-form--input"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
+              validations={[required]}
+            />
+
+            <p className="c-form--itemlabel">新しいパスワード</p>
+            <Input
+              type="password"
+              className="c-form--input"
+              value={new_password}
+              onChange={e=>setNewPassword(e.target.value)}
+              validations={[required]}
+            />
+
+            <p className="c-form--itemlabel">新しいパスワード確認</p>
+            <Input
+              type="password"
+              className="c-form--input"
+              value={new_password_confirm}
+              onChange={e=>setNewPasswordConfirm(e.target.value)}
+              validations={[required]}
+            />
+            
+            <Button type="primary" 
+              htmlType="submit" 
+              className="c-btn c-btn-regist mt-4"
+              loading={submit}>
+              {!submit && <span>変更</span> }
+            </Button>
+
+            <CheckButton
+              style={{ display: "none" }}
               ref={c => {
-                form = c;
+                checkBtn = c;
               }}
-            >
-              <p className="c-form--itemlabel">既存パスワード</p>
-              <Input
-                type="password"
-                className="c-form--input"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-                validations={[required]}
-              />
-
-              <p className="c-form--itemlabel">新しいパスワード</p>
-              <Input
-                type="password"
-                className="c-form--input"
-                value={new_password}
-                onChange={e=>setNewPassword(e.target.value)}
-                validations={[required, vpassword]}
-              />
-
-              <p className="c-form--itemlabel">新しいパスワード確認</p>
-              <Input
-                type="password"
-                className="c-form--input"
-                value={new_password_confirm}
-                onChange={e=>setNewPasswordConfirm(e.target.value)}
-                validations={[required, vpassword]}
-              />
-              
-              <Button type="primary" 
-                htmlType="submit" 
-                className="c-btn c-btn-regist mt-4"
-                loading={submit}>
-                {!submit && <span>変更</span> }
-              </Button>
-
-              <CheckButton
-                style={{ display: "none" }}
-                ref={c => {
-                  checkBtn = c;
-                }}
-              />
-            </Form>
-          </div>
+            />
+          </Form>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

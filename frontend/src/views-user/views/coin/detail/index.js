@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom"
-import { Row, Col, Card, message, Table, Tooltip, Button } from 'antd';
+import { Row, Col, Card, message, Table, Tooltip, Button, Avatar } from 'antd';
 import NumberFormat from 'react-number-format';
 import moment from "moment";
 import utils from 'utils'
@@ -13,6 +13,7 @@ import Loading from "components/shared-components/Loading";
 import UserService from 'services/user.service';
 import ContactSection from "views-user/components/contact.component";
 import CoinInfo from 'views-user/components/coin-info.component';
+import AvatarStatus from 'components/shared-components/AvatarStatus';
 
 const CoinDetail = (props) => {
 
@@ -23,6 +24,7 @@ const CoinDetail = (props) => {
 		UserService.getCoinOne(props.match.params.id)
 		.then(res => {
 			setCoin(res.data);
+            console.log(res.data);
 		})
 		.catch(err => {
 			message.error('エラーか発生しました。', ()=>{
@@ -40,31 +42,32 @@ const CoinDetail = (props) => {
 		slidesToScroll: 1
 	};
 
-
     const tableColumns = [
+        {
+            title: '',
+            dataIndex: 'owner',
+            render: owner => (
+                <AvatarStatus src={owner.avatar} name={owner.nickname}/>
+            ),
+            sorter: null
+        },
+        {
+            title: 'Wallet',
+            dataIndex: 'wallet',
+            render: wallet => (
+                <Tooltip title="Copy" onClick={() => copyWalletAddress(wallet)} placement="bottom">
+                    <span className="pointer">{ wallet.slice(0, 6) + "..." + wallet.slice(-3) }</span>
+                </Tooltip>
+            ),
+            sorter: null
+        },
 		{
 			title: '購入日',
 			dataIndex: 'created_at',
 			render: created_at => (
 				<span>{moment(created_at).format("YYYY-MM-DD")} </span>
 			),
-			sorter: (a, b) => moment(a.created_at) - moment(b.created_at)
-		},
-        {
-			title: 'Wallet',
-			dataIndex: 'wallet',
-			render: (_, record) => (
-                <Tooltip title="Copy" onClick={() => copyWalletAddress(record.wallet)}>
-                    <span className="pointer">{ record.wallet.slice(0, 6) + "..." + record.wallet.slice(-3) }</span>
-                </Tooltip>
-			),
-			sorter: {
-				compare: (a, b) => {
-					a = a.email.toLowerCase();
-					  b = b.email.toLowerCase();
-					return a > b ? -1 : b > a ? 1 : 0;
-				},
-			},
+			sorter: null
 		},
         {
 			title: '保有枚数',
@@ -103,32 +106,32 @@ const CoinDetail = (props) => {
 			sorter: (a, b) => utils.antdTableSorter(a, b, 'cost')
 		},
         {
-			title: 'Status',
+			title: '',
 			dataIndex: 'status',
 			render: (_, record) => {
                 if(record.sellStatus === 1)
 				    return <Button type="primary" size="small"
-                                onClick={()=>{
-                                    let obj = {
-                                        cost: coin.cost,
-                                        grade: coin.grade,
-                                        mainImage: coin.mainImage,
-                                        name: coin.name,
-                                        refPrice: coin.refPrice,
-                                        taxRate: coin.taxRate,
-                                        totalCount: coin.totalCount,
-                                        ownership: record
-                                    }
-                                    history.push({
-                                        pathname:`/coins/purchase/order/${props.match.params.id}`, 
-                                        state: { ...obj }
-                                    }); 
-                                }}>
-                                購入する
-                            </Button>
+                        onClick={()=>{
+                            let obj = {
+                                cost: coin.cost,
+                                grade: coin.grade,
+                                mainImage: coin.mainImage,
+                                name: coin.name,
+                                refPrice: coin.refPrice,
+                                taxRate: coin.taxRate,
+                                totalCount: coin.totalCount,
+                                ownership: record
+                            }
+                            history.push({
+                                pathname:`/coins/purchase/order/${props.match.params.id}`, 
+                                state: { ...obj }
+                            }); 
+                        }}>
+                        購入する
+                    </Button>
                 else return null;
             },
-            sorter: (a, b) => (a.sellStatus - b.sellStatus)
+            sorter: null,
 		}
 	];
 

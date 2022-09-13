@@ -33,3 +33,7 @@ img, svg {
   display: initial;
   vertical-align: initial;
 }
+
+.ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title{
+  margin-top: 20px !important;
+}

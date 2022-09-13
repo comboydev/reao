@@ -5,7 +5,7 @@ export default function Exhibit(){
     <>
         <section className="sell-back-yan p-card">
             <div className="w-12/12 sm:w-10/12 lg:w-7/12 m-auto">
-                <div className="c-header mb-4">
+                <div className="c-header">
                     <h3 className="c-header--title">出品・売却をお考えの方</h3>
                     <p className="c-header--subtitle">Those who are thinking of listing</p>
                 </div>

@@ -52,6 +52,7 @@ const getAllOrders = async (req, res) => {
             return res.json(resData);
           }
     })
+  if(orders.length === 0) return res.json([]);
 }
 
 

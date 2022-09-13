@@ -1,5 +1,5 @@
 .c-charmarticle{
-    height: 59.166vw;
+    height: 64vw;
     width: 62.5vw;
     margin: 0 auto 1.8229166vw;
     background-image: url('../../img/charmbg.png');
@@ -26,7 +26,7 @@
         margin-bottom: 1.145833vw;
     }
     .c-charmarticle--1{
-        margin: 3.489583vw 0 1.770833vw;
+        margin: 2vw 0 1.770833vw;
         &__text{
             font-size: 1.04166vw;
             font-family: $yuMincho;
@@ -35,7 +35,7 @@
         }
     }
     .c-charmarticle--2{
-        // margin: 3.489583vw 0 1.770833vw;
+        margin: 2vw 0 1.770833vw;
         &__text{
             font-size: 1.04166vw;
             font-family: $yuMincho;
@@ -45,7 +45,7 @@
     }
 }
 
-@media screen and (max-width: 1700px) and (min-width:901px){
+@media screen and (max-width: 1900px) and (min-width:901px){
     .c-charmarticle{
         padding: 5.0989583vw 5.14583vw 0;
     }

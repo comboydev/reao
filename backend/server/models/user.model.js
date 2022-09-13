@@ -1,8 +1,8 @@
 var bcrypt = require("bcryptjs");
-var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-var Schema = mongoose.Schema;
 var config = require('../config/config');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var personalSchema = new Schema({
   name: String,
@@ -14,6 +14,7 @@ var personalSchema = new Schema({
   extra: String,
 });
 
+
 var statusSchema = new Schema({
   sms: { type: Boolean, required: true, default: false },
   emailVerified: { type: Boolean, required: true, default: false },
@@ -23,7 +24,9 @@ var statusSchema = new Schema({
 
 
 var UserSchema = new Schema({
-  nickname: {type: String, default: ""},
+  nickname: {type: String, default: ''},
+  introducer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },       // Affiliate introducer id
+  rewardGroup: { type: mongoose.Schema.Types.ObjectId, ref: 'RewardGroup' },
   email: {
     type: String,
     required: true,

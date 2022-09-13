@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from "react-router-dom"
 import { Card, Table, Tag, Tooltip, message, Button,  Input, Select, Popconfirm } from 'antd';
 import { 
 	EyeOutlined, 
@@ -56,8 +57,7 @@ export const UserList = () => {
 	useEffect(()=>{
 		AdminService.adminGetUsers()
 		.then(res=>{
-			setUsers(res.data);
-			setList(res.data);
+			setUsers(res.data.users);
 		})
 		.catch(()=>{
 			message.error("エラーが発生しました。")
@@ -75,16 +75,20 @@ export const UserList = () => {
 		setSelectedUser(null);
 	}
 
-	const deleteUser = (id) => {
-		AdminService.adminDeleteUser(id)
-		.then(res => {
-			setUsers(res.data);
-			setList(res.data);
-			message.success("ユーザーを削除しました!")
-		})
-		.catch(()=>{
+	const deleteUser = async (id) => {
+		try {
+			let res = await AdminService.adminDeleteUser(id);
+			let { status_code, users } = res.data;
+			if (status_code === 200) {
+				setUsers(users);
+				message.success("ユーザーを削除しました!")
+			} else {
+				message.warning(res.data.message)
+			}
+		}
+		catch(err) {
 			message.error("エラーが発生しました。")
-		})
+		}
 	}
 
 	const tableColumns = [
@@ -93,8 +97,22 @@ export const UserList = () => {
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus src={record.avatar} name={record.personalInfo?.name} subTitle={record.email}/>
+					<AvatarStatus src={record.avatar} name={record.nickname} subTitle={record.email}/>
 				</div>
+			),
+			sorter: {
+				compare: (a, b) => {
+					a = a.email.toLowerCase();
+					  b = b.email.toLowerCase();
+					return a > b ? -1 : b > a ? 1 : 0;
+				},
+			},
+		},
+		{
+			title: '紹介者',
+			dataIndex: 'introducer',
+			render: introducer => (
+				<Link to={'/admin/users/' + introducer?._id}>{ introducer?.email }</Link>
 			),
 			sorter: {
 				compare: (a, b) => {
@@ -187,7 +205,8 @@ export const UserList = () => {
 
 	useEffect(()=>{
 		if(users){
-			const data = searchUserWithNameAndEmail(users, searchKey);
+			var keys = ['personalInfo', 'email', 'id', 'nickname'];
+			const data = utils.wildCardSearchWithKeys(users, keys, searchKey);
 			if(indexSelectBox === 0){
 				setList(data);
 			} else {
@@ -200,55 +219,29 @@ export const UserList = () => {
 	}, [users, indexSelectBox, searchKey]);
 
 
-	const  searchUserWithNameAndEmail = (list, input) => {
-		const searchText = (item) => {
-			var keys = ['personalInfo', 'email', 'id'];
-			for(let i = 0; i < keys.length; i ++){
-				if(item[keys[i]]){
-					if(i === 0){
-						for(let key in item.personalInfo){
-							if(item.personalInfo[key] && item.personalInfo[key].toUpperCase().indexOf(input.toString().toUpperCase()) !== -1){
-								return true;
-							}
-						}
-					} else {
-						if(item[keys[i]].toUpperCase().indexOf(input.toString().toUpperCase()) !== -1){
-							return true;
-						}
-					}
-				}
-			}
-		};
-		list = list.filter(value => searchText(value));
-		return list;
-	}
-
 
 	if(!users) return null;
 	return (
 		<Card>
-			<Flex alignItems="center" justifyContent="between" mobileFlex={false}>
-				<Flex className="mb-1" mobileFlex={false}>
-					<div className="mr-md-3 mb-3">
-						<Input placeholder="Search" prefix={<SearchOutlined />} 
-							onChange={e => onSearch(e)}
-						/>
-					</div>
-					<div className="mb-3">
-						<Select 
-							defaultValue={0} 
-							className="w-100" 
-							style={{ minWidth: 180 }} 
-							onChange={changeSelectBox} 
-							placeholder="Status"
-						>
-							{userStatusList.map((elm, index) => <Option key={elm.label} value={index}>{elm.label}</Option>)}
-						</Select>
-					</div>
-				</Flex>
-				<h4 className="ml-3 float-right">
-					{`検索結果: ${list ? list.length : users.length}人`}
-				</h4>
+			<Flex className="mb-3" alignItems="center" justifyContent="between" mobileFlex={false}>
+				<div className="mr-md-3 mb-3">
+					<Input placeholder="Search"
+						prefix={<SearchOutlined />} 
+						addonAfter={`Result: ${list?.length}`}
+						onChange={e => onSearch(e)}
+					/>
+				</div>
+				<div className="mb-3">
+					<Select 
+						defaultValue={0} 
+						className="w-100" 
+						style={{ minWidth: 180 }} 
+						onChange={changeSelectBox} 
+						placeholder="Status"
+					>
+						{userStatusList.map((elm, index) => <Option key={elm.label} value={index}>{elm.label}</Option>)}
+					</Select>
+				</div>
 			</Flex>
 			<div className="table-responsive">
 				<Table columns={tableColumns} dataSource={list} rowKey="_id"/>

@@ -60,6 +60,7 @@ const getCoinOne = (req, res) => {
   .then(async coin => {
       await Ownership
         .find({ coin: req.params.id })
+        .populate(['owner'])
         .then(owners => {
           coin = {...coin._doc, owners: owners };
           return res.json(coin)

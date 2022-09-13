@@ -29,10 +29,8 @@ const Orders = () => {
 			setLoaded(true);
 			setList(res.data);
 			setRawData(res.data);
-			console.log(res.data);
 		})
 		.catch(err => {
-			console.log(err);
 			message.error("失敗しました。");
 		})
 	}, []);
@@ -155,36 +153,32 @@ const Orders = () => {
 
 	const onSearch = e => {
 		const value = e.currentTarget.value
-		const searchArray = _rawData
-		const data = searchArray.filter(item => {
-			if(item.coin.name.toUpperCase().indexOf(value.toString().toUpperCase()) !== -1)
-				return true;
-			return false;
-		});
+		let data = utils.wildCardSearchWithKeys(_rawData, ["coin"], value);
 		setList(data)
 	}
 
 	if(!loaded) return null;
 	return (
 		<Card>
-			<Flex alignItems="center" justifyContent="between" mobileFlex={false}>
-				<Flex className="mb-1" mobileFlex={false}>
-					<div className="mr-md-3 mb-3">
-						<Input placeholder="Search" prefix={<SearchOutlined />} onChange={e => onSearch(e)}/>
-					</div>
-					<div className="mb-3">
-						<Select 
-							defaultValue="All" 
-							className="w-100" 
-							style={{ minWidth: 180 }} 
-							onChange={handleShowStatus} 
-							placeholder="Status"
-						>
-							<Option value="All">All</Option>
-							{_PAYMENT_STATUS.map((elm, key) => <Option key={key} value={key}>{elm.value}</Option>)}
-						</Select>
-					</div>
-				</Flex>
+			<Flex className="mb-3" alignItems="center" justifyContent="between" mobileFlex={false}>
+				<div className="mr-md-3 mb-3">
+					<Input placeholder="Search"
+						prefix={<SearchOutlined />}
+						addonAfter={`Result: ${list?.length}`}
+						onChange={e => onSearch(e)} />
+				</div>
+				<div className="mb-3">
+					<Select 
+						defaultValue="All" 
+						className="w-100" 
+						style={{ minWidth: 180 }} 
+						onChange={handleShowStatus} 
+						placeholder="Status"
+					>
+						<Option value="All">All</Option>
+						{_PAYMENT_STATUS.map((elm, key) => <Option key={key} value={key}>{elm.value}</Option>)}
+					</Select>
+				</div>
 			</Flex>
 			<div className="table-responsive">
 				<Table 

@@ -24,11 +24,11 @@ const adminSignin = (req, res) => {
           accessToken: token
         });
       } else {
-          return res.send({
-            status_code: 401,
-            accessToken: null,
-            message: "ログインに失敗しました。"
-          });
+        return res.send({
+          status_code: 401,
+          accessToken: null,
+          message: "ログインに失敗しました。"
+        });
       }
     });
   })
@@ -132,14 +132,68 @@ const updateAvatar = (req, res) => {
 const getAllUsers = (req, res) => {
   User
     .find({ role: 'user'})
+    .populate(['introducer'])
     .sort( { created_at: -1 } )
     .then(data => {
-        return res.status(200).json(data);
+      return res.json({
+        status_code: 200,
+        users: data,    
+      });
     })
     .catch(err => {
-      return res.status(500).send({ message: 'error'});
+      return res.json({
+        status_code: 400,
+        message: 'error',
+      });
     })
 }
+
+const getAffiliaters = async (req, res) => {
+  let users = await User
+    .find({ role: 'user'})
+    .populate(['introducer', 'rewardGroup'])
+    .sort({ created_at: -1 });
+  let data = [];
+  await Promise.all(users.map(async (user) => {
+    let arr = [{ "_id": user._doc._id }];
+    let tear1 = await getPartner(arr);
+    let tear2 = await getPartner(tear1);
+    let tear3 = await getPartner(tear2);
+    let tear4 = await getPartner(tear3);
+    let tear5 = await getPartner(tear4);
+    if((tear1.length + tear2.length + tear3.length + tear4.length + tear5.length) > 0){
+      data = [...data, {
+        ...user._doc,
+        tear: {
+          "tear1": tear1.length,
+          "tear2": tear2.length,
+          "tear3": tear3.length,
+          "tear4": tear4.length,
+          "tear5": tear5.length
+        }
+      }];
+    }
+  }));
+  return res.status(200).json(data);
+}
+
+const getPartner = async (records) => {
+  let ids = [];
+  for(let x in records){
+    ids.push(records[x]._id);
+  }
+  return await User
+  .find({"introducer": ids})
+  .exec()
+  .then(res => {
+    let temp = [];
+    for(let y in res){
+      temp.push(res[y]._doc);
+    }
+    return temp;
+  })
+}
+
 
 const getUserOne = (req, res) => {
   User
@@ -147,6 +201,7 @@ const getUserOne = (req, res) => {
       _id: req.params.id, 
       role: 'user'
     })
+    .populate(['rewardGroup'])
     .then(data => {
         return res.status(200).json(data);
     })
@@ -181,21 +236,33 @@ const setDisableAccount = (req, res) => {
     })
 }
 
-const deleteUser = (req, res) => {
-  User
-    .findOneAndDelete({
-      _id: req.params.id,
+const deleteUser = async (req, res) => {
+  let id = req.params.id;
+  let count = await User.find({ 'introducer': id }).count()
+  if (count === 0) {
+    await User.findOneAndDelete({_id: id});
+    getAllUsers(req, res);
+  } else {
+    res.json({
+      status_code: 400,
+      message: 'アフィリエイトの紐づけが崩れるので削除できません。',
     })
-    .then(() => {
-      getAllUsers(req, res);
-    })
-    .catch(err => {
-        return res.status(500).send();
-    })
+  }
 }
 
-
-
+const connectUsersToAffiliater = async (req, res) => {
+  let userEmails = req.body;
+  let affiliaterID = req.params.id;
+  await Promise.all(userEmails.map(async (email) => {
+    let user = await User.find({ 'email': email });
+    if (user._id !== affiliaterID && !user.introducer) {
+      await User.findOneAndUpdate({ email: email }, {
+        introducer: affiliaterID,
+      }, {returnOriginal: false})
+    }
+  }))
+  getAffiliaters(req, res);
+}
 
 
 
@@ -208,6 +275,8 @@ export default {
 
   getAllUsers,
   getUserOne,
+  getAffiliaters,
+  connectUsersToAffiliater,
   setConfirmedIdentity,
   setDisableAccount,
   deleteUser

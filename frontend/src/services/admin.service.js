@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_URL } from 'configs/AppConfig'
 
-const API_URL = process.env.REACT_APP_API_URL;
 
 class AdminService {
   // Auth Management
@@ -61,12 +61,23 @@ class AdminService {
   //User ManageMent
   async adminGetUsers() {
     return await axios
-    .get(`${API_URL}/api/admin/users/all/get`);
+    .get(`${API_URL}/api/admin/users/all`);
   }
+
+  async adminGetAffiliaters() {
+    return await axios
+    .get(`${API_URL}/api/admin/users/affiliaters`);
+  }
+
+  async connectUsersToAffiliater(userID, payload) {
+    return await axios
+    .post(`${API_URL}/api/admin/users/${userID}/affiliaters/connect`, payload);
+  }
+
 
   async adminGetUserOne(userID){
     return await axios
-    .get(`${API_URL}/api/admin/users/${userID}/get`);
+    .get(`${API_URL}/api/admin/users/${userID}`);
   }
 
   async adminConfirmIdentity(userID){
@@ -82,6 +93,28 @@ class AdminService {
   async adminDeleteUser(userID){
     return await axios
     .delete(`${API_URL}/api/admin/users/${userID}/delete`);
+  }
+
+ 
+  //Affiliate Management.
+  async adminGetRewardGroup(){
+    return await axios
+    .get(`${API_URL}/api/admin/affiliate/reward-group`);
+  }
+
+  async adminCreateRewardGroup(payload){
+    return await axios
+    .post(`${API_URL}/api/admin/affiliate/reward-group/create`, payload);
+  }
+
+  async adminUpdateRewardGroup(groupID, payload){
+    return await axios
+    .put(`${API_URL}/api/admin/affiliate/reward-group/update/${groupID}`, payload);
+  }
+
+  async adminDeleteRewardGroup(groupID){
+    return await axios
+    .delete(`${API_URL}/api/admin/affiliate/reward-group/delete/${groupID}`);
   }
 
   //Mail Management.

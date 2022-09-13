@@ -195,6 +195,38 @@ class Utils {
 	}
 
 	/**
+	 * Wild card search on all property of the object
+	 * @param {Number | String} input - any value to search
+	 * @param {Array} list - array for search
+	 * @return {Array} array of object contained keyword
+	 */
+	static wildCardSearchWithKeys(list, keys, input) {
+		const searchText = (item) => {
+			for (let i = 0; i < keys.length; i++){
+				if (typeof item[keys[i]] === "object") {
+					for (let key in item[keys[i]]) {
+						if (item[keys[i]][key] == null) {
+							continue;
+						}
+						if (item[keys[i]][key].toString().toUpperCase().indexOf(input.toString().toUpperCase()) !== -1) {
+							return true;
+						}
+					}
+				} else {
+					if (item[keys[i]] == null) {
+						continue;
+					}
+					if (item[keys[i]].toUpperCase().indexOf(input.toString().toUpperCase()) !== -1){
+						return true;
+					}
+				}
+			}
+		};
+		list = list.filter(value => searchText(value));
+		return list;
+	}
+
+	/**
 	 * Get Breakpoint
 	 * @param {Object} screens - Grid.useBreakpoint() from antd
 	 * @return {Array} array of breakpoint size
