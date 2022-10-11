@@ -1,0 +1,212 @@
+.c-assetsheader{
+    font-family: $yuMincho;
+    text-align: center;
+    color: $text-color-braun;
+    font-size: 2.604166vw;
+}
+.c-assetsarticle{
+    display: grid;
+    grid-template-columns: 27.7604166vw 27.7604166vw;
+    grid-template-rows: 0;
+    gap: 6.71875vw;
+    position: relative;
+    height: 26.40625vw;
+    width: 62.5vw;
+    margin: 3.484375vw 18.75vw 0;
+
+    p{
+        font-size: 1.666vw;
+        text-align: center;
+        font-family: $yuMincho;
+        color: $text-color-black;
+    }
+    &__sub{
+        margin-top: 2.8645833vw;
+        font-family: $yuMincho;
+        font-size: 1.04166vw;
+    }
+    &::after{
+        content: 'charm';
+        font-family: $trajan;
+        font-size: 10.4166vw;
+        height: 10.4166vw;
+        position: absolute;
+        transform: translate(9.21875vw, 10.270833vw);
+        color: $text-color-braun;
+        opacity: 0.13;
+        left: 0;
+    }
+    &--content{
+        background: rgba(167, 135, 84, 0.06);
+        width: 75.260416vw;
+        height: 37.239583vw;
+        padding: 6.5052083vw 0 0 0;
+        position: absolute;
+        right: 0;
+        &__inner{
+            height: 10.15625vw;
+            width: 38.25vw;
+            position: absolute;
+            left: 26.1979166vw;
+            h1{
+                font-size: 2.604166vw;
+                font-family: $yuMincho;
+                color: $text-color-braun;
+    
+                &::before{
+                    content: 'MARKET';
+                    font-weight: 100;
+                    font-family: $trajan;
+                    font-size: 9.4166vw;
+                    color: $text-color-braun;
+                    opacity: 0.13;
+                    position: absolute;
+                    transform: translate(2vw, -4.9833vw);
+                }
+            }
+            h2{
+                font-size: 1.822916vw;
+                font-family: $yuMincho;
+                color: $text-color-braun;
+            }
+            p{
+                display: inline-block;
+                font-size: 1.04166vw;
+                font-family: $yuMincho;
+                width: 30.8333vw;
+                margin: 1.9270833vw 0 2.604166vw;
+                position: relative;
+            }
+            &::before{
+                content: '';
+                width: 35.989583vw;
+                height: 24.79166vw;
+                background-image: url('../../img/chart.png');
+                background-size: cover;
+                display: inline-block;
+                position: absolute;
+                transform: translate(-41.30208326vw, 0);
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .c-assetsarticle{
+        height: 160vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        div{
+            @include width_calc(589);
+        }
+        p{
+            font-size: calc(35/750)*100+vw;
+        }
+        &__sub{
+            font-size: calc(26/750)*100+vw;
+        }
+        &::after{
+            display: none;
+        }
+        &_1{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        &_1::after{
+            content: 'charm';
+            font-family: $trajan;
+            display: block;
+            font-size: calc(188/750)*100+vw;
+            transform: initial;
+            position: absolute;
+            color: $text-color-braun;
+            opacity: 0.13;
+            position: relative;
+        }
+        &--content{
+            background: rgba(167, 135, 84, 0.06);
+            @include width_calc(670);
+            @include height_calc(1600);
+            padding: 6.5052083vw 0 0 0;
+            position: absolute;
+            right: 0;
+            margin-top: calc(100/750)*100+vw;
+            padding: calc(144/750)*100+vw calc(80/750)*100+vw 0 calc(40/750)*100+vw;
+            &::after{
+                content: '';
+                @include width_calc(644);
+                @include height_calc(435);
+                background-image: url('../../img/chart.png');
+                background-size: cover;
+                display: inline-block;
+                position: absolute;
+                bottom: calc(50.6/750)*100+vw;
+                right: calc(45.9/750)*100+vw;
+            }
+            &__inner{
+                height: 10.15625vw;
+                @include width_calc(543);
+                // width: 100%;
+                position: absolute;
+                left: initial;
+                div{
+                    line-height: calc(50/750)*100+vw;
+                    &:nth-of-type(1){
+                        margin-bottom: calc(88.5/750)*100+vw;
+                    }
+                }
+                h1{
+                    font-size: calc(35/750)*100+vw;
+                    font-family: $yuMincho;
+                    color: $text-color-braun;
+                    line-height: calc(60/750)*100+vw;
+                    &::before{
+                        content: 'MARKET';
+                        font-weight: 100;
+                        font-family: $trajan;
+                        font-size: 9.4166vw;
+                        color: $text-color-braun;
+                        opacity: 0.13;
+                        position: absolute;
+                        right: 0;
+                    }
+                }
+                h2{
+                    font-size: calc(35/750)*100+vw;
+                    font-family: $yuMincho;
+                    color: $text-color-braun;
+                    line-height: calc(60/750)*100+vw;
+                }
+                p{
+                    display: inline;
+                    font-size: calc(26/750)*100+vw;
+                    font-family: $yuMincho;
+                    width: 100%;
+                    margin: 1.9270833vw 0 2.604166vw;
+                    position: relative;
+                }
+                &::before{
+                    display: none;
+                }
+    
+            }
+        }
+    }
+
+    .c-spBr{
+        display: block;
+    }
+    .c-assetsheader{
+        font-size: calc(40/750)*100+vw;
+        margin: calc(79/750)*100+vw 0;
+    }   
+}
+
+.c-spBr{
+    display: none;
+}

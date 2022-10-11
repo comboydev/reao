@@ -1,0 +1,18 @@
+.partner{
+	.ant-input{
+		color: #1890ff;
+	}
+	.ant-input-group-addon{
+		font-family: $yuMincho;
+		background-color: lightgrey;
+		color: white;
+	}
+	.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
+		margin-top: 5px;
+	}
+	.ant-card-head-title,
+	.ant-collapse-header,
+	.ant-table-container table > thead > tr:first-child th:last-child{
+		font-family: $yuMincho;
+	}
+}

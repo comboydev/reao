@@ -1,0 +1,89 @@
+.c-antiquecoinarticle{
+    width: 79.6875vw;
+    height: 37.2395vw;
+    background-color: $text-color-braun;
+    margin-top: 4.484375vw;
+    padding: 7.078125vw 20.83vw 0 18.75vw;
+
+    &--header{
+        display: inline-block;
+        margin-left: 18.75vw;
+        text-align: left;
+        font-size: 2.604166vw;
+        font-family: $yuMincho;
+        color: $text-color-braun;
+
+    }
+    p{
+        font-family: $yuMincho;
+        line-height: 1.6666vw;
+        color: $text-color-black;
+        font-size: 1.041666vw;
+    }
+    button{
+        p{
+            color: #fff;
+        }
+    }
+    &::after{
+        content: '';
+        display: inline-block;
+        // text-align: right;
+        // left: 8.54166vw;
+        // transform: translate(0, -6.458336vw);
+        position: absolute;
+        right: 5.572916vw;
+        width: 8.229166vw;
+        height: 5.46875vw;
+        background-image: url('../../img/coin_right_low.png');
+        background-size: contain;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .c-antiquecoinarticle{
+        @include width_calc(670);
+        @include height_calc(1243);
+        background-color: $text-color-braun;
+        margin-top: 4.484375vw;
+        padding: 7.078125vw calc(54/750)*100+vw calc(40.8/750)*100+vw calc(54/750)*100+vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        z-index: 1;
+        &--header{
+            font-size: calc(40/750)*100+vw;
+            margin-left: calc(80/750)*100+vw;
+            line-height: calc(60/750)*100+vw;
+            &::after{
+                content: 'FANTATION';
+                display: inline;
+                position: absolute;
+                left: 0;
+                font-size: calc(111/750)*100+vw;
+                line-height: calc(155/750)*100+vw;
+                color: #a78754;
+                opacity: 0.13;
+                margin-top: calc(67.1/750)*100+vw;
+                mix-blend-mode: multiply;
+            }
+        }
+        p{
+            font-family: $yuMincho;
+            line-height: calc(50/750)*100+vw;
+            color: $text-color-black;
+            font-size: calc(26/750)*100+vw;
+            &:nth-of-type(3){
+                display: inline-block;
+                width: 100%;
+                margin-bottom: calc(75.6/750)*100+vw;
+            }
+        }
+        &::after{
+            display: none;
+        }
+    }
+
+    
+}

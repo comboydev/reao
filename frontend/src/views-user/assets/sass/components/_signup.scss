@@ -1,0 +1,52 @@
+.p-signup{
+    height: 100%;
+    padding: 70px 0 100px;
+}
+
+
+.c-signup{
+    &--box{
+        &__email{
+            margin-bottom: 40px;
+        }
+    }
+    &--header{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        color: $text-color-braun;
+        font-family: $yuMincho;
+        font-size: fs(32);
+        &::after{
+            content: 'Register';
+            display: inline-block;
+            padding-top: vw(10);
+            font-size: fs(20);
+        }
+        &--sub{
+            font-size: fs(16);
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-family: $yuMincho;
+            a{
+                color: $text-color-braun;
+            }
+        }
+    }
+    article{
+        margin-top: 3px;
+        font-size: 12px;
+        font-family: $yuMincho;
+    }    
+}
+
+
+@include mq(smt){
+    .c-signup {
+        padding: 50px 20px 30px;
+        margin: 30px 20px 0;
+        width: auto;
+    }
+}
+

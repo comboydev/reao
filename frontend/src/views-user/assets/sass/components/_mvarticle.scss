@@ -1,0 +1,48 @@
+.c-mvarticle{
+    position: absolute;
+    top: 12.135416vw;
+    left: 4.5833vw;
+    color: #fff;
+    
+}
+
+.c-mvarticle__text{
+    font-family: $yuMincho;
+    font-size: 3.90625vw;
+    line-height: 5.20833vw;
+}
+
+.c-mvarticle__small{
+    font-family: $yuMincho;
+    font-size: 1.40625vw;
+    line-height: 2.03125vw;
+}
+
+@media screen and (max-width: 750px){
+    .c-mvarticle{
+        top: 45px;
+        left: initial;
+        position: relative;
+
+        width: 100%;
+        @include height_calc(284);
+        text-align: center;
+    }
+    .c-mvarticle__text{
+        &:nth-of-type(1){
+            font-size: calc(66/750)*100+vw;
+            line-height: calc(114/750)*100+vw;
+        }
+        &:nth-of-type(2){
+            line-height: calc(47/750)*100+vw;
+            font-size: calc(35/750)*100+vw;
+            margin-bottom: calc(64/750)*100+vw;
+        }
+    }
+    
+    .c-mvarticle__small{
+        font-size: calc(23/750)*100+vw;
+        line-height: calc(40/750)*100+vw;
+
+    }
+}

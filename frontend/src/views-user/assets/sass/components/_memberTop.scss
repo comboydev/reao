@@ -1,0 +1,144 @@
+.c-memberTop-header{
+    width: 100%;
+    height: 360px;
+    background: url('../../img/memberTop.png') center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-memberTop__content{
+    padding: 100px 20px;
+}
+.c-memberTop-newInfo{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: calc(52/1920)*100+vw;
+
+}
+.c-memberTop-newInfo__header{
+    font-size: calc(40/1920)*100+vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(40/1920)*100+vw;
+    &::after{
+        content: 'News';
+        font-family: CormorantGaramond-Medium;
+        font-weight: normal;
+        font-size: 15px;
+        text-align: center;
+        color: #a78754;
+    }
+}
+
+.c-memberTop-newInfo__content{
+    width: calc(900/1920)*100+vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: left;
+    ul{
+        border-bottom: 1px solid #d3d3d3;
+        margin-top: 20px;
+        &:last-child {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.c-memberTop-allInfo{
+    button{
+        width: 250px;
+        height: 4em;
+        border-radius: 3px;
+        background: #332f2d;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+}
+
+.c-memberTop-menu{
+    display: grid;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 75px 75px;
+    gap: 30px 60px;
+    justify-content: center;
+
+    &__item{
+        border: 1px solid #a78754;
+        text-align: center;
+        display: grid;
+        align-items: center;
+        font-size: 15px;
+        font-family: $yuMincho;
+        cursor: pointer;
+        transition: .3s all;
+        &:hover{
+            opacity: 0.8;
+        }
+        &::before{
+            content: '';
+            display: block;
+            position: absolute;
+            background-size: cover;
+            margin-left: -30px;
+            width: 60px;
+            height: 60px;
+        }
+        &.-userInfo{
+            &::before{
+                background-image: url('../../img/member_u.png');
+            }
+        }
+        &.-owner{
+            &::before{
+                background-image: url('../../img/member_o.png');
+            }
+        }
+        &.-trade{
+            &::before{
+                background-image: url('../../img/member_t.png');
+            }
+        }
+        &.-contact{
+            &::before{
+                background-image: url('../../img/member_c.png');
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .c-memberTop {
+        &-newInfo {
+            &__header {
+                font-size: 6vw;
+            }
+            &__content {
+                width: 84vw;
+            }
+        }
+        &-allInfo{
+            button{
+                @include width_calc(497.01);
+
+            }
+        }
+        &-menu{
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 75px 75px 75px 75px;
+            gap: 20px;
+            margin-left: 30px;
+        }
+    }
+}

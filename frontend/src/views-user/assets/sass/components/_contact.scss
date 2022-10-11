@@ -1,0 +1,43 @@
+.p-contact{
+    background-image: url('../../img/contact.png');
+    background-size: cover;
+    padding: 6.3229166vw 26.921875vw 5.104166vw;
+    font-family: $yuMincho;
+    @include mq(sm2){
+        padding: 100px 60px;
+    }
+    @include mq(smt){
+        padding: 70px 20px;
+    }
+}
+
+.c-contactarticle{
+    color: #fff;
+    h1{
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 50px;
+        font-weight: bold;
+    }
+    &--list{
+        font-family: $yuMincho;
+        font-size: 20px;
+        color: #fff;
+        line-height: 2;
+        list-style-position: inside;
+        margin-bottom: 30px;
+        li{
+            &::marker {
+                content: '✓';
+                position: relative;
+                display: inline-block;
+            }
+        }
+    }
+    &--text{
+        font-family: $yuMincho;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 30px;
+    }
+}

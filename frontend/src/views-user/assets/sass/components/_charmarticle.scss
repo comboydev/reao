@@ -1,0 +1,134 @@
+.c-charmarticle{
+    height: 64vw;
+    width: 62.5vw;
+    margin: 0 auto 1.8229166vw;
+    background-image: url('../../img/charmbg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: $yuMincho;
+    padding: 5.0989583vw 11.14583vw 0;
+
+    h1{
+        font-size:2.604166vw;
+        font-family: $yuMincho;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 1.354166vw;
+    }
+    &__text{
+        font-size: 1.04166vw;
+        color: #fff;
+        text-align: left;
+    }
+    h2{
+        font-size: 1.875vw;
+        color: $text-color-braun;
+        margin-bottom: 1.145833vw;
+    }
+    .c-charmarticle--1{
+        margin: 2vw 0 1.770833vw;
+        &__text{
+            font-size: 1.04166vw;
+            font-family: $yuMincho;
+            color: #fff;
+            text-align: left;
+        }
+    }
+    .c-charmarticle--2{
+        margin: 2vw 0 1.770833vw;
+        &__text{
+            font-size: 1.04166vw;
+            font-family: $yuMincho;
+            color: #fff;
+            text-align: left;
+        }
+    }
+}
+
+@media screen and (max-width: 1900px) and (min-width:901px){
+    .c-charmarticle{
+        padding: 5.0989583vw 5.14583vw 0;
+    }
+    .c-charmarticle--1{
+        margin: initial;
+        margin: 2vw 0 1.770833vw;
+    }
+}
+@media screen and (max-width: 900px) and (min-width: 851px){
+    .c-charmarticle{
+        padding: 2vw 2vw 0;
+    }
+    .c-charmarticle--1{
+        margin: initial;
+        margin: 2vw 0 1.770833vw;
+    }
+}
+
+@media screen and (max-width: 850px) and (min-width:751px){
+    .c-charmarticle{
+        padding: 2vw 2vw 0;
+    }
+    .c-charmarticle--1{
+        margin: initial;
+        margin: 2vw 0 1.770833vw;
+    }
+    .c-charmarticle{
+        h1{
+            font-size: 2vw;
+        }
+    }
+}
+@media screen and (max-width: 750px){
+    .c-charmarticle{
+        @include width_calc(670);
+        @include height_calc(2452);
+        background-image: url('../../img/charmbg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 5.0989583vw 11.14583vw 0;        
+        position: absolute;
+        right: 0;
+        h1{
+            font-size: calc(40/750)*100+vw;
+            font-family: $yuMincho;
+            color: #fff;
+            text-align: left;
+            line-height: calc(65/750)*100+vw;
+            margin-bottom: calc(68/750)*100+vw;
+        }
+        &__text{
+            font-size: calc(25/750)*100+vw;
+            line-height: calc(50/750)*100+vw;
+            font-family: $yuMincho;
+            color: #fff;
+            text-align: left;
+        }
+        h2{
+            font-size: calc(35/750)*100+vw;
+            line-height: calc(60/750)*100+vw;
+            color: $text-color-braun;
+            margin-bottom: 1.145833vw;
+        }
+        .c-charmarticle--1{
+            margin: 3.489583vw 0 1.770833vw;
+            &__text{
+                font-size: calc(26/750)*100+vw;
+                line-height: calc(50/750)*100+vw;
+                font-family: $yuMincho;
+                color: #fff;
+                text-align: left;
+            }
+        }
+        .c-charmarticle--2{
+            // margin: 3.489583vw 0 1.770833vw;
+            &__text{
+                font-size: calc(26/750)*100+vw;
+                line-height: calc(50/750)*100+vw;
+                font-family: $yuMincho;
+                color: #fff;
+                text-align: left;
+            }
+        }
+    }
+}

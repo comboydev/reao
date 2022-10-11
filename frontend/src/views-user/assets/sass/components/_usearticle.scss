@@ -1,0 +1,136 @@
+.c-usearticle{
+    position: relative;
+    top: -5.578125vw;
+    text-align: center;
+    h1{
+        color: $text-color-braun;
+        font-family: $yuMincho;
+        font-size: 2.604166vw;
+    }
+}
+.sell-flow{
+    width: 100%;
+    height: vw(400);
+    margin: 30px auto;
+    background: url("../../img/sell-flow.png") center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.sell-coin1{
+    background: url("../../img/sell-coin1.png");
+    background-size: cover;
+    height: 20vw;
+    background-repeat: no-repeat;
+    font-size: vw(35);
+}
+.sell-coin2{
+    background: url("../../img/sell-coin2.png");
+    background-size: cover;
+    height: 20vw;
+    background-repeat: no-repeat;
+    font-size: vw(35);
+}
+.sell-coin-sub{
+    background-color: #eaeaea;
+    font-size: 15px;
+    line-height: 2;
+    text-align: justify;
+    height: 100%;
+}
+.sell-coin-step{
+    background:url("../../img/cell-coin-step.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.sell-minter-register{
+    background: url("../../img/sell-minter-register.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: vw(250);
+    margin-top: 30px;
+}
+.sell-step-1{
+    background: url("../../img/apply-seller.png");
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+.sell-step-2{
+    background: url("../../img/sell-step-2.png");
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+.sell-step-3{
+    background: url("../../img/sell-step-3.png");
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+.sell-step-4{
+    background: url("../../img/sell-step-4.png");
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+.sell-back-yan{
+    background-color: #f9f8f4;
+    font-family:$yuMincho;
+}
+.t-font{
+    font-family:$yuMincho;
+}
+.confirm-1{
+    background: url("../../img/confirm-sell-1.png");
+    background-size: 100% 100%;
+}
+.confirm-2{
+    background: url("../../img/confirm-sell-2.png");
+    background-size: 100% 100%;
+}
+.confirm-3{
+    background: url("../../img/confirm-sell-3.png");
+    background-size: 100% 100%;
+}
+@include mq(sm2){
+    .c-usearticle{
+        position: relative;
+        @include width_calc(450);
+        h1{
+            color: $text-color-braun;
+            font-family: $yuMincho;
+            font-size: calc((40/750)*100)+vw;
+        }
+    }
+    .sell-coin1{
+        height: 40vw;
+        font-size: vw2(27);
+    }
+    .sell-coin2{
+        height: 40vw;
+        font-size: vw2(27);
+    }
+   
+}
+@include mq(smt){
+    .sell-step-1{
+        width: 70px;
+        height: 70px;
+    }
+    .sell-step-2{
+        width: 70px;
+        height: 70px;
+    }
+    .sell-step-3{
+        width: 70px;
+        height: 70px;
+    }
+    .sell-step-4{
+        width: 70px;
+        height: 70px;
+    }
+}
