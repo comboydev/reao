@@ -2,13 +2,13 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 import config from "../config/config"
-import mailer from "./mailer";
+import Mailer from "../utils/mailer";
 import {  
   registerTempMsg,
   textResetPassword
 } from "../config/mail.config";
 import db from "../models";
-import Service from "../utils/service";
+import Utils from "../utils";
 
 require('dotenv').config();
 
@@ -47,9 +47,9 @@ const signup = (req, res) => {
       text:  registerTempMsg(confirm_url), // Plain text body
     };
 
-    mailer.mailer_reg.sendMail(msg)
+    Mailer.sendMail(msg)
     .then(()=>{
-      var aToken = Service.generateGeneralToken(user.id);  // login token
+      var aToken = Utils.generateGeneralToken(user.id);  // login token
       return res.send({
         status_code: 200,
         ...user._doc,
@@ -90,7 +90,7 @@ const signin = (req, res) => {
     user.comparePassword(req.body.password, function (err, isMatch) {
       if (isMatch && !err) {
         // if user is found and password is right create a token
-        var token = Service.generateGeneralToken(user.id);
+        var token = Utils.generateGeneralToken(user.id);
         return res.send({
           status_code: 200,
           ...user._doc,
@@ -162,7 +162,7 @@ const sendLinkOfResetPassword = async (req, res) => {
       text:  textResetPassword(confirm_url), // Plain text body
     };
 
-    mailer.mailer_reg.sendMail(msg)
+    Mailer.sendMail(msg)
     .then(()=>{
       console.log('success');
       return res.send({
@@ -279,7 +279,7 @@ const sendLinkOfVerifyEmail = async (req, res) => {
           text:  registerTempMsg(confirm_url), // Plain text body
         };
     
-        mailer.mailer_reg.sendMail(msg)
+        Mailer.sendMail(msg)
         .then(()=>{
           console.log('success');
           return res.send({

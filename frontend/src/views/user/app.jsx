@@ -4,7 +4,6 @@ import store from 'redux/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import UserViews from './view';
 import { Route, Switch } from 'react-router-dom';
-import { ToastContainer } from "react-toastify";
 
 function UserApp() {
   return (
@@ -16,7 +15,6 @@ function UserApp() {
           </Switch>
         </Router>
       </Provider>
-			<ToastContainer autoClose={4000}/>
     </div>
   );
 }

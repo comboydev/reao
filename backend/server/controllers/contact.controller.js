@@ -3,7 +3,7 @@ import config from "../config/config"
 import {
   textSupport
 } from "../config/mail.config";
-import mailer from "./mailer";
+import Mailer from "../utils/mailer";
 
 const Contact = db.contact;
 const User = db.user;
@@ -32,7 +32,7 @@ const  create = (req, res) => {
         subject: subject,
         text: text
       };
-      mailer.mailer_reg.sendMail(msg)
+      Mailer.sendMail(msg)
       .then(()=>{
         console.log('success');
       })
@@ -47,7 +47,7 @@ const  create = (req, res) => {
         text: req.body.name + textSupport
       }
   
-      mailer.mailer_reg.sendMail(replyMsg)
+      Mailer.sendMail(replyMsg)
       .then(()=>{
         console.log('success');
       })
@@ -175,7 +175,7 @@ const sendReplyMail = (req, res) => {
     subject: subject,
     text: mail ? `${mail?.name}様 \n${content}` : content
   };
-  mailer.mailer_reg.sendMail(msg)
+  Mailer.sendMail(msg)
     .then(()=>{
       return res.send({status_code: 200});
     })

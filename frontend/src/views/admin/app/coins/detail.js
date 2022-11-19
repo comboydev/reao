@@ -21,7 +21,7 @@ const  DetailCoin = (props) => {
 	const [coin, setCoin] = useState();
 
 	useEffect(()=>{
-		AdminService.adminGetCoinOne(coinId)
+		AdminService.adminGetCoin(coinId)
 		.then(res => {
 			setCoin(res.data);
 		})
@@ -196,7 +196,7 @@ const  DetailCoin = (props) => {
 											return (
 											<img key={k}
 												src = {slide} 
-												alt="fant" 
+												alt="fantation" 
 												style={{ 
 													width: '100%', 
 													objectFit:'contain', 

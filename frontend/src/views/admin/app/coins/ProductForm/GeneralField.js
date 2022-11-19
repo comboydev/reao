@@ -7,7 +7,7 @@ import { PlusOutlined, MinusCircleOutlined, LoadingOutlined } from '@ant-design/
 
 const { Dragger } = Upload;
 
-const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUploadChange}) => {
+const GeneralField = ({ coinImages, addCoinImage, removeCoinImage, handleUploadChange}) => {
 	const rules = {
 		required: [
 			{
@@ -63,8 +63,8 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 							<InputNumber
 								className="w-100"
 								value={0}
-								min={10000}
-								step={100000}
+								min={1000}
+								step={1000}
 								addonBefore="￥"
 								formatter={value => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 							/>
@@ -74,8 +74,8 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 						<Form.Item name="totalCount" label="発行枚数（枚）" rules={rules.required}>
 							<InputNumber placeholder='Number of coins'
 								className='w-100'
-								min={100}
-								step={100}
+								min={10}
+								step={10}
 								addonBefore="枚"
 								formatter={value => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 							/>
@@ -119,7 +119,7 @@ const GeneralField = ({ coin_images, addCoinImage, removeCoinImage, handleUpload
 		</Col>
 		<Col xs={24} sm={24} md={7}>
 			{
-				coin_images.map((image, index) => (
+				coinImages.map((image, index) => (
 				<Card key={index} title={index === 0 && 'Coin images'}>
 					{
 						index > 0 &&

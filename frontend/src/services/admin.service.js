@@ -170,14 +170,19 @@ class AdminService {
     .get(`${API_URL}/api/admin/coins/get`);
   }
 
-  async adminGetCoinOne(coinID){
+  async adminGetCoin(coinID){
     return await axios
     .get(`${API_URL}/api/admin/coins/get/${coinID}`);
   }
 
+  async adminUpdateCoin(coinID, payload){
+    return await axios
+    .put(`${API_URL}/api/admin/coins/update/${coinID}`, payload);
+  }
+
   async adminDeleteCoins(coinIDs){
     return await axios
-    .post(`${API_URL}/api/admin/coins/delete`, { ids: coinIDs });
+    .post(`${API_URL}/api/admin/coins/bulkDelete`, { ids: coinIDs });
   }
 
   // Order

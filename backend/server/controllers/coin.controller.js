@@ -7,20 +7,15 @@ const Ownership = db.ownership;
 const create = async (req, res) => {
   let { extra, ...coinData } = req.body;
   let { coinImages, ownerID, wallet, role } = extra;
-  let paths = [];
-  coinImages.map((img, k) => {
-    paths.push(img.uri);
-  })
+  const paths = coinImages.map(image => image.uri)
   let refImages = [...paths];
   let mainImage = refImages.shift();
-  
-  
-  new Coin({
-    ...coinData,
-    mainImage: mainImage,
-    refImages: refImages,
-  })
-  .save().then(async coin =>{
+  try{
+    const coin = await new Coin({
+      ...coinData,
+      mainImage: mainImage,
+      refImages: refImages,
+    }).save();
     let sellStatus;
     if(role === 'admin') sellStatus = _SELL_STATUS.available;
     else sellStatus = _SELL_STATUS.default;
@@ -38,23 +33,46 @@ const create = async (req, res) => {
       message: "コインが正常に登録されました!",
       coin: coin
     });
-  }).catch(err => {
+  } catch(err) {
     res.status(500).send({
       message: "コインの作成中にエラーが発生しました!"
     });
-  });
+  };
 };
 
+const update = async (req, res) => {
+  const { extra, ...coinData } = req.body;
+  const { coinImages, ownerID, role } = extra;
+  const coinId = req.params.id;
+  const paths = coinImages.map(image => image.uri)
+  let refImages = [...paths];
+  let mainImage = refImages.shift();
+  try {
+    const coin = await Coin.findOne({ _id: coinId });
+    await Coin.findOneAndUpdate({ _id: coinId }, {
+      ...coinData,
+      mainImage: mainImage,
+      refImages: refImages,
+    });
+    res.send({
+      message: "コインが正常に登録されました!",
+      coin: coin,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: "コインの作成中にエラーが発生しました!"
+    });
+  };
+};
 
-const getAllCoins = async (req, res) => {
+const getAll = async (req, res) => {
   let data = await Coin
     .find()
     .sort( { created_at: -1 } );
   return res.json(data);
 }
 
-
-const getCoinOne = (req, res) => {
+const getOne = (req, res) => {
   Coin
   .findOne({ _id: req.params.id })
   .then(async coin => {
@@ -71,12 +89,11 @@ const getCoinOne = (req, res) => {
   })
 }
 
-
-const deleteCoins = (req, res) => {
+const bulkDelete = (req, res) => {
   let { ids } = req.body;
+  console.log(ids)
   Coin.find({ _id: ids })
   .then(async () => {
-    //Delete records in Database
     await Coin.deleteMany({ _id: ids });
     await Ownership.deleteMany({ coin: ids });
     return res.send({status_code: 200});
@@ -86,11 +103,10 @@ const deleteCoins = (req, res) => {
   })
 }
 
-
 export default {
   create,
-
-  getAllCoins,
-  getCoinOne,
-  deleteCoins
+  update,
+  getAll,
+  getOne,
+  bulkDelete
 }

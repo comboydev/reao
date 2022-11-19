@@ -3,7 +3,6 @@ import {Switch, Route, Redirect, useLocation, withRouter } from "react-router-do
 import { connect } from "react-redux";
 import { IntlProvider } from "react-intl";
 import AppLocale from "lang";
-import 'react-toastify/dist/ReactToastify.css';
 import Header    from     "./layouts/header";
 import Footer    from     "./layouts/footer";
 import Loading from "components/shared-components/Loading";

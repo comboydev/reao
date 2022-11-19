@@ -243,6 +243,12 @@ class Utils {
 		}
 		return breakpoints
 	}
+
+	static getBase64 (img, callback){
+		const reader = new FileReader();
+		reader.readAsDataURL(img);
+		reader.addEventListener('load', () => callback(reader.result));
+	}
 }
 
 export default Utils;

@@ -197,9 +197,9 @@ const Header = () => {
                     </li>
                     <li className="c-menuitem--global c-menuitem--global--service">
                       <Dropdown overlay={AboutMenu}>
-                        <div className="ant-dropdown-link cursor-pointer">
+                        <span className="ant-dropdown-link cursor-pointer">
                           <IntlMessage id="header.nav.about" defaultMessage="本サービスについて"/>
-                        </div>
+                        </span>
                       </Dropdown>
                     </li>
                     <li className="c-menuitem--global c-menuitem--global--lang">

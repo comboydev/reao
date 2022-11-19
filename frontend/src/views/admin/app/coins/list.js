@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Card, Table, Input, Button, Popconfirm, Menu, message } from 'antd';
-import { EyeOutlined, DeleteOutlined, SearchOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { EyeOutlined, EditOutlined, DeleteOutlined, SearchOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
@@ -39,6 +39,12 @@ const CoinList = () => {
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>
+				</Flex>
+			</Menu.Item>
+			<Menu.Item onClick={() => history.push(`${APP_PREFIX_PATH}/coins/edit/${row.id}`)} key="edit">
+				<Flex alignItems="center">
+					<EditOutlined />
+					<span className="ml-2">Edit</span>
 				</Flex>
 			</Menu.Item>
 			<Popconfirm

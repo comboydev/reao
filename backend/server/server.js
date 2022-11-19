@@ -14,6 +14,7 @@ import userRoute from "./routes/user.routes";
 import coinRoute from "./routes/coin.routes";
 import purchaseRoute from "./routes/purchase.routes";
 import contactRoute from "./routes/contact.routes";
+import imageRoute from "./routes/image.routes";
 
 
 require('dotenv').config();
@@ -45,10 +46,7 @@ app.use(userRoute);
 app.use(coinRoute);
 app.use(purchaseRoute);
 app.use(contactRoute);
-
-// app.use(newsRoute);
-// app.use(orderRoute);
-// app.use(sellRoute);
+app.use(imageRoute);
 
 const mongouri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`;
 db.mongoose.connect(mongouri, {

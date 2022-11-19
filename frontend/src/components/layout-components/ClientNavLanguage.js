@@ -29,9 +29,9 @@ export const ClientNavLanguage = ({ locale, onLocaleChange }) => {
 	)
 	return (
 		<Dropdown overlay={languageOption}>
-			<p className="ant-dropdown-link cursor-pointer">
+			<span className="ant-dropdown-link cursor-pointer">
 				JP/EN
-			</p>
+			</span>
 		</Dropdown>
 	)
 }

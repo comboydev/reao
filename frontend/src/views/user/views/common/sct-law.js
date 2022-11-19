@@ -6,7 +6,7 @@ const SctLawJP = () => {
         <>
             <section className="p-policy">
                 <div className="c-header">
-                    <h3 className="c-header--title">特定商取引法に基づく表記</h3>
+                    <h3 className="c-header--title">特定商取引法に<br className="sp-only"/>基づく表記</h3>
                     <p className="c-header--subtitle">Specified Commercial Transactions Law</p>
                 </div>
                 <div className="c-policy">
