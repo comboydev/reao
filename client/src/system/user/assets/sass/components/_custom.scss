@@ -1,0 +1,102 @@
+.Toastify__toast, .ant-popover-message-title{
+  font-family: $yuMincho !important;
+  background-color: #f9f8f4;
+  color: black !important;
+  font-weight: bold;
+}
+
+.c-btn--login.c-btn--logined p::after {
+  content: "MYPAGE";  
+}
+
+.c-btn--signup.c-btn--logined p::after {
+  content: "LOGOUT";
+}
+
+.c-title{
+  text-align: center;
+  color: #A78754;
+  font-family: $yuMincho;
+  font-size: 25px;
+}
+
+.text-link{
+  color: #A78754;
+  text-decoration: underline !important;
+}
+
+.c-header{
+  text-align: center;
+  font-family: $yuMincho;
+  margin-bottom: 60px;
+  &--title{
+    font-size: 30px;
+    color: #222222;
+    font-weight: bold;
+  }
+  &--subtitle{
+    font-size: 15px;
+    color: #A78754;
+    margin-top: 5px;
+  }
+  @include mq(sm3){
+    &--title{
+      font-size: vw2(30);
+    }
+    &--subtitle{
+      font-size: vw2(20);
+    }
+  }
+}
+
+.ant-image-mask{
+  border-radius: 50%;
+}
+
+.ant-scrolling-effect{
+  width: 100% !important;
+}
+
+.ant-message{
+  font-family: $yuMincho;
+  font-weight: bold;
+  top: 100px;
+  .anticon{
+    top: 7px;
+  }
+} 
+
+.loading{
+  .ant-spin {
+    color: #A78754;
+  }
+} 
+
+
+.ant-modal-content{
+  font-family: $yuMincho;
+  white-space: pre-wrap;
+  .ant-modal-title{
+    font-weight: bold;
+  }
+}
+
+.ant-tooltip-inner{
+  font-family: $yuMincho;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.ant-table-content{
+  overflow-x: auto;
+  .ant-table-column-title{
+    min-width: 80px;
+    white-space: nowrap;
+  }
+}
+
+.ant-dropdown-menu-item{
+  font-family: $yuMincho;
+}

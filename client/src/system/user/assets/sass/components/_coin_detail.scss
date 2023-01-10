@@ -1,0 +1,32 @@
+.coin-detail--container{
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+    font-family: $yuMincho;
+}
+
+.coin-detail--banner{
+    font-size: 20px;
+    color: white;
+    position: relative;
+    .l-ttl{
+        padding: 8px 20px;
+        background-color: #222222;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+    }
+    .r-ttl{
+        padding: 8px 20px;
+        background-color: #6a6868;
+        text-align: center;
+        padding-left: 100px;
+    }
+
+    @include mq(smt) {
+        font-size: 16px;
+    }
+}
