@@ -1,0 +1,385 @@
+.c-btn{
+    width: 200px;
+    height: auto;
+    font-size: 15px;
+    text-align: center;
+    color: white;
+    font-family: $yuMincho;
+    transition: .3s all;
+    border: none;
+    .anticon{
+        vertical-align: -8px;
+    }
+    &:hover, &:focus{
+        opacity: .9;
+        background-color: #463926;
+        color: white;
+    }
+}
+
+.c-btn--long{
+    z-index: 5;
+    width: 20.104166vw;
+    height: 4.6354166vw;
+    font-size: 1.04166vw;
+    line-height: 4.322vw;
+    text-align: center;
+    color: white;
+    font-family: $yuMincho;
+}
+
+.c-btn--login, .c-btn--signup{
+    padding: 0;
+    font-family: "yu-mincho-pr6n", "sans-serif";
+    min-height: 50px;
+    span{
+        font-size: 15px;
+        &.sub{
+            display: block;
+            font-size: 10px;
+        }
+    }
+}
+
+.c-btn--login{
+    background-color: $btn-color-braun;
+    margin-right: 5px;
+}
+
+.c-btn--signup{
+    background-color: $btn-color-black;
+}
+
+
+.c-btn--back{
+    width: 100%;
+    height: 50px;
+    background: #332f2d;
+    font-family: $yuMincho;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-align: center;
+    color: #fff;
+}
+
+
+.c-btn--mv{
+    background-color: $btn-color-braun;
+    position: absolute;
+    bottom: 4vw;
+    left: 4.5833vw;
+    &::after{
+        display: block;
+        font-size: 0.46875vw;
+        line-height: 0.520833vw;
+    }
+}
+
+.c-btn--signup--long{
+    text-align: center;
+    background-color: $btn-color-black;
+    font-family: $yuMincho;
+    width: 40.15625vw;
+    height: 4.6354166vw;
+    &--antiquecoin{
+        position: absolute;
+        transform: translate(11.197916vw, 3.8072916vw);
+    }
+    p{
+        color: #fff;
+        font-size: 1.04166vw;
+    }
+    // bottom: -6.979166vw;
+    // right: -9.58333vw;
+    &--flow{
+        position: absolute;
+        transform: translate(0,-8.6510416vw);
+        right: 29.921875vw;
+    }
+}
+
+.c-btn--memberInfo{
+    width:100%;
+    padding: 15px 0;
+    background: #a78754;
+    color: #fff;
+    text-align: center;
+}
+
+.c-btn--contact{
+    background-color: #77603B;
+    margin-bottom: 0.9895833vw;
+}
+
+.c-btn-regist{
+    width: 100%;
+    height: 50px;
+    background-color: $btn-color-black ;
+    color: #fff ;
+    text-align: center;
+    font-size: 15px;
+}
+
+.c-btn-social{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    font-family: $yuMincho;
+    margin-bottom: 15px;
+    &:hover, &:focus{
+        background-color: #40a9ff;
+    }
+    &--facebook{
+        background-color: #1877F2;
+        position: relative;
+        &::before{
+            content: '';
+            background-image: url('../../img/registfacebook.png');
+            background-size: cover;
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+        }
+    }
+    &--twitter{
+        background-color: #1DA1F2;
+        position: relative;
+        &::before{
+            content: '';
+            background-image: url('../../img/registtwitter.png');
+            background-size: cover;
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 18px;
+            height: 18px;
+            background-color: transparent;
+        }
+    }
+    &--line{
+        background-color: #00B900;
+        position: relative;
+        &::before{
+            content: '';
+            background-image: url('../../img/registline.png');
+            background-size: cover;
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+        }
+    }
+}
+
+.c-coin--detailbtn{
+    background-color:#A78754;
+    width: 100%;
+    padding: 8px 15px;
+    text-align: center;
+    font-size: 16px;  
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.c-allCoinbtn--container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.c-allCoinbtn{
+    width: 280px;
+    height: 50px;
+    border-radius: 3px;
+    background: #a78754;
+    position: relative;
+    color: #fff;
+    font-family: $yuMincho;
+    font-weight: 500;
+    text-align: center;
+    transition: .3s all;
+    font-size: fs(16);
+}
+.c-allCoinbtn-production{
+    width: 100%;
+    border-radius: 3px;
+    background: #a78754;
+    position: relative;
+    color: #fff;
+    font-family: YuMincho;
+    font-weight: 500;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 26px;
+    padding-bottom: 26px;
+}
+.c-btn--contact{
+    width: 100%;
+    height: 70px;
+    border-radius: 3px;
+    background: #77603b;
+    p{
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+    }
+}
+.c-btn--contact--black{
+    background: #332f2d;
+    p{
+        font-size: 18px;
+        text-align: center;
+    }
+}
+
+.c-btn--mypage, .c-btn--logout{
+    background: #fff;
+    border: 1px solid #d8d8d8;    
+    padding: 0;
+    font-family: "yu-mincho-pr6n", "sans-serif";
+    color: #222222;
+    width: 150px;
+    text-align: center;
+    min-height: 50px;
+    span{
+        font-size: 15px;
+        &.sub{
+            display: block;
+            font-size: 10px;
+            color: #a78754;
+        }
+    }
+}
+
+.c-btn--user{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #b8b8b8;
+    position: relative;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    &::before{
+        content: '';
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        border-radius: 50%;
+        background-color: red;
+        right: 0;
+        top: 2px;
+    }
+}
+
+@media screen and (max-width:750px) {
+    .c-allCoinbtn--container{
+        width: 100%;
+        height: vw(200);
+    }
+    
+    .c-btn--signup--long{
+    text-align: center;
+    background-color: $btn-color-black;
+    font-family: $yuMincho;
+    width: 40.15625vw;
+    height: 4.6354166vw;
+    &--antiquecoin{
+        position: relative;
+        @include width_calc(536);
+        @include height_calc(100);
+        transform: initial;
+        p{
+            font-size: initial;
+            font-size: calc(33/750)*100+vw;
+        }
+    }
+    &--flow{
+        position: absolute;
+        @include width_calc(536);
+        @include height_calc(100);
+        right: initial;
+        transform: initial;
+        bottom: calc(30/750)*100+vw;
+        // margin: 0 auto;
+        p{
+            font-size: initial;
+            font-size: calc(33/750)*100+vw;
+        }
+    }    
+}
+ 
+    .c-btn--footer--contact{
+        @include width_calc(589);
+        @include height_calc(100);
+        background: #fff;
+        border: 1px solid #d3d3d3;
+        margin-top: calc(50/750)*100+vw;
+        text-align: center;
+        p{
+            font-family: $yuMincho;
+            color: $text-color-black;
+            text-align: center;
+            &::before{
+                content: '';
+                background-image: url(../../img/mailblack.png);
+                display: inline-block;
+                background-size: cover;
+                vertical-align: middle;
+                margin-right: 10px;
+                @include width_calc(29.35);
+                @include height_calc(29.35);
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 750px) {
+    .c-allCoinbtn-production{
+        font-size: 18px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    // .c-btn-social {
+    //     width: 100%;
+    //     height: 10vw;
+    //     font-size: 3.5vw;
+    //     margin-bottom: 3vw;
+    // }
+
+
+    .c-btn--mv{
+        background-color: $btn-color-braun;
+        position: relative;
+        left: 0;
+        margin-left: 45px;
+        top: 20px;
+        @include width_calc(518);
+        @include height_calc(100);
+        font-size: calc(33/750)*100+vw;
+        &::after{
+            display: block;
+    
+            font-size: 0.46875vw;
+            line-height: 0.520833vw;
+        }
+    }
+}

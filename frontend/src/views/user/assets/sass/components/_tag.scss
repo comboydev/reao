@@ -1,0 +1,11 @@
+.tag{
+    padding: 2px 15px;
+    display: inline-block;
+    border-radius: 50px;
+    color: white;
+    &.success{
+        background: #46a711;
+    }
+
+
+}
