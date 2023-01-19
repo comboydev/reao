@@ -33,7 +33,7 @@ export default function Exhibit(){
                                     出品申請いただくことでお手持ちのコインをFANTATIONに出品いただくことが可能です。将来性を見込んでいたり、思い入れの強いコインはオーナー権をご自身で一部保持しながら、売却することも可能です。<br/>
                                     売却した資金を元に次のアンティークコイン購入活動を行いつつ、売却したコインのオーナー権保有でコインと接点を持ち続ける。という新たなアンティークコインコレクションスタイルの確立が可能となります。
                                 </p>
-                                <p className="pt-4">※コインの出品には所定の審査があります。</p>  
+                                <p className="pt-4">※コインの出品には所定の審査があります。</p>
                             </div>
                         </div>
                     </div>
@@ -57,6 +57,24 @@ export default function Exhibit(){
                         </p>
                     </button>
                 </div>
+
+                <div className="e-pattern">
+                <div className="c-header mb-5" style={{ marginTop: 150 }}>
+                    <h3 className="c-header--title">出品パターン</h3>
+                    <p className="c-header--subtitle">Exhibition pattern</p>
+                </div>
+                <ul>
+                <li>
+                <div><p>コインを<br/>100%出品する</p></div>
+                <figure><img src="/img/home/e-pattern01.png" alt="コインを100%出品する"/></figure>
+                </li>
+                <li>
+                <div><p>オーナー権を一部<br/>保有して出品する</p></div>
+                <figure><img src="/img/home/e-pattern02.png" alt="オーナー権を一部保有して出品する"/></figure>
+                </li>
+                </ul>
+                </div>
+
                 <div className="c-header mb-5" style={{ marginTop: 150 }}>
                     <h3 className="c-header--title">出品申請の流れ</h3>
                     <p className="c-header--subtitle">Flow of listing application</p>

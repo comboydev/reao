@@ -7,7 +7,18 @@
     background-repeat: no-repeat;
     font-family: $yuMincho;
     padding: 5.0989583vw 11.14583vw 0;
-
+    position: relative;
+    &::before {
+      position: absolute;
+      content: 'collection';
+      font-family: "trajan-pro-3", "serif";
+      font-size: 10.4166vw;
+      color: #A78754;
+      opacity: 0.03;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -30px;
+    }
     h1{
         font-size:2.604166vw;
         font-family: $yuMincho;
@@ -86,7 +97,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         margin: 0;
-        padding: 5.0989583vw 11.14583vw 0;        
+        padding: 5.0989583vw 11.14583vw 0;
         position: absolute;
         right: 0;
         h1{
@@ -131,4 +142,12 @@
             }
         }
     }
+}
+
+@include mq(smt) {
+  .c-charmarticle {
+    &::before {
+      top: -25px;
+    }
+  }
 }

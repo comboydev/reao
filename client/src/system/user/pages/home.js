@@ -116,125 +116,133 @@ const HomeJP = () => {
                 </h1>
             </article>
             <div className="c-coin--list">
-                <div className="c-coin">
-                    <ul>
-                        <div className="c-coin__image">
-                            <img src="/img/home/lion.png" alt="fantation"/>
-                        </div>
-                        <dl className="c-coin__name">
-                            <dt>・コイン名:</dt>
-                            <dd>1839 G.BRITAIN 5 Sov W&R-279 UNA AND THE LION</dd>
-                        </dl>
-                        <dl>
-                            <dt>・グレード:</dt>
-                            <dd>PF 66★ ULTRA CAMEO</dd>
-                        </dl>
-                        <dl>
-                            <dt>・発行枚数:</dt>
-                            <dd>400枚</dd>
-                        </dl>
-                    </ul>
-                    <ul>
-                        <dl className="c-coin__refPrice">
-                            <dt>・参考取引価格:</dt>
-                            <dd>10,000万円～</dd>
-                        </dl>
-                        <dl className="c-coin__cost">
-                            <dt>・オーナー権価格:</dt>
-                            <dd>10000円</dd>
-                        </dl>
-                    </ul>
-                </div>
+            <div className="c-coin">
+                <ul className="c-coin--detail coinLabel new">
+                    <div className="c-coin__image">
+                        <img src="/img/home/lion.png" alt="fantation"/>
+                    </div>
+                    <li className="c-coin__name">
+                        <dt>コイン名:</dt>
+                        <dd>1839 G.BRITAIN 5 Sov W&R-279 UNA AND THE LION</dd>
+                    </li>
+                    <li className="c-coin__grade">
+                        <dt>グレード:</dt>
+                        <dd>PF 66★ ULTRA CAMEO</dd>
+                    </li>
+                    <li className="c-coin__numberOfCoins">
+                        <dt>発行枚数:</dt>
+                        <dd>400枚</dd>
+                    </li>
+                </ul>
+                <ul className="c-coin--pricearea">
+                    <li className="c-coin__refPrice">
+                        <dt>最新のサービス内<br/>成立金額/枠</dt>
+                        <dd>10,000万円～</dd>
+                        <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                    </li>
+                    <li className="c-coin__cost">
+                        <dt>最新の参考オークション<br/>評価額/枠</dt>
+                        <dd>10000円</dd>
+                        <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                    </li>
+                </ul>
+            </div>
 
-                <div className="c-coin">
-                    <ul>
-                        <div className="c-coin__image">
-                            <img src="/img/home/crown.png" alt="fantation"/>
-                        </div>
-                        <dl className="c-coin__name">
-                            <dt>・コイン名:</dt>
-                            <dd>1847 Crown Great Britain Gothic</dd>
-                        </dl>
-                        <dl>
-                            <dt>・グレード:</dt>
-                            <dd>PR65 CAMEO</dd>
-                        </dl>
-                        <dl>
-                            <dt>・発行枚数:</dt>
-                            <dd>8000枚</dd>
-                        </dl>
-                    </ul>
-                    <ul>
-                        <dl className="c-coin__refPrice">
-                            <dt>・参考取引価格:</dt>
-                            <dd>400万円～</dd>
-                        </dl>
-                        <dl className="c-coin__cost">
-                            <dt>・オーナー権価格:</dt>
-                            <dd>10000円</dd>
-                        </dl>
-                    </ul>
+            <div className="c-coin">
+              <ul className="c-coin--detail coinLabel new">
+                <div className="c-coin__image">
+                    <img src="/img/home/crown.png" alt="fantation"/>
                 </div>
+                <li className="c-coin__name">
+                    <dt>コイン名:</dt>
+                    <dd>1847 Crown Great Britain Gothic</dd>
+                </li>
+                <li className="c-coin__grade">
+                    <dt>グレード:</dt>
+                    <dd>PR65 CAMEO</dd>
+                </li>
+                <li className="c-coin__numberOfCoins">
+                    <dt>発行枚数:</dt>
+                    <dd>8000枚</dd>
+                </li>
+              </ul>
+              <ul className="c-coin--pricearea">
+                <li className="c-coin__refPrice">
+                    <dt>最新のサービス内<br/>成立金額/枠</dt>
+                    <dd>10,000万円～</dd>
+                    <dd className="c-coin__comparison price_minus">-00,000円(-120%)</dd>
+                </li>
+                <li className="c-coin__cost">
+                    <dt>最新の参考オークション<br/>評価額/枠</dt>
+                    <dd>10000円</dd>
+                    <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                </li>
+              </ul>
+            </div>
 
-                <div className="c-coin">
-                    <ul>
-                        <div className="c-coin__image">
-                            <img src="/img/home/guinea.png" alt="fantation"/>
-                        </div>
-                        <dl className="c-coin__name">
-                            <dt>・コイン名:</dt>
-                            <dd>1895A 10M G.N.GUINEA</dd>
-                        </dl>
-                        <dl>
-                            <dt>・グレード:</dt>
-                            <dd>PR65 CAMEO</dd>
-                        </dl>
-                        <dl>
-                            <dt>・発行枚数:</dt>
-                            <dd>2000枚</dd>
-                        </dl>
-                    </ul>
-                    <ul>
-                        <dl className="c-coin__refPrice">
-                            <dt>・参考取引価格:</dt>
-                            <dd>600万円～</dd>
-                        </dl>
-                        <dl className="c-coin__cost">
-                            <dt>・オーナー権価格:</dt>
-                            <dd>10000円</dd>
-                        </dl>
-                    </ul>
-                </div>
+            <div className="c-coin">
+              <ul className="c-coin--detail coinLabel new">
+                  <div className="c-coin__image">
+                      <img src="/img/home/guinea.png" alt="fantation"/>
+                  </div>
+                  <li className="c-coin__name">
+                      <dt>コイン名:</dt>
+                      <dd>1895A 10M G.N.GUINEA</dd>
+                  </li>
+                  <li className="c-coin__grade">
+                      <dt>グレード:</dt>
+                      <dd>PR65 CAMEO</dd>
+                  </li>
+                  <li className="c-coin__numberOfCoins">
+                      <dt>発行枚数:</dt>
+                      <dd>2000枚</dd>
+                  </li>
+                </ul>
+                <ul className="c-coin--pricearea">
+                    <li className="c-coin__refPrice">
+                        <dt>最新のサービス内<br/>成立金額/枠</dt>
+                        <dd>10,000万円～</dd>
+                        <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                    </li>
+                    <li className="c-coin__cost">
+                        <dt>最新の参考オークション<br/>評価額/枠</dt>
+                        <dd>10000円</dd>
+                        <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                    </li>
+                </ul>
+            </div>
 
-                <div className="c-coin">
-                    <ul>
-                        <div className="c-coin__image">
-                            <img src="/img/home/bavaria.png" alt="fantation"/>
-                        </div>
-                        <dl className="c-coin__name">
-                            <dt>・コイン名:</dt>
-                            <dd>1640 GERMANY 5D BAVARIA FR-196</dd>
-                        </dl>
-                        <dl>
-                            <dt>・グレード:</dt>
-                            <dd>PR65 CAMEO</dd>
-                        </dl>
-                        <dl>
-                            <dt>・発行枚数:</dt>
-                            <dd>不明（※推測100～200枚程度）</dd>
-                        </dl>
-                    </ul>
-                    <ul>
-                        <dl className="c-coin__refPrice">
-                            <dt>・参考取引価格:</dt>
-                            <dd>500万円～</dd>
-                        </dl>
-                        <dl className="c-coin__cost">
-                            <dt>・オーナー権価格:</dt>
-                            <dd>10000円</dd>
-                        </dl>
-                    </ul>
+            <div className="c-coin">
+              <ul className="c-coin--detail coinLabel soldout">
+                <div className="c-coin__image">
+                    <img src="/img/home/bavaria.png" alt="fantation"/>
                 </div>
+                <li className="c-coin__name">
+                    <dt>コイン名:</dt>
+                    <dd>1640 GERMANY 5D BAVARIA FR-196</dd>
+                </li>
+                <li className="c-coin__grade">
+                    <dt>グレード:</dt>
+                    <dd>PR65 CAMEO</dd>
+                </li>
+                <li className="c-coin__numberOfCoins">
+                    <dt>発行枚数:</dt>
+                    <dd>不明（※推測100～200枚程度）</dd>
+                </li>
+              </ul>
+              <ul className="c-coin--pricearea">
+                <li className="c-coin__refPrice">
+                    <dt>最新のサービス内<br/>成立金額/枠</dt>
+                    <dd>10,000万円～</dd>
+                    <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                </li>
+                <li className="c-coin__cost">
+                    <dt>最新の参考オークション<br/>評価額/枠</dt>
+                    <dd>10000円</dd>
+                    <dd className="c-coin__comparison">+00,000円(+120%)</dd>
+                </li>
+              </ul>
+          </div>
             </div>
             <div className="c-allCoinbtn--container">
                 <button className="c-btn c-allCoinbtn" onClick={() => history.push("/marketplace/items")}>
@@ -304,7 +312,7 @@ const HomeJP = () => {
                 </p>
             <article className="c-charmarticle--1">
                 <h2>
-                    高騰する価値 
+                    高騰する価値
                 </h2>
                 <p className="c-charmarticle--1__text">
                     もうひとつの魅力は「資産価値」です。<br/>2002年に開かれたオークションの落札価格と、15年後の2017年の<br/>落札価格を比較してみると、1821年に鋳造されたジョージ3世のクラウン銀貨、<br/>通称「スリーグレイセス」が98万円から1650万円。<br/>
@@ -332,7 +340,7 @@ const HomeJP = () => {
             </article>
             <article className="c-antiquecoinarticle">
                 <p>
-                    美術館・博物館でアンティークコインを目にしたことはあるでしょう。あの、美術館・博物館が展示していたアンティークコインが自分のものになるとしたら？ 
+                    美術館・博物館でアンティークコインを目にしたことはあるでしょう。あの、美術館・博物館が展示していたアンティークコインが自分のものになるとしたら？
                 </p>
                 <br/>
                 <p>
@@ -427,7 +435,7 @@ const HomeJP = () => {
                 </button>
             </div>
         </section>
-        
+
         <section className="p-qa" id="p-qa">
             <h1 className="c-qa--header">
                 Q&A
@@ -501,6 +509,36 @@ const HomeJP = () => {
                 </li>
             </ul>
         </section>
+        <section className="p-news" id="p-news">
+          <div className="p-newsWrapper">
+          <h1 class="c-qa--header">新着情報</h1>
+          <span>サービスについてもっと知りたい方へ</span>
+          <ul className="p-newsList">
+          <li className="p-newsList--item">
+          <figure><img src="http://54.150.180.105:3000/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション"/></figure>
+          <div className="p-newsList--item__txtBox">
+          <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
+          <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
+          </div>
+          </li>
+          <li className="p-newsList--item">
+          <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション"/></figure>
+          <div className="p-newsList--item__txtBox">
+          <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
+          <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
+          </div>
+          </li>
+          <li className="p-newsList--item">
+          <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション"/></figure>
+          <div className="p-newsList--item__txtBox">
+          <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
+          <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
+          </div>
+          </li>
+          </ul>
+          </div>
+          </section>
+
         <section className="p-contact" id="p-contact">
             <article className="c-contactarticle">
                 <h1>
@@ -613,7 +651,7 @@ const HomeEN = () => {
             </div>
             <div>
               <p className="c-featureitem--viewing">
-                Appreciation<br/><br/>                    
+                Appreciation<br/><br/>
               </p>
               <p className="c-featureitem--text">
                 In addition to viewing artworks on My Page, we will also provide opportunities to
@@ -807,7 +845,7 @@ const HomeEN = () => {
                     </p>
                     <div className="c-assetsarticle__sub">
 						The market for antique coins is not only in a specific country or region, but all over the world.
-						It is said that there are approximately 3 million collectors worldwide, with a market value of over 1 trillion JPY, 
+						It is said that there are approximately 3 million collectors worldwide, with a market value of over 1 trillion JPY,
 						and these collectors are the ones who consistantly keep the value of antique coins. As a result,its value increases and might not going down.
                     </div>
                 </div>
@@ -865,7 +903,7 @@ const HomeEN = () => {
                 </p>
             <article className="c-charmarticle--1">
                 <h2>
-                    Soaring Value 
+                    Soaring Value
                 </h2>
                 <p className="c-charmarticle--1__text">
 					Another attraction is "asset value.<br />
@@ -873,7 +911,7 @@ const HomeEN = () => {
 					The winning bid compared the price of a George III crown silver coin minted in 1821, <br />
 					The "Three Graces," as they are commonly called, ranged from 980,000 yen to 16.5 million yen.<br />
 					The five-pound gold coin of George IV, minted in 1826, ranges from 980,000 yen to 10,010,000 yen.<br/>
-					The 5 pound gold coin of Queen Victoria, minted in 1839, known as the "Una and the Lion 
+					The 5 pound gold coin of Queen Victoria, minted in 1839, known as the "Una and the Lion
 					1.5 million yen to 17.5 million yen. and the value has skyrocketed.
                 </p>
             </article>
@@ -897,11 +935,11 @@ const HomeEN = () => {
             </article>
             <article className="c-antiquecoinarticle">
                 <p>
-                    You have probably seen antique coins in museums. What if that antique coin that the museum/museum displayed could be yours? 
+                    You have probably seen antique coins in museums. What if that antique coin that the museum/museum displayed could be yours?
                 </p>
                 <br/>
                 <p>
-                    What if everyone could own antique coins of historical value, such as the coveted British Victoria "Una and the Lion" 5 pound gold coin (1839) 
+                    What if everyone could own antique coins of historical value, such as the coveted British Victoria "Una and the Lion" 5 pound gold coin (1839)
 					and the Austrian "Goddess Above the Clouds" 100 corona gold coin (1908) commemorating the 60th anniversary of the reign of Franz Joseph I?
                 </p>
                 <br/>
@@ -1004,7 +1042,7 @@ const HomeEN = () => {
                 </li>
                 <li className="c-qa--list__answer" id="answer-1">
                     <p>
-                        Ownership is the right to joint ownership of each antique coin and to receive preferential treatment. 
+                        Ownership is the right to joint ownership of each antique coin and to receive preferential treatment.
                         It is a great way to jointly own rare coins by pay less fee, not only as a collection, but also as asset protection.
                     </p>
                 </li>
@@ -1015,7 +1053,7 @@ const HomeEN = () => {
 
                 <li className="c-qa--list__answer" id="answer-2">
                     Preferential treatment refers to the three rights granted to owners of antique coins.
-                    This three rights are "buying and selling, viewing, and management. 
+                    This three rights are "buying and selling, viewing, and management.
                     We will also be planning other events for owners on an irregular basis, so please look forward to them.
                 </li>
 
@@ -1024,7 +1062,7 @@ const HomeEN = () => {
                 </li>
 
                 <li className="c-qa--list__answer" id="answer-3">
-                    The FANTATION office will store the works in a secure location, 
+                    The FANTATION office will store the works in a secure location,
                     but you can view them at any time from the management screen.
                     We also plan to hold exhibitions and other events throughout the country where you can actually view the works, although they will be held on an irregular basis.
                 </li>
@@ -1051,7 +1089,7 @@ const HomeEN = () => {
                 </li>
 
                 <li className="c-qa--list__answer" id="answer-6">
-                    The actual pieces will be kept in a secure location. 
+                    The actual pieces will be kept in a secure location.
                     In addition, there is a possibility that some of the rarest coins may be displayed in museums.
                 </li>
 
@@ -1139,4 +1177,3 @@ const mapStateToProps = ({ theme }) => {
 };
 
 export default withRouter(connect(mapStateToProps)(Home));
-
