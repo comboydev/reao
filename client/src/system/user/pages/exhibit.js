@@ -64,14 +64,14 @@ export default function Exhibit(){
                     <p className="c-header--subtitle">Exhibition pattern</p>
                 </div>
                 <ul>
-                <li>
+                <li><a href="#">
                 <div><p>コインを<br/>100%出品する</p></div>
                 <figure><img src="/img/home/e-pattern01.png" alt="コインを100%出品する"/></figure>
-                </li>
-                <li>
+                </a></li>
+                <li><a href="#">
                 <div><p>オーナー権を一部<br/>保有して出品する</p></div>
                 <figure><img src="/img/home/e-pattern02.png" alt="オーナー権を一部保有して出品する"/></figure>
-                </li>
+                </a></li>
                 </ul>
                 </div>
 

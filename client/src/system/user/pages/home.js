@@ -514,27 +514,27 @@ const HomeJP = () => {
           <h1 class="c-qa--header">新着情報</h1>
           <span>サービスについてもっと知りたい方へ</span>
           <ul className="p-newsList">
-          <li className="p-newsList--item">
+          <li><a href="#" className="p-newsList--item">
           <figure><img src="http://54.150.180.105:3000/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション"/></figure>
           <div className="p-newsList--item__txtBox">
           <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
           <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
           </div>
-          </li>
-          <li className="p-newsList--item">
+          </a></li>
+          <li><a href="#" className="p-newsList--item">
           <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション"/></figure>
           <div className="p-newsList--item__txtBox">
           <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
           <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
           </div>
-          </li>
-          <li className="p-newsList--item">
+          </a></li>
+          <li><a href="#" className="p-newsList--item">
           <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション"/></figure>
           <div className="p-newsList--item__txtBox">
           <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
           <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
           </div>
-          </li>
+          </a></li>
           </ul>
           </div>
           </section>
