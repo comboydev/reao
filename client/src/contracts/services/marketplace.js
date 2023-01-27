@@ -4,10 +4,12 @@ import userCoin from 'api/user/coin';
 
 const Marketplace = {};
 
+
 Marketplace.getJpy2MaticRate = async () => {
     const marketplace = await getContract('FantationMarket');
     const price = await marketplace.jpy2Matic();
-    return price.toNumber() / 1e8;
+    const delta = 10000;
+    return (price.toNumber() + delta) / 1e8;
 }
 
 Marketplace.listToken = async (tokenId, price, amount) => {
@@ -21,9 +23,8 @@ Marketplace.listToken = async (tokenId, price, amount) => {
         await tx.wait();
     }
 
-    const jpy2Matic = await Marketplace.getJpy2MaticRate();
     const listingFee = await marketplace.listingFee();
-    const listingPrice = price * amount * jpy2Matic * listingFee / 100;
+    const listingPrice = await computeCost(price, amount) * listingFee / 100;
 
     const owner = await marketplace.owner();
     const isOwner = String(account).toLowerCase() === String(owner).toLowerCase();
@@ -36,11 +37,9 @@ Marketplace.listToken = async (tokenId, price, amount) => {
 
 Marketplace.buyItem = async (id, amount, price) => {
     const marketplace = await getContract('FantationMarket');
-    const jpy2Matic = await Marketplace.getJpy2MaticRate();
-    const cost = price * amount * jpy2Matic;
-    const delta = 0.0001;
+    const cost = await computeCost(price, amount);
     const tx = await marketplace.buy(id, amount, {
-        value: ethers.utils.parseEther((cost + delta).toString())
+        value: ethers.utils.parseEther(cost.toString())
     });
     await tx.wait();
 }
@@ -126,20 +125,35 @@ Marketplace.getPurchaseHistory = async () => {
     const marketplace = await getContract('FantationMarket');
     const fromBlock = getContractInfo('FantationMarket')?.fromBlock;
     const account = await getAccount();
-    const filter = marketplace.filters.Bought(null, null, account);
-    const logs = await simpleProvider.getLogs({ fromBlock, ...filter });
-    const events = await extractLogs(logs);
-    return events;
+    try {
+        const filter = marketplace.filters.Bought(null, null, account);
+        const logs = await simpleProvider.getLogs({ fromBlock, ...filter });
+        const events = await extractLogs(logs);
+        return events;
+    } catch (error) {
+        console.log(error)
+        return [];
+    }
 }
 
 Marketplace.getSaleHistory = async () => {
     const marketplace = await getContract('FantationMarket');
     const fromBlock = getContractInfo('FantationMarket')?.fromBlock;
     const account = await getAccount();
-    const filter = marketplace.filters.Bought(null, account, null);
-    const logs = await simpleProvider.getLogs({ fromBlock, ...filter });
-    const events = await extractLogs(logs);
-    return events;
+    try {
+        const filter = marketplace.filters.Bought(null, account, null);
+        const logs = await simpleProvider.getLogs({ fromBlock, ...filter });
+        const events = await extractLogs(logs);
+        return events;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
+const computeCost = async (price, amount) => {
+    const jpy2Matic = await Marketplace.getJpy2MaticRate();
+    return price * amount * jpy2Matic;
 }
 
 const extractLogs = async (logs) => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Card, InputNumber, Table, message, Input, Menu, Modal, Form, Button, Popconfirm } from 'antd';
-import { 
-	DeleteOutlined, 
+import {
+	DeleteOutlined,
 	SearchOutlined,
 	EditOutlined,
 	PlusOutlined
- } from '@ant-design/icons';
+} from '@ant-design/icons';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
 import adminRewardGroup from "api/admin/rewardGroup";
@@ -22,7 +22,7 @@ const rules = {
 }
 
 export const RewardGroup = () => {
-	
+
 	const [rewardGroups, setRewardGroups] = useState();
 	const [list, setList] = useState([]);
 	const [visibleModal, setVisibleModal] = useState(false);
@@ -32,21 +32,21 @@ export const RewardGroup = () => {
 	const [submit, setSubmit] = useState(false);
 	const [searchKey, setSearchKey] = useState('');
 	const [form] = Form.useForm();
-	
 
-	useEffect(()=>{
+
+	useEffect(() => {
 		adminRewardGroup.get()
-		.then(res=>{
-			setRewardGroups(res.data.rewardGroups);
-		})
-		.catch(()=>{
-			message.error("エラーが発生しました!");
-		})
+			.then(res => {
+				setRewardGroups(res.data.rewardGroups);
+			})
+			.catch(() => {
+				message.error("エラーが発生しました!");
+			})
 	}, [])
 
 
-	useEffect(()=>{
-		if(rewardGroups){
+	useEffect(() => {
+		if (rewardGroups) {
 			const data = utils.wildCardSearchWithKeys(rewardGroups, ["name"], searchKey);
 			setList(data);
 		}
@@ -58,26 +58,19 @@ export const RewardGroup = () => {
 			title: 'Group',
 			dataIndex: 'name',
 			render: name => (
-				<span>{ name }</span>
+				<span>{name}</span>
 			),
-			sorter: {
-				compare: (a, b) => {
-					a = a.name.toLowerCase();
-					  b = b.name.toLowerCase();
-					return a > b ? -1 : b > a ? 1 : 0;
-				},
-			},
 		},
 		{
 			title: '所属人数',
 			dataIndex: 'countOfUser',
 			render: countOfUser => (
-				<span>{ countOfUser } 人</span>
+				<span>{countOfUser} 人</span>
 			),
 			sorter: {
 				compare: (a, b) => {
 					a = a.countOfUser;
-					  b = b.countOfUser;
+					b = b.countOfUser;
 					return a > b ? -1 : b > a ? 1 : 0;
 				},
 			},
@@ -97,21 +90,21 @@ export const RewardGroup = () => {
 				<span> {tear2} %</span>
 			),
 			sorter: (a, b) => a.tear2 - b.tear2,
-		},{
+		}, {
 			title: 'Tear3',
 			dataIndex: 'tear3',
 			render: tear3 => (
 				<span> {tear3} %</span>
 			),
 			sorter: (a, b) => a.tear3 - b.tear3,
-		},{
+		}, {
 			title: 'Tear4',
 			dataIndex: 'tear4',
 			render: tear4 => (
 				<span> {tear4} %</span>
 			),
 			sorter: (a, b) => a.tear4 - b.tear4,
-		},{
+		}, {
 			title: 'Tear5',
 			dataIndex: 'tear5',
 			render: tear5 => (
@@ -122,9 +115,10 @@ export const RewardGroup = () => {
 		{
 			title: '',
 			dataIndex: 'actions',
+			width: 50,
 			render: (_, elm) => (
 				<div className="text-right">
-					<EllipsisDropdown menu={dropdownMenu(elm)}/>
+					<EllipsisDropdown menu={dropdownMenu(elm)} />
 				</div>
 			)
 		}
@@ -155,7 +149,7 @@ export const RewardGroup = () => {
 				okText="YES"
 				cancelText="NO"
 				placement="rightTop"
-			> 
+			>
 				<Menu.Item key="delete">
 					<Flex alignItems="center">
 						<DeleteOutlined />
@@ -185,52 +179,52 @@ export const RewardGroup = () => {
 
 	const handleSave = () => {
 		form.validateFields()
-		.then(values => {
-			let promise, msg;
-			setSubmit(true);
-			try {
-				if (mode === ADD) {
-					msg = "新規追加しました!"
-					promise = adminRewardGroup.create(values)
-				}
-				else {
-					msg = "更新しました!"
-					promise = adminRewardGroup.update(selectedRow._id, values)
-				}
-				promise.then(res => {
-					setSubmit(false);
-					if (res.data.status_code === 200) {
-						setRewardGroups(res.data.rewardGroups);
-						setVisibleModal(false);
-						message.success(msg);
-					} else {
-						message.error(res.data.message);
+			.then(values => {
+				let promise, msg;
+				setSubmit(true);
+				try {
+					if (mode === ADD) {
+						msg = "新規追加しました!"
+						promise = adminRewardGroup.create(values)
 					}
-				})
-			} catch (err) {
-				setSubmit(false);
-				message.error(err.toString());
-			}
-		})
+					else {
+						msg = "更新しました!"
+						promise = adminRewardGroup.update(selectedRow._id, values)
+					}
+					promise.then(res => {
+						setSubmit(false);
+						if (res.data.status_code === 200) {
+							setRewardGroups(res.data.rewardGroups);
+							setVisibleModal(false);
+							message.success(msg);
+						} else {
+							message.error(res.data.message);
+						}
+					})
+				} catch (err) {
+					setSubmit(false);
+					message.error(err.toString());
+				}
+			})
 	}
 
 	const handleDelete = (id) => {
 		setSubmit(true);
 		adminRewardGroup.delete(id)
-		.then(res => {
-			setSubmit(false);	
-			switch (res.data.status_code) {
-				case 200: {
-					setRewardGroups(res.data.rewardGroups);
-					message.success("削除しました!");
-					break;
+			.then(res => {
+				setSubmit(false);
+				switch (res.data.status_code) {
+					case 200: {
+						setRewardGroups(res.data.rewardGroups);
+						message.success("削除しました!");
+						break;
+					}
+					default: message.warning(res.data.message); break;
 				}
-				default: message.warning(res.data.message); break;
-			}
-		}).catch(err => {
-			setSubmit(false);
-			message.error(err.toString());
-		})
+			}).catch(err => {
+				setSubmit(false);
+				message.error(err.toString());
+			})
 	}
 
 	return (
@@ -238,7 +232,7 @@ export const RewardGroup = () => {
 			<Flex className="mb-3" alignItems="center" justifyContent="between" mobileFlex={false}>
 				<div className="mr-md-3 mb-3">
 					<Input placeholder="Search"
-						prefix={<SearchOutlined />} 
+						prefix={<SearchOutlined />}
 						addonAfter={`Result: ${list?.length || 0}`}
 						onChange={e => onSearch(e)}
 					/>
@@ -258,14 +252,15 @@ export const RewardGroup = () => {
 					dataSource={list}
 					rowKey="_id"
 					loading={!rewardGroups}
+					scroll={{ x: 1000 }}
 				/>
 			</div>
 			<Modal
 				title={`${mode} Group`}
 				visible={visibleModal}
-				onCancel={()=>setVisibleModal(false)}
-				onOk = {handleSave}
-				loading = {submit}
+				onCancel={() => setVisibleModal(false)}
+				onOk={handleSave}
+				loading={submit}
 				okText="Save"
 				cancelText="Cancel"
 				width={1000}
@@ -279,7 +274,7 @@ export const RewardGroup = () => {
 					<Row gutter={16}>
 						<Col xs={24} sm={24} md={24}>
 							<Form.Item name="name" label="Name" rules={rules.required}>
-								<Input	className="w-100"/>
+								<Input className="w-100" />
 							</Form.Item>
 						</Col>
 						<Col xs={24} sm={24} md={8}>

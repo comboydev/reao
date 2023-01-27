@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-    onLoadSaleHistory,
-    onLoadCoinsOnSale,
+	onLoadSaleHistory,
+	onLoadCoinsOnSale,
 } from "redux/actions";
 import { Card, Table, Input, Button, Menu, message, Tooltip, Tag, Popconfirm } from 'antd';
 import { EyeOutlined, SearchOutlined, DeleteOutlined, LinkOutlined } from '@ant-design/icons';
@@ -20,24 +20,24 @@ const CoinsOnSale = (props) => {
 	const history = useHistory();
 	const [list, setList] = useState([]);
 	const [submit, setSubmit] = useState(false);
-    const {
-        coinsOnSale,
-        loadedCoinsOnSale,
-        onLoadCoinsOnSale,
-        // saleHistory,
-        // loadedSaleHistory,
-        onLoadSaleHistory,
-    } = props;
+	const {
+		coinsOnSale,
+		loadedCoinsOnSale,
+		onLoadCoinsOnSale,
+		// saleHistory,
+		// loadedSaleHistory,
+		onLoadSaleHistory,
+	} = props;
 
 	useEffect(() => {
 		onLoadCoinsOnSale();
 		onLoadSaleHistory();
 	}, [onLoadCoinsOnSale, onLoadSaleHistory]);
-	
+
 	useEffect(() => {
 		setList(coinsOnSale);
 	}, [coinsOnSale])
-	
+
 	const dropdownMenu = row => (
 		<Menu key={row.id}>
 			<Menu.Item onClick={() => history.push(`/admin/marketplace/items/${row.itemId}`)} key="view">
@@ -52,7 +52,7 @@ const CoinsOnSale = (props) => {
 				okText="YES"
 				cancelText="NO"
 				placement="rightTop"
-			> 
+			>
 				<Menu.Item key="delete">
 					<Flex alignItems="center">
 						<DeleteOutlined />
@@ -79,6 +79,8 @@ const CoinsOnSale = (props) => {
 		{
 			title: 'ID',
 			dataIndex: 'tokenId',
+			fixed: 'left',
+			width: 100,
 			render: tokenId => (
 				<div className="d-flex">
 					<a href={
@@ -91,6 +93,7 @@ const CoinsOnSale = (props) => {
 		{
 			title: 'コイン',
 			dataIndex: 'name',
+			width: 450,
 			render: (_, record) => (
 				<div className="d-flex">
 					<AvatarStatus
@@ -109,17 +112,15 @@ const CoinsOnSale = (props) => {
 			render: refPrice => (
 				<YenFormat value={refPrice} />
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'refPrice')
 		},
 		{
 			title: '発行数 / 販売数',
 			dataIndex: 'totalSupply',
 			render: (_, record) => (
 				<div className="d-flex">
-					{ record.totalSupply } / { record.amount }
+					{record.totalSupply} / {record.amount}
 				</div>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'totalSupply')
 		},
 		{
 			title: 'オーナー券価格',
@@ -127,39 +128,40 @@ const CoinsOnSale = (props) => {
 			render: price => (
 				<YenFormat value={price} />
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'price')
 		},
 		{
 			title: '販売者',
 			dataIndex: 'seller',
 			render: seller => (
-				<Tooltip title={seller}  placement="top">
+				<Tooltip title={seller} placement="top">
 					<span className="cursor-pointer" onClick={() => utils.copyClipboard(seller)}>
-						{ shorter(seller) }</span>
+						{shorter(seller)}</span>
 				</Tooltip>
 			),
 		},
 		{
 			title: '',
 			dataIndex: 'isSold',
+			width: 100,
 			render: isSold => (
-				<Tag className ="text-capitalize" 
-					color={ SOLD_STATUS[isSold ? 1 : 0].color }>
-						{ SOLD_STATUS[isSold ? 1 : 0].label }
+				<Tag className="text-capitalize"
+					color={SOLD_STATUS[isSold ? 1 : 0].color}>
+					{SOLD_STATUS[isSold ? 1 : 0].label}
 				</Tag>
 			),
 		},
 		{
 			title: '',
 			dataIndex: 'actions',
+			width: 50,
 			render: (_, elm) => (
 				<div className="text-right">
-					<EllipsisDropdown menu={dropdownMenu(elm)}/>
+					<EllipsisDropdown menu={dropdownMenu(elm)} />
 				</div>
 			)
 		}
 	];
-	
+
 	const onSearch = e => {
 		const value = e.currentTarget.value
 		const searchArray = coinsOnSale
@@ -180,7 +182,7 @@ const CoinsOnSale = (props) => {
 				<Button type='link'
 					href={tokenLink("AQCT1155", getContractAddress('FantationMarket'))}
 					target="_blank" rel="noreferrer"
-					icon={<LinkOutlined />} 
+					icon={<LinkOutlined />}
 				/>
 			</Flex>
 			<div className="table-responsive">
@@ -189,6 +191,7 @@ const CoinsOnSale = (props) => {
 					dataSource={list}
 					rowKey='itemId'
 					loading={!loadedCoinsOnSale || submit}
+					scroll={{ x: 1300 }}
 				/>
 			</div>
 		</Card>
@@ -196,7 +199,7 @@ const CoinsOnSale = (props) => {
 }
 
 export default connect(
-({ marketplace }) => (marketplace), {
-    onLoadCoinsOnSale,
-    onLoadSaleHistory,
+	({ marketplace }) => (marketplace), {
+	onLoadCoinsOnSale,
+	onLoadSaleHistory,
 })(CoinsOnSale);

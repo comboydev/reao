@@ -23,9 +23,9 @@ export const CONTRACTS_BY_NETWORK = {
       fromBlock: 37095132,
     },
     FantationMarket: {
-      address: '0xDCA8946c39fe2bc8b9Ba62705AEd0dEe671416D7',
+      address: '0x16D07A420a4B0E810dac69F61a836F6f08ea23cd',
       abi: FantationMarket.abi,
-      fromBlock: 37095205,
+      fromBlock: 37734761,
     },
   },
   [Networks.Testnet]: {

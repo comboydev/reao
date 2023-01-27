@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-    onLoadPurchaseHistory,
-    onLoadOwnedCoins,
+	onLoadPurchaseHistory,
+	onLoadOwnedCoins,
 } from "redux/actions";
 import { Card, Table, Input, Menu, Tooltip } from 'antd';
 import { EyeOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
@@ -18,19 +18,19 @@ const OwnedCoins = (props) => {
 	const history = useHistory();
 	const [list, setList] = useState([]);
 	const {
-        ownedCoins,
-        loadedOwnedCoins,
-        onLoadOwnedCoins,
-        // purchaseHistory,
-        // loadedPurchaseHistory,
-        onLoadPurchaseHistory,
+		ownedCoins,
+		loadedOwnedCoins,
+		onLoadOwnedCoins,
+		// purchaseHistory,
+		// loadedPurchaseHistory,
+		onLoadPurchaseHistory,
 	} = props;
-	
+
 	useEffect(() => {
 		onLoadOwnedCoins();
 		onLoadPurchaseHistory();
 	}, [onLoadOwnedCoins, onLoadPurchaseHistory])
-	
+
 	useEffect(() => {
 		setList(ownedCoins);
 	}, [ownedCoins])
@@ -56,9 +56,11 @@ const OwnedCoins = (props) => {
 		{
 			title: 'ID',
 			dataIndex: 'tokenId',
+			fixed: 'left',
+			width: 100,
 			render: tokenId => (
 				<div className="d-flex">
-					<a href={tokenLink("AQCT1155", tokenId)} target="_blank" rel="noreferrer">{ tokenId }</a>
+					<a href={tokenLink("AQCT1155", tokenId)} target="_blank" rel="noreferrer">{tokenId}</a>
 				</div>
 			),
 			sorter: (a, b) => utils.antdTableSorter(a, b, 'tokenId')
@@ -66,6 +68,7 @@ const OwnedCoins = (props) => {
 		{
 			title: 'コイン',
 			dataIndex: 'name',
+			width: 450,
 			render: (_, record) => (
 				<AvatarStatus size={60} type="square"
 					src={record.images[0]}
@@ -80,39 +83,38 @@ const OwnedCoins = (props) => {
 			render: refPrice => (
 				<YenFormat value={refPrice} />
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'refPrice')
 		},
 		{
 			title: '発行数 / 保有数',
 			dataIndex: 'amount',
 			render: (_, record) => (
 				<div className="d-flex">
-					{ record.totalSupply } / { record.amount }
+					{record.totalSupply} / {record.amount}
 				</div>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'amount')
 		},
 		{
 			title: '保有者',
 			dataIndex: 'owner',
 			render: owner => (
-				<Tooltip title={owner}  placement="top">
+				<Tooltip title={owner} placement="top">
 					<span className="cursor-pointer" onClick={() => utils.copyClipboard(owner)}>
-						{ shorter(owner) }</span>
+						{shorter(owner)}</span>
 				</Tooltip>
 			),
 		},
 		{
 			title: '',
 			dataIndex: 'actions',
+			width: 50,
 			render: (_, elm) => (
 				<div className="text-right">
-					<EllipsisDropdown menu={dropdownMenu(elm)}/>
+					<EllipsisDropdown menu={dropdownMenu(elm)} />
 				</div>
 			)
 		}
 	];
-	
+
 	const onSearch = e => {
 		const value = e.currentTarget.value
 		const searchArray = ownedCoins
@@ -137,6 +139,7 @@ const OwnedCoins = (props) => {
 					columns={tableColumns}
 					dataSource={list}
 					loading={!loadedOwnedCoins}
+					scroll={{ x: 1100 }}
 				/>
 			</div>
 		</Card>
@@ -144,7 +147,7 @@ const OwnedCoins = (props) => {
 }
 
 export default connect(
-({ marketplace }) => (marketplace), {
-    onLoadOwnedCoins,
-    onLoadPurchaseHistory,
+	({ marketplace }) => (marketplace), {
+	onLoadOwnedCoins,
+	onLoadPurchaseHistory,
 })(OwnedCoins);

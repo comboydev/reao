@@ -44,6 +44,8 @@ const MarketItems = (props) => {
 		{
 			title: 'ID',
 			dataIndex: 'tokenId',
+			fixed: 'left',
+			width: 100,
 			render: tokenId => (
 				<div className="d-flex">
 					<a href={
@@ -56,6 +58,7 @@ const MarketItems = (props) => {
 		{
 			title: 'コイン',
 			dataIndex: 'name',
+			width: 450,
 			render: (_, record) => (
 				<div className="d-flex">
 					<AvatarStatus
@@ -74,7 +77,6 @@ const MarketItems = (props) => {
 			render: refPrice => (
 				<YenFormat value={refPrice} />
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'refPrice')
 		},
 		{
 			title: '発行数 / 販売数',
@@ -84,7 +86,6 @@ const MarketItems = (props) => {
 					{record.totalSupply} / {record.amount}
 				</div>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'totalSupply')
 		},
 		{
 			title: 'オーナー券価格',
@@ -92,7 +93,6 @@ const MarketItems = (props) => {
 			render: price => (
 				<YenFormat value={price} />
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'price')
 		},
 		{
 			title: '販売者',
@@ -107,6 +107,7 @@ const MarketItems = (props) => {
 		{
 			title: '',
 			dataIndex: 'isSold',
+			width: 100,
 			render: isSold => (
 				<Tag className="text-capitalize"
 					color={SOLD_STATUS[isSold ? 1 : 0].color}>
@@ -117,6 +118,7 @@ const MarketItems = (props) => {
 		{
 			title: '',
 			dataIndex: 'actions',
+			width: 50,
 			render: (_, elm) => (
 				<div className="text-right">
 					<EllipsisDropdown menu={dropdownMenu(elm)} />
@@ -154,6 +156,7 @@ const MarketItems = (props) => {
 					dataSource={list}
 					rowKey='itemId'
 					loading={!loadedMarketItems}
+					scroll={{ x: 1300 }}
 				/>
 			</div>
 		</Card>

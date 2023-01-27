@@ -100,14 +100,14 @@ const columns = [
         render: price => <YenFormat value={price} />
     },
     {
-        title: '販売者',
+        title: 'From',
         dataIndex: 'seller',
         key: 'seller',
         width: 200,
         render: seller =>
             <Tooltip title={seller} placement="top">
                 <span className="cursor-pointer" onClick={() => utils.copyClipboard(seller)}>
-                    { shorter(seller) }</span>
+                    {shorter(seller)}</span>
             </Tooltip>
     },
 ];
@@ -127,7 +127,7 @@ const OwnedCoins = (props) => {
         onLoadOwnedCoins();
         onLoadPurchaseHistory();
     }, [onLoadOwnedCoins, onLoadPurchaseHistory]);
-    
+
     if (!loadedOwnedCoins)
         return <Loading cover="page" />;
     return (
@@ -154,10 +154,10 @@ const OwnedCoins = (props) => {
                     <p className="c-header--subtitle">Owned Coins</p>
                 </div>
                 {ownedCoins.length === 0 &&
-                    <Notice title="保有コインかありません。"/>
+                    <Notice title="保有コインかありません。" />
                 }
                 <div className="c-coin--list">
-                    {ownedCoins.map((coin, key) => 
+                    {ownedCoins.map((coin, key) =>
                         <OwnedCoinWidget coin={coin} key={key} />
                     )}
                 </div>
@@ -187,7 +187,7 @@ const OwnedCoins = (props) => {
 }
 
 export default connect(
-({ marketplace }) => (marketplace), {
+    ({ marketplace }) => (marketplace), {
     onLoadOwnedCoins,
     onLoadPurchaseHistory,
 })(OwnedCoins);
