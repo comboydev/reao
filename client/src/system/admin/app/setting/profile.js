@@ -3,8 +3,8 @@ import { Form, Avatar, Button, Input, DatePicker, Row, Col, message, Upload } fr
 import { UserOutlined, EditOutlined } from '@ant-design/icons';
 import { ROW_GUTTER } from 'constants/ThemeConstant';
 import Flex from 'components/shared-components/Flex';
-import moment from "moment";
-import adminProfile from 'api/admin/profile';
+import moment from 'moment';
+import api from 'api';
 import Jwt from 'services/jwt';
 import ImageService from 'services/image';
 
@@ -15,7 +15,7 @@ const EditProfile = () => {
 	const [submit, setSubmit] = useState(false);
 	const [submitAvatar, setSubmitAvatar] = useState(false);
 
-	useEffect(()=>{
+	useEffect(() => {
 		setAvatar(admin.avatar);
 		setLoaded(true);
 	}, [admin.avatar])
@@ -31,16 +31,16 @@ const EditProfile = () => {
 			},
 		}
 		setSubmit(true);
-		adminProfile.updateProfile(admin._id, payload)
-		.then(res => {
-			setSubmit(false);
-			Jwt.setAdmin(res.data);
-			message.success("プロフィールを更新しました!");
-		})
-		.catch(err => {
-			setSubmit(false);
-			message.error("失敗しました。");
-		})
+		api.adminProfile.updateProfile(admin.id, payload)
+			.then(res => {
+				setSubmit(false);
+				Jwt.setAdmin(res.data);
+				message.success("プロフィールを更新しました!");
+			})
+			.catch(err => {
+				setSubmit(false);
+				message.error("失敗しました。");
+			})
 	};
 
 	const onUploadAavater = async (e) => {
@@ -48,23 +48,23 @@ const EditProfile = () => {
 		ImageService.getBase64(e.file.originFileObj, async (base64) => {
 			const { data } = await ImageService.upload(base64);
 			const user = Jwt.getAdmin();
-			const res = await adminProfile.updateProfile(user._id, { avatar: data.uri })
+			const res = await api.adminProfile.updateProfile(user.id, { avatar: data.uri })
 			Jwt.setAdmin(res.data);
 			window.location.reload();
 		})
 	};
 
-	if(!loaded) return null;
+	if (!loaded) return null;
 	return (
 		<>
 			<Flex alignItems="center" mobileFlex={false} className="text-center text-md-left">
-				<Avatar size={90} src={avatar} icon={<UserOutlined />}/>
+				<Avatar size={90} src={avatar} icon={<UserOutlined />} />
 				<div className="ml-3 mt-md-0 mt-3 position-relative">
-					<Upload onChange={onUploadAavater} showUploadList={false} customRequest={()=>{ return; }}>
-						<Button 
+					<Upload onChange={onUploadAavater} showUploadList={false} customRequest={() => { return; }}>
+						<Button
 							type="primary" shape="circle"
 							icon={<EditOutlined />}
-							style={{ 
+							style={{
 								position: 'absolute',
 								bottom: -40,
 								right: -5,
@@ -79,7 +79,7 @@ const EditProfile = () => {
 					name="basicInformation"
 					layout="vertical"
 					initialValues={
-						{ 
+						{
 							'nickname': admin.nickname,
 							'name': admin.personalInfo?.name,
 							'furigana': admin.personalInfo?.furigana,
@@ -147,7 +147,7 @@ const EditProfile = () => {
 										label="生年月日"
 										name="birthday"
 									>
-										<DatePicker className="w-100"/>
+										<DatePicker className="w-100" />
 									</Form.Item>
 								</Col>
 							</Row>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import {Button} from "antd";
+import { Button } from "antd";
 import CheckButton from "react-validation/build/button";
-import { required, is_email} from "plugins/validator";
+import { required, is_email } from "plugins/validator";
 import IntlMessage from "components/util-components/IntlMessage";
-import userAuth from "api/user/auth";
+import api from 'api';
 
 export default function ForgotPassword() {
 
@@ -24,29 +24,29 @@ export default function ForgotPassword() {
 
     form.validateAll();
     if (checkBtn.context._errors.length > 0)
-    return;
+      return;
 
     setSubmit(true);
-    
-    userAuth.sendLinkOfResetPassword(email)
-    .then(res => {
+
+    api.userAuth.sendLinkOfResetPassword(email)
+      .then(res => {
         setSubmit(false);
-        switch(res.data.status_code){
+        switch (res.data.statusCode) {
           case 200: setSuccess(res.data.message); break;
-          case 400: setError(res.data.message);  break;
+          case 400: setError(res.data.message); break;
           default: break;
         }
-    })
-    .catch(error => {
-      setSubmit(false);
-      const resMessage =
-      (error.response &&
-        error.response.data &&
-        error.response.data.message) ||
-      error.message ||
-      error.toString();
-      setError(resMessage);
-    })
+      })
+      .catch(error => {
+        setSubmit(false);
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setError(resMessage);
+      })
   }
 
   return (
@@ -63,12 +63,12 @@ export default function ForgotPassword() {
         <div className="c-card max-w500 mt-4">
           <h2 className="c-signin--header--sub">
             <IntlMessage id="page.auth.forgot.password.t1" description="登録したメールアドレスに" /> <br />
-            <IntlMessage id="page.auth.forgot.password.t2" description="パスワードリセットリンクをお送りします。" /> 
+            <IntlMessage id="page.auth.forgot.password.t2" description="パスワードリセットリンクをお送りします。" />
           </h2>
           {_success &&
             <p className="alert alert-success alert-bg alert-center">{_success}</p>
           }
-          { _error && 
+          {_error &&
             <p className="alert alert-danger alert-bg alert-center">{_error}</p>
           }
           <div>
@@ -86,13 +86,13 @@ export default function ForgotPassword() {
                 className="c-form--input"
                 name="email"
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 validations={[required, is_email]}
               />
               <Button
-                htmlType="submit" 
+                htmlType="submit"
                 className="c-btn c-btn-regist mt-4"
-                block 
+                block
                 loading={submit}>
                 <span>
                   <IntlMessage id="page.auth.forgot.password.submit" description="リセットリンクを送信" />

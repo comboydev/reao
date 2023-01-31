@@ -14,19 +14,10 @@ const personalSchema = new Schema({
   extra: String,
 });
 
-
-var statusSchema = new Schema({
-  sms: { type: Boolean, required: true, default: false },
-  emailVerified: { type: Boolean, required: true, default: false },
-  identityVerified: { type: Number, required: true, default: -1  },         //1 => verified, 0 => apply now, -1 => no ID 
-  actived: { type: Number, required: true, default: 1 },
-})
-
-
 var UserSchema = new Schema({
-  nickname: {type: String, default: ''},
+  nickname: { type: String, default: '' },
   introducer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },       // Affiliate introducer id
-  rewardGroup: { type: mongoose.Schema.Types.ObjectId, ref: 'RewardGroup' },
+  rewardGroup: { type: mongoose.Schema.Types.ObjectId, ref: 'Reward_Group' },
   email: {
     type: String,
     required: true,
@@ -55,11 +46,11 @@ var UserSchema = new Schema({
   password: String,
   avatar: String,
   warrant: String,                //証明書
-  sms: { type: Boolean, default: false },
+  socialAccount: { type: Boolean, default: false },
   emailVerified: { type: Boolean, default: false },
-  identityVerified: { type: Number, default: -1  },         //1 => verified, 0 => apply now, -1 => no ID 
+  identityVerified: { type: Number, default: -1 },         //1 => verified, 0 => appling, -1 => not verified
   actived: { type: Number, default: 1 },
-  
+
   personalInfo: personalSchema,
   role: {
     type: String,
@@ -67,36 +58,36 @@ var UserSchema = new Schema({
     default: 'user',
   },
   coins: String,
-}, 
-{
-  timestamps:{ 
-    createdAt: 'created_at', 
-    updatedAt: 'updated_at' 
-}
-}).set('toJSON', {
-  virtuals: true
-});
+},
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+    }
+  }).set('toJSON', {
+    virtuals: true
+  });
 
 
 UserSchema.methods.generateVerificationToken = function () {
   const user = this;
   const verificationToken = jwt.sign(
-      { ID: user._id },
-      config.secret_private_key,
-      { expiresIn: "7d" }
+    { id: user._id },
+    config.secret_private_key,
+    { expiresIn: "8h" }
   );
   return verificationToken;
 };
 
 UserSchema.methods.comparePassword = function (passw, cb) {
   bcrypt.compare(passw, this.password, function (err, isMatch) {
-      if (err) {
-          return cb(err);
-      }
-      cb(null, isMatch);
+    if (err) {
+      return cb(err);
+    }
+    cb(null, isMatch);
   });
 };
 
 
 
-module.exports =  mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

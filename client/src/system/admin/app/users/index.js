@@ -10,7 +10,7 @@ import moment from 'moment';
 import UserView from './view.js';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import Flex from 'components/shared-components/Flex'
-import adminUser from "api/admin/user";
+import api from 'api';
 import utils from 'plugins/utils'
 
 const { Option } = Select
@@ -56,7 +56,7 @@ export const UserList = () => {
 
 	const fetch = async () => {
 		try {
-			const { data } = await adminUser.getAll();
+			const { data } = await api.adminUser.getAll();
 			setUsers(data.users);
 		} catch {
 			message.error("エラーが発生しました。")
@@ -76,9 +76,9 @@ export const UserList = () => {
 
 	const deleteUser = async (id) => {
 		try {
-			let res = await adminUser.delete(id);
-			let { status_code, users } = res.data;
-			if (status_code === 200) {
+			let res = await api.adminUser.delete(id);
+			let { statusCode, users } = res.data;
+			if (statusCode === 200) {
 				setUsers(users);
 				message.success("ユーザーを削除しました!")
 			} else {
@@ -104,7 +104,7 @@ export const UserList = () => {
 			title: '紹介者',
 			dataIndex: 'introducer',
 			render: introducer => (
-				<Link to={'/admin/users/' + introducer?._id}>{introducer?.email}</Link>
+				<Link to={'/admin/users/' + introducer?.id}>{introducer?.email}</Link>
 			),
 		},
 		{
@@ -163,7 +163,7 @@ export const UserList = () => {
 					<Tooltip title="Delete">
 						<Popconfirm
 							title="本当に削除しますか？"
-							onConfirm={() => { deleteUser(elm._id) }}
+							onConfirm={() => { deleteUser(elm.id) }}
 							okText="YES"
 							cancelText="NO"
 							placement="rightTop"
@@ -227,7 +227,7 @@ export const UserList = () => {
 				<Table
 					columns={tableColumns}
 					dataSource={list}
-					rowKey="_id"
+					rowKey="id"
 					loading={!loaded}
 					scroll={{ x: 1000 }}
 				/>

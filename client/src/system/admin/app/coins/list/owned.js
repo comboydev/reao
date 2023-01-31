@@ -135,7 +135,7 @@ const OwnedCoins = (props) => {
 			</Flex>
 			<div className="table-responsive">
 				<Table
-					rowKey="_id"
+					rowKey="id"
 					columns={tableColumns}
 					dataSource={list}
 					loading={!loadedOwnedCoins}

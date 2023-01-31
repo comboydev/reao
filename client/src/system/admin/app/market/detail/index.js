@@ -10,7 +10,7 @@ import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
 import Marketplace from 'contracts/services/marketplace';
 
-const  DetailMarketItem = (props) => {
+const DetailMarketItem = (props) => {
 	const id = props.match.params.id
 	const history = useHistory();
 
@@ -67,7 +67,7 @@ const  DetailMarketItem = (props) => {
 	// 		),
 	// 		sorter: null
 	// 	},
-    //     {
+	//     {
 	// 		title: '保有枚数',
 	// 		dataIndex: 'count',
 	// 		render: count => (
@@ -88,7 +88,7 @@ const  DetailMarketItem = (props) => {
 	// 			},
 	// 		},
 	// 	},
-    //     	{
+	//     	{
 	// 		title: '価格',
 	// 		dataIndex: 'cost',
 	// 		render: cost => (
@@ -103,19 +103,19 @@ const  DetailMarketItem = (props) => {
 	// 		),
 	// 		sorter: (a, b) => utils.antdTableSorter(a, b, 'cost')
 	// 	},
-    //     	{
+	//     	{
 	// 		title: 'Status',
 	// 		dataIndex: 'sellStatus',
 	// 		render: status => {
-    //             if(status === 1)
+	//             if(status === 1)
 	// 			    return <Tag color={'cyan'}>購入可能</Tag>
-    //             else return <Tag color={'volcano'}>購入不可</Tag>
-    //         },
-    //         sorter: (a, b) => (a.sellStatus - b.sellStatus)
+	//             else return <Tag color={'volcano'}>購入不可</Tag>
+	//         },
+	//         sorter: (a, b) => (a.sellStatus - b.sellStatus)
 	// 	},
 	// ];
-	
-	if( !loaded ) return null;
+
+	if (!loaded) return null;
 	return (
 		<>
 			<PageHeaderAlt background="/img/app/back2.jpg" cssClass="bg-primary" overlap>
@@ -126,7 +126,7 @@ const  DetailMarketItem = (props) => {
 					<Row gutter={16}>
 						<Col xs={24} md={10} className="mx-auto mb-3">
 							<div className="rounded p-2 mx-auto text-center">
-								<Image shape="circle" src={ coin.images[0] } style={{maxWidth: '100%', width: 250}}/>
+								<Image shape="circle" src={coin.images[0]} style={{ maxWidth: '100%', width: 250 }} />
 							</div>
 						</Col>
 						<Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
@@ -142,11 +142,11 @@ const  DetailMarketItem = (props) => {
 								<span style={{ width: 130 }} className="me-md-4">発行数 / 販売数</span>
 								<span>
 									<TNumberFormat
-										value={`${coin.totalSupply}`} 
+										value={`${coin.totalSupply}`}
 										className="mr-1"
-									/> / 
+									/> /
 									<TNumberFormat
-										value={`${coin.amount}`} 
+										value={`${coin.amount}`}
 										className="mx-1"
 									/>枚
 								</span>
@@ -159,7 +159,7 @@ const  DetailMarketItem = (props) => {
 								</span>
 							</div>
 							<h3 className='pt-3 text-center mb-4'>オーナー権価格:
-								<span style={{ fontSize: 40, marginLeft: 20 }} className="d-block d-md-inline text-bold">	
+								<span style={{ fontSize: 40, marginLeft: 20 }} className="d-block d-md-inline text-bold">
 									<YenFormat value={coin.price} />
 								</span>
 							</h3>
@@ -170,48 +170,48 @@ const  DetailMarketItem = (props) => {
 					coin.images.slice(1).length > 0 ?
 						<Row gutter={16}>
 							<Card title='コインについて' className='py-3 mt-3 mt-md-0 pre-wrap'>
-								{ coin.coinDescription }
+								{coin.coinDescription}
 							</Card>
 							<Col xs={24} sm={24} md={10}>
 								<Card className="pb-3">
 									<Slider {...settings}>
-										{coin.images.slice(1).map(function(slide, k) {
+										{coin.images.slice(1).map(function (slide, k) {
 											return (
-											<img key={k}
-												src = {slide} 
-												alt="fantation" 
-												style={{ 
-													width: '100%', 
-													objectFit:'contain', 
-													margin: 'auto' 
-												}}/>
+												<img key={k}
+													src={slide}
+													alt="fantation"
+													style={{
+														width: '100%',
+														objectFit: 'contain',
+														margin: 'auto'
+													}} />
 											);
 										})}
 									</Slider>
-								</Card>			
+								</Card>
 							</Col>
 							<Col xs={24} sm={24} md={14}>
 								<Card title='グレードについて' className='py-3 pre-wrap'>
-									{ coin.gradeDescription }
+									{coin.gradeDescription}
 								</Card>
 							</Col>
 						</Row>
-					: 
+						:
 						<Row gutter={16}>
 							<Col xs={24} sm={24} md={12}>
 								<Card title='コインについて' className='py-3 pre-wrap'>
-									{ coin.coinDescription }
+									{coin.coinDescription}
 								</Card>
 							</Col>
 							<Col xs={24} sm={24} md={12}>
 								<Card title='グレードについて' className='py-3 pre-wrap'>
-									{ coin.gradeDescription }
+									{coin.gradeDescription}
 								</Card>
 							</Col>
 						</Row>
 				}
 				{/* <Card title='オーナー権を保有するユーザーリスト' className='py-3 mt-3 mt-md-0'>
-					<Table columns={tableColumns} dataSource={coin.owners} rowKey="_id"/>
+					<Table columns={tableColumns} dataSource={coin.owners} rowKey="id"/>
 				</Card> */}
 			</div>
 		</>

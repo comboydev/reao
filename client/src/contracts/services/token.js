@@ -1,5 +1,5 @@
 import { getContract, getAccount } from 'contracts/hooks';
-import userCoin from 'api/user/coin';
+import api from 'api';
 
 const Token = {}
 
@@ -9,7 +9,7 @@ Token.getTokensOf = async () => {
     const response = await tokenContract.tokensOf(account);
     const tokens = await Promise.all(
         response.map(async token => {
-            const { data } = await userCoin.get(token.uri);
+            const { data } = await api.userCoin.detail(token.uri);
             const totalSupply = await tokenContract.totalSupply(token.tokenId);
             return ({
                 ...data,
@@ -28,7 +28,7 @@ Token.getToken = async (id) => {
     const tokenContract = await getContract('AQCT1155');
     const account = await getAccount();
     const token = await tokenContract.token(account, id);
-    const { data } = await userCoin.get(token.uri);
+    const { data } = await api.userCoin.detail(token.uri);
     const totalSupply = await tokenContract.totalSupply(id);
     return {
         ...data,

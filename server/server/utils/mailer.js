@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-var mailer = nodemailer.createTransport({
+const mailer = nodemailer.createTransport({
     host: "mail.fantation-coin.com",
     port: 465,
     auth: {

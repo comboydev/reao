@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
-import adminMail from 'api/admin/mail';
+import api from 'api';
 
 const MailCompose = (props) => {
 	const history = useHistory();
@@ -14,32 +14,32 @@ const MailCompose = (props) => {
 
 	const onFinish = () => {
 		form.validateFields()
-		.then(values => {
-			let obj = {
-				...values, 
-				...history.location.state
-			}
-			setSubmit(true);
-			adminMail.reply(obj)
-			.then(res => {
-				setSubmit(false);
-				message.success("メッセージを送信しました!")
-				history.push("/admin/mail/inbox");
+			.then(values => {
+				let obj = {
+					...values,
+					...history.location.state
+				}
+				setSubmit(true);
+				api.adminMail.reply(obj)
+					.then(res => {
+						setSubmit(false);
+						message.success("メッセージを送信しました!")
+						history.push("/admin/mail/inbox");
+					})
+					.catch(err => {
+						setSubmit(false);
+						message.error("メッセージ送信に失敗しました。")
+					})
 			})
-			.catch(err => {
-				setSubmit(false);
-				message.error("メッセージ送信に失敗しました。")
-			})
-		})
 	}
 
 
 	return (
 		<div className="mail-compose">
 			<h4 className="mb-4">新規作成 ( New Message )</h4>
-			<Form  
-				name="mail" 
-				onFinish={onFinish} 
+			<Form
+				name="mail"
+				onFinish={onFinish}
 				form={form}
 				initialValues={{
 					to: history.location.state?.mail.email,
@@ -47,26 +47,26 @@ const MailCompose = (props) => {
 					content: ""
 				}}
 			>
-				<Form.Item name="to" 
+				<Form.Item name="to"
 					rules={[
 						{
 							required: true,
 							message: 'この項目は必須です!',
 						},
-						{ 
+						{
 							type: 'email',
 							message: '有効なメールアドレスを入力してください。'
 						}
 					]}>
-					<Input placeholder="To:"/>
+					<Input placeholder="To:" />
 				</Form.Item>
 
-				<Form.Item name="subject" 
+				<Form.Item name="subject"
 					rules={[{
 						required: true,
 						message: 'この項目は必須です!',
 					}]}>
-					<Input placeholder="Subject:"/>
+					<Input placeholder="Subject:" />
 				</Form.Item>
 
 				<Form.Item name="content"
@@ -81,15 +81,15 @@ const MailCompose = (props) => {
 						<Button className="mr-2" onClick={back}>
 							Back
 						</Button>
-						<Button type="primary" 
+						<Button type="primary"
 							htmlType="submit"
-							loading = {submit}
+							loading={submit}
 						>
 							Send
 						</Button>
 					</div>
 				</Form.Item>
-			</Form> 
+			</Form>
 		</div>
 	)
 

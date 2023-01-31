@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Table, Select, Input, Badge, Menu, Tag, message } from 'antd';
 import { EyeOutlined, SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
-import moment from 'moment'; 
+import moment from 'moment';
 import utils from 'plugins/utils'
-import adminOrder from 'api/admin/order';
-import { PAYMENT_STATUS, ORDER_STATUS } from 'constants/AppConstant'; 
+import api from 'api';
+import { PAYMENT_STATUS, ORDER_STATUS } from 'constants/AppConstant';
 import YenFormat from 'components/custom/YenFormat';
 import TNumberFormat from 'components/custom/TNumberFormat';
 
@@ -21,20 +21,20 @@ const Orders = () => {
 	const [selectedRows, setSelectedRows] = useState([])
 	const [selectedRowKeys, setSelectedRowKeys] = useState([])
 
-	useEffect(()=>{
-		adminOrder.getAll()
-		.then(res => {
-			setLoaded(true);
-			setList(res.data);
-			setRawData(res.data);
-		})
-		.catch(err => {
-			message.error("失敗しました。");
-		})
+	useEffect(() => {
+		api.adminOrder.fetch()
+			.then(res => {
+				setLoaded(true);
+				setList(res.data);
+				setRawData(res.data);
+			})
+			.catch(err => {
+				message.error("失敗しました。");
+			})
 	}, []);
 
 	const handleShowStatus = value => {
-		if(value !== 'All') {
+		if (value !== 'All') {
 			const key = 'paymentStatus'
 			const data = utils.filterArray(_rawData, key, value)
 			setList(data)
@@ -66,13 +66,13 @@ const Orders = () => {
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus size={30} src={record.coin.mainImage} name={record.coin.name.slice(0, 10) + '...'}/>
+					<AvatarStatus size={30} src={record.coin.mainImage} name={record.coin.name.slice(0, 10) + '...'} />
 				</div>
 			),
 			sorter: {
 				compare: (a, b) => {
 					a = a.coin.name.toLowerCase();
-					  b = b.coin.name.toLowerCase();
+					b = b.coin.name.toLowerCase();
 					return a > b ? -1 : b > a ? 1 : 0;
 				},
 			},
@@ -101,8 +101,8 @@ const Orders = () => {
 			render: (_, record) => (
 				<span className="font-weight-semibold">
 					<TNumberFormat
-						value={record.orderCount} 
-						suffix={' 枚'} 
+						value={record.orderCount}
+						suffix={' 枚'}
 					/>
 				</span>
 			),
@@ -129,12 +129,12 @@ const Orders = () => {
 			dataIndex: 'actions',
 			render: (_, elm) => (
 				<div className="text-right">
-					<EllipsisDropdown menu={dropdownMenu(elm)}/>
+					<EllipsisDropdown menu={dropdownMenu(elm)} />
 				</div>
 			)
 		}
 	];
-	
+
 	const rowSelection = {
 		onChange: (key, rows) => {
 			setSelectedRows(rows)
@@ -158,11 +158,11 @@ const Orders = () => {
 						onChange={e => onSearch(e)} />
 				</div>
 				<div className="mb-3">
-					<Select 
-						defaultValue="All" 
-						className="w-100" 
-						style={{ minWidth: 180 }} 
-						onChange={handleShowStatus} 
+					<Select
+						defaultValue="All"
+						className="w-100"
+						style={{ minWidth: 180 }}
+						onChange={handleShowStatus}
 						placeholder="Status"
 					>
 						<Option value="All">All</Option>
@@ -171,10 +171,10 @@ const Orders = () => {
 				</div>
 			</Flex>
 			<div className="table-responsive">
-				<Table 
-					columns={tableColumns} 
-					dataSource={list} 
-					rowKey='_id'
+				<Table
+					columns={tableColumns}
+					dataSource={list}
+					rowKey='id'
 					loading={!loaded}
 					rowSelection={{
 						selectedRowKeys: selectedRowKeys,

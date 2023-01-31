@@ -6,9 +6,9 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { required } from "plugins/validator"
 import JwtService from "services/jwt";
-import userAuth from "api/user/auth";
+import api from 'api';
 
-export default function ChangePassword(){
+export default function ChangePassword() {
 
   const history = useHistory();
 
@@ -18,11 +18,11 @@ export default function ChangePassword(){
   const [submit, setSubmit] = useState(false);
   const [_success, setSuccess] = useState('');
   const [_error, setError] = useState('');
-  
+
   const currentUser = JwtService.getUser();
   const email = currentUser.email;
   var form, checkBtn;
- 
+
 
 
   const updatePassword = (e) => {
@@ -30,7 +30,7 @@ export default function ChangePassword(){
 
     form.validateAll();
     if (checkBtn.context._errors.length > 0)
-    return;
+      return;
 
     if (new_password !== new_password_confirm) {
       setError("パスワードの確認が一致しません。");
@@ -41,11 +41,11 @@ export default function ChangePassword(){
     setError('');
     setSubmit(true);
 
-    userAuth
+    api.userAuth
       .changePassword(email, password, new_password)
       .then((res) => {
         setSubmit(false);
-        if(res.data.status_code === 200){
+        if (res.data.statusCode === 200) {
           message.success(res.data.message);
           history.push('/profile')
         } else {
@@ -56,7 +56,7 @@ export default function ChangePassword(){
         setSubmit(false);
         message.error('エラーか発生しました。')
       }
-    );
+      );
   }
 
   return (
@@ -69,7 +69,7 @@ export default function ChangePassword(){
         {_success &&
           <p className="alert alert-success alert-bg alert-center">{_success}</p>
         }
-        { _error && 
+        {_error &&
           <p className="alert alert-danger alert-bg alert-center">{_error}</p>
         }
         <div>
@@ -84,7 +84,7 @@ export default function ChangePassword(){
               type="password"
               className="c-form--input"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               validations={[required]}
             />
 
@@ -93,7 +93,7 @@ export default function ChangePassword(){
               type="password"
               className="c-form--input"
               value={new_password}
-              onChange={e=>setNewPassword(e.target.value)}
+              onChange={e => setNewPassword(e.target.value)}
               validations={[required]}
             />
 
@@ -102,15 +102,15 @@ export default function ChangePassword(){
               type="password"
               className="c-form--input"
               value={new_password_confirm}
-              onChange={e=>setNewPasswordConfirm(e.target.value)}
+              onChange={e => setNewPasswordConfirm(e.target.value)}
               validations={[required]}
             />
-            
-            <Button type="primary" 
-              htmlType="submit" 
+
+            <Button type="primary"
+              htmlType="submit"
               className="c-btn c-btn-regist mt-4"
               loading={submit}>
-              {!submit && <span>変更</span> }
+              {!submit && <span>変更</span>}
             </Button>
 
             <CheckButton

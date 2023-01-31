@@ -11,29 +11,29 @@ import {
 } from "../actions/Auth";
 
 import JwtService from 'services/jwt';
-import adminAuth from 'api/admin/auth';
+import api from 'api';
 
 export function* signInWithEmail() {
-  yield takeEvery(SIGNIN, function* ({payload}) {
-		const {email, password} = payload;
-		try{
-			const response = yield call( adminAuth.login, email, password ); 
-			if (response.data.status_code === 200) {
-				delete response.data.status_code;
-				let token = response.data;
+	yield takeEvery(SIGNIN, function* ({ payload }) {
+		const { email, password } = payload;
+		try {
+			const { data } = yield call(api.adminAuth.login, email, password);
+			if (data.statusCode === 200) {
+				delete data.statusCode;
+				let token = data;
 				JwtService.setAdmin(token);
 				yield put(authenticated(token.accessToken));
 			} else {
-				yield put(showAuthMessage(response.data.message));
+				yield put(showAuthMessage(data.message));
 			}
-		}  catch (err) {
+		} catch (err) {
 			yield put(showAuthMessage(err.toString()));
 		}
 	});
 }
 
 export function* signOut() {
-  yield takeEvery(SIGNOUT, function* () {
+	yield takeEvery(SIGNOUT, function* () {
 		try {
 			localStorage.removeItem(AUTH_TOKEN);
 			yield put(signOutSuccess(null));
@@ -45,8 +45,8 @@ export function* signOut() {
 
 
 export default function* rootSaga() {
-  yield all([
+	yield all([
 		fork(signInWithEmail),
 		fork(signOut),
-  ]);
+	]);
 }

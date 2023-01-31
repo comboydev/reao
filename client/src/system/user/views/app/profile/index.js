@@ -8,18 +8,18 @@ import moment from "moment";
 import { Modal, Button, message, Popconfirm } from "antd";
 import { ExclamationCircleOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 import { required, is_phoneNumber } from "plugins/validator";
-import Loading from "components/shared-components/Loading";
-import UploadImageModal from "system/user/components/UploadImageModal";
-import prefs from "./prefs.json";
-import JwtService from "services/jwt";
-import userProfile from "api/user/profile";
+import Loading from 'components/shared-components/Loading';
+import UploadImageModal from 'system/user/components/UploadImageModal';
+import prefs from './prefs.json';
+import JwtService from 'services/jwt';
+import api from 'api';
 
 const { confirm } = Modal;
 const { Step } = Steps;
 
 const PersonalInfo = () => {
   var form, checkBtn;
-  const currentUser =  JwtService.getUser();
+  const currentUser = JwtService.getUser();
   const history = useHistory();
 
   const [user, setUser] = useState();
@@ -42,60 +42,60 @@ const PersonalInfo = () => {
   const [loaded, setLoaded] = useState(false);
   const [showAvatarUploadModal, setShowAvatarUploadModal] = useState(false);
   const [showWarrantUploadModal, setShowWarrantUploadModal] = useState(false);
-  
-  useEffect(()=>{
-    setLoaded(false);
-    userProfile.getPersonalInfo(currentUser._id)
-    .then((res)=>{
-      setLoaded(true);
-      let new_user = res.data;
-      JwtService.setUser(new_user);
-      setUser(new_user);
-      setNickName(new_user.nickname);
-      if(new_user && new_user.personalInfo){
-        setName(new_user.personalInfo.name);
-        setFurigana(new_user.personalInfo.furigana);
-        setPhoneNumber(new_user.personalInfo.phoneNumber);
-        setBirthday(moment(new_user.personalInfo.birthday).format("YYYY-MM-DD"));
-        setLocationProvince(new_user.personalInfo.locationProvince || '北海道');
-        setLocationCity(new_user.personalInfo.locationCity);
-        setExtra(new_user.personalInfo.extra);
-      }
-    })
-    .catch(err=>{
-      setLoaded(true);
-      console.log(err);
-      message.error("エラーか発生しました。", ()=>{
-        history.push('/mypage');
-      });
-    })
-  },[currentUser._id, history])
 
-  useEffect(()=>{
+  useEffect(() => {
+    setLoaded(false);
+    api.userProfile.getPersonalInfo(currentUser.id)
+      .then((res) => {
+        setLoaded(true);
+        let new_user = res.data;
+        JwtService.setUser(new_user);
+        setUser(new_user);
+        setNickName(new_user.nickname);
+        if (new_user && new_user.personalInfo) {
+          setName(new_user.personalInfo.name);
+          setFurigana(new_user.personalInfo.furigana);
+          setPhoneNumber(new_user.personalInfo.phoneNumber);
+          setBirthday(moment(new_user.personalInfo.birthday).format("YYYY-MM-DD"));
+          setLocationProvince(new_user.personalInfo.locationProvince || '北海道');
+          setLocationCity(new_user.personalInfo.locationCity);
+          setExtra(new_user.personalInfo.extra);
+        }
+      })
+      .catch(err => {
+        setLoaded(true);
+        console.log(err);
+        message.error("エラーか発生しました。", () => {
+          history.push('/mypage');
+        });
+      })
+  }, [currentUser.id, history])
+
+  useEffect(() => {
     setEnableButton(false);
     let currentUser = JwtService.getUser();
-    if(currentUser){
-      if(name === currentUser.personalInfo?.name
+    if (currentUser) {
+      if (name === currentUser.personalInfo?.name
         && furigana === currentUser.personalInfo?.furigana
         && phoneNumber === currentUser.personalInfo?.phoneNumber
         && birthday === moment(currentUser.personalInfo?.birthday).format("YYYY-MM-DD")
-        && locationProvince === currentUser.personalInfo?.locationProvince  
+        && locationProvince === currentUser.personalInfo?.locationProvince
         && locationCity === currentUser.personalInfo?.locationCity
         && extra === currentUser.personalInfo?.extra
       ) {
         setEnableButton(false);
-      } else { 
-        setEnableButton(true) 
+      } else {
+        setEnableButton(true)
       }
     }
   }, [name, furigana, phoneNumber, birthday, locationProvince, locationCity, extra])
 
 
-  useEffect(()=>{
+  useEffect(() => {
     setEnableIDButton(false);
     let currentUser = JwtService.getUser();
-    if(currentUser){
-      if(nickname === currentUser.nickname){
+    if (currentUser) {
+      if (nickname === currentUser.nickname) {
         setEnableIDButton(false);
       } else {
         setEnableIDButton(true);
@@ -106,28 +106,28 @@ const PersonalInfo = () => {
 
   const handleSubmit = () => {
     const personalInfo = {
-        name: name,
-        furigana: furigana,
-        phoneNumber: phoneNumber,
-        birthday: birthday,
-        locationProvince: locationProvince,
-        locationCity: locationCity,
-        extra: extra,
+      name: name,
+      furigana: furigana,
+      phoneNumber: phoneNumber,
+      birthday: birthday,
+      locationProvince: locationProvince,
+      locationCity: locationCity,
+      extra: extra,
     };
 
     setSubmit(true);
-    userProfile.updatePersonalInfo(user._id, { personalInfo })
-    .then((res) => {
-      setSubmit(false);
-      JwtService.setUser(res.data);
-      setUser(res.data);
-      setEnableButton(false);
-      message.success("アップロードしました。");
-    })
-    .catch(error => {
-      setSubmit(false); 
-      message.error("失敗しました。");
-    })
+    api.userProfile.updatePersonalInfo(user.id, { personalInfo })
+      .then((res) => {
+        setSubmit(false);
+        JwtService.setUser(res.data);
+        setUser(res.data);
+        setEnableButton(false);
+        message.success("アップロードしました。");
+      })
+      .catch(error => {
+        setSubmit(false);
+        message.error("失敗しました。");
+      })
   }
 
 
@@ -135,60 +135,60 @@ const PersonalInfo = () => {
     e.preventDefault();
     let user = JwtService.getUser();
     setSubmitID(true);
-    userProfile.updateNickname(user._id, { nickname })
-    .then(res => {
-      setSubmitID(false);
-      setEnableIDButton(false);
-      message.success("ユーザー名を変更しました。")
-      JwtService.setUser(res.data);
-      setUser(res.data);
-    })
-    .catch(err => {
-      setSubmitID(false);
-      message.error("失敗しました。");
-    })
+    api.userProfile.updateNickname(user.id, { nickname })
+      .then(res => {
+        setSubmitID(false);
+        setEnableIDButton(false);
+        message.success("ユーザー名を変更しました。")
+        JwtService.setUser(res.data);
+        setUser(res.data);
+      })
+      .catch(err => {
+        setSubmitID(false);
+        message.error("失敗しました。");
+      })
   }
 
   const onChangeAvatar = (uri) => {
-    if(!uri){
+    if (!uri) {
       message.warning("画像を選択する必要があります。");
       return;
     }
     let user = JwtService.getUser();
     setSubmitAvatar(true);
-    userProfile.updateAvatar(user._id, { avatar: uri })
-    .then(res => {
-      setSubmitAvatar(false);
-      JwtService.setUser(res.data);
-      setUser(res.data);
-      message.success("Avatarを変更しました。")
-      window.location.reload();
-    })
-    .catch(err => {
-      setSubmitAvatar(false);
-      message.error("失敗しました。");
-    })
+    api.userProfile.updateAvatar(user.id, { avatar: uri })
+      .then(res => {
+        setSubmitAvatar(false);
+        JwtService.setUser(res.data);
+        setUser(res.data);
+        message.success("Avatarを変更しました。")
+        window.location.reload();
+      })
+      .catch(err => {
+        setSubmitAvatar(false);
+        message.error("失敗しました。");
+      })
   }
 
   const onChangeWarrant = (uri) => {
-    if(!uri){
+    if (!uri) {
       message.warning("身分証を選択する必要があります。");
       return;
     }
     const user = JwtService.getUser();
     setSubmitWarrant(true);
-    userProfile.updateWarrant(user._id, { warrant: uri })
-    .then(res => {
-      setSubmitWarrant(false);
-      JwtService.setUser(res.data);
-      setUser(res.data);
-      message.success("身分証を登録しました。\n本人確認申請しました。")
-      setShowWarrantUploadModal(false);
-    })
-    .catch(err => {
-      setSubmitAvatar(false);
-      message.error("失敗しました。");
-    })
+    api.userProfile.updateWarrant(user.id, { warrant: uri })
+      .then(res => {
+        setSubmitWarrant(false);
+        JwtService.setUser(res.data);
+        setUser(res.data);
+        message.success("身分証を登録しました。\n本人確認申請しました。")
+        setShowWarrantUploadModal(false);
+      })
+      .catch(err => {
+        setSubmitAvatar(false);
+        message.error("失敗しました。");
+      })
   }
 
   const showConfirm = (e) => {
@@ -196,7 +196,7 @@ const PersonalInfo = () => {
 
     form.validateAll();
     if (checkBtn.context._errors.length > 0)
-    return;
+      return;
 
     confirm({
       title: 'Caution',
@@ -208,26 +208,26 @@ const PersonalInfo = () => {
     });
   }
 
-	const deleteUser = () => {
-		let user = JwtService.getUser();
-		userProfile.withdrawal(user._id)
-		.then(res => {
-			if (res.data.status_code === 200) {
-				JwtService.logout();
-				message.success("退会しました！", ()=>{
-					window.location.href="/"
-				});
-			} else {
-				message.warning(res.data.message);
-			}
-		})
-		.catch(err => {
-			message.error("失敗しました。");
-		})
-	}
+  const deleteUser = () => {
+    let user = JwtService.getUser();
+    api.userProfile.withdraw(user.id)
+      .then(res => {
+        if (res.data.statusCode === 200) {
+          JwtService.logout();
+          message.success("退会しました！", () => {
+            window.location.href = "/"
+          });
+        } else {
+          message.warning(res.data.message);
+        }
+      })
+      .catch(err => {
+        message.error("失敗しました。");
+      })
+  }
 
 
-  if(!loaded || !user) return <Loading cover="page"/>
+  if (!loaded || !user) return <Loading cover="page" />
   return (
     <div className="c-memberInfo">
       <section className="p-card">
@@ -236,7 +236,7 @@ const PersonalInfo = () => {
           <p className="c-header--subtitle">Personal Information Management</p>
         </div>
         <div className="my-20 max-w750 mx-auto">
-          <Steps  current={user.identityVerified < 1 ? user.identityVerified + 1 : 3}>
+          <Steps current={user.identityVerified < 1 ? user.identityVerified + 1 : 3}>
             <Step title="Application" description="本人確認書類提出" />
             <Step title="Waiting" description="申請中" />
             <Step title="Complete" description="本人確認完了" />
@@ -250,24 +250,24 @@ const PersonalInfo = () => {
             <div className="c-memberInfo__profile-container my-4">
               <div className="c-memberInfo__profile-avatar position-relative">
                 <Avatar src={user.avatar} size={150} icon={<UserOutlined />} />
-                <Button 
+                <Button
                   type="primary" shape="circle"
                   icon={<EditOutlined />}
-                  style={{ 
+                  style={{
                     position: 'absolute',
                     bottom: 8,
                     right: 8
                   }}
-                  onClick = {()=> setShowAvatarUploadModal(true)}
-                  />
+                  onClick={() => setShowAvatarUploadModal(true)}
+                />
                 <UploadImageModal
-                  title = {"Edit Avatar"}
-                  isModalVisible = {showAvatarUploadModal} 
-                  handleCancel = {()=>{
+                  title={"Edit Avatar"}
+                  isModalVisible={showAvatarUploadModal}
+                  handleCancel={() => {
                     setShowAvatarUploadModal(false);
                   }}
-                  loading = {submit_avatar}
-                  handleOk = {onChangeAvatar}
+                  loading={submit_avatar}
+                  handleOk={onChangeAvatar}
                 />
               </div>
               <div>
@@ -292,23 +292,23 @@ const PersonalInfo = () => {
             </div>
           </div>
           <div className="c-memberInfo__form">
-            <Form 
+            <Form
               onSubmit={onChangeNickname}
-              >
+            >
               <div className="c-form--item">
                 <label htmlFor="id">ユーザー名</label>
                 <Input
                   type="text"
-                  id = "id"
+                  id="id"
                   className="c-form--input"
                   value={nickname || ''}
-                  onChange={(e)=>setNickName(e.target.value)}
+                  onChange={(e) => setNickName(e.target.value)}
                 />
               </div>
-              <Button type="primary" 
-                htmlType="submit" 
+              <Button type="primary"
+                htmlType="submit"
                 className="c-btn c-btn--memberInfo mb-5"
-                disabled = {!enbaleIDButton}
+                disabled={!enbaleIDButton}
                 loading={submit_id}>
                 <span>ユーザー名を変更</span>
               </Button>
@@ -326,9 +326,9 @@ const PersonalInfo = () => {
                   id="name"
                   className="c-form--input"
                   value={name || ''}
-                  onChange={(e)=>setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   validations={[required]}
-                  placeholder = "例）鈴木　一郎"
+                  placeholder="例）鈴木　一郎"
                 />
               </div>
               <div className="c-form--item">
@@ -338,7 +338,7 @@ const PersonalInfo = () => {
                   id="furigana"
                   className="c-form--input"
                   value={furigana || ''}
-                  onChange={(e)=>setFurigana(e.target.value)}
+                  onChange={(e) => setFurigana(e.target.value)}
                   validations={[required]}
                   placeholder="例）スズキ　イチロウ"
                 />
@@ -351,9 +351,9 @@ const PersonalInfo = () => {
                   id="phone"
                   className="c-form--input"
                   value={phoneNumber || ''}
-                  onChange={(e)=>setPhoneNumber(e.target.value)}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   validations={[required, is_phoneNumber]}
-                  placeholder = "例）0123456789"
+                  placeholder="例）0123456789"
                 />
               </div>
               <div className="c-form--item">
@@ -363,20 +363,20 @@ const PersonalInfo = () => {
                   id="birthday"
                   className="c-form--input"
                   value={birthday}
-                  onChange={(e)=>setBirthday(e.target.value)}
+                  onChange={(e) => setBirthday(e.target.value)}
                   validations={[required]}
                 />
               </div>
               <div className="c-form--item">
                 <label htmlFor="province">都道府県</label>
-                <select 
+                <select
                   id="province"
                   className="c-form--input"
-                  onChange={e=>setLocationProvince(e.target.value)}
-                  value = {locationProvince}
+                  onChange={e => setLocationProvince(e.target.value)}
+                  value={locationProvince}
                 >
                   {
-                    prefs.map((item, index) => 
+                    prefs.map((item, index) =>
                       <option key={index} value={item.name}>{item.name}</option>
                     )
                   }
@@ -389,7 +389,7 @@ const PersonalInfo = () => {
                   type="text"
                   className="c-form--input"
                   value={locationCity || ''}
-                  onChange={(e)=>setLocationCity(e.target.value)}
+                  onChange={(e) => setLocationCity(e.target.value)}
                   validations={[required]}
                 />
               </div>
@@ -400,15 +400,15 @@ const PersonalInfo = () => {
                   type="text"
                   className="c-form--input"
                   value={extra || ''}
-                  onChange={(e)=>setExtra(e.target.value)}
+                  onChange={(e) => setExtra(e.target.value)}
                   validations={[required]}
                 />
               </div>
-              
-              <Button type="primary" 
-                htmlType="submit" 
+
+              <Button type="primary"
+                htmlType="submit"
                 className="c-btn c-btn--memberInfo my-5"
-                disabled = {!enableButton}
+                disabled={!enableButton}
                 loading={submit}>
                 <span>内容を送信する</span>
               </Button>
@@ -420,7 +420,7 @@ const PersonalInfo = () => {
                 }}
               />
             </Form>
-            
+
             <div className="c-memberInfo__status">
               <div className="c-memberInfo__status--item">
                 <div className="c-memberInfo__status--item-header">
@@ -440,17 +440,17 @@ const PersonalInfo = () => {
               </div>
             </div>
             <Popconfirm
-                title="本当に退会しますか？"
-                onConfirm={deleteUser}
-                okText="YES"
-                cancelText="NO"
-              > 
-              <p className="c-form--link text-left d-inline-block" style={{ cursor:'pointer' }}>ユーザー退会</p>
+              title="本当に退会しますか？"
+              onConfirm={deleteUser}
+              okText="YES"
+              cancelText="NO"
+            >
+              <p className="c-form--link text-left d-inline-block" style={{ cursor: 'pointer' }}>ユーザー退会</p>
             </Popconfirm>
           </div>
         </div>
       </section>
-      
+
       <section className="p-card">
 
         <div className="c-header">
@@ -460,28 +460,28 @@ const PersonalInfo = () => {
 
         <div className="c-card text-center">
           <h2 className="line-height-2">
-            オーナー権の売却には、本人認証が必要です。<br className="pc-onlyt"/>
+            オーナー権の売却には、本人認証が必要です。<br className="pc-onlyt" />
             こちらから本人認証を完了させてください。
           </h2>
 
-          <Button type="primary" 
+          <Button type="primary"
             className="c-btn c-btn--memberInfo mt-4"
             style={{ maxWidth: 350 }}
-            disabled = { user.identityVerified === 1 }
-            onClick={()=>
+            disabled={user.identityVerified === 1}
+            onClick={() =>
               setShowWarrantUploadModal(true)
             } >
             本人確認をする
           </Button>
 
-          <UploadImageModal 
-            title = {"身分証明書登録"}
-            isModalVisible = {showWarrantUploadModal} 
-            handleCancel = {()=>{
+          <UploadImageModal
+            title={"身分証明書登録"}
+            isModalVisible={showWarrantUploadModal}
+            handleCancel={() => {
               setShowWarrantUploadModal(false);
             }}
-            loading = {submit_warrant}
-            handleOk = {onChangeWarrant}
+            loading={submit_warrant}
+            handleOk={onChangeWarrant}
           />
         </div>
 

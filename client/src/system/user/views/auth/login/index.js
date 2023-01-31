@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import {Button} from "antd";
+import { Button } from "antd";
 import CheckButton from "react-validation/build/button";
 import { required, is_email } from "plugins/validator";
 import { notification } from "antd";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import IntlMessage from "components/util-components/IntlMessage";
-import userAuth from "api/user/auth";
+import api from 'api';
 import JwtService from "services/jwt";
 
 
@@ -26,37 +26,37 @@ const Login = ({ locale }) => {
 
     _form.validateAll();
     if (_checkBtn.context._errors.length > 0)
-    return;
+      return;
 
     setMessage('');
     setSubmit(true);
-    
-    userAuth.login(email, password)
-    .then(response => {
+
+    api.userAuth.login(email, password)
+      .then(response => {
         setSubmit(false);
-        if(response.data.status_code === 200){
-          delete response.data.status_code;
+        if (response.data.statusCode === 200) {
+          delete response.data.statusCode;
           JwtService.setUser(response.data);
-          notification.success({ message: "ログインしました!"});
+          notification.success({ message: "ログインしました!" });
           history.push("/mypage");
         } else {
           setMessage(response.data.message);
         }
-    })
-    .catch(error => {
-      const resMessage =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      
-      setMessage(resMessage);
-      setSubmit(false);
-    });
+      })
+      .catch(error => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSubmit(false);
+      });
   }
 
-  if(JwtService.getUser()) return <Redirect to="/mypage"/>
+  if (JwtService.getUser()) return <Redirect to="/mypage" />
 
   return (
     <section className="p-card">
@@ -65,31 +65,31 @@ const Login = ({ locale }) => {
           <div className="c-header">
             <h3 className="c-header--title">ログイン</h3>
             <p className="c-header--subtitle">Login</p>
-          </div> 
-            :
+          </div>
+          :
           <div className="c-header">
             <h3 className="c-header--title">LOGIN</h3>
             <p className="c-header--subtitle">ログイン</p>
-          </div>   
+          </div>
       }
       <div className="c-card max-w500 mt-5">
         {
           locale === 'ja' ?
             <h2 className="c-signin--header--sub">
-              まだ登録がお済みでない方は<br/>こちらから<Link to="/register">会員登録</Link>してください
+              まだ登録がお済みでない方は<br />こちらから<Link to="/register">会員登録</Link>してください
             </h2>
-          : <h2 className="c-signin--header--sub">
-              Not registered yet?<br/>Please <Link to="/register">register</Link> here.
+            : <h2 className="c-signin--header--sub">
+              Not registered yet?<br />Please <Link to="/register">register</Link> here.
             </h2>
         }
         {
           _message && (
-          <div className="form-group">
-            <div className="alert alert-danger alert-bg alert-center" role="alert">
-              { _message }
+            <div className="form-group">
+              <div className="alert alert-danger alert-bg alert-center" role="alert">
+                {_message}
+              </div>
             </div>
-          </div>
-        )}
+          )}
         <div className="c-signin--box">
           <div className="c-signin--box__email">
             <Form
@@ -106,7 +106,7 @@ const Login = ({ locale }) => {
                 className="c-form--input"
                 name="email"
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 validations={[required, is_email]}
               />
               <p className="c-form--itemlabel">
@@ -117,13 +117,13 @@ const Login = ({ locale }) => {
                 className="c-form--input"
                 name="password"
                 value={password}
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 validations={[required]}
               />
               <Button
-                htmlType="submit" 
+                htmlType="submit"
                 className="c-btn c-btn-regist mt-4"
-                block 
+                block
                 loading={_submit}>
                 <span>
                   <IntlMessage id="page.auth.btn.login" defaultMessage="ログイン" />
@@ -165,7 +165,7 @@ const Login = ({ locale }) => {
 }
 
 const mapStateToProps = ({ theme }) => {
-  const { locale } =  theme;
+  const { locale } = theme;
   return { locale }
 };
 

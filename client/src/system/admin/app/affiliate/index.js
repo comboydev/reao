@@ -8,7 +8,7 @@ import {
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
-import adminUser from "api/admin/user";
+import api from 'api';
 import utils from 'plugins/utils';
 
 export const AffiliateList = () => {
@@ -19,7 +19,7 @@ export const AffiliateList = () => {
 
 	useEffect(() => {
 		try {
-			adminUser.getAffiliaters().then(res => {
+			api.adminUser.getAffiliaters().then(res => {
 				setAffiliaters(res.data);
 			});
 		} catch {
@@ -42,7 +42,7 @@ export const AffiliateList = () => {
 			title: '紹介者',
 			dataIndex: 'introducer',
 			render: introducer => (
-				<Link to={'/admin/users/' + introducer?._id}>{introducer?.email}</Link>
+				<Link to={'/admin/users/' + introducer?.id}>{introducer?.email}</Link>
 			),
 		},
 		{
@@ -112,7 +112,7 @@ export const AffiliateList = () => {
 
 	const dropdownMenu = row => (
 		<Menu>
-			<Menu.Item key="view" onClick={() => history.push(`/admin/users/${row._id}`)}>
+			<Menu.Item key="view" onClick={() => history.push(`/admin/users/${row.id}`)}>
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>
@@ -152,7 +152,7 @@ export const AffiliateList = () => {
 				<Table
 					columns={tableColumns}
 					dataSource={list}
-					rowKey="_id"
+					rowKey="id"
 					loading={!affiliaters}
 					scroll={{ x: 1200 }}
 				/>

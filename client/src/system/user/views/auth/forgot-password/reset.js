@@ -4,9 +4,9 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Button, message } from "antd";
 import CheckButton from "react-validation/build/button";
-import { required, is_password} from "plugins/validator";
+import { required, is_password } from "plugins/validator";
 import IntlMessage from "components/util-components/IntlMessage";
-import userAuth from "api/user/auth";
+import api from 'api';
 
 export default function ForgotPassword(props) {
 
@@ -23,16 +23,16 @@ export default function ForgotPassword(props) {
   var form, checkBtn;
 
   useEffect(() => {
-    userAuth.checkLinkOfResetPassword(token)
-    .then(res => {
-      if(res.data.status_code === 200){
-        setLoaded(true);
-      } else {
-        message.error("失敗しました。", ()=>{
-          history.push("/forgot-password")
-        })
-      }
-    })
+    api.userAuth.checkLinkOfResetPassword(token)
+      .then(res => {
+        if (res.data.statusCode === 200) {
+          setLoaded(true);
+        } else {
+          message.error("失敗しました。", () => {
+            history.push("/forgot-password")
+          })
+        }
+      })
   }, [history, token])
 
 
@@ -43,50 +43,50 @@ export default function ForgotPassword(props) {
 
     form.validateAll();
     if (checkBtn.context._errors.length > 0)
-    return;
+      return;
 
     setSubmit(true);
-    
-    userAuth.resetPassword(token, password)
-    .then(res => {
+
+    api.userAuth.resetPassword(token, password)
+      .then(res => {
         setSubmit(false);
-        switch(res.data.status_code){
+        switch (res.data.statusCode) {
           case 200: {
-            message.success(res.data.message, ()=>{
+            message.success(res.data.message, () => {
               history.push('/login');
             });
             break;
           }
           case 400: {
-            message.error(res.data.message, ()=>{
+            message.error(res.data.message, () => {
               history.push('/forgot-password');
             });
             break;
           }
           case 401: {
-            message.error(res.data.message, ()=>{
+            message.error(res.data.message, () => {
               history.push('/forgot-password');
             });
             break;
           }
           default: break;
         }
-    })
-    .catch(error => {
-      setSubmit(false);
-      const resMessage =
-      (error.response &&
-        error.response.data &&
-        error.response.data.message) ||
-      error.message ||
-      error.toString();
-      message.error(resMessage, ()=>{
-        history.push('/forgot-password');
-      });
-    })
+      })
+      .catch(error => {
+        setSubmit(false);
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        message.error(resMessage, () => {
+          history.push('/forgot-password');
+        });
+      })
   }
 
-  if(!loaded) return null;
+  if (!loaded) return null;
   return (
     <div>
       <section className="p-card c-signup">
@@ -98,7 +98,7 @@ export default function ForgotPassword(props) {
           {_success &&
             <p className="alert alert-success alert-bg alert-center">{_success}</p>
           }
-          { _error && 
+          {_error &&
             <p className="alert alert-danger alert-bg alert-center">{_error}</p>
           }
           <div>
@@ -120,9 +120,9 @@ export default function ForgotPassword(props) {
                 validations={[required, is_password]}
               />
               <article>
-                <IntlMessage id="page.auth.rule.password.t1" description="利用できる文字は半角英数字です。" /> <br/>
-								<IntlMessage id="page.auth.rule.password.t2" description="英大文字・英小文字・数字それぞれを最低1文字ずつ含む" /> <br/>
-								<IntlMessage id="page.auth.rule.password.t3" description="8文字以上で入力ください。" />
+                <IntlMessage id="page.auth.rule.password.t1" description="利用できる文字は半角英数字です。" /> <br />
+                <IntlMessage id="page.auth.rule.password.t2" description="英大文字・英小文字・数字それぞれを最低1文字ずつ含む" /> <br />
+                <IntlMessage id="page.auth.rule.password.t3" description="8文字以上で入力ください。" />
               </article>
 
               <p className="c-form--itemlabel">
@@ -138,13 +138,13 @@ export default function ForgotPassword(props) {
               />
 
               <Button
-                htmlType="submit" 
+                htmlType="submit"
                 className="c-btn c-btn-regist mt-4"
-                block 
+                block
                 loading={submit}>
-                  <span>
-                    <IntlMessage id="page.auth.reset.password.submit" description="再設定" />
-                 </span>
+                <span>
+                  <IntlMessage id="page.auth.reset.password.submit" description="再設定" />
+                </span>
               </Button>
               <CheckButton
                 style={{ display: "none" }}

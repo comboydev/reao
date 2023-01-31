@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { Avatar, Drawer, Divider, Button, Select, Modal, message } from 'antd';
-import { 
-	MobileOutlined, 
-	MailOutlined, 
+import {
+	MobileOutlined,
+	MailOutlined,
 	UserOutlined,
 	CalendarOutlined,
 } from '@ant-design/icons';
 import moment from 'moment';
 import utils from 'plugins/utils';
-import adminUser from "api/admin/user";
+import api from 'api';
 
 const { Option } = Select;
 
@@ -21,10 +21,10 @@ const UserView = ({ data, visible, close }) => {
 
 	useEffect(() => {
 		try {
-			adminUser.getAffiliaters().then(res => {
+			api.adminUser.getAffiliaters().then(res => {
 				setAffiliaters(res.data);
 			});
-			adminUser.getAll().then(res => {
+			api.adminUser.getAll().then(res => {
 				setUsers(res.data.users);
 			});
 		} catch {
@@ -35,7 +35,7 @@ const UserView = ({ data, visible, close }) => {
 	const handleAdd = () => {
 		try {
 			if (userEmails.length) {
-				adminUser.connectUsersToAffiliater(data._id, userEmails).then(res => {
+				api.adminUser.connectUsersToAffiliater(data.id, userEmails).then(res => {
 					setAffiliaters(res.data);
 					setVisibleModal(false);
 					setUserEmails([]);
@@ -43,12 +43,12 @@ const UserView = ({ data, visible, close }) => {
 				});
 			}
 			else setVisibleModal(false);
-		}catch{
+		} catch {
 			message.error("エラーが発生しました。")
 		}
 	}
 
-	if(!data) return null;
+	if (!data) return null;
 	return (
 		<Drawer
 			width={300}
@@ -67,7 +67,7 @@ const UserView = ({ data, visible, close }) => {
 				<h6 className="text-muted text-uppercase mb-3">Account details</h6>
 				<p>
 					<UserOutlined />
-					<span className="ml-3 text-dark">ID:　{data._id}</span>
+					<span className="ml-3 text-dark">ID:　{data.id}</span>
 				</p>
 				<p>
 					<UserOutlined />
@@ -75,7 +75,7 @@ const UserView = ({ data, visible, close }) => {
 				</p>
 				<p>
 					<CalendarOutlined />
-					<span className="ml-3 text-dark">Birth:　{ data.personalInfo?.birthday && moment(data.personalInfo?.birthday).format("MM/DD/YYYY")}</span>
+					<span className="ml-3 text-dark">Birth:　{data.personalInfo?.birthday && moment(data.personalInfo?.birthday).format("MM/DD/YYYY")}</span>
 				</p>
 			</div>
 			<div className="mt-5">
@@ -98,14 +98,14 @@ const UserView = ({ data, visible, close }) => {
 			<Button className='w-100 mt-5'
 				onClick={() => setVisibleModal(true)}
 			>アフィリエイトを紐づ</Button>
-			<Link to={`/admin/users/${data._id}`}>
+			<Link to={`/admin/users/${data.id}`}>
 				<Button className='w-100 mt-3'>詳細</Button>
 			</Link>
 			<Modal
 				title="アフィリエイトを紐づ"
 				visible={visibleModal}
-				onOk={()=>handleAdd()}
-				onCancel={()=>setVisibleModal(false)}
+				onOk={() => handleAdd()}
+				onCancel={() => setVisibleModal(false)}
 			>
 				<p>アフィリエイターに手動でユーザーを紐づける</p>
 				<small>手動で紐づしたいユーザーの選択:</small>
@@ -114,7 +114,7 @@ const UserView = ({ data, visible, close }) => {
 					tokenSeparators={[',']}
 					className="w-100 mt-1"
 					value={userEmails}
-					onChange={value=>setUserEmails(value)}
+					onChange={value => setUserEmails(value)}
 				>
 					{
 						users.map((user) => (
@@ -122,7 +122,7 @@ const UserView = ({ data, visible, close }) => {
 							!user.introducer &&
 							utils.wildCardSearchWithKeys(affiliaters, 'email', user.email).length === 0
 						) &&
-						<Option key={user.email}>{user.email}</Option>)
+							<Option key={user.email}>{user.email}</Option>)
 					}
 				</Select>
 			</Modal>

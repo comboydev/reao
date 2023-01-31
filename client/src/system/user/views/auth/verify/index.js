@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import {Button} from "antd";
+import { Button } from "antd";
 import CheckButton from "react-validation/build/button";
 import { required, is_email } from "plugins/validator";
 import IntlMessage from "components/util-components/IntlMessage";
 import JwtService from "services/jwt";
-import userAuth from "api/user/auth";
+import api from 'api';
 
 const VerifyEmailForm = () => {
 
@@ -19,12 +19,12 @@ const VerifyEmailForm = () => {
   const [submit, setSubmit] = useState(false);
 
   var form, checkBtn;
-  
-  useEffect(()=>{
-    if(user) setEmail(user.email);
+
+  useEffect(() => {
+    if (user) setEmail(user.email);
   }, [user])
 
-  
+
   const handleSendLink = (e) => {
     e.preventDefault();
     setError('');
@@ -32,30 +32,30 @@ const VerifyEmailForm = () => {
 
     form.validateAll();
     if (checkBtn.context._errors.length > 0)
-    return;
+      return;
 
     setSubmit(true);
 
     let current_email = user ? user.email : email;
-    userAuth.sendLinkOfVerifyEmail(current_email, email)
-    .then(res => {
-      setSubmit(false);
-      switch(res.data.status_code){
-        case 200: setSuccess(res.data.message); break;
-        case 400: setError(res.data.message);  break;
-        default: break;
-      }
-    })
-    .catch(error => {
-      setSubmit(false);
-      const resMessage =
-      (error.response &&
-        error.response.data &&
-        error.response.data.message) ||
-      error.message ||
-      error.toString();
-      setError(resMessage);
-    })
+    api.userAuth.sendLinkOfVerifyEmail(current_email, email)
+      .then(res => {
+        setSubmit(false);
+        switch (res.data.statusCode) {
+          case 200: setSuccess(res.data.message); break;
+          case 400: setError(res.data.message); break;
+          default: break;
+        }
+      })
+      .catch(error => {
+        setSubmit(false);
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setError(resMessage);
+      })
   }
 
 
@@ -67,7 +67,7 @@ const VerifyEmailForm = () => {
             <IntlMessage id="page.auth.verify.email" description="登録メールの認証" />
           </h2>
           <p className="c-card--article mb-5">
-            <IntlMessage id="page.auth.verify.email.t1" description="仮登録メールを再送信します。" /><br/>
+            <IntlMessage id="page.auth.verify.email.t1" description="仮登録メールを再送信します。" /><br />
             <IntlMessage id="page.auth.verify.email.t2" description="メールアドレスを確認、修正の上送信してください。" />
           </p>
           <Form
@@ -81,7 +81,7 @@ const VerifyEmailForm = () => {
               {_success &&
                 <p className="alert alert-success alert-bg alert-center">{_success}</p>
               }
-              { _error && 
+              {_error &&
                 <p className="alert alert-danger alert-bg alert-center">{_error}</p>
               }
             </div>
@@ -93,14 +93,14 @@ const VerifyEmailForm = () => {
               className="c-signin--input"
               name="email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               validations={[required, is_email]}
             />
 
             <Button
-              htmlType="submit" 
+              htmlType="submit"
               className="c-btn c-btn-regist mt-4"
-              block 
+              block
               loading={submit}>
               <span>
                 <IntlMessage id="page.auth.verify.email.submit" description="仮登録メール再送信" />

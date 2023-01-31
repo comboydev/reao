@@ -12,10 +12,7 @@ import PageHeaderAlt from 'components/layout-components/PageHeaderAlt'
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import moment from 'moment';
 
-import adminUser from 'api/admin/user';
-import adminRewardGroup from 'api/admin/rewardGroup';
-import userProfile from 'api/user/profile';
-import userRewardGroup from 'api/user/rewardGroup';
+import api from 'api'
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -42,13 +39,13 @@ const Profile = (props) => {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				let res = await adminUser.getOne(props.match.params.id)
+				let res = await api.adminUser.getOne(props.match.params.id)
 				setUserData(res.data)
 
-				res = await userProfile.getPartners(props.match.params.id)
+				res = await api.userProfile.getPartners(props.match.params.id)
 				setTear(res.data);
 
-				res = await adminRewardGroup.get();
+				res = await api.adminRewardGroup.get();
 				setRewardGroups(res.data.rewardGroups);
 			} catch (err) {
 				message.error('エラーが発生しました!', () => {
@@ -74,7 +71,7 @@ const Profile = (props) => {
 			title: '紹介者',
 			dataIndex: 'introducer',
 			render: introducer => (
-				<a href={'/admin/users/' + introducer?._id}>{introducer?.email}</a>
+				<a href={'/admin/users/' + introducer?.id}>{introducer?.email}</a>
 			),
 		},
 		{
@@ -107,11 +104,11 @@ const Profile = (props) => {
 		},
 		{
 			title: '',
-			dataIndex: '_id',
-			render: _id => (
+			dataIndex: 'id',
+			render: id => (
 				<div className="text-right d-flex justify-content-end">
 					<Tooltip title="View">
-						<Button type="primary" className="mr-2" icon={<EyeOutlined />} onClick={() => window.location.href = ("/admin/users/" + _id)} size="small" />
+						<Button type="primary" className="mr-2" icon={<EyeOutlined />} onClick={() => window.location.href = ("/admin/users/" + id)} size="small" />
 					</Tooltip>
 				</div>
 			)
@@ -120,7 +117,7 @@ const Profile = (props) => {
 
 	const handleVerifyIdentity = () => {
 		setSubmitIdentity(true);
-		adminUser.setConfirm(props.match.params.id)
+		api.adminUser.setConfirm(props.match.params.id)
 			.then(res => {
 				setSubmitIdentity(false);
 				setUserData(res.data);
@@ -149,7 +146,8 @@ const Profile = (props) => {
 
 	const handleChangeRewardGroup = async (e) => {
 		try {
-			let res = await userRewardGroup.update(userData._id, { rewardGroup: e.target.value })
+			const res = await api.userRewardGroup
+				.update(userData.id, { rewardGroup: e.target.value })
 			setUserData(res.data)
 		} catch (err) {
 			message.error(err.toString())
@@ -162,7 +160,7 @@ const Profile = (props) => {
 			dataIndex: 'name',
 			render: (_, elm) => {
 				if (tear.tear1.length + tear.tear2.length + tear.tear3.length + tear.tear4.length + tear.tear5.length > 0)
-					return <span><Radio value={elm._id}> {elm.name} </Radio></span>
+					return <span><Radio value={elm.id}> {elm.name} </Radio></span>
 				else return <span> {elm.name} </span>
 			},
 			sorter: {
@@ -383,27 +381,27 @@ const Profile = (props) => {
 
 				<TabPane tab="アフィリエイト" key="2">
 					<Card title="報酬グループの選択">
-						<Radio.Group onChange={handleChangeRewardGroup} value={userData.rewardGroup?._id} className="w-100">
-							<Table columns={rewardGroupColumns} dataSource={rewardGroups} rowKey="_id" />
+						<Radio.Group onChange={handleChangeRewardGroup} value={userData.rewardGroup?.id} className="w-100">
+							<Table columns={rewardGroupColumns} dataSource={rewardGroups} rowKey="id" />
 						</Radio.Group>
 					</Card>
 					<Divider />
 					<Card title="紹介者ユーザー一覧">
 						<Collapse defaultActiveKey={['1']} >
 							<Panel key="1" header="TEAR 1" extra={`報酬: ${userData.rewardGroup?.tear1 ? userData.rewardGroup?.tear1 + '%' : '---'}　　　${tear.tear1.length}人`}>
-								<Table columns={columns} dataSource={tear.tear1} rowKey="_id" scroll={{ x: 800 }} />
+								<Table columns={columns} dataSource={tear.tear1} rowKey="id" scroll={{ x: 800 }} />
 							</Panel>
 							<Panel key="2" header="TEAR 2" extra={`報酬: ${userData.rewardGroup?.tear1 ? userData.rewardGroup?.tear2 + '%' : '---'}　　　${tear.tear2.length}人`}>
-								<Table columns={columns} dataSource={tear.tear2} rowKey="_id" scroll={{ x: 800 }} />
+								<Table columns={columns} dataSource={tear.tear2} rowKey="id" scroll={{ x: 800 }} />
 							</Panel>
 							<Panel key="3" header="TEAR 3" extra={`報酬: ${userData.rewardGroup?.tear1 ? userData.rewardGroup?.tear3 + '%' : '---'}　　　${tear.tear3.length}人`}>
-								<Table columns={columns} dataSource={tear.tear3} rowKey="_id" scroll={{ x: 800 }} />
+								<Table columns={columns} dataSource={tear.tear3} rowKey="id" scroll={{ x: 800 }} />
 							</Panel>
 							<Panel key="4" header="TEAR 4" extra={`報酬: ${userData.rewardGroup?.tear1 ? userData.rewardGroup?.tear4 + '%' : '---'}　　　${tear.tear4.length}人`}>
-								<Table columns={columns} dataSource={tear.tear4} rowKey="_id" scroll={{ x: 800 }} />
+								<Table columns={columns} dataSource={tear.tear4} rowKey="id" scroll={{ x: 800 }} />
 							</Panel>
 							<Panel key="5" header="TEAR 5" extra={`報酬: ${userData.rewardGroup?.tear1 ? userData.rewardGroup?.tear5 + '%' : '---'}　　　${tear.tear5.length}人`}>
-								<Table columns={columns} dataSource={tear.tear5} rowKey="_id" scroll={{ x: 800 }} />
+								<Table columns={columns} dataSource={tear.tear5} rowKey="id" scroll={{ x: 800 }} />
 							</Panel>
 						</Collapse>
 					</Card>

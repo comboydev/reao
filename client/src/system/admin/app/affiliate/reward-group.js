@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
-import adminRewardGroup from "api/admin/rewardGroup";
+import api from 'api';
 import utils from 'plugins/utils';
 
 const ADD = "Add";
@@ -35,7 +35,7 @@ export const RewardGroup = () => {
 
 
 	useEffect(() => {
-		adminRewardGroup.get()
+		api.adminRewardGroup.get()
 			.then(res => {
 				setRewardGroups(res.data.rewardGroups);
 			})
@@ -145,7 +145,7 @@ export const RewardGroup = () => {
 			</Menu.Item>
 			<Popconfirm
 				title="本当に削除しますか？"
-				onConfirm={() => handleDelete(row._id)}
+				onConfirm={() => handleDelete(row.id)}
 				okText="YES"
 				cancelText="NO"
 				placement="rightTop"
@@ -185,15 +185,15 @@ export const RewardGroup = () => {
 				try {
 					if (mode === ADD) {
 						msg = "新規追加しました!"
-						promise = adminRewardGroup.create(values)
+						promise = api.adminRewardGroup.create(values)
 					}
 					else {
 						msg = "更新しました!"
-						promise = adminRewardGroup.update(selectedRow._id, values)
+						promise = api.adminRewardGroup.update(selectedRow.id, values)
 					}
 					promise.then(res => {
 						setSubmit(false);
-						if (res.data.status_code === 200) {
+						if (res.data.statusCode === 200) {
 							setRewardGroups(res.data.rewardGroups);
 							setVisibleModal(false);
 							message.success(msg);
@@ -210,10 +210,10 @@ export const RewardGroup = () => {
 
 	const handleDelete = (id) => {
 		setSubmit(true);
-		adminRewardGroup.delete(id)
+		api.adminRewardGroup.delete(id)
 			.then(res => {
 				setSubmit(false);
-				switch (res.data.status_code) {
+				switch (res.data.statusCode) {
 					case 200: {
 						setRewardGroups(res.data.rewardGroups);
 						message.success("削除しました!");
@@ -250,7 +250,7 @@ export const RewardGroup = () => {
 				<Table
 					columns={tableColumns}
 					dataSource={list}
-					rowKey="_id"
+					rowKey="id"
 					loading={!rewardGroups}
 					scroll={{ x: 1000 }}
 				/>

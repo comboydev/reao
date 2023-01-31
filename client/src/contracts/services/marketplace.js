@@ -1,6 +1,6 @@
 import { getContract, getAccount, simpleProvider, getContractInfo } from 'contracts/hooks';
 import { ethers } from 'ethers';
-import userCoin from 'api/user/coin';
+import api from 'api';
 
 const Marketplace = {};
 
@@ -56,7 +56,7 @@ Marketplace.getAllItems = async () => {
     const response = await marketplace.allItems();
     const items = await Promise.all(
         response.map(async item => {
-            const { data } = await userCoin.get(item.uri);
+            const { data } = await api.userCoin.detail(item.uri);
             const totalSupply = await tokenContract.totalSupply(item.tokenId);
             return ({
                 ...data,
@@ -82,7 +82,7 @@ Marketplace.getItemsOf = async () => {
     const response = await marketplace.itemsOf(account);
     const items = await Promise.all(
         response.map(async item => {
-            const { data } = await userCoin.get(item.uri);
+            const { data } = await api.userCoin.detail(item.uri);
             const totalSupply = await tokenContract.totalSupply(item.tokenId);
             return ({
                 ...data,
@@ -105,7 +105,7 @@ Marketplace.getItem = async (id) => {
     const tokenContract = await getContract('AQCT1155');
     const marketplace = await getContract('FantationMarket');
     const item = await marketplace.item(id);
-    const { data } = await userCoin.get(item.uri);
+    const { data } = await api.userCoin.detail(item.uri);
     const totalSupply = await tokenContract.totalSupply(item.tokenId);
     return ({
         ...data,
@@ -163,7 +163,7 @@ const extractLogs = async (logs) => {
             const block = await simpleProvider.getBlock(log.blockNumber);
             const tokenId = parseInt(log.topics[1], 16);
             const tokenUri = await tokenContract.uri(tokenId);
-            const { data } = await userCoin.get(tokenUri);
+            const { data } = await api.userCoin.detail(tokenUri);
             const price = parseInt(ethers.utils.hexDataSlice(log.data, 0, 32), 16);
             const amount = parseInt(ethers.utils.hexDataSlice(log.data, 32, 64), 16);
             return {
