@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Menu, Dropdown, Avatar, Badge, notification } from 'antd';
-import { 
+import {
   LogoutOutlined,
   UserOutlined
 } from '@ant-design/icons';
@@ -78,7 +78,7 @@ const NavRight = ({user, className, handleLogout}) => {
     </div>
   )
 
-  return(  
+  return(
     <div className={`c-nav__right ${className}`}>
         <ul className="c-nav--global__info">
           <li>
@@ -170,82 +170,8 @@ const Header = () => {
               <div className="c-logo">
                 <Link to="/">FANTATION</Link>
               </div>
-              <div className="pc-menu" id="c-nav--global">
-                { !user && (
-                  <ul className="c-nav--global__menu">
-                    <li className="c-menuitem--global c-menuitem--global--top">
-                      <Link to="/">TOP</Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--feature">
-                      <Link to="/#p-feature">
-                        <IntlMessage id="header.nav.feature" defaultMessage="FANTATIONの特徴"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--coin">
-                      <Link to="/#p-coin">
-                        <IntlMessage id="header.nav.handling" defaultMessage="取り扱いコイン"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--service">
-                      <Link to="/#p-flow">
-                        <IntlMessage id="header.nav.guide" defaultMessage="ご利用の流れ"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--media">
-                      <Link to="/#p-media">
-                        <IntlMessage id="header.nav.media" defaultMessage="掲載メディア"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--service">
-                      <Dropdown overlay={AboutMenu} trigger={["click"]}>
-                        <span className="ant-dropdown-link cursor-pointer">
-                          <IntlMessage id="header.nav.about" defaultMessage="本サービスについて"/>
-                        </span>
-                      </Dropdown>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--lang">
-                      <ClientNavLanguage />
-                    </li>
-                  </ul>
-                )}
-                { user && (
-                  <ul className="c-nav--global__menu">
-                    <li className="c-menuitem--global c-menuitem--global--top">
-                      <Link to="/mypage">
-                        TOP
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--feature">
-                      <Link to="/profile">
-                        <IntlMessage id="header.nav.profile" defaultMessage="個人情報管理"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--use">
-                      <Link to="/affiliate">
-                        <IntlMessage id="header.nav.affiliate" defaultMessage="アフィリエイト管理"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--coin">
-                      <Link to="/marketplace/items">
-                        <IntlMessage id="header.nav.coins.purchasable" defaultMessage="購入可能オーナー権一覧"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--use">
-                      <Link to="/coins/owned">
-                        <IntlMessage id="header.nav.coins.owned" defaultMessage="取引"/>
-                      </Link>
-                    </li>
-                    <li className="c-menuitem--global c-menuitem--global--lang">
-                      <ClientNavLanguage />
-                    </li>
-                  </ul>
-                )}
-                <NavRight user={user} className="sp-only-flex" handleLogout={logOut}/>
-              </div>
             </div>
-
             <NavRight user={user} className="pc-only" handleLogout={logOut} />
-           
             <div className="sp-menu c-nav--sp__menu" id="c-nav--sp__menu">
               {!user && (
                 <button onClick={() => history.push('/register')} style={{ fontFamily: '"yu-mincho-pr6n", "sans-serif"' }}>
@@ -261,6 +187,89 @@ const Header = () => {
               </div>
             </div>
           </nav>
+          <div className="pc-menu" id="c-nav--global">
+            { !user && (
+              <ul className="c-nav--global__menu">
+                <li className="c-menuitem--global c-menuitem--global--top">
+                  <Link to="/">TOP</Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--feature">
+                  <Link to="/#p-feature">
+                    <IntlMessage id="header.nav.feature" defaultMessage="FANTATIONの特徴"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--coin">
+                  <Link to="/#p-coin">
+                    <IntlMessage id="header.nav.handling" defaultMessage="取り扱いコイン"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--service">
+                  <Link to="/#p-flow">
+                    <IntlMessage id="header.nav.guide" defaultMessage="ご利用の流れ"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--media">
+                  <Link to="/#p-media">
+                    <IntlMessage id="header.nav.media" defaultMessage="掲載メディア"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--service">
+                  <Dropdown overlay={AboutMenu} trigger={["click"]}>
+                    <span className="ant-dropdown-link cursor-pointer">
+                      <IntlMessage id="header.nav.about" defaultMessage="本サービスについて"/>
+                    </span>
+                  </Dropdown>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--company">
+                  <Link to="/company">
+                    <IntlMessage id="header.nav.company" defaultMessage="会社概要"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--contact">
+                  <Link to="/contact-us">
+                    <IntlMessage id="header.nav.contact" defaultMessage="お問い合わせ"/>
+                  </Link>
+                </li>
+
+                <li className="c-menuitem--global c-menuitem--global--lang">
+                  <ClientNavLanguage />
+                </li>
+              </ul>
+            )}
+            { user && (
+              <ul className="c-nav--global__menu">
+                <li className="c-menuitem--global c-menuitem--global--top">
+                  <Link to="/mypage">
+                    TOP
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--feature">
+                  <Link to="/profile">
+                    <IntlMessage id="header.nav.profile" defaultMessage="個人情報管理"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--use">
+                  <Link to="/affiliate">
+                    <IntlMessage id="header.nav.affiliate" defaultMessage="アフィリエイト管理"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--coin">
+                  <Link to="/marketplace/items">
+                    <IntlMessage id="header.nav.coins.purchasable" defaultMessage="購入可能オーナー権一覧"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--use">
+                  <Link to="/coins/owned">
+                    <IntlMessage id="header.nav.coins.owned" defaultMessage="取引"/>
+                  </Link>
+                </li>
+                <li className="c-menuitem--global c-menuitem--global--lang">
+                  <ClientNavLanguage />
+                </li>
+              </ul>
+            )}
+            <NavRight user={user} className="sp-only-flex" handleLogout={logOut}/>
+          </div>
         </header>
       </>
     )

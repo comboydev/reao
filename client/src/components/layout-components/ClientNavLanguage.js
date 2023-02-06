@@ -24,9 +24,9 @@ export const ClientNavLanguage = ({ locale, onLocaleChange }) => {
 		<Menu>
 			{
 				lang.map((elm, i) => {return (
-					<Menu.Item 
-						key={elm.langName} 
-						className={locale === elm.langId? 'ant-dropdown-menu-item-active': ''} 
+					<Menu.Item
+						key={elm.langName}
+						className={locale === elm.langId? 'ant-dropdown-menu-item-active': ''}
 						onClick={() => onLocaleChange(elm.langId)}
 					>
 						<span className="d-flex justify-content-between align-items-center">
@@ -44,7 +44,7 @@ export const ClientNavLanguage = ({ locale, onLocaleChange }) => {
 	return (
 		<Dropdown overlay={languageOption}>
 			<span className="ant-dropdown-link cursor-pointer">
-				JP/EN
+				Language
 			</span>
 		</Dropdown>
 	)
