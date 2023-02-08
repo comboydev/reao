@@ -1,6 +1,6 @@
 $sp_nav_h: 70px;
 
-.l-header{
+.l-header {
     position: fixed;
     width: 100%;
     // height: 100px;
@@ -12,71 +12,74 @@ $sp_nav_h: 70px;
 }
 
 #c-nav--global {
-  width: 70vw;
-  margin: 15px auto 0;
-  @include mq(sm){
-    width: 100%;
-    margin-top: 0;
-    height: 100vw;
-    overflow: scroll;
-  }
+    width: 70vw;
+    margin: 15px auto 0;
+
+    @include mq(sm) {
+        width: 100%;
+        margin-top: 0;
+        height: 100vw;
+        overflow: scroll;
+    }
 }
 
-main{
-    padding-top: 100px;
+main {
+    padding-top: 132px;
 }
 
-.l-header--signup{
+.l-header--signup {
     margin-bottom: 5.234375vw;
     @include height_calc(200);
     padding: 1.354166vw 0 0 0;
 }
 
-.l-header--signin{
+.l-header--signin {
     margin-bottom: 5.234375vw;
     @include height_calc(200);
     padding: 1.354166vw 0 0 0;
 }
 
-.l-header--member{
+.l-header--member {
     height: calc(140/1920)*100+vw;
     padding: 1.354166vw 0 0 2.34375vw;
 }
 
-.sp-menu{
+.sp-menu {
     display: none;
 }
 
-.pc-menu{
+.pc-menu {
     margin-top: 10px;
 }
 
 
-@include mq(){
-    .l-header{
+@include mq() {
+    .l-header {
         height: $sp_nav_h;
         padding: 0 0 0 20px;
-        &.is-open{
+
+        &.is-open {
             background-color: #222222;
             border-bottom: 1px solid #a78754;
         }
     }
 
-    main{
+    main {
         padding-top: $sp_nav_h;
     }
 
-    .c-logo{
+    .c-logo {
         line-height: $sp_nav_h;
     }
 
-    .sp-menu{
+    .sp-menu {
         display: flex;
     }
 
-    .pc-menu{
+    .pc-menu {
         display: none;
-        &.is-open{
+
+        &.is-open {
             display: block;
             position: fixed;
             min-height: calc(100vh - $sp_nav_h);
@@ -89,13 +92,14 @@ main{
         }
     }
 
-    .c-nav--sp__menu{
+    .c-nav--sp__menu {
         right: 0;
         display: flex;
         // justify-content: space-between;
         justify-content: flex-end;
         height: $sp_nav_h;
-        &__burgerMenu{
+
+        &__burgerMenu {
             width: $sp_nav_h;
             height: 100%;
             cursor: pointer;
@@ -104,27 +108,33 @@ main{
             justify-content: center;
             align-items: center;
             position: relative;
-            span{
+
+            span {
                 width: 30px;
                 height: 3px;
-                background-color:$btn-color-braun;
-                &:nth-of-type(2){
+                background-color: $btn-color-braun;
+
+                &:nth-of-type(2) {
                     margin: 5px;
                 }
             }
-            &.is-open{
-                span{
+
+            &.is-open {
+                span {
                     transition: all .4s;
-                    &:nth-of-type(1){
+
+                    &:nth-of-type(1) {
                         position: absolute;
                         transform: rotate(-45deg);
                         transform-origin: center;
                     }
-                    &:nth-of-type(2){
+
+                    &:nth-of-type(2) {
                         margin: 0;
                         display: none;
                     }
-                    &:nth-of-type(3){
+
+                    &:nth-of-type(3) {
                         transform: rotate(45deg);
                         position: absolute;
                         transform-origin: center;
@@ -132,7 +142,8 @@ main{
                 }
             }
         }
-        button{
+
+        button {
             width: 200px;
             height: 100%;
             background: #a78754;
@@ -143,32 +154,37 @@ main{
 
     }
 
-    .c-nav--global__menu{
+    .c-nav--global__menu {
         z-index: 101;
         color: #fff;
         display: block;
-        li{
+
+        li {
             color: #fff;
             font-size: 20px;
             font-family: $yuMincho;
-            a, span{
+
+            a,
+            span {
                 display: block;
                 margin: 20px 0;
                 padding: 10px 20px;
-                &:hover{
+
+                &:hover {
                     color: white;
                     background-color: #333;
                 }
             }
+
             &.c-menuitem--global--company,
             &.c-menuitem--global--contact {
-              display: none;
+                display: none;
             }
         }
     }
 
 
-    .c-nav--global__info{
+    .c-nav--global__info {
         position: relative;
         font-size: 20px;
         width: 100%;
@@ -177,48 +193,57 @@ main{
         align-items: center;
         justify-content: space-around;
         color: white;
-        li{
-            &:nth-of-type(1){
-                &::before{
+
+        li {
+            &:nth-of-type(1) {
+                &::before {
                     width: 20px;
                     height: 20px;
                     margin-right: 10px;
                 }
             }
-            &:nth-of-type(2){
-                &::before{
+
+            &:nth-of-type(2) {
+                &::before {
                     width: 20px;
                     height: 20px;
                     margin-right: 10px;
                 }
             }
-            a:hover{
+
+            a:hover {
                 color: white;
                 opacity: .8;
             }
         }
     }
 
-    .c-nav__right{
+    .c-nav__right {
         flex-direction: column-reverse;
 
     }
 
-    .c-btn--login, .c-btn--mypage{
+    .c-btn--login,
+    .c-btn--mypage {
         width: 50%;
         margin-right: 10px;
-        p{
+
+        p {
             font-size: 20px;
-            &::after{
+
+            &::after {
                 font-size: 15px;
             }
         }
     }
-    .c-btn--signup{
+
+    .c-btn--signup {
         width: 50%;
-        p{
+
+        p {
             font-size: 20px;
-            &::after{
+
+            &::after {
                 font-size: 15px;
             }
         }
@@ -226,39 +251,47 @@ main{
 }
 
 
-@include mq(smt){
-    .c-logo{
+@include mq(smt) {
+    .c-logo {
         font-size: 24px;
     }
-    .c-nav--sp__menu button{
+
+    .c-nav--sp__menu button {
         width: 100px;
         font-size: 14px;
     }
 
-    .c-nav--global__menu li{
+    .c-nav--global__menu li {
         font-size: 18px;
     }
-    .c-nav--btn__wrap{
+
+    .c-nav--btn__wrap {
         display: block;
         margin-top: 20px;
     }
-    .c-btn--login, .c-btn--signup, .c-btn--mypage{
+
+    .c-btn--login,
+    .c-btn--signup,
+    .c-btn--mypage {
         width: 100%;
         margin: 5px 0;
-        p{
+
+        p {
             font-size: 16px;
-            &::after{
+
+            &::after {
                 font-size: 14px;
             }
         }
     }
-    .c-nav--global__info li{
+
+    .c-nav--global__info li {
         font-size: 16px;
     }
 }
 
-@include mq(sm3){
-    .c-nav--sp__menu button{
+@include mq(sm3) {
+    .c-nav--sp__menu button {
         display: none;
     }
 }
