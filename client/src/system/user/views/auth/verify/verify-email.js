@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 import api from 'api';
-import JwtService from "services/jwt";
+import { connect } from "react-redux";
+import { setUser } from "redux/actions";
 
 const VerifyEmail = (props) => {
+  const { user, setUser } = props
 
   const history = useHistory();
   const { token } = props.match.params;
@@ -15,10 +17,10 @@ const VerifyEmail = (props) => {
         switch (res.data.statusCode) {
           case 200: {
             message.success(res.data.message);
-            if (JwtService.getUser()) {
+            if (user) {
               let user = res.data.user;
               delete user.password;
-              JwtService.setUser(user);
+              setUser(user);
               history.push('/mypage');
             } else {
               history.push('/login');
@@ -45,10 +47,10 @@ const VerifyEmail = (props) => {
           history.push('/verify/email');
         });
       })
-  }, [history, token]);
+  }, [history, token, user, setUser]);
 
   return null;
 }
 
 
-export default VerifyEmail;
+export default connect(({ appStore }) => appStore, { setUser })(VerifyEmail);

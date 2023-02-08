@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { onLoadMarketItems } from "redux/actions";
+import { fetchMarketItems } from "redux/actions";
 import { Card, Table, Input, Button, Menu, Tooltip, Tag } from 'antd';
 import { EyeOutlined, SearchOutlined, LinkOutlined } from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
@@ -18,12 +18,12 @@ const MarketItems = (props) => {
 	const {
 		marketItems,
 		loadedMarketItems,
-		onLoadMarketItems,
+		fetchMarketItems,
 	} = props;
 
 	useEffect(() => {
-		onLoadMarketItems();
-	}, [onLoadMarketItems]);
+		fetchMarketItems();
+	}, [fetchMarketItems]);
 
 	useEffect(() => {
 		setList(marketItems);
@@ -165,5 +165,5 @@ const MarketItems = (props) => {
 
 export default connect(
 	({ marketplace }) => (marketplace), {
-	onLoadMarketItems,
+	fetchMarketItems,
 })(MarketItems);

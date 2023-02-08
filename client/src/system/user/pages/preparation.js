@@ -1,27 +1,24 @@
 import { Link } from "react-router-dom";
-import JwtService from "services/jwt";
 
 const Preparation = () => {
-    return(
-    <section className="p-card">
-        <div className="c-card text-center">
-            <div className="c-card--header">
-                <h1>只今準備中です</h1>
-            </div>
-            <div className="c-card--article">
-                <p>
-                    公式LINEにご登録の上、配信をお待ち下さい。
-                </p>
-                <a href="https://lin.ee/2CfvHFM"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" border="0"></img></a>
-            </div>
-            <Link to={
-                JwtService.getUser() 
-                ? '/mypage' : '/' } 
-                className="c-card--link">
+    return (
+        <section className="p-card">
+            <div className="c-card text-center">
+                <div className="c-card--header">
+                    <h1>只今準備中です</h1>
+                </div>
+                <div className="c-card--article">
+                    <p>
+                        公式LINEにご登録の上、配信をお待ち下さい。
+                    </p>
+                    <a href="https://lin.ee/2CfvHFM"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" border="0"></img></a>
+                </div>
+                <Link to="/"
+                    className="c-card--link">
                     トップに戻る
-            </Link>
-        </div>
-    </section>
+                </Link>
+            </div>
+        </section>
     )
 }
 

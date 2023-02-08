@@ -89,7 +89,7 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 						history.push(`/admin/coins/detail/${token.tokenId}`);
 					} else if (mode === CREATE_MODE) {
 						// Add Coin
-						const { data } = await api.adminCoin.create(values);
+						const { data } = await api.adminCoin.store(values);
 						try {
 							const nftContract = await getContract('AQCT1155');
 							const tx = await nftContract.mint(data.coin.id, values.totalSupply);

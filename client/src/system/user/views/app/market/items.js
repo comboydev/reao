@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { onLoadMarketItems } from "redux/actions";
+import { fetchMarketItems } from "redux/actions";
 import { Checkbox } from "antd";
 import MarketItemWidget from "system/user/components/MarketItemWidget";
 import Loading from "components/shared-components/Loading";
@@ -12,12 +12,12 @@ const MarketItems = (props) => {
         walletAccount,
         marketItems,
         loadedMarketItems,
-        onLoadMarketItems,
+        fetchMarketItems,
     } = props;
 
     useEffect(() => {
-        onLoadMarketItems();
-    }, [onLoadMarketItems]);
+        fetchMarketItems();
+    }, [fetchMarketItems]);
 
     if (!loadedMarketItems) return <Loading cover="page" />;
     if (loadedMarketItems && marketItems.length === 0) {
@@ -50,5 +50,5 @@ const MarketItems = (props) => {
 
 export default connect(
     ({ marketplace }) => (marketplace), {
-    onLoadMarketItems,
+    fetchMarketItems,
 })(MarketItems);

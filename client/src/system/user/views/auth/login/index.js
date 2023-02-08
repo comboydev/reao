@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Button } from "antd";
 import CheckButton from "react-validation/build/button";
 import { required, is_email } from "plugins/validator";
-import { notification } from "antd";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import IntlMessage from "components/util-components/IntlMessage";
@@ -13,8 +12,7 @@ import api from 'api';
 import JwtService from "services/jwt";
 
 
-const Login = ({ locale }) => {
-  const history = useHistory();
+const Login = ({ locale, token }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [_submit, setSubmit] = useState(false);
@@ -32,15 +30,13 @@ const Login = ({ locale }) => {
     setSubmit(true);
 
     api.userAuth.login(email, password)
-      .then(response => {
+      .then(({ data }) => {
         setSubmit(false);
-        if (response.data.statusCode === 200) {
-          delete response.data.statusCode;
-          JwtService.setUser(response.data);
-          notification.success({ message: "ログインしました!" });
-          history.push("/mypage");
+        if (data.statusCode === 200) {
+          JwtService.setToken(data.token)
+          window.location.href = "/mypage"
         } else {
-          setMessage(response.data.message);
+          setMessage(data.message);
         }
       })
       .catch(error => {
@@ -56,7 +52,7 @@ const Login = ({ locale }) => {
       });
   }
 
-  if (JwtService.getUser()) return <Redirect to="/mypage" />
+  if (token) return <Redirect to="/mypage" />
 
   return (
     <section className="p-card">
@@ -164,9 +160,10 @@ const Login = ({ locale }) => {
   );
 }
 
-const mapStateToProps = ({ theme }) => {
+const mapStateToProps = ({ theme, auth }) => {
   const { locale } = theme;
-  return { locale }
+  const { token } = auth;
+  return { locale, token }
 };
 
 export default withRouter(connect(mapStateToProps)(Login));

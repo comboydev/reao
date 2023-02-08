@@ -1,9 +1,6 @@
 const AdminCoin = (httpClient) => ({
-    create(payload) {
-        return httpClient.post(`admin/coins/create`, { ...payload });
-    },
-    get(id) {
-        return httpClient.fetch(`admin/coins/${id}/get`);
+    store(payload) {
+        return httpClient.post(`admin/coins/store`, { ...payload });
     },
     update(id, payload) {
         return httpClient.put(`admin/coins/${id}/update`, payload);

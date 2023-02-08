@@ -8,11 +8,9 @@ import helmet from 'helmet'
 import db from "./models"
 // routes
 import adminRoute from "./routes/admin.routes";
-import authRoute from "./routes/auth.routes";
 import userRoute from "./routes/user.routes";
-import coinRoute from "./routes/coin.routes";
-import contactRoute from "./routes/contact.routes";
 import imageRoute from "./routes/image.routes";
+import coinRoute from "./routes/coin.routes";
 
 const config = require('./config');
 
@@ -40,11 +38,9 @@ app.use(helmet())
 app.use(express.static(path.join(CURRENT_WORKING_DIR, '../frontend/public')))
 
 app.use(adminRoute);
-app.use(authRoute);
 app.use(userRoute);
-app.use(coinRoute);
-app.use(contactRoute);
 app.use(imageRoute);
+app.use(coinRoute);
 
 const mongouri = `mongodb://${config.mongodb.HOST}:${config.mongodb.PORT}/${config.mongodb.DB}`;
 db.mongoose.connect(mongouri, {

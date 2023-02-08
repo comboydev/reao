@@ -1,26 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Form, Avatar, Button, Input, DatePicker, Row, Col, message, Upload } from 'antd';
 import { UserOutlined, EditOutlined } from '@ant-design/icons';
 import { ROW_GUTTER } from 'constants/ThemeConstant';
 import Flex from 'components/shared-components/Flex';
 import moment from 'moment';
 import api from 'api';
-import Jwt from 'services/jwt';
 import ImageService from 'services/image';
+import { connect } from 'react-redux';
+import { setUser } from 'redux/actions';
 
-const EditProfile = () => {
-	const admin = Jwt.getAdmin();
-	const [avatar, setAvatar] = useState('');
-	const [loaded, setLoaded] = useState(false);
+const EditProfile = ({ user, setUser }) => {
 	const [submit, setSubmit] = useState(false);
 	const [submitAvatar, setSubmitAvatar] = useState(false);
 
-	useEffect(() => {
-		setAvatar(admin.avatar);
-		setLoaded(true);
-	}, [admin.avatar])
-
-	const onFinish = values => {
+	const onFinish = async values => {
 		const payload = {
 			nickname: values.nickname,
 			personalInfo: {
@@ -31,34 +24,26 @@ const EditProfile = () => {
 			},
 		}
 		setSubmit(true);
-		api.adminProfile.updateProfile(admin.id, payload)
-			.then(res => {
-				setSubmit(false);
-				Jwt.setAdmin(res.data);
-				message.success("プロフィールを更新しました!");
-			})
-			.catch(err => {
-				setSubmit(false);
-				message.error("失敗しました。");
-			})
+		const { data } = await api.adminProfile.updateProfile(payload)
+		setSubmit(false);
+		setUser(data);
+		message.success("プロフィールを更新しました!");
 	};
 
 	const onUploadAavater = async (e) => {
 		setSubmitAvatar(true);
 		ImageService.getBase64(e.file.originFileObj, async (base64) => {
 			const { data } = await ImageService.upload(base64);
-			const user = Jwt.getAdmin();
-			const res = await api.adminProfile.updateProfile(user.id, { avatar: data.uri })
-			Jwt.setAdmin(res.data);
-			window.location.reload();
+			const res = await api.adminProfile.updateProfile({ avatar: data.uri })
+			setSubmitAvatar(false);
+			setUser(res.data);
 		})
 	};
 
-	if (!loaded) return null;
 	return (
 		<>
 			<Flex alignItems="center" mobileFlex={false} className="text-center text-md-left">
-				<Avatar size={90} src={avatar} icon={<UserOutlined />} />
+				<Avatar size={90} src={user?.avatar} icon={<UserOutlined />} />
 				<div className="ml-3 mt-md-0 mt-3 position-relative">
 					<Upload onChange={onUploadAavater} showUploadList={false} customRequest={() => { return; }}>
 						<Button
@@ -80,11 +65,11 @@ const EditProfile = () => {
 					layout="vertical"
 					initialValues={
 						{
-							'nickname': admin.nickname,
-							'name': admin.personalInfo?.name,
-							'furigana': admin.personalInfo?.furigana,
-							'birthday': moment(admin.personalInfo?.birthday),
-							'phoneNumber': admin.personalInfo?.phoneNumber,
+							'nickname': user.nickname,
+							'name': user.personalInfo?.name,
+							'furigana': user.personalInfo?.furigana,
+							'birthday': moment(user.personalInfo?.birthday),
+							'phoneNumber': user.personalInfo?.phoneNumber,
 						}
 					}
 					onFinish={onFinish}
@@ -164,4 +149,4 @@ const EditProfile = () => {
 	)
 }
 
-export default EditProfile
+export default connect(({ appStore }) => appStore, { setUser })(EditProfile)

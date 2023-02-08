@@ -42,7 +42,7 @@ const Profile = (props) => {
 				let res = await api.adminUser.getOne(props.match.params.id)
 				setUserData(res.data)
 
-				res = await api.userProfile.getPartners(props.match.params.id)
+				res = await api.adminUser.getPartners(props.match.params.id)
 				setTear(res.data);
 
 				res = await api.adminRewardGroup.get();
@@ -146,8 +146,7 @@ const Profile = (props) => {
 
 	const handleChangeRewardGroup = async (e) => {
 		try {
-			const res = await api.userRewardGroup
-				.update(userData.id, { rewardGroup: e.target.value })
+			const res = await api.adminUser.updateRewardGroup(userData.id, { rewardGroup: e.target.value })
 			setUserData(res.data)
 		} catch (err) {
 			message.error(err.toString())

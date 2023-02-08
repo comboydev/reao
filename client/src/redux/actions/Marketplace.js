@@ -21,85 +21,85 @@ export const onConnectWallet = () => {
   }
 };
 
-export const onConnected = (payload) => {
+export const setWalletAccount = (payload) => {
   return {
     type: CONNECTED_WALLET_SUCCESS,
     payload,
   }
 };
 
-export const onLoadJpy2MaticRate = () => {
+export const fetchJpy2Matic = () => {
   return {
     type: LOAD_JPY2MATIC_RATE,
   }
 }
 
-export const onLoadedJpy2MaticRateSucceed = (payload) => {
+export const setJpy2Matic = (payload) => {
   return {
     type: LOADED_JPY2MATIC_RATE_SUCCESS,
     payload,
   }
 };
 
-export const onLoadPurchaseHistory = () => {
+export const fetchPurchaseHistory = () => {
   return {
     type: LOAD_PURCHASE_HISTORY,
   }
 }
 
-export const onLoadedPurchaseHistorySucceed = (payload) => {
+export const setPurchaseHistory = (payload) => {
   return {
     type: LOADED_PURCHASE_HISTORY_SUCCESS,
     payload,
   }
 }
 
-export const onLoadSaleHistory = () => {
+export const fetchSaleHistory = () => {
   return {
     type: LOAD_SALE_HISTORY,
   }
 }
 
-export const onLoadedSaleHistorySucceed = (payload) => {
+export const setSaleHistory = (payload) => {
   return {
     type: LOADED_SALE_HISTORY_SUCCESS,
     payload,
   }
 }
 
-export const onLoadMarketItems = () => {
+export const fetchMarketItems = () => {
   return {
     type: LOAD_MARKET_ITEMS,
   }
 }
 
-export const onLoadedMarketItemsSucceed = (payload) => {
+export const setMarketItems = (payload) => {
   return {
     type: LOADED_MARKET_ITEMS_SUCCESS,
     payload,
   }
 }
 
-export const onLoadOwnedCoins = () => {
+export const fetchOwnedCoins = () => {
   return {
     type: LOAD_OWNED_COINS,
   }
 }
 
-export const onLoadedOwnedCoinsSucceed = (payload) => {
+export const setOwnedCoins = (payload) => {
   return {
     type: LOADED_OWNED_COINS_SUCCESS,
     payload,
   }
 }
 
-export const onLoadCoinsOnSale = () => {
+export const fetchCoinsOnSale = () => {
   return {
     type: LOAD_COINS_ON_SALE,
   }
 }
 
-export const onLoadedCoinsOnSaleSucceed = (payload) => {
+export const setCoinsOnSale = (payload) => {
   return {
     type: LOADED_COINS_ON_SALE_SUCCESS,
     payload,

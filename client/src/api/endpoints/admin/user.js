@@ -8,6 +8,12 @@ const AdminUser = (httpClient) => ({
     getAffiliaters() {
         return httpClient.fetch(`admin/users/affiliaters`);
     },
+    getPartners(id) {
+        return httpClient.fetch(`admin/users/${id}/partners`);
+    },
+    updateRewardGroup(id, payload) {
+        return httpClient.put(`admin/users/${id}/update/reward-group`, payload)
+    },
     connectUsersToAffiliater(id, payload) {
         return httpClient.post(`admin/users/${id}/affiliaters/connect`, payload);
     },

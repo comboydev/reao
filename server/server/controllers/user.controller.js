@@ -4,41 +4,41 @@ import { IDVERIFY_STATUS } from "../config/constant";
 const User = db.user;
 
 // TODO: add filter, sort, range
-const getInfo = async (req, res) => {
-  const user = await User.findOne({ _id: req.params.id })
+const getUserInfo = async (req, res) => {
+  const user = await User.findOne({ _id: req.userId })
     .populate(['rewardGroup']);
   return res.json(user);
 }
 
-const updatePersonalInfo = async (req, res) => {
-  const user = await User.findOneAndUpdate({ _id: req.params.id }, {
-      ...req.body, identityVerified: IDVERIFY_STATUS.default,
-    }, { returnOriginal: false });
+const updateUserInfo = async (req, res) => {
+  const user = await User.findOneAndUpdate({ _id: req.userId }, {
+    ...req.body, identityVerified: IDVERIFY_STATUS.default,
+  }, { returnOriginal: false });
   return res.send(user);
 }
 
 const updateNickname = async (req, res) => {
-  const user = await User.findOneAndUpdate({ _id: req.params.id },
+  const user = await User.findOneAndUpdate({ _id: req.userId },
     { ...req.body }, { returnOriginal: false });
   return res.send(user);
 }
 
 const updateAvatar = async (req, res) => {
-  const user = await User.findOneAndUpdate({ _id: req.params.id },
+  const user = await User.findOneAndUpdate({ _id: req.userId },
     { ...req.body }, { returnOriginal: false });
   return res.send(user);
 }
 
 const updateWarrant = async (req, res) => {
-  const user = await User.findOneAndUpdate({ _id: req.params.id }, {
-      ...req.body, identityVerified: IDVERIFY_STATUS.applying,
-    }, { returnOriginal: false });
+  const user = await User.findOneAndUpdate({ _id: req.userId }, {
+    ...req.body, identityVerified: IDVERIFY_STATUS.applying,
+  }, { returnOriginal: false });
   return res.send(user);
 }
 
 // Affiliant 
 const getPartners = async (req, res) => {
-  let arr = [{ "_id": req.params.id }];
+  let arr = [{ _id: req.userId }];
   let tear1 = await getPartner(arr);
   let tear2 = await getPartner(tear1);
   let tear3 = await getPartner(tear2);
@@ -55,42 +55,27 @@ const getPartners = async (req, res) => {
 
 const getPartner = async (records) => {
   let ids = [];
-  for(let x in records){
+  for (let x in records) {
     ids.push(records[x]._id);
   }
   return await User
-  .find({"introducer": ids})
-  .populate(["introducer"])
-  .exec()
-  .then(res => {
-    let temp = [];
-    for(let y in res){
-      temp.push(res[y]._doc);
-    }
-    return temp;
-  })
-}
-
-const updateRewardGroup = async (req, res) => {
-  try {
-    let id = req.params.id;
-    await User.findOneAndUpdate({ _id: id }, { ...req.body });
-    const result = await User.findOne({ _id: id }).populate(['rewardGroup'])
-    return res.send(result);
-  } catch (err) {
-    return res.status(500).send({
-      message: err.message || "エラーが発生しました!"
+    .find({ "introducer": ids })
+    .populate(["introducer"])
+    .exec()
+    .then(res => {
+      let temp = [];
+      for (let y in res) {
+        temp.push(res[y]._doc);
+      }
+      return temp;
     })
-  }
 }
-
 
 export default {
-  getInfo,
-  updatePersonalInfo,
+  getUserInfo,
+  updateUserInfo,
   updateNickname,
   updateAvatar,
   updateWarrant,
-  updateRewardGroup,
   getPartners,
 }

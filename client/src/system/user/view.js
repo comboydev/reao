@@ -7,36 +7,24 @@ import AppLocale from "lang";
 import Header from "./layouts/header";
 import Footer from "./layouts/footer";
 import Loading from "components/shared-components/Loading";
-import { onConnectWallet, onLoadJpy2MaticRate } from "redux/actions";
-import JwtService from "services/jwt";
+import { onConnectWallet, fetchJpy2Matic, fetchUser } from "redux/actions";
 
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch (e) {
-    return null;
-  }
-};
-
-function AuthChecker({ children, ...rest }) {
-  const user = JwtService.getUser();
-  if (user) {
-    const decodedJwt = parseJwt(user.accessToken);
-    if (decodedJwt.exp * 1000 < Date.now()) {
-      JwtService.logout();
-      return;
-    }
-  }
+function RouteInterceptor({ children, isAuthenticated, user, fetchUser, ...rest }) {
   return (
     <Route
       {...rest}
       render={({ location }) => {
-        if (!user)
+        if (!isAuthenticated)
           return <Redirect to={{ pathname: '/login', state: { from: location } }} />
         else {
-          if (!user.emailVerified) {
+          if (!user) {
+            fetchUser()
+            return null
+          }
+          else if (user?.emailVerified === false) {
             return <Redirect to={{ pathname: '/verify/email', state: { from: location } }} />
-          } else {
+          }
+          else {
             return children;
           }
         }
@@ -53,15 +41,16 @@ const RouteHandler = () => {
 }
 
 const UserViews = (props) => {
-  const { locale, onConnectWallet, onLoadJpy2MaticRate } = props;
+  const { locale, token, onConnectWallet, fetchJpy2Matic, fetchUser } = props;
   const currentAppLocale = AppLocale[locale];
   useEffect(() => {
-    const user = JwtService.getUser();
-    if (user) {
+    if (token) {
       onConnectWallet();
-      onLoadJpy2MaticRate();
+      fetchJpy2Matic();
+      fetchUser();
     }
-  })
+  }, [token, onConnectWallet, fetchJpy2Matic, fetchUser])
+
   return (
     <main>
       <IntlProvider
@@ -88,12 +77,12 @@ const UserViews = (props) => {
                     <Route exact path="/login" component={lazy(() => import(`./views/auth/login/index`))} />
                     <Route exact path="/register" component={lazy(() => import(`./views/auth/register`))} />
                     <Route exact path="/register/complete" component={lazy(() => import(`./views/auth/register/complete`))} />
-                    <Route exact path="/verify/email" component={lazy(() => import(`./views/auth/verify`))} />
-                    <Route exact path="/verify/email/:token" component={lazy(() => import(`./views/auth/verify/verify-email`))} />
                     <Route exact path="/forgot-password" component={lazy(() => import(`./views/auth/forgot-password`))} />
                     <Route exact path="/forgot-password/reset/:token" component={lazy(() => import(`./views/auth/forgot-password/reset`))} />
+                    <Route exact path="/verify/email" component={lazy(() => import(`./views/auth/verify`))} />
+                    <Route exact path="/verify/email/:token" component={lazy(() => import(`./views/auth/verify/verify-email`))} />
 
-                    <AuthChecker>
+                    <RouteInterceptor isAuthenticated={token} {...props}>
                       <Route exact path="/mypage" component={lazy(() => import(`./views/app/mypage`))} />
                       <Route exact path="/profile" component={lazy(() => import(`./views/app/profile`))} />
                       <Route exact path="/profile/change-password" component={lazy(() => import(`./views/app/profile/change-password`))} />
@@ -105,7 +94,7 @@ const UserViews = (props) => {
 
                       <Route exact path="/marketplace/items" component={lazy(() => import(`./views/app/market/items`))} />
                       <Route exact path="/marketplace/items/:id" component={lazy(() => import(`./views/app/market/detail`))} />
-                    </AuthChecker>
+                    </RouteInterceptor>
                   </Switch>
                 </div>
                 <Footer />
@@ -118,11 +107,13 @@ const UserViews = (props) => {
   );
 }
 
-const mapStateToProps = ({ theme }) => {
+const mapStateToProps = ({ theme, auth, appStore }) => {
   const { locale } = theme;
-  return { locale }
+  const { token } = auth;
+  const { user } = appStore;
+  return { locale, token, user }
 };
 
 export default withRouter(
-  connect(mapStateToProps, { onConnectWallet, onLoadJpy2MaticRate }
+  connect(mapStateToProps, { onConnectWallet, fetchJpy2Matic, fetchUser }
   )(UserViews));

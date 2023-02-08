@@ -5,12 +5,12 @@ import { Button } from "antd";
 import CheckButton from "react-validation/build/button";
 import { required, is_email } from "plugins/validator";
 import IntlMessage from "components/util-components/IntlMessage";
-import JwtService from "services/jwt";
+import { connect } from 'react-redux'
 import api from 'api';
+import { useHistory } from "react-router-dom";
 
-const VerifyEmailForm = () => {
-
-  var user = JwtService.getUser();
+const VerifyEmailForm = ({ user }) => {
+  const history = useHistory();
 
   const [_success, setSuccess] = useState('');
   const [_error, setError] = useState('');
@@ -21,9 +21,9 @@ const VerifyEmailForm = () => {
   var form, checkBtn;
 
   useEffect(() => {
+    if (user?.emailVerified) history.push("/mypage");
     if (user) setEmail(user.email);
-  }, [user])
-
+  }, [user, history])
 
   const handleSendLink = (e) => {
     e.preventDefault();
@@ -121,4 +121,4 @@ const VerifyEmailForm = () => {
 }
 
 
-export default VerifyEmailForm;
+export default connect(({ appStore }) => appStore)(VerifyEmailForm)

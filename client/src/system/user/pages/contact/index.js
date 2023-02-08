@@ -8,11 +8,10 @@ import CheckButton from "react-validation/build/button";
 import { required, is_phoneNumber, is_email } from "plugins/validator";
 import IntlMessage from "components/util-components/IntlMessage";
 import { connect } from "react-redux";
-import JwtService from "services/jwt";
 import api from 'api';
 
 
-const Contact = ({ locale }) => {
+const Contact = ({ locale, user }) => {
 
 	var form, checkBtn;
 	const history = useHistory();
@@ -28,7 +27,6 @@ const Contact = ({ locale }) => {
 
 
 	useEffect(() => {
-		let user = JwtService.getUser();
 		if (user) {
 			setEmail(user.email);
 			setName(user.personalInfo?.name);
@@ -36,14 +34,14 @@ const Contact = ({ locale }) => {
 			setFurigana(user.personalInfo?.furigana);
 		}
 		setTitle('オーナー権の購入、売却について');
-	}, [])
+	}, [user])
 
 	useEffect(() => {
 		setEnableBtn(!(!name && !furigana && !phoneNumber && !email && !title && !content));
 	}, [name, furigana, phoneNumber, email, title, content])
 
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		form.validateAll();
@@ -59,16 +57,15 @@ const Contact = ({ locale }) => {
 			content: content
 		};
 
-		setSubmit(true);
-		api.userContact.submit(contactObject)
-			.then(() => {
-				setSubmit(false);
-				history.push("/contact-us/complete");
-			})
-			.catch(err => {
-				setSubmit(false);
-				message.error("エラーか発生しました。");
-			})
+		try {
+			setSubmit(true);
+			await api.userContact.submit(contactObject)
+			setSubmit(false);
+			history.push("/contact-us/complete");
+		} catch {
+			setSubmit(false);
+			message.error("エラーか発生しました。");
+		}
 	}
 
 	const options = locale === 'ja' ?
@@ -227,9 +224,10 @@ const Contact = ({ locale }) => {
 }
 
 
-const mapStateToProps = ({ theme }) => {
+const mapStateToProps = ({ theme, appStore }) => {
 	const { locale } = theme;
-	return { locale }
+	const { user } = appStore;
+	return { locale, user }
 };
 
 export default withRouter(connect(mapStateToProps)(Contact));

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button, Tooltip, Collapse, Table, Tag, Avatar, Card, message } from "antd";
+import { Input, Button, Tooltip, Collapse, Table, Tag, Avatar, Card } from "antd";
 import {
 	CopyOutlined,
 	CheckOutlined,
 } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
 import Loading from 'components/shared-components/Loading';
-import JwtService from 'services/jwt';
 import api from 'api';
+import { connect } from "react-redux";
 
 const { Panel } = Collapse;
 
@@ -33,8 +33,7 @@ const columns = [
 ];
 
 
-export default function Partner() {
-	const user = JwtService.getUser();
+const Partner = ({ user }) => {
 	const _introducer = `${window.location.origin}/register?introducer=${user.id}`;
 
 	const [copied, setCopied] = useState(false);
@@ -50,22 +49,13 @@ export default function Partner() {
 
 	useEffect(() => {
 		async function fetchData() {
-			try {
-				let res = await api.userProfile.getPartners(user.id);
-				setTear(res.data);
-
-				res = await api.userProfile.getPersonalInfo(user.id);
-				setRewardGroup(res.data.rewardGroup);
-
-				setLoaded(true);
-			} catch (err) {
-				;
-				setLoaded(true);
-				message.error(err.toString());
-			}
+			setRewardGroup(user);
+			const { data } = await api.userProfile.getPartners();
+			setTear(data);
+			setLoaded(true);
 		}
 		fetchData()
-	}, [user.id])
+	}, [user])
 
 	const copyURL = () => {
 		setCopied(true);
@@ -127,3 +117,5 @@ export default function Partner() {
 		</section>
 	);
 }
+
+export default connect(({ appStore }) => appStore)(Partner)

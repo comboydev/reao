@@ -2,33 +2,30 @@ import React from "react";
 import { Menu, Dropdown, Avatar } from "antd";
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux'
-import { 
+import {
   SettingOutlined,
   LogoutOutlined,
   UserOutlined
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
 import { signOut } from 'redux/actions/Auth';
-import JwtService from 'services/jwt';
 
 const menuItem = [
   {
-		title: "Setting",
-		icon: SettingOutlined,
-		path: "/admin/setting"
+    title: "Setting",
+    icon: SettingOutlined,
+    path: "/admin/setting"
   }
 ]
 
-export const NavProfile = ({signOut}) => {
-  const admin = JwtService.getAdmin();
-
+export const NavProfile = ({ user, signOut }) => {
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
           <div className="pl-3">
-            <h4 className="mb-0">{admin?.nickname}</h4>
-            <span className="text-muted">{admin?.email}</span>
+            <h4 className="mb-0">{user?.nickname}</h4>
+            <span className="text-muted">{user?.email}</span>
           </div>
         </div>
       </div>
@@ -58,11 +55,11 @@ export const NavProfile = ({signOut}) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <Avatar src={ admin?.avatar } icon={<UserOutlined />}/>
+          <Avatar src={user?.avatar} icon={<UserOutlined />} />
         </Menu.Item>
       </Menu>
     </Dropdown>
   );
 }
 
-export default connect(null, {signOut})(NavProfile)
+export default connect(({ appStore }) => appStore, { signOut })(NavProfile)

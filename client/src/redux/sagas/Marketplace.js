@@ -10,13 +10,13 @@ import {
 	LOAD_SALE_HISTORY,
 } from '../constants/Marketplace';
 import {
-	onConnected,
-	onLoadedCoinsOnSaleSucceed,
-	onLoadedJpy2MaticRateSucceed,
-	onLoadedMarketItemsSucceed,
-	onLoadedOwnedCoinsSucceed,
-	onLoadedPurchaseHistorySucceed,
-	onLoadedSaleHistorySucceed,
+	setWalletAccount,
+	setCoinsOnSale,
+	setJpy2Matic,
+	setMarketItems,
+	setOwnedCoins,
+	setPurchaseHistory,
+	setSaleHistory,
 } from "../actions/Marketplace";
 import { getAccount } from 'contracts/hooks';
 import Marketplace from 'contracts/services/marketplace';
@@ -29,49 +29,49 @@ export function* connect() {
 			return;
 		}
 		const walletAccount = yield call(getAccount);
-	  	yield put(onConnected(walletAccount));
+		yield put(setWalletAccount(walletAccount));
 	});
 }
 
 export function* loadJpy2MaticRate() {
 	yield takeEvery(LOAD_JPY2MATIC_RATE, function* () {
 		const rate = yield call(Marketplace.getJpy2MaticRate);
-	  	yield put(onLoadedJpy2MaticRateSucceed(rate));
+		yield put(setJpy2Matic(rate));
 	});
 }
 
 export function* loadPurchaseHistory() {
 	yield takeEvery(LOAD_PURCHASE_HISTORY, function* () {
 		const transactions = yield call(Marketplace.getPurchaseHistory);
-	  	yield put(onLoadedPurchaseHistorySucceed(transactions));
+		yield put(setPurchaseHistory(transactions));
 	});
 }
 
 export function* loadSaleHistory() {
 	yield takeEvery(LOAD_SALE_HISTORY, function* () {
 		const transactions = yield call(Marketplace.getSaleHistory);
-	  	yield put(onLoadedSaleHistorySucceed(transactions));
+		yield put(setSaleHistory(transactions));
 	});
 }
 
 export function* loadMarketItems() {
 	yield takeEvery(LOAD_MARKET_ITEMS, function* () {
 		const items = yield call(Marketplace.getAllItems);
-	  	yield put(onLoadedMarketItemsSucceed(items));
+		yield put(setMarketItems(items));
 	});
 }
 
 export function* loadOwnedCoins() {
 	yield takeEvery(LOAD_OWNED_COINS, function* () {
 		const items = yield call(Token.getTokensOf);
-	  	yield put(onLoadedOwnedCoinsSucceed(items));
+		yield put(setOwnedCoins(items));
 	});
 }
 
 export function* loadCoinsOnSale() {
 	yield takeEvery(LOAD_COINS_ON_SALE, function* () {
 		const items = yield call(Marketplace.getItemsOf);
-	  	yield put(onLoadedCoinsOnSaleSucceed(items));
+		yield put(setCoinsOnSale(items));
 	});
 }
 

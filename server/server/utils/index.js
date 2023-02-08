@@ -31,11 +31,11 @@ class Utils {
     }
   }
 
-  generateGeneralToken = (str) => {
+  generateToken = (str) => {
     const verificationToken = jwt.sign(
       { id: str },
       config.secret_private_key,
-      { expiresIn: "7d" }
+      { expiresIn: "8h" }
     );
     return verificationToken;
   }

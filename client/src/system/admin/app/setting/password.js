@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import { Form, Button, Input, Row, Col, message } from 'antd';
 import api from 'api';
-import Jwt from 'services/jwt';
+import { connect } from 'react-redux';
 
-const Password = () => {
+const Password = ({ user }) => {
 	const [submit, setSubmit] = useState(false);
 	const changePasswordFormRef = React.createRef();
 
 	const onFinish = async values => {
 		setSubmit(false);
-		let admin = Jwt.getAdmin();
-		let req = {
-			email: admin.email,
+		const req = {
+			email: user.email,
 			password: values.password,
 			newPassword: values.newPassword
 		}
@@ -93,4 +92,4 @@ const Password = () => {
 	)
 }
 
-export default Password
+export default connect(({ appStore }) => appStore)(Password)

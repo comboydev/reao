@@ -8,22 +8,30 @@ import { IntlProvider } from "react-intl";
 import { ConfigProvider } from 'antd';
 import { APP_PREFIX_PATH, AUTH_PREFIX_PATH } from 'configs/AppConfig'
 import useBodyClass from 'hooks/useBodyClass';
+import { fetchUser } from "redux/actions";
 
-function RouteInterceptor({ children, isAuthenticated, ...rest }) {
+function RouteInterceptor({ children, isAuthenticated, user, fetchUser, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        isAuthenticated ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: AUTH_PREFIX_PATH,
-              state: { from: location }
-            }}
-          />
-        )
+      render={({ location }) => {
+        if (!isAuthenticated)
+          return (
+            <Redirect
+              to={{
+                pathname: AUTH_PREFIX_PATH,
+                state: { from: location }
+              }}
+            />
+          )
+        else {
+          if (user) return children
+          else {
+            fetchUser()
+            return null
+          }
+        }
+      }
       }
     />
   );
@@ -45,7 +53,7 @@ export const Views = (props) => {
           <Route path={AUTH_PREFIX_PATH}>
             <AuthLayout direction={direction} />
           </Route>
-          <RouteInterceptor path={APP_PREFIX_PATH} isAuthenticated={token}>
+          <RouteInterceptor path={APP_PREFIX_PATH} isAuthenticated={token} {...props}>
             <AppLayout direction={direction} location={location} />
           </RouteInterceptor>
         </Switch>
@@ -54,10 +62,11 @@ export const Views = (props) => {
   )
 }
 
-const mapStateToProps = ({ theme, auth }) => {
+const mapStateToProps = ({ theme, auth, appStore }) => {
   const { locale, direction } = theme;
   const { token } = auth;
-  return { locale, direction, token }
+  const { user } = appStore;
+  return { locale, direction, token, user }
 };
 
-export default withRouter(connect(mapStateToProps)(Views));
+export default withRouter(connect(mapStateToProps, { fetchUser })(Views));

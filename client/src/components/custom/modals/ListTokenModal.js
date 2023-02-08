@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Modal, Form, InputNumber, message, notification } from 'antd';
-import { onLoadJpy2MaticRate } from "redux/actions";
+import { fetchJpy2Matic } from "redux/actions";
 import Marketplace from "contracts/services/marketplace";
 import YenFormat from "../YenFormat";
 
@@ -18,14 +18,14 @@ const formItemLayout = {
 };
 
 const ListTokenModal = (props) => {
-    const { visible, coin, onCancel, jpy2Matic, onLoadJpy2MaticRate } = props;
+    const { visible, coin, onCancel, jpy2Matic, fetchJpy2Matic } = props;
     const history = useHistory();
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [listingPrice, setListingPrice] = useState(0);
 
     useEffect(() => {
-        onLoadJpy2MaticRate();
+        fetchJpy2Matic();
     })
 
     const handleListToken = () => {
@@ -111,5 +111,5 @@ const ListTokenModal = (props) => {
 }
 
 export default connect(
-    ({ marketplace }) => (marketplace), { onLoadJpy2MaticRate }
+    ({ marketplace }) => (marketplace), { fetchJpy2Matic }
 )(ListTokenModal);

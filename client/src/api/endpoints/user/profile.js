@@ -1,24 +1,24 @@
 const UserProfile = (httpClient) => ({
-    getPersonalInfo(id) {
-        return httpClient.fetch(`user/${id}/get/personal-info`);
+    getUserInfo() {
+        return httpClient.fetch(`user/get/personal-info`);
     },
-    getPartners(id) {
-        return httpClient.fetch(`user/${id}/get/partners`);
+    getPartners() {
+        return httpClient.fetch(`user/get/partners`);
     },
-    updatePersonalInfo(id, payload) {
-        return httpClient.put(`user/${id}/update/personal-info`, payload)
+    updateUserInfo(payload) {
+        return httpClient.put(`user/update/personal-info`, payload)
     },
-    updateNickname(id, payload) {
-        return httpClient.put(`user/${id}/update/nickname`, payload)
+    updateNickname(payload) {
+        return httpClient.put(`user/update/nickname`, payload)
     },
-    updateAvatar(id, payload) {
-        return httpClient.put(`user/${id}/update/avatar`, payload)
+    updateAvatar(payload) {
+        return httpClient.put(`user/update/avatar`, payload)
     },
-    updateWarrant(id, payload) {
-        return httpClient.put(`user/${id}/update/warrant`, payload)
+    updateWarrant(payload) {
+        return httpClient.put(`user/update/warrant`, payload)
     },
-    withdraw(id) {
-        return httpClient.post(`user/auth/withdraw`, { id })
+    withdraw() {
+        return httpClient.delete(`user/auth/withdraw`)
     },
 })
 

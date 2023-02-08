@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-	onLoadSaleHistory,
-	onLoadCoinsOnSale,
+	fetchSaleHistory,
+	fetchCoinsOnSale,
 } from "redux/actions";
 import { Card, Table, Input, Button, Menu, message, Tooltip, Tag, Popconfirm } from 'antd';
 import { EyeOutlined, SearchOutlined, DeleteOutlined, LinkOutlined } from '@ant-design/icons';
@@ -23,16 +23,16 @@ const CoinsOnSale = (props) => {
 	const {
 		coinsOnSale,
 		loadedCoinsOnSale,
-		onLoadCoinsOnSale,
+		fetchCoinsOnSale,
 		// saleHistory,
 		// loadedSaleHistory,
-		onLoadSaleHistory,
+		fetchSaleHistory,
 	} = props;
 
 	useEffect(() => {
-		onLoadCoinsOnSale();
-		onLoadSaleHistory();
-	}, [onLoadCoinsOnSale, onLoadSaleHistory]);
+		fetchCoinsOnSale();
+		fetchSaleHistory();
+	}, [fetchCoinsOnSale, fetchSaleHistory]);
 
 	useEffect(() => {
 		setList(coinsOnSale);
@@ -200,6 +200,6 @@ const CoinsOnSale = (props) => {
 
 export default connect(
 	({ marketplace }) => (marketplace), {
-	onLoadCoinsOnSale,
-	onLoadSaleHistory,
+	fetchCoinsOnSale,
+	fetchSaleHistory,
 })(CoinsOnSale);

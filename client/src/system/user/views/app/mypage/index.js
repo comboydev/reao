@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Avatar, Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import ContactSection from "system/user/components/ContactSection";
-import JwtService from "services/jwt";
 import utils from 'plugins/utils';
 import { shorter } from 'contracts/hooks';
 
@@ -19,7 +18,7 @@ const UserRole = styled.div`
 	max-width: 90px;
 	font-family: "yu-mincho-pr6n", "sans-serif";
 	&:after{
-		content: '${props=>props.role}';
+		content: '${props => props.role}';
 		position: absolute;
 		color: white;
 		font-size: 20px;
@@ -32,8 +31,7 @@ const UserRole = styled.div`
 `;
 
 const MyPage = (props) => {
-	const user = JwtService.getUser();
-	const { walletAccount } = props;
+	const { walletAccount, user } = props;
 	return (
 		<>
 			<div className="c-memberTop-header position-relative">
@@ -41,9 +39,9 @@ const MyPage = (props) => {
 					<Avatar src={user?.avatar} size={150} icon={<UserOutlined />} className="d-flex align-items-center justify-content-center" />
 					<UserRole>一般会員</UserRole>
 					<Tooltip title={walletAccount.toLowerCase()} placement="top">
-                        <span className="d-block cursor-pointer text-center text-white mt-2" onClick={() => utils.copyClipboard(walletAccount.toLowerCase())}>
-                            { shorter(walletAccount).toLowerCase() }</span>
-                    </Tooltip>
+						<span className="d-block cursor-pointer text-center text-white mt-2" onClick={() => utils.copyClipboard(walletAccount.toLowerCase())}>
+							{shorter(walletAccount).toLowerCase()}</span>
+					</Tooltip>
 				</div>
 			</div>
 			<section className="c-memberTop__content">
@@ -65,16 +63,16 @@ const MyPage = (props) => {
 
 					</div>
 				</div>)} */}
-				<div className="c-memberTop-allInfo">
+				{/* <div className="c-memberTop-allInfo">
 					<button className="c-btn">
 						お知らせ一覧
 					</button>
-				</div>
+				</div> */}
 				<div className="c-memberTop-menu">
 					<Link className="c-memberTop-menu__item -userInfo" to="/profile">
 						個人情報管理<br />本人確認
 					</Link>
-					<Link className="c-memberTop-menu__item -owner" to = '/marketplace/items'>
+					<Link className="c-memberTop-menu__item -owner" to='/marketplace/items'>
 						購入可能<br />オーナー権確認
 					</Link>
 					<Link className="c-memberTop-menu__item -trade" to='/coins/owned'>
@@ -85,11 +83,15 @@ const MyPage = (props) => {
 					</Link>
 				</div>
 			</section>
-			<ContactSection/>
+			<ContactSection />
 		</>
 	)
 }
 
-export default connect(
-    ({ marketplace }) => (marketplace)
-)(MyPage);
+const mapStateToProps = ({ marketplace, appStore }) => {
+	const { walletAccount } = marketplace;
+	const { user } = appStore;
+	return { walletAccount, user }
+};
+
+export default connect(mapStateToProps)(MyPage);

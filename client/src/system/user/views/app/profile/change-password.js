@@ -5,25 +5,21 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { required } from "plugins/validator"
-import JwtService from "services/jwt";
 import api from 'api';
+import { connect } from "react-redux";
 
-export default function ChangePassword() {
-
+const ChangePassword = ({ user }) => {
   const history = useHistory();
 
   const [password, setPassword] = useState('');
-  const [new_password, setNewPassword] = useState('');
-  const [new_password_confirm, setNewPasswordConfirm] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
   const [submit, setSubmit] = useState(false);
   const [_success, setSuccess] = useState('');
   const [_error, setError] = useState('');
 
-  const currentUser = JwtService.getUser();
-  const email = currentUser.email;
+  const email = user.email;
   var form, checkBtn;
-
-
 
   const updatePassword = (e) => {
     e.preventDefault();
@@ -32,7 +28,7 @@ export default function ChangePassword() {
     if (checkBtn.context._errors.length > 0)
       return;
 
-    if (new_password !== new_password_confirm) {
+    if (newPassword !== newPasswordConfirm) {
       setError("パスワードの確認が一致しません。");
       return;
     }
@@ -42,7 +38,7 @@ export default function ChangePassword() {
     setSubmit(true);
 
     api.userAuth
-      .changePassword(email, password, new_password)
+      .changePassword(email, password, newPassword)
       .then((res) => {
         setSubmit(false);
         if (res.data.statusCode === 200) {
@@ -92,7 +88,7 @@ export default function ChangePassword() {
             <Input
               type="password"
               className="c-form--input"
-              value={new_password}
+              value={newPassword}
               onChange={e => setNewPassword(e.target.value)}
               validations={[required]}
             />
@@ -101,7 +97,7 @@ export default function ChangePassword() {
             <Input
               type="password"
               className="c-form--input"
-              value={new_password_confirm}
+              value={newPasswordConfirm}
               onChange={e => setNewPasswordConfirm(e.target.value)}
               validations={[required]}
             />
@@ -125,3 +121,5 @@ export default function ChangePassword() {
     </section>
   );
 }
+
+export default connect(({ appStore }) => appStore)(ChangePassword)

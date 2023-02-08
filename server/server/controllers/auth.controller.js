@@ -25,15 +25,15 @@ const signup = (req, res) => {
     .then(user => {
       const ttl = new Date();
       ttl.setHours(ttl.getHours() + EXPIRE_TIME);
-      let vToken = user.generateVerificationToken();
-      const email_activate = new EmailActivate({
+      let vToken = Utils.generateToken(user.id);
+      const emailActivate = new EmailActivate({
         email: user.email,
         token: vToken,
         ttl: ttl,
         new_email: user.email,
         type: 'verify_email'
       })
-      email_activate.save();             //Save Email Activate for email verification
+      emailActivate.save();             //Save Email Activate for email verification
 
       let confirm_url = `${FRONT_URL}/verify/email/${vToken}`;
       let msg = {
@@ -45,12 +45,7 @@ const signup = (req, res) => {
 
       mailer.sendMail(msg)
         .then(() => {
-          var aToken = Utils.generateGeneralToken(user.id);  // login token
-          return res.send({
-            status_code: 200,
-            ...user._doc,
-            accessToken: aToken
-          });
+          return res.send({ status_code: 200 });
         })
         .catch(err => {
           console.log("SMTP Error:", err);
@@ -86,16 +81,15 @@ const signin = (req, res) => {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
-          var token = Utils.generateGeneralToken(user.id);
+          var token = user.generateJwt()
           return res.send({
             status_code: 200,
-            ...user._doc,
-            accessToken: token
+            token,
+            user,
           });
         } else {
           return res.send({
             status_code: 401,
-            accessToken: null,
             message: "ログインに失敗しました。10回連続で失敗すると、一定期間ログインできなくなります。"
           });
         }
@@ -126,7 +120,7 @@ const sendLinkOfResetPassword = async (req, res) => {
 
       const ttl = new Date();
       ttl.setHours(ttl.getHours() + EXPIRE_TIME);
-      let token = user.generateVerificationToken();
+      let token = Utils.generateToken(user.id);
 
       EmailActivate.findOneAndUpdate({
         email: user.email,
@@ -139,23 +133,23 @@ const sendLinkOfResetPassword = async (req, res) => {
         .exec()
         .then(record => {
           if (!record) {
-            const email_activate = new EmailActivate({
+            const emailActivate = new EmailActivate({
               email: user.email,
               token: token,
               ttl: ttl,
               type: 'reset_password'
             })
             //Save Email Activate for email verification
-            email_activate.save()
+            emailActivate.save()
           }
         });
 
-      let confirm_url = `${FRONT_URL}/forgot-password/reset/${token}`;
+      const confirmUrl = `${FRONT_URL}/forgot-password/reset/${token}`;
       let msg = {
         from: config.support_mail, // Sender address
         to: user.email, // List of recipients
         subject: '【FANTATION】　パスワード再設定', // Subject line
-        text: textResetPassword(confirm_url), // Plain text body
+        text: textResetPassword(confirmUrl), // Plain text body
       };
 
       mailer.sendMail(msg)
@@ -242,7 +236,7 @@ const sendLinkOfVerifyEmail = async (req, res) => {
 
             const ttl = new Date();
             ttl.setHours(ttl.getHours() + EXPIRE_TIME);
-            let token = user.generateVerificationToken();
+            let token = Utils.generateToken(user.id);
 
             EmailActivate.findOneAndUpdate({
               email: user.email,
@@ -371,15 +365,15 @@ const changePassword = (req, res) => {
 
 const withdraw = async (req, res) => {
   try {
-    const id = req.body.id
-    const count = await User.find({ 'introducer': id }).count()
+    const userId = req.userId
+    const count = await User.find({ 'introducer': userId }).count()
     if (count > 0) {
       return res.send({
         status_code: 400,
         message: 'アフィリエイトの紐づけが崩れるので削除できません。',
       })
     } else {
-      await User.findOneAndDelete({ _id: id })
+      await User.findOneAndDelete({ _id: userId })
       return res.send({ status_code: 200 })
     }
   } catch (err) {

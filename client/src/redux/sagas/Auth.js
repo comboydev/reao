@@ -1,17 +1,20 @@
 import { all, takeEvery, put, fork, call } from 'redux-saga/effects';
 import {
-	AUTH_TOKEN,
 	SIGNIN,
 	SIGNOUT,
 } from '../constants/Auth';
 import {
 	showAuthMessage,
-	authenticated,
+	// authenticated,
 	signOutSuccess,
 } from "../actions/Auth";
 
-import JwtService from 'services/jwt';
+import {
+	setUser,
+} from "../actions/App";
+
 import api from 'api';
+import JwtService from 'services/jwt';
 
 export function* signInWithEmail() {
 	yield takeEvery(SIGNIN, function* ({ payload }) {
@@ -19,10 +22,10 @@ export function* signInWithEmail() {
 		try {
 			const { data } = yield call(api.adminAuth.login, email, password);
 			if (data.statusCode === 200) {
-				delete data.statusCode;
-				let token = data;
-				JwtService.setAdmin(token);
-				yield put(authenticated(token.accessToken));
+				JwtService.setToken(data.token);
+				// yield put(authenticated(data.token));
+				yield put(setUser(data.user));
+				window.location.href = "/admin/users"
 			} else {
 				yield put(showAuthMessage(data.message));
 			}
@@ -35,7 +38,7 @@ export function* signInWithEmail() {
 export function* signOut() {
 	yield takeEvery(SIGNOUT, function* () {
 		try {
-			localStorage.removeItem(AUTH_TOKEN);
+			JwtService.logout();
 			yield put(signOutSuccess(null));
 		} catch (err) {
 			yield put(showAuthMessage(err));

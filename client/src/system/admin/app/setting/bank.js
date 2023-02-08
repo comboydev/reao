@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Form, Button, Input, Row, Col, message } from 'antd';
-import Jwt from 'services/jwt';
 import api from 'api';
 
 const Bank = () => {
-	const admin = Jwt.getAdmin();
 	const history = useHistory();
 
 	const [submit, setSubmit] = useState(false);
@@ -14,7 +12,7 @@ const Bank = () => {
 	const [form] = Form.useForm();
 
 	useEffect(() => {
-		api.adminProfile.getBankInfo(admin.id)
+		api.adminProfile.getBankInfo()
 			.then(res => {
 				setBankInfo(res.data);
 				setLoaded(true);
@@ -24,12 +22,12 @@ const Bank = () => {
 					history.push("/admin/setting/edit-profile");
 				})
 			})
-	}, [admin.id, history])
+	}, [history])
 
 	const onFinish = async values => {
 		setSubmit(true);
 		try {
-			const { data } = await api.adminProfile.updateBankInfo(admin.id, { ...values })
+			const { data } = await api.adminProfile.updateBankInfo({ ...values })
 			if (data.statusCode === 200) {
 				message.success(data.message);
 			} else {

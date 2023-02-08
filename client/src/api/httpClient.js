@@ -4,6 +4,7 @@ import merge from 'lodash.merge'
 import { decamelizeKeys, camelizeKeys } from 'utils/object'
 import { preprocessStringfyingQuery } from 'utils/http'
 import * as httpStatusCode from 'constants/httpStatusCode'
+import JwtService from 'services/jwt'
 
 import { API_URL } from 'configs/AppConfig'
 
@@ -37,7 +38,15 @@ const normalizeValidationErrorKeys = (data) => {
 
 export default class HttpClient {
   constructor(config = {}) {
-    this.config = {}
+    this.config = {
+      headers: {
+        "Content-type": "application/json",
+      }
+    }
+
+    if (JwtService.token()) {
+      this.setHeader("x-access-token", JwtService.token());
+    }
 
     this.httpClient = axios.create()
 
@@ -124,12 +133,9 @@ export default class HttpClient {
 
     switch (status) {
       case httpStatusCode.UNAUTHORIZED:
+        JwtService.logout()
+        window.location.reload()
         break
-      // return await this.handleUnauthenticatedError(
-      //   error,
-      //   requestParams,
-      //   retry
-      // )
       case httpStatusCode.UNPROCESSABLE_ENTITY:
         error.response.data = camelizeKeys(
           normalizeValidationErrorKeys(error.response.data)

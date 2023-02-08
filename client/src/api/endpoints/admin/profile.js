@@ -1,15 +1,15 @@
 const AdminProfile = (httpClient) => ({
-    updateProfile(id, payload) {
-        return httpClient
-            .put(`admin/${id}/update/profile`, payload)
+    getProfile() {
+        return httpClient.fetch(`admin/get/profile`)
     },
-    getBankInfo(id) {
-        return httpClient
-            .fetch(`admin/${id}/get/bankInfo`)
+    updateProfile(payload) {
+        return httpClient.put(`admin/update/profile`, payload)
     },
-    updateBankInfo(id, payload) {
-        return httpClient
-            .put(`admin/${id}/update/bankInfo`, payload)
+    getBankInfo() {
+        return httpClient.fetch(`admin/get/bankInfo`)
+    },
+    updateBankInfo(payload) {
+        return httpClient.put(`admin/update/bankInfo`, payload)
     },
 })
 

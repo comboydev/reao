@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-    onLoadSaleHistory,
-    onLoadCoinsOnSale,
+    fetchSaleHistory,
+    fetchCoinsOnSale,
 } from "redux/actions";
 import { Table, Row, Col, Tooltip } from "antd";
 import styled from 'styled-components';
@@ -117,16 +117,16 @@ const CoinsOnSale = (props) => {
     const {
         coinsOnSale,
         loadedCoinsOnSale,
-        onLoadCoinsOnSale,
+        fetchCoinsOnSale,
         saleHistory,
         loadedSaleHistory,
-        onLoadSaleHistory,
+        fetchSaleHistory,
     } = props;
 
     useEffect(() => {
-        onLoadCoinsOnSale();
-        onLoadSaleHistory();
-    }, [onLoadCoinsOnSale, onLoadSaleHistory]);
+        fetchCoinsOnSale();
+        fetchSaleHistory();
+    }, [fetchCoinsOnSale, fetchSaleHistory]);
 
     if (!loadedCoinsOnSale)
         return <Loading cover="page" />;
@@ -188,6 +188,6 @@ const CoinsOnSale = (props) => {
 
 export default connect(
     ({ marketplace }) => (marketplace), {
-    onLoadCoinsOnSale,
-    onLoadSaleHistory,
+    fetchCoinsOnSale,
+    fetchSaleHistory,
 })(CoinsOnSale);

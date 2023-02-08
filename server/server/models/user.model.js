@@ -69,14 +69,9 @@ var UserSchema = new Schema({
   });
 
 
-UserSchema.methods.generateVerificationToken = function () {
+UserSchema.methods.generateJwt = function () {
   const user = this;
-  const verificationToken = jwt.sign(
-    { id: user._id },
-    config.secret_private_key,
-    { expiresIn: "8h" }
-  );
-  return verificationToken;
+  return jwt.sign({ id: user._id }, config.secret_private_key, { expiresIn: "2h" });
 };
 
 UserSchema.methods.comparePassword = function (passw, cb) {

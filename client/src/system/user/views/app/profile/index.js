@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Steps, Avatar } from 'antd';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -8,103 +8,68 @@ import moment from "moment";
 import { Modal, Button, message, Popconfirm } from "antd";
 import { ExclamationCircleOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 import { required, is_phoneNumber } from "plugins/validator";
-import Loading from 'components/shared-components/Loading';
 import UploadImageModal from 'system/user/components/UploadImageModal';
 import prefs from './prefs.json';
-import JwtService from 'services/jwt';
+import { connect } from 'react-redux';
+import { setUser, signOut } from "redux/actions";
 import api from 'api';
 
 const { confirm } = Modal;
 const { Step } = Steps;
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ user, setUser, signOut }) => {
   var form, checkBtn;
-  const currentUser = JwtService.getUser();
-  const history = useHistory();
 
-  const [user, setUser] = useState();
-
-  const [nickname, setNickName] = useState('');
-  const [name, setName] = useState('');
-  const [furigana, setFurigana] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [locationProvince, setLocationProvince] = useState('');
-  const [locationCity, setLocationCity] = useState('');
-  const [extra, setExtra] = useState('');
+  const [nickname, setNickName] = useState(user.nickname);
+  const [name, setName] = useState(user?.personalInfo?.name);
+  const [furigana, setFurigana] = useState(user?.personalInfo?.furigana);
+  const [phoneNumber, setPhoneNumber] = useState(user?.personalInfo?.phoneNumber);
+  const [birthday, setBirthday] = useState(moment(user?.personalInfo?.birthday).format("YYYY-MM-DD"));
+  const [locationProvince, setLocationProvince] = useState(user?.personalInfo?.locationProvince || '北海道');
+  const [locationCity, setLocationCity] = useState(user?.personalInfo?.locationCity);
+  const [extra, setExtra] = useState(user?.personalInfo?.extra);
 
   const [enableButton, setEnableButton] = useState(false);
   const [enbaleIDButton, setEnableIDButton] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const [submit_id, setSubmitID] = useState(false);
-  const [submit_avatar, setSubmitAvatar] = useState(false);
-  const [submit_warrant, setSubmitWarrant] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [submitingId, setSubmitID] = useState(false);
+  const [submitingAvatar, setSubmitAvatar] = useState(false);
+  const [submitingWarrant, setSubmitWarrant] = useState(false);
   const [showAvatarUploadModal, setShowAvatarUploadModal] = useState(false);
   const [showWarrantUploadModal, setShowWarrantUploadModal] = useState(false);
 
   useEffect(() => {
-    setLoaded(false);
-    api.userProfile.getPersonalInfo(currentUser.id)
-      .then((res) => {
-        setLoaded(true);
-        let new_user = res.data;
-        JwtService.setUser(new_user);
-        setUser(new_user);
-        setNickName(new_user.nickname);
-        if (new_user && new_user.personalInfo) {
-          setName(new_user.personalInfo.name);
-          setFurigana(new_user.personalInfo.furigana);
-          setPhoneNumber(new_user.personalInfo.phoneNumber);
-          setBirthday(moment(new_user.personalInfo.birthday).format("YYYY-MM-DD"));
-          setLocationProvince(new_user.personalInfo.locationProvince || '北海道');
-          setLocationCity(new_user.personalInfo.locationCity);
-          setExtra(new_user.personalInfo.extra);
-        }
-      })
-      .catch(err => {
-        setLoaded(true);
-        console.log(err);
-        message.error("エラーか発生しました。", () => {
-          history.push('/mypage');
-        });
-      })
-  }, [currentUser.id, history])
-
-  useEffect(() => {
     setEnableButton(false);
-    let currentUser = JwtService.getUser();
-    if (currentUser) {
-      if (name === currentUser.personalInfo?.name
-        && furigana === currentUser.personalInfo?.furigana
-        && phoneNumber === currentUser.personalInfo?.phoneNumber
-        && birthday === moment(currentUser.personalInfo?.birthday).format("YYYY-MM-DD")
-        && locationProvince === currentUser.personalInfo?.locationProvince
-        && locationCity === currentUser.personalInfo?.locationCity
-        && extra === currentUser.personalInfo?.extra
+    if (user) {
+      if (name === user.personalInfo?.name
+        && furigana === user.personalInfo?.furigana
+        && phoneNumber === user.personalInfo?.phoneNumber
+        && birthday === moment(user.personalInfo?.birthday).format("YYYY-MM-DD")
+        && locationProvince === user.personalInfo?.locationProvince
+        && locationCity === user.personalInfo?.locationCity
+        && extra === user.personalInfo?.extra
       ) {
         setEnableButton(false);
       } else {
         setEnableButton(true)
       }
     }
-  }, [name, furigana, phoneNumber, birthday, locationProvince, locationCity, extra])
+  }, [user, name, furigana, phoneNumber, birthday, locationProvince, locationCity, extra])
 
 
   useEffect(() => {
     setEnableIDButton(false);
-    let currentUser = JwtService.getUser();
-    if (currentUser) {
-      if (nickname === currentUser.nickname) {
+    if (user) {
+      if (nickname === user.nickname) {
         setEnableIDButton(false);
       } else {
         setEnableIDButton(true);
       }
     }
-  }, [nickname])
+  }, [nickname, user])
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const personalInfo = {
       name: name,
       furigana: furigana,
@@ -116,79 +81,47 @@ const PersonalInfo = () => {
     };
 
     setSubmit(true);
-    api.userProfile.updatePersonalInfo(user.id, { personalInfo })
-      .then((res) => {
-        setSubmit(false);
-        JwtService.setUser(res.data);
-        setUser(res.data);
-        setEnableButton(false);
-        message.success("アップロードしました。");
-      })
-      .catch(error => {
-        setSubmit(false);
-        message.error("失敗しました。");
-      })
+    const { data } = await api.userProfile.updateUserInfo({ personalInfo })
+    setSubmit(false);
+    setEnableButton(false);
+    setUser(data);
+    message.success("アップロードしました。");
   }
 
 
-  const onChangeNickname = (e) => {
+  const onChangeNickname = async (e) => {
     e.preventDefault();
-    let user = JwtService.getUser();
     setSubmitID(true);
-    api.userProfile.updateNickname(user.id, { nickname })
-      .then(res => {
-        setSubmitID(false);
-        setEnableIDButton(false);
-        message.success("ユーザー名を変更しました。")
-        JwtService.setUser(res.data);
-        setUser(res.data);
-      })
-      .catch(err => {
-        setSubmitID(false);
-        message.error("失敗しました。");
-      })
+    const { data } = await api.userProfile.updateNickname({ nickname })
+    setSubmitID(false);
+    setEnableIDButton(false);
+    setUser(data);
+    message.success("ユーザー名を変更しました。")
   }
 
-  const onChangeAvatar = (uri) => {
+  const onChangeAvatar = async (uri) => {
     if (!uri) {
       message.warning("画像を選択する必要があります。");
       return;
     }
-    let user = JwtService.getUser();
     setSubmitAvatar(true);
-    api.userProfile.updateAvatar(user.id, { avatar: uri })
-      .then(res => {
-        setSubmitAvatar(false);
-        JwtService.setUser(res.data);
-        setUser(res.data);
-        message.success("Avatarを変更しました。")
-        window.location.reload();
-      })
-      .catch(err => {
-        setSubmitAvatar(false);
-        message.error("失敗しました。");
-      })
+    const { data } = await api.userProfile.updateAvatar({ avatar: uri })
+    setSubmitAvatar(false);
+    setUser(data);
+    message.success("Avatarを変更しました。")
   }
 
-  const onChangeWarrant = (uri) => {
+  const onChangeWarrant = async (uri) => {
     if (!uri) {
       message.warning("身分証を選択する必要があります。");
       return;
     }
-    const user = JwtService.getUser();
     setSubmitWarrant(true);
-    api.userProfile.updateWarrant(user.id, { warrant: uri })
-      .then(res => {
-        setSubmitWarrant(false);
-        JwtService.setUser(res.data);
-        setUser(res.data);
-        message.success("身分証を登録しました。\n本人確認申請しました。")
-        setShowWarrantUploadModal(false);
-      })
-      .catch(err => {
-        setSubmitAvatar(false);
-        message.error("失敗しました。");
-      })
+    const { data } = await api.userProfile.updateWarrant({ warrant: uri })
+    setSubmitWarrant(false);
+    setShowWarrantUploadModal(false);
+    setUser(data);
+    message.success("身分証を登録しました。\n本人確認申請しました。")
   }
 
   const showConfirm = (e) => {
@@ -208,26 +141,18 @@ const PersonalInfo = () => {
     });
   }
 
-  const deleteUser = () => {
-    let user = JwtService.getUser();
-    api.userProfile.withdraw(user.id)
-      .then(res => {
-        if (res.data.statusCode === 200) {
-          JwtService.logout();
-          message.success("退会しました！", () => {
-            window.location.href = "/"
-          });
-        } else {
-          message.warning(res.data.message);
-        }
-      })
-      .catch(err => {
-        message.error("失敗しました。");
-      })
+  const deleteUser = async () => {
+    const { data } = await api.userProfile.withdraw()
+    if (data.statusCode === 200) {
+      signOut();
+      message.success("退会しました！", () => {
+        window.location.href = "/"
+      });
+    } else {
+      message.warning(data.message);
+    }
   }
 
-
-  if (!loaded || !user) return <Loading cover="page" />
   return (
     <div className="c-memberInfo">
       <section className="p-card">
@@ -266,7 +191,7 @@ const PersonalInfo = () => {
                   handleCancel={() => {
                     setShowAvatarUploadModal(false);
                   }}
-                  loading={submit_avatar}
+                  loading={submitingAvatar}
                   handleOk={onChangeAvatar}
                 />
               </div>
@@ -309,7 +234,7 @@ const PersonalInfo = () => {
                 htmlType="submit"
                 className="c-btn c-btn--memberInfo mb-5"
                 disabled={!enbaleIDButton}
-                loading={submit_id}>
+                loading={submitingId}>
                 <span>ユーザー名を変更</span>
               </Button>
             </Form>
@@ -480,7 +405,7 @@ const PersonalInfo = () => {
             handleCancel={() => {
               setShowWarrantUploadModal(false);
             }}
-            loading={submit_warrant}
+            loading={submitingWarrant}
             handleOk={onChangeWarrant}
           />
         </div>
@@ -503,4 +428,4 @@ const PersonalInfo = () => {
 }
 
 
-export default PersonalInfo;
+export default connect(({ appStore }) => appStore, { setUser, signOut })(PersonalInfo);

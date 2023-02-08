@@ -4,10 +4,11 @@ import { Row, Col, Button, message, Radio, Form, InputNumber, Checkbox, Modal } 
 import ContactSection from "system/user/components/ContactSection";
 import CoinInfo from 'system/user/components/OwnedCoinInfo';
 import { PAYMENT_TYPE } from "constants/AppConstant";
-import JwtService from 'services/jwt';
 import userOrder from 'api/user/order';
+import { connect } from "react-redux";
 
-export default function PurchaseRequest(props) {
+const PurchaseRequest = (props) => {
+    const { user } = props;
 
     const history = useHistory();
     const coin = history.location.state;
@@ -20,7 +21,6 @@ export default function PurchaseRequest(props) {
 
 
     useEffect(() => {
-        let user = JwtService.getUser();
         if (user.identityVerified !== 1) {
             message.error("オーナー券を購入するには、本人確認が必要です。", 2, () => {
                 props.history.goBack()
@@ -86,7 +86,7 @@ export default function PurchaseRequest(props) {
         let formValues = orderForm.getFieldValue();
         let req = {
             ownershipID: coin.ownership.id,
-            buyerID: JwtService.getUser().id,
+            buyerID: user.id,
             orderCount: formValues.orderCount,
             paymentType: formValues.paymentType
         }
@@ -274,3 +274,5 @@ export default function PurchaseRequest(props) {
         </>
     )
 }
+
+export default connect(({ appStore }) => appStore)(PurchaseRequest)
