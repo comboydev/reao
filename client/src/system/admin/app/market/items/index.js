@@ -1,29 +1,38 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchMarketItems } from "redux/actions";
-import { Card, Table, Input, Button, Menu, Tooltip, Tag } from 'antd';
+import { Card, Table, Input, Button, Menu, Tooltip, Tag, message, notification } from 'antd';
 import { EyeOutlined, SearchOutlined, LinkOutlined } from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
+import YenFormat from 'components/custom/YenFormat';
 import utils from 'plugins/utils';
 import { SOLD_STATUS } from 'constants/AppConstant';
+import Marketplace from "contracts/services/marketplace";
 import { shorter, contractLink, tokenLink } from 'contracts/hooks';
-import YenFormat from 'components/custom/YenFormat';
+import { fetchMarketItems, fetchMarketBalance, fetchMarketOwner } from "redux/actions";
 
 const MarketItems = (props) => {
 	const history = useHistory();
-	const [list, setList] = useState([])
+	const [list, setList] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const {
 		marketItems,
+		marketBalance,
+		marketOwner,
+		walletAccount,
 		loadedMarketItems,
 		fetchMarketItems,
+		fetchMarketBalance,
+		fetchMarketOwner,
 	} = props;
 
 	useEffect(() => {
 		fetchMarketItems();
-	}, [fetchMarketItems]);
+		fetchMarketBalance();
+		fetchMarketOwner();
+	}, [fetchMarketItems, fetchMarketBalance, fetchMarketOwner]);
 
 	useEffect(() => {
 		setList(marketItems);
@@ -134,6 +143,19 @@ const MarketItems = (props) => {
 		setList(data)
 	}
 
+	const handleWithrawBalance = async () => {
+		try {
+			setLoading(true);
+			await Marketplace.withdrawBalance();
+			fetchMarketBalance();
+			setLoading(false);
+			notification.success({ message: "残高を引き出しました!" });
+		} catch (err) {
+			setLoading(false);
+			message.error("失敗しました。");
+		}
+	}
+
 	return (
 		<Card>
 			<Flex className="mb-3" alignItems="center" justifyContent="between" mobileFlex={false}>
@@ -159,6 +181,21 @@ const MarketItems = (props) => {
 					scroll={{ x: 1300 }}
 				/>
 			</div>
+			{
+				String(marketOwner).toLowerCase() === String(walletAccount).toLowerCase() &&
+				<div className="mt-3">
+					<p className="text-end"> Balance: {marketBalance} MATIC</p>
+					{
+						marketBalance > 0 &&
+						<Button
+							type="primary"
+							className="d-block ms-auto"
+							onClick={handleWithrawBalance}
+							loading={loading}
+						>Withdraw</Button>
+					}
+				</div>
+			}
 		</Card>
 	)
 }
@@ -166,4 +203,6 @@ const MarketItems = (props) => {
 export default connect(
 	({ marketplace }) => (marketplace), {
 	fetchMarketItems,
+	fetchMarketBalance,
+	fetchMarketOwner,
 })(MarketItems);

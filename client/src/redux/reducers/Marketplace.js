@@ -2,7 +2,9 @@ import {
 	CONNECTED_WALLET_SUCCESS,
 	LOADED_COINS_ON_SALE_SUCCESS,
 	LOADED_JPY2MATIC_RATE_SUCCESS,
+	LOADED_MARKET_BALANCE_SUCCESS,
 	LOADED_MARKET_ITEMS_SUCCESS,
+	LOADED_MARKET_OWNER_SUCCESS,
 	LOADED_OWNED_COINS_SUCCESS,
 	LOADED_PURCHASE_HISTORY_SUCCESS,
 	LOADED_SALE_HISTORY_SUCCESS,
@@ -10,6 +12,8 @@ import {
 
 const initState = {
 	walletAccount: '',
+	marketBalance: null,
+	marketOwner: null,
 	jpy2Matic: null,
 	purchaseHistory: [],
 	loadedPurchaseHistory: false,
@@ -28,12 +32,22 @@ const marketplace = (state = initState, action) => {
 		case CONNECTED_WALLET_SUCCESS:
 			return {
 				...state,
-                walletAccount: action.payload,
+				walletAccount: action.payload,
+			}
+		case LOADED_MARKET_BALANCE_SUCCESS:
+			return {
+				...state,
+				marketBalance: action.payload,
+			}
+		case LOADED_MARKET_OWNER_SUCCESS:
+			return {
+				...state,
+				marketOwner: action.payload,
 			}
 		case LOADED_JPY2MATIC_RATE_SUCCESS:
 			return {
 				...state,
-                jpy2Matic: action.payload,
+				jpy2Matic: action.payload,
 			}
 		case LOADED_PURCHASE_HISTORY_SUCCESS:
 			return {
@@ -59,7 +73,7 @@ const marketplace = (state = initState, action) => {
 				loadedCoinsOnSale: true,
 				coinsOnSale: action.payload,
 			}
-		case LOADED_OWNED_COINS_SUCCESS: 
+		case LOADED_OWNED_COINS_SUCCESS:
 			return {
 				...state,
 				loadedOwnedCoins: true,

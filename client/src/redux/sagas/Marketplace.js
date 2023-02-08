@@ -4,7 +4,9 @@ import {
 	CONNECT_WALLET,
 	LOAD_COINS_ON_SALE,
 	LOAD_JPY2MATIC_RATE,
+	LOAD_MARKET_BALANCE,
 	LOAD_MARKET_ITEMS,
+	LOAD_MARKET_OWNER,
 	LOAD_OWNED_COINS,
 	LOAD_PURCHASE_HISTORY,
 	LOAD_SALE_HISTORY,
@@ -17,6 +19,8 @@ import {
 	setOwnedCoins,
 	setPurchaseHistory,
 	setSaleHistory,
+	setMarketBalance,
+	setMarketOwner,
 } from "../actions/Marketplace";
 import { getAccount } from 'contracts/hooks';
 import Marketplace from 'contracts/services/marketplace';
@@ -30,6 +34,20 @@ export function* connect() {
 		}
 		const walletAccount = yield call(getAccount);
 		yield put(setWalletAccount(walletAccount));
+	});
+}
+
+export function* loadMarketBalance() {
+	yield takeEvery(LOAD_MARKET_BALANCE, function* () {
+		const balance = yield call(Marketplace.getBalance);
+		yield put(setMarketBalance(balance));
+	});
+}
+
+export function* loadMarketOwner() {
+	yield takeEvery(LOAD_MARKET_OWNER, function* () {
+		const owner = yield call(Marketplace.getOwner);
+		yield put(setMarketOwner(owner));
 	});
 }
 
@@ -79,6 +97,8 @@ export function* loadCoinsOnSale() {
 export default function* rootSaga() {
 	yield all([
 		fork(connect),
+		fork(loadMarketBalance),
+		fork(loadMarketOwner),
 		fork(loadJpy2MaticRate),
 		fork(loadPurchaseHistory),
 		fork(loadSaleHistory),

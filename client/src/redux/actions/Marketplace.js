@@ -13,6 +13,10 @@ import {
   LOADED_COINS_ON_SALE_SUCCESS,
   LOAD_OWNED_COINS,
   LOADED_OWNED_COINS_SUCCESS,
+  LOAD_MARKET_BALANCE,
+  LOADED_MARKET_BALANCE_SUCCESS,
+  LOAD_MARKET_OWNER,
+  LOADED_MARKET_OWNER_SUCCESS,
 } from '../constants/Marketplace';
 
 export const onConnectWallet = () => {
@@ -24,6 +28,32 @@ export const onConnectWallet = () => {
 export const setWalletAccount = (payload) => {
   return {
     type: CONNECTED_WALLET_SUCCESS,
+    payload,
+  }
+};
+
+export const fetchMarketBalance = () => {
+  return {
+    type: LOAD_MARKET_BALANCE,
+  }
+}
+
+export const setMarketBalance = (payload) => {
+  return {
+    type: LOADED_MARKET_BALANCE_SUCCESS,
+    payload,
+  }
+};
+
+export const fetchMarketOwner = () => {
+  return {
+    type: LOAD_MARKET_OWNER,
+  }
+};
+
+export const setMarketOwner = (payload) => {
+  return {
+    type: LOADED_MARKET_OWNER_SUCCESS,
     payload,
   }
 };
