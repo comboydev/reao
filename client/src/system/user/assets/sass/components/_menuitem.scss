@@ -41,6 +41,10 @@
     font-weight: 500;
     color: $text-color-black;
     font-family: $yuMincho;
+    padding: 5px 8px;
+    @include mq(sm){
+      padding: 0;
+    }
 }
 
 // _:lang(x)::-internal-media-controls-overlay-cast-button, .c-menuitem--global{
