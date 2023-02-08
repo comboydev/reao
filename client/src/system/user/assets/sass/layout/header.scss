@@ -3,12 +3,23 @@ $sp_nav_h: 70px;
 .l-header{
     position: fixed;
     width: 100%;
-    height: 100px;
+    // height: 100px;
     top: 0;
     background-color: white;
     z-index: 999;
     padding: 20px 10px 10px 30px;
     border-bottom: 1px solid #ede6dc;
+}
+
+#c-nav--global {
+  width: 70vw;
+  margin: 15px auto 0;
+  @include mq(sm){
+    width: 100%;
+    margin-top: 0;
+    height: 100vw;
+    overflow: scroll;
+  }
 }
 
 main{
@@ -96,7 +107,7 @@ main{
             span{
                 width: 30px;
                 height: 3px;
-                background-color:$btn-color-braun; 
+                background-color:$btn-color-braun;
                 &:nth-of-type(2){
                     margin: 5px;
                 }
@@ -129,7 +140,7 @@ main{
             font-size: 16px;
             text-align: center;
         }
-    
+
     }
 
     .c-nav--global__menu{
@@ -149,10 +160,14 @@ main{
                     background-color: #333;
                 }
             }
+            &.c-menuitem--global--company,
+            &.c-menuitem--global--contact {
+              display: none;
+            }
         }
     }
 
-    
+
     .c-nav--global__info{
         position: relative;
         font-size: 20px;
@@ -186,9 +201,9 @@ main{
 
     .c-nav__right{
         flex-direction: column-reverse;
-        
+
     }
-    
+
     .c-btn--login, .c-btn--mypage{
         width: 50%;
         margin-right: 10px;
