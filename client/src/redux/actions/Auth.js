@@ -14,10 +14,10 @@ import {
   SIGNIN_WITH_FACEBOOK_AUTHENTICATED
 } from '../constants/Auth';
 
-export const signIn = (user) => {
+export const signIn = (payload) => {
   return {
     type: SIGNIN,
-    payload: user
+    payload,
   }
 };
 
@@ -40,10 +40,10 @@ export const signOutSuccess = () => {
   }
 };
 
-export const signUp = (user) => {
+export const signUp = (payload) => {
   return {
     type: SIGNUP,
-    payload: user
+    payload,
   };
 };
 

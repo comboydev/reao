@@ -8,15 +8,28 @@ import { required, is_email } from "plugins/validator";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import IntlMessage from "components/util-components/IntlMessage";
-import api from 'api';
-import JwtService from "services/jwt";
+import {
+  signIn,
+  showLoading,
+  hideAuthMessage,
+  signInWithGoogle,
+  signInWithFacebook
+} from "redux/actions";
 
 
-const Login = ({ locale, token }) => {
+const Login = (props) => {
+  const {
+    locale,
+    token,
+    signIn,
+    loading,
+    showLoading,
+    hideAuthMessage,
+    message,
+  } = props
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [_submit, setSubmit] = useState(false);
-  const [_message, setMessage] = useState('');
   var _form, _checkBtn;
 
   const handleLogin = (e) => {
@@ -26,34 +39,12 @@ const Login = ({ locale, token }) => {
     if (_checkBtn.context._errors.length > 0)
       return;
 
-    setMessage('');
-    setSubmit(true);
-
-    api.userAuth.login(email, password)
-      .then(({ data }) => {
-        setSubmit(false);
-        if (data.statusCode === 200) {
-          JwtService.setToken(data.token)
-          window.location.href = "/mypage"
-        } else {
-          setMessage(data.message);
-        }
-      })
-      .catch(error => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setMessage(resMessage);
-        setSubmit(false);
-      });
+    hideAuthMessage(true);
+    showLoading();
+    signIn({ email, password });
   }
 
   if (token) return <Redirect to="/mypage" />
-
   return (
     <section className="p-card">
       {
@@ -79,10 +70,10 @@ const Login = ({ locale, token }) => {
             </h2>
         }
         {
-          _message && (
+          message && (
             <div className="form-group">
               <div className="alert alert-danger alert-bg alert-center" role="alert">
-                {_message}
+                {message}
               </div>
             </div>
           )}
@@ -118,9 +109,9 @@ const Login = ({ locale, token }) => {
               />
               <Button
                 htmlType="submit"
-                className="c-btn c-btn-regist mt-4"
+                className="c-btn c-btn-regist d-flex align-items-center justify-content-center mt-4"
                 block
-                loading={_submit}>
+                loading={loading}>
                 <span>
                   <IntlMessage id="page.auth.btn.login" defaultMessage="ログイン" />
                 </span>
@@ -137,7 +128,7 @@ const Login = ({ locale, token }) => {
               />
             </Form>
           </div>
-          {/* <div className="c-signin--box__sns">
+          <div className="c-signin--box__sns">
             <p className="c-signin--formlabel">
               SNSでログイン
             </p>
@@ -153,7 +144,7 @@ const Login = ({ locale, token }) => {
               className="c-btn c-btn-social c-btn-social--line">
               LINEでログイン
             </Button>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>
@@ -162,8 +153,16 @@ const Login = ({ locale, token }) => {
 
 const mapStateToProps = ({ theme, auth }) => {
   const { locale } = theme;
-  const { token } = auth;
-  return { locale, token }
+  const { loading, message, token, redirect } = auth;
+  return { locale, loading, message, token, redirect }
 };
 
-export default withRouter(connect(mapStateToProps)(Login));
+const mapDispatchToProps = {
+  signIn,
+  showLoading,
+  hideAuthMessage,
+  signInWithGoogle,
+  signInWithFacebook
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

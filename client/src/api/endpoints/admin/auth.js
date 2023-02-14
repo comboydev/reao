@@ -1,6 +1,6 @@
 const AdminAuth = (httpClient) => ({
-    login(email, password) {
-        return httpClient.post(`admin/auth/signin`, { email, password })
+    login(payload) {
+        return httpClient.post(`admin/auth/signIn`, payload)
     },
     changePassword(payload) {
         return httpClient.put(`admin/auth/changePassword`, payload)

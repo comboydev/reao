@@ -1,6 +1,9 @@
 const UserAuth = (httpClient) => ({
-    login(email, password) {
-        return httpClient.post(`user/auth/signin`, { email, password })
+    signUp(payload) {
+        return httpClient.post(`user/auth/signUp`, payload);
+    },
+    login(payload) {
+        return httpClient.post(`user/auth/signIn`, payload)
     },
     sendLinkOfResetPassword(email) {
         return httpClient.post(`user/auth/sendLinkOfResetPassword`, { email })
@@ -10,13 +13,6 @@ const UserAuth = (httpClient) => ({
     },
     checkLinkOfResetPassword(token) {
         return httpClient.fetch(`user/auth/checkLinkOfResetPassword/${token}`);
-    },
-    register(email, password, introducer) {
-        return httpClient.post(`user/auth/signup`, {
-            email,
-            password,
-            introducer
-        });
     },
     changePassword(email, password, newPassword) {
         return httpClient.post(`user/auth/changePassword`, {

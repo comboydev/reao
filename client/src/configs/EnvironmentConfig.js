@@ -13,7 +13,7 @@ const prod = {
 const getEnv = () => {
 	switch (process.env.NODE_ENV) {
 		case 'development':
-			return prod
+			return dev
 		case 'production':
 			return prod
 		default:

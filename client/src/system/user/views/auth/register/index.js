@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation, useHistory, withRouter } from "react-router-dom";
+import { Link, useLocation, withRouter } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -7,67 +7,54 @@ import { Button } from 'antd';
 import { is_password, required, is_email } from "plugins/validator";
 import { connect } from "react-redux";
 import IntlMessage from "components/util-components/IntlMessage";
-import api from 'api';
+import {
+	signUp,
+	showLoading,
+	hideAuthMessage,
+	showAuthMessage,
+	signInWithGoogle,
+	signInWithFacebook
+} from "redux/actions";
 
-const Register = ({ locale }) => {
+const Register = (props) => {
+	const {
+		locale,
+		signUp,
+		loading,
+		showLoading,
+		showAuthMessage,
+		hideAuthMessage,
+		message,
+	} = props
 
+	const location = useLocation();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [password_confirm, setPasswordConfirm] = useState("");
-
-	const _location = useLocation();
-	const _history = useHistory();
-
-	const [_submit, setSubmit] = useState(false);
-	const [_error, setError] = useState("");
-	const [_success, setSuccess] = useState("");
+	const [passwordConfirmation, setPasswordConfirm] = useState("");
 	var _form, _checkBtn;
-
 
 	const handleRegister = (e) => {
 		e.preventDefault();
-
-		setError("");
-		setSuccess("");
-		setSubmit(false);
+		hideAuthMessage();
 
 		_form.validateAll();
 		if (_checkBtn.context._errors.length > 0)
 			return;
-		if (password !== password_confirm) {
-			setError("パスワードの確認が一致しません。");
+		if (password !== passwordConfirmation) {
+			showAuthMessage("パスワードの確認が一致しません。");
 			return;
 		}
 
 		if (!document.getElementById('agree').checked) {
-			setError("「利用規約」に同意は必須です");
+			showAuthMessage("「利用規約」に同意は必須です");
 			return;
 		}
 
-		setSubmit(true);
+		const query = new URLSearchParams(location.search);
+		const introducer = query.get("introducer");
 
-		let query = new URLSearchParams(_location.search);
-		let introducer = query.get("introducer");
-
-		api.userAuth.register(email, password, introducer)
-			.then(response => {
-				if (response.data.statusCode === 200) {
-					setSubmit(false);
-					_history.push("/register/complete");
-				}
-			})
-			.catch(error => {
-				console.log(error);
-				const resMessage =
-					(error.response &&
-						error.response.data &&
-						error.response.data.message) ||
-					error.message ||
-					error.toString();
-
-				setSubmit(false);
-				setError(resMessage);
-			});
+		showLoading();
+		signUp({ email, password, introducer });
 	}
 
 	return (
@@ -96,18 +83,10 @@ const Register = ({ locale }) => {
 						</h2>
 				}
 				{
-					_error &&
+					message &&
 					<div className="form-group">
 						<p className="alert alert-danger alert-bg alert-center">
-							{_error}
-						</p>
-					</div>
-				}
-				{
-					_success &&
-					<div className="form-group">
-						<p className="alert alert-success alert-bg alert-center">
-							{_success}
+							{message}
 						</p>
 					</div>
 				}
@@ -149,13 +128,13 @@ const Register = ({ locale }) => {
 								</article>
 
 								<p className="c-form--itemlabel">
-									<IntlMessage id="page.auth.password_confirm" defaultMessage="パスワード確認" />
+									<IntlMessage id="page.auth.passwordConfirmation" defaultMessage="パスワード確認" />
 								</p>
 								<Input
 									type="password"
 									className="c-form--input"
-									name="password_confirm"
-									value={password_confirm}
+									name="passwordConfirmation"
+									value={passwordConfirmation}
 									onChange={e => setPasswordConfirm(e.target.value)}
 									validations={[required, is_password]}
 								/>
@@ -172,9 +151,9 @@ const Register = ({ locale }) => {
 
 								<Button
 									htmlType="submit"
-									className="c-btn c-btn-regist"
+									className="c-btn c-btn-regist d-flex align-items-center justify-content-center"
 									block
-									loading={_submit}>
+									loading={loading}>
 									<span>
 										<IntlMessage id="page.auth.btn.register" defaultMessage="新規登録" />
 									</span>
@@ -189,24 +168,24 @@ const Register = ({ locale }) => {
 							/>
 						</Form>
 					</div>
-					{/* <div className="c-signup--box__sns">
+					<div className="c-signup--box__sns">
 						<p className="c-form--label">
-						SNSでユーザー登録
+							SNSでユーザー登録
 						</p>
 						<Button type="primary"
-						className="c-btn c-btn-social c-btn-social--facebook"
+							className="c-btn c-btn-social c-btn-social--facebook"
 						>
-						Facebookで登録
+							Facebookで登録
 						</Button>
 						<Button type="primary"
-						className="c-btn c-btn-social c-btn-social--twitter">
-						Twitterで登録
+							className="c-btn c-btn-social c-btn-social--twitter">
+							Twitterで登録
 						</Button>
-						<Button type="primary"                                                      
-						className="c-btn c-btn-social c-btn-social--line">                                          
-						LINEで登録
-						</Button>                                                                                             
-					</div>*/}
+						<Button type="primary"
+							className="c-btn c-btn-social c-btn-social--line">
+							LINEで登録
+						</Button>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -214,9 +193,19 @@ const Register = ({ locale }) => {
 }
 
 
-const mapStateToProps = ({ theme }) => {
+const mapStateToProps = ({ theme, auth }) => {
 	const { locale } = theme;
-	return { locale }
+	const { loading, message, token, redirect } = auth;
+	return { locale, loading, message, token, redirect }
 };
 
-export default withRouter(connect(mapStateToProps)(Register));
+const mapDispatchToProps = {
+	signUp,
+	showLoading,
+	showAuthMessage,
+	hideAuthMessage,
+	signInWithGoogle,
+	signInWithFacebook
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));

@@ -6,7 +6,6 @@
 	"sidenav.dashboard.affiliate.reward-group": "報酬グループ管理",
 	"sidenav.dashboard.mail": "メール管理",
 	"sidenav.dashboard.setting": "設定",
-	
 	"sidenav.app": " ",
 	"sidenav.app.coins": "コイン管理",
 	"sidenav.app.coins.owned": "保有コイン一覧",
@@ -14,14 +13,12 @@
 	"sidenav.app.coins.create": "新規発行",
 	"sidenav.app.marketplace": "マーケットプレイス",
 	"sidenav.app.marketplace.orders": "注文管理",
-
 	"message.login.sucess": "ログインしました!",
 	"message.logout.sucess": "ログアウトしました!",
 	"message.validation.required": "この項目は必須です！",
 	"message.validation.is_email": "メールアドレスを入力してください。",
 	"message.validation.is_phone": "電話番号が条件に合わないです。",
 	"message.validation.is_password": "パスワードが条件に合わないです。",
-
 	"header.nav.top": "TOP",
 	"header.nav.feature": "FANTATIONの特徴",
 	"header.nav.handling": "取り扱いコイン",
@@ -53,7 +50,6 @@
 	"header.nav.faq": "よくあるご質問",
 	"header.nav.purchase": "購入ガイド",
 	"header.nav.exhibit": "作品を売りたい方",
-
 	"page.contact.required": "必須",
 	"page.contact.txt1": "お問い合わせいただいた内容につきましては、折り返しご連絡させていただきます。",
 	"page.contact.txt2": "※ご連絡までに２～３営業日ほどお時間をいただいております。",
@@ -70,10 +66,9 @@
 	"page.contact.subject.other": "その他の問い合わせ",
 	"page.contact.detail": "お問い合わせメッセージ",
 	"page.contact.submit": "送信する",
-
 	"page.auth.email": "メールアドレス",
 	"page.auth.password": "パスワード",
-	"page.auth.password_confirm": "パスワード確認",
+	"page.auth.passwordConfirmation": "パスワード確認",
 	"page.auth.btn.login": "ログイン",
 	"page.auth.btn.register": "新規登録",
 	"page.auth.forgot_password": "パスワードの再設定",

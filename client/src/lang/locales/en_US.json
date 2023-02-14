@@ -6,7 +6,6 @@
 	"sidenav.dashboard.affiliate.reward-group": "Reward Group",
 	"sidenav.dashboard.mail": "Contact",
 	"sidenav.dashboard.setting": "Setting",
-	
 	"sidenav.app": " ",
 	"sidenav.app.coins": "Coins",
 	"sidenav.app.coins.owned": "Owned Coins",
@@ -14,14 +13,12 @@
 	"sidenav.app.coins.create": "Create",
 	"sidenav.app.marketplace": "Marketplace",
 	"sidenav.app.marketplace.order": "Order",
-
 	"message.login.sucess": "LOGIN SUCCESS!",
 	"message.logout.sucess": "LOGOUT SUCSSESS!",
 	"message.validation.required": "Item is required.",
 	"message.validation.is_email": "Please enter email address.",
 	"message.validation.is_phone": "The phone number does not match the conditions.",
 	"message.validation.is_password": "The password does not match the conditions.",
-
 	"header.nav.top": "TOP",
 	"header.nav.feature": "FEATURES",
 	"header.nav.handling": "COINS",
@@ -53,7 +50,6 @@
 	"header.nav.faq": "FAQ",
 	"header.nav.purchase": "Purchase",
 	"header.nav.exhibit": "Exhibit",
-
 	"page.contact.required": "Required",
 	"page.contact.txt1": "We will get back to you with your inquiry.",
 	"page.contact.txt2": "※It will take 2 to 3 business days to contact you.",
@@ -70,10 +66,9 @@
 	"page.contact.subject.other": "Other Inquiries",
 	"page.contact.detail": "Details",
 	"page.contact.submit": "Submit",
-
 	"page.auth.email": "Email",
 	"page.auth.password": "Password",
-	"page.auth.password_confirm": "Confirm Password",
+	"page.auth.passwordConfirmation": "Confirm Password",
 	"page.auth.btn.login": "Login",
 	"page.auth.btn.register": "Register",
 	"page.auth.forgot_password": "Forgot password?",

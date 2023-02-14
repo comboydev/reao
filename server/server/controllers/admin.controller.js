@@ -4,7 +4,7 @@ import db from "../models";
 
 const User = db.user;
 
-const adminSignin = (req, res) => {
+const adminSignIn = (req, res) => {
   User.findOne({
     email: req.body.email,
     role: "admin"
@@ -188,7 +188,7 @@ const setDisableAccount = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   let id = req.params.id;
-  let count = await User.find({ 'introducer': id }).count()
+  const count = await User.find({ 'introducer': id }).countDocuments()
   if (count === 0) {
     await User.findOneAndDelete({ _id: id });
     getAllUsers(req, res);
@@ -229,7 +229,7 @@ const updateRewardGroup = async (req, res) => {
 }
 
 export default {
-  adminSignin,
+  adminSignIn,
   changePassword,
   getProfile,
   updateProfile,

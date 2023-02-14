@@ -14,7 +14,7 @@ export default function ForgotPassword(props) {
   const { token } = props.match.params;
 
   const [password, setPassword] = useState('');
-  const [password_confirmation, setPasswordConfirmation] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [submit, setSubmit] = useState(false);
   const [_success, setSuccess] = useState('');
   const [_error, setError] = useState('');
@@ -126,13 +126,13 @@ export default function ForgotPassword(props) {
               </article>
 
               <p className="c-form--itemlabel">
-                <IntlMessage id="page.auth.password_confirm" description="パスワード確認" />
+                <IntlMessage id="page.auth.passwordConfirmation" description="パスワード確認" />
               </p>
               <Input
                 type="password"
                 className="c-form--input"
-                name="password_confirm"
-                value={password_confirmation}
+                name="passwordConfirmation"
+                value={passwordConfirmation}
                 onChange={e => setPasswordConfirmation(e.target.value)}
                 validations={[required, is_password]}
               />

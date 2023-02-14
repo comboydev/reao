@@ -15,7 +15,7 @@ const EmailActivate = db.emailActivate;
 const EXPIRE_TIME = 8;
 const FRONT_URL = process.env.FRONT_URL;
 
-const signup = (req, res) => {
+const signUp = (req, res) => {
   new User({
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
@@ -69,7 +69,7 @@ const signup = (req, res) => {
 
 };
 
-const signin = (req, res) => {
+const signIn = (req, res) => {
   User.findOne({
     email: req.body.email,
     role: "user"
@@ -384,8 +384,8 @@ const withdraw = async (req, res) => {
 
 
 export default {
-  signup,
-  signin,
+  signUp,
+  signIn,
   sendLinkOfResetPassword,
   resetPassword,
   checkLinkOfResetPassword,

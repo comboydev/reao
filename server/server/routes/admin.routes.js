@@ -8,7 +8,7 @@ import contactCtrl from "../controllers/contact.controller";
 
 const router = express.Router();
 
-router.route("/api/admin/auth/signin").post(AdminCtrl.adminSignin);
+router.route("/api/admin/auth/signIn").post(AdminCtrl.adminSignIn);
 router.route("/api/admin/auth/changePassword").put(AdminCtrl.changePassword)
 
 router.route("/api/admin/get/profile")
