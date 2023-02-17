@@ -3,7 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { Row, Col, Button, message, Radio, Form, InputNumber, Checkbox, Modal } from 'antd';
 import ContactSection from "system/user/components/ContactSection";
 import CoinInfo from 'system/user/components/OwnedCoinInfo';
-import { PAYMENT_TYPE } from "constants/AppConstant";
+import { PaymentTypeKv } from "constants/AppConstant";
 import userOrder from 'api/user/order';
 import { connect } from "react-redux";
 
@@ -73,7 +73,7 @@ const PurchaseRequest = (props) => {
                             <p className="text-right">支払い方法:</p>
                         </Col>
                         <Col xs={12} className="mb-2">
-                            <p className="text-left">{PAYMENT_TYPE[orderForm.getFieldValue().paymentType].label}</p>
+                            <p className="text-left">{PaymentTypeKv[orderForm.getFieldValue().paymentType].label}</p>
                         </Col>
                     </Row>
                 </div>
@@ -221,7 +221,7 @@ const PurchaseRequest = (props) => {
                                 <Form.Item name="paymentType">
                                     <Radio.Group>
                                         {
-                                            PAYMENT_TYPE.map((d, i) =>
+                                            PaymentTypeKv.map((d, i) =>
                                                 <Radio value={d.value} key={i}>{d.label}</Radio>
                                             )
                                         }
@@ -260,7 +260,7 @@ const PurchaseRequest = (props) => {
                     </div>
                     <div className="max-w500 mx-auto mt-20">
                         <Button
-                            className="c-btn c-btn-regist"
+                            className="c-btn c-btn-regist d-flex align-items-center justify-content-center"
                             block
                             onClick={onVisibleModal}
                         >

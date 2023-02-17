@@ -8,7 +8,7 @@ import Flex from 'components/shared-components/Flex'
 import moment from 'moment';
 import utils from 'plugins/utils'
 import api from 'api';
-import { PAYMENT_STATUS, ORDER_STATUS } from 'constants/AppConstant';
+import { PaymentStatusKv, OrderStatusKv } from 'constants/AppConstant';
 import YenFormat from 'components/custom/YenFormat';
 import TNumberFormat from 'components/custom/TNumberFormat';
 
@@ -112,7 +112,7 @@ const Orders = () => {
 			title: 'Order Status',
 			dataIndex: 'orderStatus',
 			render: orderStatus => (
-				<><Tag color={ORDER_STATUS[orderStatus].color}>{ORDER_STATUS[orderStatus].label}</Tag></>
+				<><Tag color={OrderStatusKv[orderStatus].color}>{OrderStatusKv[orderStatus].label}</Tag></>
 			),
 			sorter: (a, b) => utils.antdTableSorter(a, b, 'orderStatus')
 		},
@@ -120,7 +120,7 @@ const Orders = () => {
 			title: 'Payment Status',
 			dataIndex: 'paymentStatus',
 			render: paymentStatus => (
-				<><Badge status={PAYMENT_STATUS[paymentStatus].color} /><span>{PAYMENT_STATUS[paymentStatus].label}</span></>
+				<><Badge status={PaymentStatusKv[paymentStatus].color} /><span>{PaymentStatusKv[paymentStatus].label}</span></>
 			),
 			sorter: (a, b) => utils.antdTableSorter(a, b, 'paymentStatus')
 		},
@@ -166,7 +166,7 @@ const Orders = () => {
 						placeholder="Status"
 					>
 						<Option value="All">All</Option>
-						{PAYMENT_STATUS.map((elm, key) => <Option key={key} value={key}>{elm.label}</Option>)}
+						{PaymentStatusKv.map((elm, key) => <Option key={key} value={key}>{elm.label}</Option>)}
 					</Select>
 				</div>
 			</Flex>

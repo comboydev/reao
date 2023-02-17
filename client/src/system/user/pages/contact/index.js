@@ -204,7 +204,7 @@ const Contact = ({ locale, user }) => {
 
 						<Button
 							htmlType="submit"
-							className="c-btn c-btn--memberInfo my-3"
+							className="c-btn c-btn--memberInfo d-flex align-items-center justify-content-center my-3"
 							disabled={!enableBtn}
 							loading={submit}>
 							<span><IntlMessage id="page.contact.submit" /></span>

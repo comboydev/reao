@@ -49,7 +49,7 @@ const Partner = ({ user }) => {
 
 	useEffect(() => {
 		async function fetchData() {
-			setRewardGroup(user);
+			setRewardGroup(user?.rewardGroup);
 			const { data } = await api.userProfile.getPartners();
 			setTear(data);
 			setLoaded(true);

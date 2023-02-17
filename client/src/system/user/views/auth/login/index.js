@@ -25,6 +25,7 @@ const Login = (props) => {
     loading,
     showLoading,
     hideAuthMessage,
+    signInWithGoogle,
     message,
   } = props
 
@@ -128,12 +129,19 @@ const Login = (props) => {
               />
             </Form>
           </div>
-          <div className="c-signin--box__sns">
+          {/* <div className="c-signin--box__sns">
             <p className="c-signin--formlabel">
               SNSでログイン
             </p>
             <Button type="primary"
-              className="c-btn c-btn-social c-btn-social--facebook">
+              className="c-btn c-btn-social c-btn-social--facebook"
+              onClick={signInWithGoogle}
+            >
+              Googleでログイン
+            </Button>
+            <Button type="primary"
+              className="c-btn c-btn-social c-btn-social--facebook"
+            >
               Facebookでログイン
             </Button>
             <Button type="primary"
@@ -144,7 +152,7 @@ const Login = (props) => {
               className="c-btn c-btn-social c-btn-social--line">
               LINEでログイン
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

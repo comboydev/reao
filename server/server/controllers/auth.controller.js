@@ -6,6 +6,8 @@ import {
 } from "../config/mail.config";
 import db from "../models";
 import Utils from "../utils";
+import { Role } from "../config/constant";
+
 const config = require("../config");
 require('dotenv').config();
 
@@ -22,7 +24,7 @@ const signUp = (req, res) => {
     introducer: req.body.introducer,
   })
     .save()
-    .then(user => {
+    .then(async (user) => {
       const ttl = new Date();
       ttl.setHours(ttl.getHours() + EXPIRE_TIME);
       let vToken = Utils.generateToken(user.id);
@@ -35,78 +37,92 @@ const signUp = (req, res) => {
       })
       emailActivate.save();             //Save Email Activate for email verification
 
-      let confirm_url = `${FRONT_URL}/verify/email/${vToken}`;
-      let msg = {
+      const tokenUrl = `${FRONT_URL}/verify/email/${vToken}`;
+      const msg = {
         from: config.support_mail, // Sender address
         to: user.email, // List of recipients
         subject: '【FANTATION】　新規会員登録ありがとうございます。', // Subject line
-        text: registerTempMsg(confirm_url), // Plain text body
+        text: registerTempMsg(tokenUrl), // Plain text body
       };
 
-      mailer.sendMail(msg)
-        .then(() => {
-          return res.send({ status_code: 200 });
-        })
-        .catch(err => {
-          console.log("SMTP Error:", err);
-          return res.status(500).send({
-            message: "SMTP Error!"
-          });
-        })
+      try {
+        await mailer.sendMail(msg);
+        const token = user.generateJwt();
+        return res.send({ status_code: 200, user, token });
+      } catch {
+        console.log("SMTP Error");
+        return res.send({ status_code: 500, message: "SMTP Error!" });
+      }
     })
     .catch(err => {
-      if (err) {
-        if (err.message) {
-          let startIdx = err.message.lastIndexOf(':');
-          startIdx = startIdx > 0 ? startIdx + 1 : startIdx;
-          err.message = err.message.substr(startIdx);
-        }
-        return res.status(500).send({
-          message: err.message || "エラーが発生しました!"
-        });
-      }
+      return res.send({
+        status_code: 500,
+        message: err.message.split(':').slice(-1) || "エラーが発生しました!"
+      });
     });
-
 };
 
-const signIn = (req, res) => {
-  User.findOne({
+const signIn = async (req, res) => {
+  const user = await User.findOne({
     email: req.body.email,
-    role: "user"
-  })
-    .then(user => {
-      if (!user) {
-        return res.send({ status_code: 400, message: "ログインに失敗しました。10回連続で失敗すると、一定期間ログインできなくなります。" });
-      }
-      user.comparePassword(req.body.password, function (err, isMatch) {
-        if (isMatch && !err) {
-          // if user is found and password is right create a token
-          var token = user.generateJwt()
-          return res.send({
-            status_code: 200,
-            token,
-            user,
-          });
-        } else {
-          return res.send({
-            status_code: 401,
-            message: "ログインに失敗しました。10回連続で失敗すると、一定期間ログインできなくなります。"
-          });
-        }
+    socialAccount: false,
+    role: Role.user,
+  });
+  if (!user) {
+    return res.send({ status_code: 400, message: "登録されていないユーザーです。" });
+  }
+  user.comparePassword(req.body.password, function (err, isMatch) {
+    if (isMatch && !err) {
+      // if user is found and password is right create a token
+      const token = user.generateJwt()
+      return res.send({
+        status_code: 200,
+        token,
+        user,
       });
+    } else {
+      return res.send({
+        status_code: 401,
+        message: "ログインに失敗しました。10回連続で失敗すると、一定期間ログインできなくなります。"
+      });
+    }
+  });
+};
+
+const signUpWithSNS = (req, res) => {
+  new User({
+    email: req.body.email,
+    socialAccount: true,
+    emailVerified: true,
+  })
+    .save()
+    .then((user) => {
+      const token = user.generateJwt();
+      return res.send({ status_code: 200, user, token });
     })
     .catch(err => {
-      if (err.message) {
-        let startIdx = err.message.lastIndexOf(':');
-        startIdx = startIdx > 0 ? startIdx + 1 : startIdx;
-        err.message = err.message.substr(startIdx);
-        console.log("err", err.message);
-      }
-      return res.status(500).send({
-        message: err.message || "エラーが発生しました!"
+      return res.send({
+        status_code: 500,
+        message: err.message.split(':').slice(-1) || "エラーが発生しました!"
       });
-    })
-};
+    });
+}
+
+const signInWithSNS = async (req, res) => {
+  var user = await User.findOne({
+    email: req.body.email,
+    socialAccount: true,
+  });
+  if (!user) {
+    return res.send({ status_code: 400, message: "登録されていないユーザーです。" });
+  }
+  const token = user.generateJwt()
+  return res.send({
+    status_code: 200,
+    token,
+    user,
+  });
+}
 
 const sendLinkOfResetPassword = async (req, res) => {
   //if new_email exists in db, return false;
@@ -366,7 +382,7 @@ const changePassword = (req, res) => {
 const withdraw = async (req, res) => {
   try {
     const userId = req.userId
-    const count = await User.find({ 'introducer': userId }).count()
+    const count = await User.find({ 'introducer': userId }).countDocuments()
     if (count > 0) {
       return res.send({
         status_code: 400,
@@ -386,6 +402,8 @@ const withdraw = async (req, res) => {
 export default {
   signUp,
   signIn,
+  signUpWithSNS,
+  signInWithSNS,
   sendLinkOfResetPassword,
   resetPassword,
   checkLinkOfResetPassword,

@@ -706,92 +706,98 @@ const HomeEN = () => {
                 </article>
                 <div className="c-coin--list">
                     <div className="c-coin">
-                        <ul>
+                        <ul className="c-coin--detail coinLabel new">
                             <div className="c-coin__image">
                                 <img src="/img/home/lion.png" alt="fantation" />
                             </div>
-                            <dl className="c-coin__name">
+                            <li className="c-coin__name">
                                 <dt>・Item:</dt>
                                 <dd>1839 G.BRITAIN 5 Sov W&R-279 UNA AND THE LION</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__grade">
                                 <dt>・Grade:</dt>
                                 <dd>PF 66★ ULTRA CAMEO</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__numberOfCoins">
                                 <dt>・Publish Qty:</dt>
                                 <dd>400 sheets</dd>
-                            </dl>
+                            </li>
                         </ul>
-                        <ul>
-                            <dl className="c-coin__refPrice">
+                        <ul className="c-coin--pricearea">
+                            <li className="c-coin__refPrice">
                                 <dt>・Sale Price:</dt>
                                 <dd>$750,000～</dd>
-                            </dl>
-                            <dl className="c-coin__cost">
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
+                            <li className="c-coin__cost">
                                 <dt>・Price of Ownership:</dt>
                                 <dd>$75</dd>
-                            </dl>
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
                         </ul>
                     </div>
 
                     <div className="c-coin">
-                        <ul>
+                        <ul className="c-coin--detail coinLabel new">
                             <div className="c-coin__image">
                                 <img src="/img/home/crown.png" alt="fantation" />
                             </div>
-                            <dl className="c-coin__name">
+                            <li className="c-coin__name">
                                 <dt>・Item:</dt>
                                 <dd>1847 Crown Great Britain Gothic</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__grade">
                                 <dt>・Grade:</dt>
                                 <dd>PR65 CAMEO</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__numberOfCoins">
                                 <dt>・Publish Qty:</dt>
                                 <dd>8000 sheets</dd>
-                            </dl>
+                            </li>
                         </ul>
-                        <ul>
-                            <dl className="c-coin__refPrice">
+                        <ul className="c-coin--pricearea">
+                            <li className="c-coin__refPrice">
                                 <dt>・Sale Price:</dt>
                                 <dd>$30,000～</dd>
-                            </dl>
-                            <dl className="c-coin__cost">
+                                <dd className="c-coin__comparison price_minus">-0$(-120%)</dd>
+                            </li>
+                            <li className="c-coin__cost">
                                 <dt>・Price of Ownership:</dt>
                                 <dd>$75</dd>
-                            </dl>
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
                         </ul>
                     </div>
 
                     <div className="c-coin">
-                        <ul>
+                        <ul className="c-coin--detail coinLabel new">
                             <div className="c-coin__image">
                                 <img src="/img/home/guinea.png" alt="fantation" />
                             </div>
-                            <dl className="c-coin__name">
+                            <li className="c-coin__name">
                                 <dt>・Item:</dt>
                                 <dd>1895A 10M G.N.GUINEA</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__grade">
                                 <dt>・Grade:</dt>
                                 <dd>PR65 CAMEO</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__numberOfCoins">
                                 <dt>・Publish Qty:</dt>
                                 <dd>2000 sheets</dd>
-                            </dl>
+                            </li>
                         </ul>
-                        <ul>
-                            <dl className="c-coin__refPrice">
+                        <ul className="c-coin--pricearea">
+                            <li className="c-coin__refPrice">
                                 <dt>・Sale Price:</dt>
                                 <dd>$45,000～</dd>
-                            </dl>
-                            <dl className="c-coin__cost">
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
+                            <li className="c-coin__cost">
                                 <dt>・Price of Ownership:</dt>
                                 <dd>$75</dd>
-                            </dl>
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
                         </ul>
                     </div>
 
@@ -800,28 +806,30 @@ const HomeEN = () => {
                             <div className="c-coin__image">
                                 <img src="/img/home/bavaria.png" alt="fantation" />
                             </div>
-                            <dl className="c-coin__name">
+                            <li className="c-coin__name">
                                 <dt>・Item:</dt>
                                 <dd>1640 GERMANY 5D BAVARIA FR-196</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__grade">
                                 <dt>・Grade:</dt>
                                 <dd>PR65 CAMEO</dd>
-                            </dl>
-                            <dl>
+                            </li>
+                            <li className="c-coin__numberOfCoins">
                                 <dt>・Publish Qty:</dt>
                                 <dd>(※Estimated 100-200 sheets)</dd>
-                            </dl>
+                            </li>
                         </ul>
-                        <ul>
-                            <dl className="c-coin__refPrice">
+                        <ul className="c-coin--pricearea">
+                            <li className="c-coin__refPrice">
                                 <dt>・Sale Price:</dt>
                                 <dd>$37,500～</dd>
-                            </dl>
-                            <dl className="c-coin__cost">
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
+                            <li className="c-coin__cost">
                                 <dt>・Price of Ownership:</dt>
                                 <dd>$75</dd>
-                            </dl>
+                                <dd className="c-coin__comparison">+0$(+120%)</dd>
+                            </li>
                         </ul>
                     </div>
                 </div>

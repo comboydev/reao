@@ -4,8 +4,8 @@ const User = db.user;
 
 const create = async (req, res) => {
 	try {
-		let result = await RewardGroup.findOne({ name: req.body.name });
-		if (result != null){
+		const result = await RewardGroup.findOne({ name: req.body.name });
+		if (result != null) {
 			res.send({
 				status_code: 401,
 				message: "すでに登録されているグループです!"
@@ -15,7 +15,7 @@ const create = async (req, res) => {
 			await new RewardGroup({ ...req.body }).save();
 			getAll(req, res);
 		}
-	} catch(err) {
+	} catch (err) {
 		res.status(400).json({
 			error: errorHandler.getErrorMessage(err)
 		});
@@ -38,10 +38,10 @@ const update = async (req, res) => {
 
 const getAll = async (req, res) => {
 	try {
-		let groups = await RewardGroup.find().sort({ created_at: -1 });
-		let promises = groups.map(async (group) => {
+		const groups = await RewardGroup.find().sort({ created_at: -1 });
+		const promises = groups.map(async (group) => {
 			let id = group._id;
-			let count = await User.find({ rewardGroup: id }).count();
+			let count = await User.find({ rewardGroup: id }).countDocuments();
 			return {
 				...group._doc,
 				countOfUser: count,
@@ -53,7 +53,7 @@ const getAll = async (req, res) => {
 				rewardGroups: rewardGroups,
 			});
 		})
-		
+
 	} catch (err) {
 		return res.status(400).json({
 			error: errorHandler.getErrorMessage(err)
@@ -63,8 +63,8 @@ const getAll = async (req, res) => {
 
 const deleteOne = async (req, res) => {
 	try {
-		let id = req.params.groupID;
-		let count = await User.find({ rewardGroup: id }).count();
+		const id = req.params.groupID;
+		const count = await User.find({ rewardGroup: id }).countDocuments();
 		if (count > 0) {
 			return res.json({
 				status_code: 400,
@@ -72,7 +72,7 @@ const deleteOne = async (req, res) => {
 			})
 		} else {
 			await RewardGroup.findOneAndDelete({ _id: id });
-			getAll(req, res);		
+			getAll(req, res);
 		}
 	} catch (err) {
 		return res.status(400).json({
@@ -82,8 +82,8 @@ const deleteOne = async (req, res) => {
 }
 
 export default {
-  create,
-  update,
-  getAll,
-  deleteOne,
+	create,
+	update,
+	getAll,
+	deleteOne,
 }

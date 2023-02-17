@@ -5,10 +5,9 @@ import { AUTH_PREFIX_PATH } from 'configs/AppConfig'
 
 export const AdminAuthViews = () => {
   return (
-    <Suspense fallback={<Loading cover="page"/>}>
+    <Suspense fallback={<Loading cover="page" />}>
       <Switch>
         <Route path={`${AUTH_PREFIX_PATH}/login`} component={lazy(() => import(`./login`))} />
-        <Route path={`${AUTH_PREFIX_PATH}/register`} component={lazy(() => import(`./register`))} />
         <Route path={`${AUTH_PREFIX_PATH}/forgot-password`} component={lazy(() => import(`./forgot-password`))} />
         <Route path={`${AUTH_PREFIX_PATH}/error`} component={lazy(() => import(`../errors`))} />
         <Redirect from={`${AUTH_PREFIX_PATH}`} to={`${AUTH_PREFIX_PATH}/login`} />

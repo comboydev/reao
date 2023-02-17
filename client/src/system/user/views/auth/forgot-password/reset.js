@@ -139,7 +139,7 @@ export default function ForgotPassword(props) {
 
               <Button
                 htmlType="submit"
-                className="c-btn c-btn-regist mt-4"
+                className="c-btn c-btn-regist d-flex align-items-center justify-content-center mt-4"
                 block
                 loading={submit}>
                 <span>

@@ -11,7 +11,9 @@ import {
   SIGNIN_WITH_GOOGLE,
   SIGNIN_WITH_GOOGLE_AUTHENTICATED,
   SIGNIN_WITH_FACEBOOK,
-  SIGNIN_WITH_FACEBOOK_AUTHENTICATED
+  SIGNIN_WITH_FACEBOOK_AUTHENTICATED,
+  SIGNUP_WITH_GOOGLE,
+  SIGNUP_WITH_FACEBOOK
 } from '../constants/Auth';
 
 export const signIn = (payload) => {
@@ -54,6 +56,12 @@ export const signUpSuccess = (token) => {
   };
 };
 
+export const signUpWithGoogle = () => {
+  return {
+    type: SIGNUP_WITH_GOOGLE
+  };
+};
+
 export const signInWithGoogle = () => {
   return {
     type: SIGNIN_WITH_GOOGLE
@@ -64,6 +72,12 @@ export const signInWithGoogleAuthenticated = (token) => {
   return {
     type: SIGNIN_WITH_GOOGLE_AUTHENTICATED,
     token
+  };
+};
+
+export const signUpWithFacebook = () => {
+  return {
+    type: SIGNUP_WITH_FACEBOOK,
   };
 };
 

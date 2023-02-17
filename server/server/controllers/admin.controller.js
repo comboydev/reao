@@ -1,45 +1,34 @@
 import bcrypt from "bcryptjs";
-import { IDVERIFY_STATUS } from "../config/constant";
+import { IdentityStatus } from "../config/constant";
 import db from "../models";
+import { Role } from "../config/constant";
 
 const User = db.user;
 
-const adminSignIn = (req, res) => {
-  User.findOne({
+const adminSignIn = async (req, res) => {
+  const user = await User.findOne({
     email: req.body.email,
-    role: "admin"
-  })
-    .then(user => {
-      if (!user) {
-        return res.send({ status_code: 400, message: "ログインに失敗しました。" });
-      }
-      user.comparePassword(req.body.password, function (err, isMatch) {
-        if (isMatch && !err) {
-          // if user is found and password is right create a token
-          var token = user.generateJwt();
-          return res.send({
-            status_code: 200,
-            user,
-            token,
-          });
-        } else {
-          return res.send({
-            status_code: 401,
-            message: "ログインに失敗しました。"
-          });
-        }
+    role: Role.admin,
+  });
+  if (!user) {
+    return res.send({ status_code: 400, message: "登録されていないユーザーです。" });
+  }
+  user.comparePassword(req.body.password, function (err, isMatch) {
+    if (isMatch && !err) {
+      // if user is found and password is right create a token
+      const token = user.generateJwt()
+      return res.send({
+        status_code: 200,
+        token,
+        user,
       });
-    })
-    .catch(err => {
-      if (err.message) {
-        let startIdx = err.message.lastIndexOf(':');
-        startIdx = startIdx > 0 ? startIdx + 1 : startIdx;
-        err.message = err.message.substr(startIdx);
-      }
-      return res.status(500).send({
-        message: err.message || "エラーが発生しました!"
+    } else {
+      return res.send({
+        status_code: 401,
+        message: "ログインに失敗しました。"
       });
-    })
+    }
+  });
 };
 
 const changePassword = (req, res) => {
@@ -175,7 +164,7 @@ const getUserOne = async (req, res) => {
 const setConfirmedIdentity = async (req, res) => {
   const user = await User.findOneAndUpdate({
     _id: req.params.id,
-  }, { identityVerified: IDVERIFY_STATUS.verified }, { returnOriginal: false })
+  }, { identityVerified: IdentityStatus.verified }, { returnOriginal: false })
   return res.send(user);
 }
 

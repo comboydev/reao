@@ -5,6 +5,12 @@ const UserAuth = (httpClient) => ({
     login(payload) {
         return httpClient.post(`user/auth/signIn`, payload)
     },
+    signUpWithSNS(payload) {
+        return httpClient.post(`user/auth/signUpWithSNS`, payload);
+    },
+    loginWithSNS(payload) {
+        return httpClient.post(`user/auth/signInWithSNS`, payload)
+    },
     sendLinkOfResetPassword(email) {
         return httpClient.post(`user/auth/sendLinkOfResetPassword`, { email })
     },

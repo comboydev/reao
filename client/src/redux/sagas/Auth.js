@@ -14,14 +14,36 @@ import {
 	signInWithFacebookAuthenticated,
 } from "../actions/Auth";
 
-import {
-	setUser,
-} from "../actions/App";
+// import {
+// 	setUser,
+// } from "../actions/App";
 
 import api from 'api';
 import FirebaseService from 'services/firebase'
 import JwtService from 'services/jwt';
 import { APP_ENTRY_PATH } from 'configs/AppConfig';
+
+export function* signUpWithEmail() {
+	yield takeEvery(SIGNUP, function* ({ payload }) {
+		try {
+			const { data } = yield call(api.userAuth.signUp, payload);
+			if (data.statusCode === 200) {
+				window.location.href = "/register/complete";
+			} else {
+				yield put(showAuthMessage(data.message));
+			}
+		} catch (error) {
+			const resMessage =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+			yield put(showAuthMessage(resMessage));
+		}
+	}
+	);
+}
 
 export function* signInWithEmail() {
 	yield takeEvery(SIGNIN, function* ({ payload }) {
@@ -53,40 +75,17 @@ export function* signOut() {
 	});
 }
 
-export function* signUpWithEmail() {
-	yield takeEvery(SIGNUP, function* ({ payload }) {
-		try {
-			const { data } = yield call(api.userAuth.signUp, payload);
-			if (data.statusCode === 200) {
-				window.location.href = "/register/complete";
-			} else {
-				yield put(showAuthMessage(data.message));
-			}
-		} catch (error) {
-			const resMessage =
-				(error.response &&
-					error.response.data &&
-					error.response.data.message) ||
-				error.message ||
-				error.toString();
-			yield put(showAuthMessage(resMessage));
-		}
-	}
-	);
-}
-
-export function* signInWithFBGoogle() {
-	yield takeEvery(SIGNIN_WITH_GOOGLE, function* () {
+export function* signUpWithGoogle() {
+	yield takeEvery(SIGNUP_WITH_GOOGLE, function* () {
 		try {
 			const user = yield call(FirebaseService.signInGoogleRequest);
 			if (user.message) {
 				yield put(showAuthMessage(user.message));
 			} else {
-				const { data } = yield call(api.auth.loginWithGoogle, user.user.email);
+				const params = { email: user.user.email };
+				const { data } = yield call(api.userAuth.signUpWithSNS, params);
 				if (data.statusCode === 200) {
 					JwtService.setToken(data.token);
-					// yield put(signInWithGoogleAuthenticated(data.token));
-					yield put(setUser(data.user));
 					window.location.href = APP_ENTRY_PATH;
 				} else {
 					yield put(showAuthMessage(data.message));
@@ -98,18 +97,17 @@ export function* signInWithFBGoogle() {
 	});
 }
 
-export function* signUpWithFBGoogle() {
-	yield takeEvery(SIGNUP_WITH_GOOGLE, function* () {
+export function* signInWithGoogle() {
+	yield takeEvery(SIGNIN_WITH_GOOGLE, function* () {
 		try {
 			const user = yield call(FirebaseService.signInGoogleRequest);
 			if (user.message) {
 				yield put(showAuthMessage(user.message));
 			} else {
-				const { data } = yield call(api.auth.signUpWithGoogle, user.user.email);
+				const params = { email: user.user.email };
+				const { data } = yield call(api.userAuth.loginWithSNS, params);
 				if (data.statusCode === 200) {
 					JwtService.setToken(data.token);
-					// yield put(signUpSuccess(data.token));
-					yield put(setUser(data.user));
 					window.location.href = APP_ENTRY_PATH;
 				} else {
 					yield put(showAuthMessage(data.message));
@@ -140,11 +138,11 @@ export function* signInWithFacebook() {
 
 export default function* rootSaga() {
 	yield all([
+		fork(signUpWithEmail),
 		fork(signInWithEmail),
 		fork(signOut),
-		fork(signUpWithEmail),
-		fork(signInWithFBGoogle),
-		fork(signUpWithFBGoogle),
+		fork(signInWithGoogle),
+		fork(signUpWithGoogle),
 		fork(signInWithFacebook),
 	]);
 }

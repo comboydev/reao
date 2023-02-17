@@ -1,5 +1,5 @@
 import db from "../models";
-import { IDVERIFY_STATUS } from "../config/constant";
+import { IdentityStatus } from "../config/constant";
 
 const User = db.user;
 
@@ -12,7 +12,7 @@ const getUserInfo = async (req, res) => {
 
 const updateUserInfo = async (req, res) => {
   const user = await User.findOneAndUpdate({ _id: req.userId }, {
-    ...req.body, identityVerified: IDVERIFY_STATUS.default,
+    ...req.body, identityVerified: IdentityStatus.default,
   }, { returnOriginal: false });
   return res.send(user);
 }
@@ -31,7 +31,7 @@ const updateAvatar = async (req, res) => {
 
 const updateWarrant = async (req, res) => {
   const user = await User.findOneAndUpdate({ _id: req.userId }, {
-    ...req.body, identityVerified: IDVERIFY_STATUS.applying,
+    ...req.body, identityVerified: IdentityStatus.applying,
   }, { returnOriginal: false });
   return res.send(user);
 }

@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.route("/api/user/auth/signUp").post(authCtrl.signUp);
 router.route("/api/user/auth/signIn").post(authCtrl.signIn);
+router.route("/api/user/auth/signUpWithSNS").post(authCtrl.signUpWithSNS);
+router.route("/api/user/auth/signInWithSNS").post(authCtrl.signInWithSNS);
 router.route("/api/user/auth/resetPassword/:token").post(authCtrl.resetPassword);
 router.route("/api/user/auth/sendLinkOfResetPassword").post(authCtrl.sendLinkOfResetPassword);
 router.route("/api/user/auth/checkLinkOfResetPassword/:token").get(authCtrl.checkLinkOfResetPassword);
