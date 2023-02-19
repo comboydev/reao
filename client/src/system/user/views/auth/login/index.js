@@ -129,7 +129,7 @@ const Login = (props) => {
               />
             </Form>
           </div>
-          {/* <div className="c-signin--box__sns">
+          <div className="c-signin--box__sns">
             <p className="c-signin--formlabel">
               SNSでログイン
             </p>
@@ -152,7 +152,7 @@ const Login = (props) => {
               className="c-btn c-btn-social c-btn-social--line">
               LINEでログイン
             </Button>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>

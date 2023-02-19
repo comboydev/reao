@@ -41,7 +41,7 @@ class Utils {
   }
 
   getPublicPath = (pth) => {
-    switch (process.env.NODE_ENV) {
+    switch (process.env.FRONT_ENV) {
       case 'development':
         return path.join(CURRENT_WORKING_DIR, '../client/public', pth);
       case 'production':

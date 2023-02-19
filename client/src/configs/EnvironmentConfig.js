@@ -1,13 +1,7 @@
-const dev = {
-	API_ENDPOINT_URL: 'http://localhost:8080',
-	NETWORK_ID: 80001,
-	NODE_1: "https://matic-mumbai.chainstacklabs.com"
-};
-
 const prod = {
-	API_ENDPOINT_URL: 'https://fantation-coin.com:8080',
-	NETWORK_ID: 137,
-	NODE_1: "https://matic-mainnet-archive-rpc.bwarelabs.com",
+	API_ENDPOINT_URL: process.env.REACT_APP_API_ENDPOINT_URL,
+	CHAIN_ID: process.env.REACT_APP_CHAIN_ID,
+	RPC_NODE: process.env.REACT_APP_RPC_NODE,
 };
 
 const getEnv = () => {

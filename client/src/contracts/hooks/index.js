@@ -46,9 +46,9 @@ export const BIG_ZERO = BigNumber.from(0);
 export const ZERO_ADDRESS = ethers.constants.AddressZero;
 
 export const currentNetwork =
-  parseInt(env.NETWORK_ID || '') || 80001;
+  parseInt(env.CHAIN_ID || '') || 80001;
 
-export const simpleProvider = new ethers.providers.JsonRpcProvider(env.NODE_1);
+export const simpleProvider = new ethers.providers.JsonRpcProvider(env.RPC_NODE);
 
 export const Currencies = {
   [Networks.MainNet]: [
