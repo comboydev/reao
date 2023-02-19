@@ -41,11 +41,17 @@ class Utils {
   }
 
   getPublicPath = (pth) => {
+    var folder;
     switch (process.env.FRONT_ENV) {
+      case 'development': folder = 'public'; break;
+      case 'production': folder = 'build'; break;
+      default: break;
+    }
+    switch (process.env.NODE_ENV) {
       case 'development':
-        return path.join(CURRENT_WORKING_DIR, '../client/public', pth);
+        return path.join(CURRENT_WORKING_DIR, `../client/${folder}`, pth);
       case 'production':
-        return path.join(CURRENT_WORKING_DIR, '../../client/build', pth);
+        return path.join(CURRENT_WORKING_DIR, `../../client/${folder}`, pth);
       default:
         break;
     }

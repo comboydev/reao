@@ -96,11 +96,11 @@ const Profile = (props) => {
 		},
 		{
 			title: '登録日',
-			dataIndex: 'created_at',
-			render: created_at => (
-				<span>{moment(created_at).format("MM/DD/YYYY")} </span>
+			dataIndex: 'createdAt',
+			render: createdAt => (
+				<span>{moment(createdAt).format("MM/DD/YYYY")} </span>
 			),
-			sorter: (a, b) => moment(a.created_at) - moment(b.created_at)
+			sorter: (a, b) => moment(a.createdAt) - moment(b.createdAt)
 		},
 		{
 			title: '',
@@ -234,7 +234,7 @@ const Profile = (props) => {
 									<span className="text-muted ml-2">登録日:</span>
 								</Col>
 								<Col xs={16}>
-									<span className="font-weight-semibold">{moment(userData.created_at).format('YYYY年 MM月 DD日')}</span>
+									<span className="font-weight-semibold">{moment(userData.createdAt).format('YYYY年 MM月 DD日')}</span>
 								</Col>
 							</Row>
 						</div>

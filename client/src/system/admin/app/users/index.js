@@ -131,12 +131,12 @@ export const UserList = () => {
 		},
 		{
 			title: '登録日',
-			dataIndex: 'created_at',
+			dataIndex: 'createdAt',
 			width: 200,
-			render: created_at => (
-				<span>{moment(created_at).format("YYYY/MM/DD")} </span>
+			render: createdAt => (
+				<span>{moment(createdAt).format("YYYY/MM/DD")} </span>
 			),
-			sorter: (a, b) => moment(a.created_at) - moment(b.created_at)
+			sorter: (a, b) => moment(a.createdAt) - moment(b.createdAt)
 		},
 		// {
 		// 	title: 'Status',

@@ -99,7 +99,7 @@ const MaiDetail = (props) => {
 				<div className="mail-detail-action mb-3">
 					<Tag color={getLabelColor(mail.label)} className="mr-4">{capitalizeFirstLetter(mail.label)}</Tag>
 					<span className="mr-2 text-muted">
-						{moment(mail.created_at).format("MM/DD/YYYY hh:mm")}
+						{moment(mail.createdAt).format("MM/DD/YYYY hh:mm")}
 					</span>
 					{
 						!mail.deleted ?

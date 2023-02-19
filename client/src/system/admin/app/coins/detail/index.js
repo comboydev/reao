@@ -63,9 +63,9 @@ const DetailCoin = (props) => {
 	// 	},
 	// 	{
 	// 		title: '購入日',
-	// 		dataIndex: 'created_at',
-	// 		render: created_at => (
-	// 			<span>{moment(created_at).format("YYYY-MM-DD")} </span>
+	// 		dataIndex: 'createdAt',
+	// 		render: createdAt => (
+	// 			<span>{moment(createdAt).format("YYYY-MM-DD")} </span>
 	// 		),
 	// 		sorter: null
 	// 	},

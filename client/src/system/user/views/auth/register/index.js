@@ -169,7 +169,7 @@ const Register = (props) => {
 							/>
 						</Form>
 					</div>
-					{/* <div className="c-signup--box__sns">
+					<div className="c-signup--box__sns">
 						<p className="c-form--label">
 							SNSでユーザー登録
 						</p>
@@ -192,7 +192,7 @@ const Register = (props) => {
 							className="c-btn c-btn-social c-btn-social--line">
 							LINEで登録
 						</Button>
-					</div> */}
+					</div>
 				</div>
 			</div>
 		</section>

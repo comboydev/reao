@@ -79,11 +79,11 @@ const Orders = () => {
 		},
 		{
 			title: '注文日',
-			dataIndex: 'created_at',
-			render: created_at => (
-				<span>{moment(created_at).format("YYYY-MM-DD")}</span>
+			dataIndex: 'createdAt',
+			render: createdAt => (
+				<span>{moment(createdAt).format("YYYY-MM-DD")}</span>
 			),
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'created_at')
+			sorter: (a, b) => utils.antdTableSorter(a, b, 'createdAt')
 		},
 		{
 			title: 'オーナー券価格',
