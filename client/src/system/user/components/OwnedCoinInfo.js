@@ -4,7 +4,7 @@ import { shorter10, tokenLink } from 'contracts/hooks';
 import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
 
-const OwnedCoinInfo = ({ coin }) => 
+const OwnedCoinInfo = ({ coin }) =>
     <Row gutter={16} className="mt-4 mb-5">
         <Col xs={24} md={10} className="mx-auto mb-3">
             <Card className="mx-auto text-center"
@@ -14,8 +14,8 @@ const OwnedCoinInfo = ({ coin }) =>
                     target="_blank" rel="noreferrer"
                     className="position-absolute"
                     style={{ left: 10, top: 10 }}
-                >{ coin.tokenId }</a>
-                <Image shape="circle" src={ coin.images[0] } style={{maxWidth: '100%', width: 250}}/>
+                >{coin.tokenId}</a>
+                <Image shape="circle" src={coin.images[0]} style={{ maxWidth: '100%', width: 250 }} />
             </Card>
         </Col>
         <Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
@@ -32,7 +32,7 @@ const OwnedCoinInfo = ({ coin }) =>
                 <dd>
                     <Tooltip title={coin.owner.toLowerCase()} placement="top">
                         <i className="cursor-pointer" onClick={() => utils.copyClipboard(coin.owner.toLowerCase())}>
-                            { shorter10(coin.owner).toLowerCase() }</i>
+                            {shorter10(coin.owner).toLowerCase()}</i>
                     </Tooltip>
                 </dd>
             </dl>
@@ -41,14 +41,14 @@ const OwnedCoinInfo = ({ coin }) =>
                 <dd><YenFormat value={coin.refPrice} />～</dd>
             </dl>
             <dl className="d-flex border-bottom py-3">
-                <dt style={{ width: 130 }} className="mr-md-5">発行数 / 保有数</dt>
+                <dt style={{ width: 130 }} className="mr-md-5">発行数 / 保有枠数</dt>
                 <dd>
-					<TNumberFormat value={coin.totalSupply} /> /
+                    <TNumberFormat value={coin.totalSupply} /> /
                     <TNumberFormat
-						value={coin.amount} 
-						suffix={' 枚'} 
+                        value={coin.amount}
+                        suffix={' 枚'}
                         className="ms-1"
-					/>
+                    />
                 </dd>
             </dl>
         </Col>

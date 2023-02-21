@@ -141,7 +141,7 @@ const DetailCoin = (props) => {
 								<span>{coin.grade}</span>
 							</div>
 							<div className="d-flex border-bottom py-3">
-								<span style={{ width: 130 }} className="me-md-4">発行数 / 保有数</span>
+								<span style={{ width: 150 }} className="me-md-4">発行数 / 保有枠数</span>
 								<span>
 									<TNumberFormat
 										value={`${coin.totalSupply}`}

@@ -85,7 +85,7 @@ const OwnedCoins = (props) => {
 			),
 		},
 		{
-			title: '発行数 / 保有数',
+			title: '発行数 / 保有枠数',
 			dataIndex: 'amount',
 			render: (_, record) => (
 				<div className="d-flex">
