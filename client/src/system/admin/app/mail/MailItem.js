@@ -296,7 +296,7 @@ export class MailItem extends Component {
 				className: 'mail-list-date',
 				render: (_, elm) => (
 					<div className='d-flex text-muted align-items-center flex-column'>
-						<span>{moment(elm.createdAt).format("MM/DD/YYYY")}</span>
+						<span>{moment(elm.createdAt).format("YYYY/MM/DD")}</span>
 						<span>{moment(elm.createdAt).format("HH:mm")}</span>
 					</div>
 				)

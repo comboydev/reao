@@ -75,7 +75,7 @@ const UserView = ({ data, visible, close }) => {
 				</p>
 				<p>
 					<CalendarOutlined />
-					<span className="ml-3 text-dark">Birth:　{data.personalInfo?.birthday && moment(data.personalInfo?.birthday).format("MM/DD/YYYY")}</span>
+					<span className="ml-3 text-dark">Birth:　{data.personalInfo?.birthday && moment(data.personalInfo?.birthday).format("YYYY/MM/DD")}</span>
 				</p>
 			</div>
 			<div className="mt-5">

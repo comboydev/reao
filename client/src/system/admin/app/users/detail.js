@@ -98,7 +98,7 @@ const Profile = (props) => {
 			title: '登録日',
 			dataIndex: 'createdAt',
 			render: createdAt => (
-				<span>{moment(createdAt).format("MM/DD/YYYY")} </span>
+				<span>{moment(createdAt).format("YYYY/MM/DD")} </span>
 			),
 			sorter: (a, b) => moment(a.createdAt) - moment(b.createdAt)
 		},
