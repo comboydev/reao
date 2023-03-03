@@ -13,7 +13,9 @@ import {
 	hideAuthMessage,
 	showAuthMessage,
 	signUpWithGoogle,
-	signUpWithFacebook
+	signUpWithFacebook,
+	signUpWithTwitter,
+	signUpWithApple,
 } from "redux/actions";
 
 const Register = (props) => {
@@ -26,6 +28,9 @@ const Register = (props) => {
 		hideAuthMessage,
 		message,
 		signUpWithGoogle,
+		signUpWithFacebook,
+		signUpWithTwitter,
+		signUpWithApple,
 	} = props
 
 	const location = useLocation();
@@ -181,15 +186,20 @@ const Register = (props) => {
 						</Button>
 						<Button type="primary"
 							className="c-btn c-btn-social c-btn-social--facebook"
+							onClick={signUpWithFacebook}
 						>
 							Facebookで登録
 						</Button>
 						<Button type="primary"
-							className="c-btn c-btn-social c-btn-social--twitter">
+							className="c-btn c-btn-social c-btn-social--twitter"
+							onClick={signUpWithTwitter}
+						>
 							Twitterで登録
 						</Button>
 						<Button type="primary"
-							className="c-btn c-btn-social c-btn-social--line">
+							className="c-btn c-btn-social c-btn-social--line"
+							onClick={signUpWithApple}
+						>
 							LINEで登録
 						</Button>
 					</div>
@@ -213,6 +223,8 @@ const mapDispatchToProps = {
 	hideAuthMessage,
 	signUpWithGoogle,
 	signUpWithFacebook,
+	signUpWithTwitter,
+	signUpWithApple,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));

@@ -6,6 +6,11 @@ import {
 	SIGNIN_WITH_GOOGLE,
 	SIGNUP_WITH_GOOGLE,
 	SIGNIN_WITH_FACEBOOK,
+	SIGNUP_WITH_FACEBOOK,
+	SIGNUP_WITH_APPLE,
+	SIGNIN_WITH_APPLE,
+	SIGNUP_WITH_TWITTER,
+	SIGNIN_WITH_TWITTER,
 } from '../constants/Auth';
 import {
 	showAuthMessage,
@@ -75,14 +80,17 @@ export function* signOut() {
 	});
 }
 
+/* ----------------------------------
+	  Google Authentication
+-----------------------------------*/
 export function* signUpWithGoogle() {
 	yield takeEvery(SIGNUP_WITH_GOOGLE, function* () {
 		try {
-			const user = yield call(FirebaseService.signInGoogleRequest);
-			if (user.message) {
-				yield put(showAuthMessage(user.message));
+			const response = yield call(FirebaseService.signInGoogleRequest);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
 			} else {
-				const params = { email: user.user.email };
+				const params = { email: response.user.email };
 				const { data } = yield call(api.userAuth.signUpWithSNS, params);
 				if (data.statusCode === 200) {
 					JwtService.setToken(data.token);
@@ -100,12 +108,38 @@ export function* signUpWithGoogle() {
 export function* signInWithGoogle() {
 	yield takeEvery(SIGNIN_WITH_GOOGLE, function* () {
 		try {
-			const user = yield call(FirebaseService.signInGoogleRequest);
-			if (user.message) {
-				yield put(showAuthMessage(user.message));
+			const response = yield call(FirebaseService.signInGoogleRequest);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
 			} else {
-				const params = { email: user.user.email };
+				const params = { email: response.user.email };
 				const { data } = yield call(api.userAuth.loginWithSNS, params);
+				if (data.statusCode === 200) {
+					JwtService.setToken(data.token);
+					window.location.href = APP_ENTRY_PATH;
+				} else {
+					yield put(showAuthMessage(data.message));
+				}
+			}
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
+
+/* ----------------------------------
+	  Facebook Authentication
+-----------------------------------*/
+export function* signUpWithFacebook() {
+	yield takeEvery(SIGNUP_WITH_FACEBOOK, function* () {
+		try {
+			const response = yield call(FirebaseService.signInFacebookRequest);
+			console.log(response);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
+			} else {
+				const params = { email: response.user.email };
+				const { data } = yield call(api.userAuth.signUpWithSNS, params);
 				if (data.statusCode === 200) {
 					JwtService.setToken(data.token);
 					window.location.href = APP_ENTRY_PATH;
@@ -122,12 +156,19 @@ export function* signInWithGoogle() {
 export function* signInWithFacebook() {
 	yield takeEvery(SIGNIN_WITH_FACEBOOK, function* () {
 		try {
-			const user = yield call(FirebaseService.signInFacebookRequest);
-			if (user.message) {
-				yield put(showAuthMessage(user.message));
+			const response = yield call(FirebaseService.signInFacebookRequest);
+			console.log(response);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
 			} else {
-				JwtService.setToken(user.user.uid);
-				yield put(signInWithFacebookAuthenticated(user.user.uid));
+				const params = { email: response.user.email };
+				const { data } = yield call(api.userAuth.loginWithSNS, params);
+				if (data.statusCode === 200) {
+					JwtService.setToken(data.token);
+					window.location.href = APP_ENTRY_PATH;
+				} else {
+					yield put(showAuthMessage(data.message));
+				}
 			}
 		} catch (error) {
 			yield put(showAuthMessage(error));
@@ -135,6 +176,103 @@ export function* signInWithFacebook() {
 	});
 }
 
+/* ----------------------------------
+	  Twitter Authentication
+-----------------------------------*/
+export function* signUpWithTwitter() {
+	yield takeEvery(SIGNUP_WITH_TWITTER, function* () {
+		try {
+			const response = yield call(FirebaseService.signInTwitterRequest);
+			console.log(response);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
+			} else {
+				const params = { email: response.user.email };
+				const { data } = yield call(api.userAuth.signUpWithSNS, params);
+				if (data.statusCode === 200) {
+					JwtService.setToken(data.token);
+					window.location.href = APP_ENTRY_PATH;
+				} else {
+					yield put(showAuthMessage(data.message));
+				}
+			}
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
+
+export function* signInWithTwitter() {
+	yield takeEvery(SIGNIN_WITH_TWITTER, function* () {
+		try {
+			const response = yield call(FirebaseService.signInTwitterRequest);
+			console.log(response);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
+			} else {
+				const params = { email: response.user.email };
+				const { data } = yield call(api.userAuth.loginWithSNS, params);
+				if (data.statusCode === 200) {
+					JwtService.setToken(data.token);
+					window.location.href = APP_ENTRY_PATH;
+				} else {
+					yield put(showAuthMessage(data.message));
+				}
+			}
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
+
+/* ----------------------------------
+	  Apple Authentication
+-----------------------------------*/
+export function* signUpWithApple() {
+	yield takeEvery(SIGNUP_WITH_APPLE, function* () {
+		try {
+			const response = yield call(FirebaseService.signInAppleRequest);
+			console.log(response);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
+			} else {
+				const params = { email: response.user.email };
+				const { data } = yield call(api.userAuth.signUpWithSNS, params);
+				if (data.statusCode === 200) {
+					JwtService.setToken(data.token);
+					window.location.href = APP_ENTRY_PATH;
+				} else {
+					yield put(showAuthMessage(data.message));
+				}
+			}
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
+
+export function* signInWithApple() {
+	yield takeEvery(SIGNIN_WITH_APPLE, function* () {
+		try {
+			const response = yield call(FirebaseService.signInAppleRequest);
+			console.log(response);
+			if (response.message) {
+				yield put(showAuthMessage(response.message));
+			} else {
+				const params = { email: response.user.email };
+				const { data } = yield call(api.userAuth.loginWithSNS, params);
+				if (data.statusCode === 200) {
+					JwtService.setToken(data.token);
+					window.location.href = APP_ENTRY_PATH;
+				} else {
+					yield put(showAuthMessage(data.message));
+				}
+			}
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
 
 export default function* rootSaga() {
 	yield all([
@@ -144,5 +282,10 @@ export default function* rootSaga() {
 		fork(signInWithGoogle),
 		fork(signUpWithGoogle),
 		fork(signInWithFacebook),
+		fork(signUpWithFacebook),
+		fork(signInWithTwitter),
+		fork(signUpWithTwitter),
+		fork(signInWithApple),
+		fork(signUpWithApple),
 	]);
 }

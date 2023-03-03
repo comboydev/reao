@@ -13,7 +13,9 @@ import {
   showLoading,
   hideAuthMessage,
   signInWithGoogle,
-  signInWithFacebook
+  signInWithFacebook,
+  signInWithTwitter,
+  signInWithApple,
 } from "redux/actions";
 
 
@@ -26,6 +28,9 @@ const Login = (props) => {
     showLoading,
     hideAuthMessage,
     signInWithGoogle,
+    signInWithFacebook,
+    signInWithTwitter,
+    signInWithApple,
     message,
   } = props
 
@@ -141,15 +146,20 @@ const Login = (props) => {
             </Button>
             <Button type="primary"
               className="c-btn c-btn-social c-btn-social--facebook"
+              onClick={signInWithFacebook}
             >
               Facebookでログイン
             </Button>
             <Button type="primary"
-              className="c-btn c-btn-social c-btn-social--twitter">
+              className="c-btn c-btn-social c-btn-social--twitter"
+              onClick={signInWithTwitter}
+            >
               Twitterでログイン
             </Button>
             <Button type="primary"
-              className="c-btn c-btn-social c-btn-social--line">
+              className="c-btn c-btn-social c-btn-social--line"
+              onClick={signInWithApple}
+            >
               LINEでログイン
             </Button>
           </div>
@@ -170,7 +180,9 @@ const mapDispatchToProps = {
   showLoading,
   hideAuthMessage,
   signInWithGoogle,
-  signInWithFacebook
+  signInWithFacebook,
+  signInWithTwitter,
+  signInWithApple,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
