@@ -18,14 +18,14 @@ export const NETWORK_SCAN = {
 export const CONTRACTS_BY_NETWORK = {
   [Networks.MainNet]: {
     AQCT1155: {
-      address: '0x9a4777a6661A3F22fD8ACE460076527D3648F497',
+      address: '0xc8658D671DA61FE97A9d3F0A9B13f9Bbd9192611',
       abi: AQCT1155.abi,
-      fromBlock: 39615238,
+      fromBlock: 42823786,
     },
     FantationMarket: {
-      address: '0xb4754CD9CBd21675038A4778749420D5357EF33F',
+      address: '0x3299D1c0e3820101F5Be8a87fe470Ba353D875Cf',
       abi: FantationMarket.abi,
-      fromBlock: 39615088,
+      fromBlock: 43005227,
     },
   },
   [Networks.Testnet]: {

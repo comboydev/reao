@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-client/public/upload
-client/build/upload
+client/build
+
+upload

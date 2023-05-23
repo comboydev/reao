@@ -12,6 +12,7 @@ import { SOLD_STATUS } from 'constants/AppConstant';
 import Marketplace from "contracts/services/marketplace";
 import { shorter, contractLink, tokenLink } from 'contracts/hooks';
 import { fetchMarketItems, fetchMarketBalance, fetchMarketOwner } from "redux/actions";
+import { imageUri } from 'services/image';
 
 const MarketItems = (props) => {
 	const history = useHistory();
@@ -73,7 +74,7 @@ const MarketItems = (props) => {
 					<AvatarStatus
 						size={60}
 						type="square"
-						src={record.images[0]}
+						src={imageUri(record.images && record.images[0])}
 						name={record.name}
 						subTitle={record.grade}
 					/>

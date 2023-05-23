@@ -10,6 +10,7 @@ import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 import Flex from 'components/shared-components/Flex'
 import api from 'api';
 import utils from 'plugins/utils';
+import { imageUri } from 'services/image';
 
 export const AffiliateList = () => {
 	const [affiliaters, setAffiliaters] = useState();
@@ -34,7 +35,7 @@ export const AffiliateList = () => {
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus src={record.avatar} name={record.nickname} subTitle={record.email} />
+					<AvatarStatus src={imageUri(record?.avatar)} name={record.nickname} subTitle={record.email} />
 				</div>
 			),
 		},

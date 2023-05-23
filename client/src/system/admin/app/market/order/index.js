@@ -11,6 +11,7 @@ import api from 'api';
 import { PaymentStatusKv, OrderStatusKv } from 'constants/AppConstant';
 import YenFormat from 'components/custom/YenFormat';
 import TNumberFormat from 'components/custom/TNumberFormat';
+import { imageUri } from 'services/image';
 
 const { Option } = Select
 
@@ -66,7 +67,7 @@ const Orders = () => {
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus size={30} src={record.coin.mainImage} name={record.coin.name.slice(0, 10) + '...'} />
+					<AvatarStatus size={30} src={imageUri(record.coin.mainImage)} name={record.coin.name.slice(0, 10) + '...'} />
 				</div>
 			),
 			sorter: {

@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
 import Marketplace from 'contracts/services/marketplace';
+import { imageUri } from 'services/image';
 
 const DetailMarketItem = (props) => {
 	const id = props.match.params.id
@@ -126,7 +127,7 @@ const DetailMarketItem = (props) => {
 					<Row gutter={16}>
 						<Col xs={24} md={10} className="mx-auto mb-3">
 							<div className="rounded p-2 mx-auto text-center">
-								<Image shape="circle" src={coin.images[0]} style={{ maxWidth: '100%', width: 250 }} />
+								<Image shape="circle" src={imageUri(coin.images[0])} style={{ maxWidth: '100%', width: 250 }} />
 							</div>
 						</Col>
 						<Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
@@ -178,7 +179,7 @@ const DetailMarketItem = (props) => {
 										{coin.images.slice(1).map(function (slide, k) {
 											return (
 												<img key={k}
-													src={slide}
+													src={imageUri(slide)}
 													alt="fantation"
 													style={{
 														width: '100%',

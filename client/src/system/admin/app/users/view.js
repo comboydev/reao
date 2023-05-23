@@ -10,6 +10,7 @@ import {
 import moment from 'moment';
 import utils from 'plugins/utils';
 import api from 'api';
+import { imageUri } from 'services/image';
 
 const { Option } = Select;
 
@@ -58,7 +59,7 @@ const UserView = ({ data, visible, close }) => {
 			visible={visible}
 		>
 			<div className="text-center mt-3">
-				<Avatar size={80} src={data.avatar} icon={<UserOutlined />} />
+				<Avatar size={80} src={imageUri(data.avatar)} icon={<UserOutlined />} />
 				<h3 className="mt-2 mb-0">{data.name}</h3>
 				<span className="text-muted">{data.nickname}</span>
 			</div>
