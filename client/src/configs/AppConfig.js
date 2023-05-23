@@ -29,3 +29,11 @@ export const FirebaseConfig = {
 	appId: "1:179966162488:web:393852192afbb61f4018cd",
 	measurementId: "G-8RWR05S6ZZ"
 };
+
+export const LineConfig = {
+	clientID: '1660799001',
+	clientSecret: '7b31db6b218c6e6a7b2c2c9f6c1a4d7d',
+	state: 'b41c8fd15b895f0fc28bfwb9d7da89054d931e7s',
+	scope: 'profile openid email',
+	redirectURI: window.location.href,
+}

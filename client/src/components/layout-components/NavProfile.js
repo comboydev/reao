@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
 import { signOut } from 'redux/actions/Auth';
+import { imageUri } from "services/image";
 
 const menuItem = [
   {
@@ -55,7 +56,7 @@ export const NavProfile = ({ user, signOut }) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <Avatar src={user?.avatar} icon={<UserOutlined />} />
+          <Avatar src={imageUri(user?.avatar)} icon={<UserOutlined />} />
         </Menu.Item>
       </Menu>
     </Dropdown>

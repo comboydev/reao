@@ -1,5 +1,5 @@
 import express from 'express'
-import path from 'path'
+import path, { dirname } from 'path'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import compress from 'compression'
@@ -11,12 +11,12 @@ import adminRoute from "./routes/admin.routes";
 import userRoute from "./routes/user.routes";
 import imageRoute from "./routes/image.routes";
 import coinRoute from "./routes/coin.routes";
+import { fileURLToPath } from 'url'
 
 const config = require('./config');
 
 require('dotenv').config();
 const FRONT_URL = process.env.FRONT_URL;
-const CURRENT_WORKING_DIR = process.cwd();
 var corsOptions = {
   origin: FRONT_URL,
   expose: [
@@ -35,7 +35,9 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(cookieParser())
 app.use(compress())
 app.use(helmet())
-app.use(express.static(path.join(CURRENT_WORKING_DIR, '../frontend/public')))
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+app.use(express.static(path.join(__dirname, '../..')))
 
 app.use(adminRoute);
 app.use(userRoute);

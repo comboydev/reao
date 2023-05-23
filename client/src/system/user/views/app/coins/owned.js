@@ -16,6 +16,7 @@ import utils from 'plugins/utils';
 import OwnedCoinWidget from "system/user/components/OwnedCoinWidget";
 import Notice from "system/user/components/Notice";
 import { shorter } from 'contracts/hooks';
+import { imageUri } from "services/image";
 
 const ButtonBar = styled.div`
     display: grid;
@@ -81,7 +82,7 @@ const columns = [
         width: 400,
         render: (_, record) =>
             <AvatarStatus size={30} type="square"
-                src={record.images[0]}
+                src={imageUri(record.image && record.images[0])}
                 name={record.name}
             />
     },

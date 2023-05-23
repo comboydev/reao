@@ -13,6 +13,7 @@ import Flex from 'components/shared-components/Flex';
 import utils from 'plugins/utils';
 import { shorter, tokenLink } from 'contracts/hooks';
 import YenFormat from 'components/custom/YenFormat';
+import { imageUri } from 'services/image';
 
 const OwnedCoins = (props) => {
 	const history = useHistory();
@@ -71,7 +72,7 @@ const OwnedCoins = (props) => {
 			width: 450,
 			render: (_, record) => (
 				<AvatarStatus size={60} type="square"
-					src={record.images[0]}
+					src={imageUri(record.images && record.images[0])}
 					name={record.name}
 					subTitle={record.grade}
 				/>
@@ -135,7 +136,7 @@ const OwnedCoins = (props) => {
 			</Flex>
 			<div className="table-responsive">
 				<Table
-					rowKey="id"
+					rowKey="uri"
 					columns={tableColumns}
 					dataSource={list}
 					loading={!loadedOwnedCoins}

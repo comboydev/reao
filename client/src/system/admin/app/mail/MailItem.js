@@ -5,6 +5,7 @@ import moment from 'moment';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import { getLabelColor } from './MailLabels';
 import api from 'api';
+import { imageUri } from 'services/image';
 
 export class MailItem extends Component {
 	state = {
@@ -271,7 +272,7 @@ export class MailItem extends Component {
 						}
 						<div className="d-flex align-items-center">
 							<div className={elm.deleted ? 'd-flex ml-2' : 'd-flex'}>
-								<AvatarStatus src={elm.avatar} name={elm.name} subTitle={elm.email} />
+								<AvatarStatus src={imageUri(elm.avatar)} name={elm.name} subTitle={elm.email} />
 							</div>
 						</div>
 					</div>

@@ -12,6 +12,7 @@ import AvatarStatus from 'components/shared-components/AvatarStatus';
 import Flex from 'components/shared-components/Flex'
 import api from 'api';
 import utils from 'plugins/utils'
+import { imageUri } from 'services/image.js';
 
 const { Option } = Select
 const STATUS = [
@@ -96,7 +97,7 @@ export const UserList = () => {
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus src={record?.avatar} name={record.nickname} subTitle={record.email} />
+					<AvatarStatus src={imageUri(record?.avatar)} name={record.nickname} subTitle={record.email} />
 				</div>
 			),
 		},

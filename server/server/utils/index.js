@@ -1,9 +1,6 @@
 import jwt from 'jsonwebtoken';
-import path from "path";
 import fs from "fs";
 const config = require('../config');
-
-const CURRENT_WORKING_DIR = process.cwd();
 
 class Utils {
   saveBase64Image = (uri, path, fileName) => {
@@ -38,23 +35,6 @@ class Utils {
       { expiresIn: "8h" }
     );
     return verificationToken;
-  }
-
-  getPublicPath = (pth) => {
-    var folder;
-    switch (process.env.FRONT_ENV) {
-      case 'development': folder = 'public'; break;
-      case 'production': folder = 'build'; break;
-      default: break;
-    }
-    switch (process.env.NODE_ENV) {
-      case 'development':
-        return path.join(CURRENT_WORKING_DIR, `../client/${folder}`, pth);
-      case 'production':
-        return path.join(CURRENT_WORKING_DIR, `../../client/${folder}`, pth);
-      default:
-        break;
-    }
   }
 
   ymdHis(date) {

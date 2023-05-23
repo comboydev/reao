@@ -6,6 +6,7 @@ import { UserOutlined } from '@ant-design/icons';
 import ContactSection from "system/user/components/ContactSection";
 import utils from 'plugins/utils';
 import { shorter } from 'contracts/hooks';
+import { imageUri } from "services/image";
 
 const UserRole = styled.div`
 	margin: 35px auto 0;
@@ -36,7 +37,7 @@ const MyPage = (props) => {
 		<>
 			<div className="c-memberTop-header position-relative">
 				<div className="position-relative">
-					<Avatar src={user?.avatar} size={150} icon={<UserOutlined />} className="d-flex align-items-center justify-content-center" />
+					<Avatar src={imageUri(user?.avatar)} size={150} icon={<UserOutlined />} className="d-flex align-items-center justify-content-center" />
 					<UserRole>一般会員</UserRole>
 					<Tooltip title={walletAccount.toLowerCase()} placement="top">
 						<span className="d-block cursor-pointer text-center text-white mt-2" onClick={() => utils.copyClipboard(walletAccount.toLowerCase())}>

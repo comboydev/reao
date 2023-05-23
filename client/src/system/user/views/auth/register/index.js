@@ -16,7 +16,10 @@ import {
 	signUpWithFacebook,
 	signUpWithTwitter,
 	signUpWithApple,
+	signUpWithLine,
 } from "redux/actions";
+import { LineLogin } from 'reactjs-line-login';
+import { LineConfig } from "configs/AppConfig";
 
 const Register = (props) => {
 	const {
@@ -31,6 +34,7 @@ const Register = (props) => {
 		signUpWithFacebook,
 		signUpWithTwitter,
 		signUpWithApple,
+		signUpWithLine,
 	} = props
 
 	const location = useLocation();
@@ -61,6 +65,10 @@ const Register = (props) => {
 
 		showLoading();
 		signUp({ email, password, introducer });
+	}
+
+	const handleRegisterWithLine = (payload) => {
+		console.log(payload)
 	}
 
 	return (
@@ -200,7 +208,16 @@ const Register = (props) => {
 							className="c-btn c-btn-social c-btn-social--line"
 							onClick={signUpWithApple}
 						>
+							Appleで登録
+						</Button>
+						<Button type="primary"
+							className="c-btn c-btn-social c-btn-social--line"
+						>
 							LINEで登録
+							<LineLogin
+								{...LineConfig}
+								setPayload={handleRegisterWithLine}
+							/>
 						</Button>
 					</div>
 				</div>
@@ -225,6 +242,7 @@ const mapDispatchToProps = {
 	signUpWithFacebook,
 	signUpWithTwitter,
 	signUpWithApple,
+	signUpWithLine,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));

@@ -15,6 +15,7 @@ import { SOLD_STATUS } from 'constants/AppConstant';
 import Marketplace from 'contracts/services/marketplace';
 import { getContractAddress, shorter, tokenLink } from 'contracts/hooks';
 import YenFormat from 'components/custom/YenFormat';
+import { imageUri } from 'services/image';
 
 const CoinsOnSale = (props) => {
 	const history = useHistory();
@@ -99,7 +100,7 @@ const CoinsOnSale = (props) => {
 					<AvatarStatus
 						size={60}
 						type="square"
-						src={record.images[0]}
+						src={imageUri(record.image && record.images[0])}
 						name={record.name}
 						subTitle={record.grade}
 					/>

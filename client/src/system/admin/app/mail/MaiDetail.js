@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons';
 import moment from "moment";
 import api from 'api';
+import { imageUri } from 'services/image';
 
 
 const MaiDetail = (props) => {
@@ -94,7 +95,7 @@ const MaiDetail = (props) => {
 					<div className="font-size-md mr-3" onClick={back}>
 						<LeftCircleOutlined className="mail-detail-action-icon font-size-md ml-0" />
 					</div>
-					<AvatarStatus src={mail.avatar} name={mail.name} subTitle={`${mail.email}`} />
+					<AvatarStatus src={imageUri(mail.avatar)} name={mail.name} subTitle={`${mail.email}`} />
 				</div>
 				<div className="mail-detail-action mb-3">
 					<Tag color={getLabelColor(mail.label)} className="mr-4">{capitalizeFirstLetter(mail.label)}</Tag>

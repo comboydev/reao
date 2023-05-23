@@ -16,8 +16,10 @@ import {
   signInWithFacebook,
   signInWithTwitter,
   signInWithApple,
+  signInWithLine,
 } from "redux/actions";
-
+import { LineLogin } from 'reactjs-line-login';
+import { LineConfig } from "configs/AppConfig";
 
 const Login = (props) => {
   const {
@@ -31,12 +33,17 @@ const Login = (props) => {
     signInWithFacebook,
     signInWithTwitter,
     signInWithApple,
+    signInWithLine,
     message,
   } = props
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   var _form, _checkBtn;
+
+  const [payload, setPayload] = useState(null);
+  const [idToken, setIdToken] = useState(null);
+  const [showLine, setShowLine] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -48,6 +55,10 @@ const Login = (props) => {
     hideAuthMessage(true);
     showLoading();
     signIn({ email, password });
+  }
+
+  const handleLoginWithLine = (res) => {
+    console.log(res)
   }
 
   if (token) return <Redirect to="/mypage" />
@@ -160,7 +171,17 @@ const Login = (props) => {
               className="c-btn c-btn-social c-btn-social--line"
               onClick={signInWithApple}
             >
+              Appleでログイン
+            </Button>
+            <Button type="primary"
+              className="c-btn c-btn-social c-btn-social--line"
+            >
               LINEでログイン
+              <LineLogin
+                {...LineConfig}
+                setPayload={handleLoginWithLine}
+                setIdToken={setIdToken}
+              />
             </Button>
           </div>
         </div>
@@ -183,6 +204,7 @@ const mapDispatchToProps = {
   signInWithFacebook,
   signInWithTwitter,
   signInWithApple,
+  signInWithLine,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
