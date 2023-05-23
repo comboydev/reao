@@ -6,6 +6,7 @@ import CoinInfo from 'system/user/components/OwnedCoinInfo';
 import { PaymentTypeKv } from "constants/AppConstant";
 import userOrder from 'api/user/order';
 import { connect } from "react-redux";
+import { imageUri } from 'services/image';
 
 const PurchaseRequest = (props) => {
     const { user } = props;
@@ -55,7 +56,7 @@ const PurchaseRequest = (props) => {
                 onCancel={() => { setShowModal(false) }}
             >
                 <div className="text-center">
-                    <img src={coin.mainImage} className="mb-4" alt="coin-main" style={{ maxWidth: 200 }} />
+                    <img src={imageUri(coin.mainImage)} className="mb-4" alt="coin-main" style={{ maxWidth: 200 }} />
                     <Row gutter={20}>
                         <Col xs={12} className="mb-2">
                             <p className="text-right">オーナー権価格:</p>

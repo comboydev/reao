@@ -13,6 +13,7 @@ import prefs from './prefs.json';
 import { connect } from 'react-redux';
 import { setUser, signOut } from "redux/actions";
 import api from 'api';
+import { imageUri } from "services/image";
 
 const { confirm } = Modal;
 const { Step } = Steps;
@@ -174,7 +175,7 @@ const PersonalInfo = ({ user, setUser, signOut }) => {
             </div>
             <div className="c-memberInfo__profile-container my-4">
               <div className="c-memberInfo__profile-avatar position-relative">
-                <Avatar src={user.avatar} size={150} icon={<UserOutlined />} />
+                <Avatar src={imageUri(user.avatar)} size={150} icon={<UserOutlined />} />
                 <Button
                   type="primary" shape="circle"
                   icon={<EditOutlined />}

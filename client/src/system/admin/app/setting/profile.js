@@ -5,7 +5,7 @@ import { ROW_GUTTER } from 'constants/ThemeConstant';
 import Flex from 'components/shared-components/Flex';
 import moment from 'moment';
 import api from 'api';
-import ImageService from 'services/image';
+import ImageService, { imageUri } from 'services/image';
 import { connect } from 'react-redux';
 import { setUser } from 'redux/actions';
 
@@ -43,7 +43,7 @@ const EditProfile = ({ user, setUser }) => {
 	return (
 		<>
 			<Flex alignItems="center" mobileFlex={false} className="text-center text-md-left">
-				<Avatar size={90} src={user?.avatar} icon={<UserOutlined />} />
+				<Avatar size={90} src={imageUri(user?.avatar)} icon={<UserOutlined />} />
 				<div className="ml-3 mt-md-0 mt-3 position-relative">
 					<Upload onChange={onUploadAavater} showUploadList={false} customRequest={() => { return; }}>
 						<Button

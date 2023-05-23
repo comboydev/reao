@@ -10,6 +10,7 @@ import ListTokenModal from 'components/custom/modals/ListTokenModal';
 import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
 import Token from 'contracts/services/token';
+import { imageUri } from 'services/image';
 
 const DetailCoin = (props) => {
 	const id = props.match.params.id
@@ -128,7 +129,7 @@ const DetailCoin = (props) => {
 					<Row gutter={16}>
 						<Col xs={24} md={10} className="mx-auto mb-3">
 							<div className="rounded p-2 mx-auto text-center">
-								<Image shape="circle" src={coin.images[0]} style={{ maxWidth: '100%', width: 250 }} />
+								<Image shape="circle" src={imageUri(coin.images[0])} style={{ maxWidth: '100%', width: 250 }} />
 							</div>
 						</Col>
 						<Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
@@ -187,7 +188,7 @@ const DetailCoin = (props) => {
 										{coin.images.slice(1).map(function (slide, k) {
 											return (
 												<img key={k}
-													src={slide}
+													src={imageUri(slide)}
 													alt="fantation"
 													style={{
 														width: '100%',

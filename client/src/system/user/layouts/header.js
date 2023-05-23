@@ -11,6 +11,7 @@ import ClientNavLanguage from 'components/layout-components/ClientNavLanguage';
 import IntlMessage from "components/util-components/IntlMessage";
 import { connect } from "react-redux";
 import { signOut } from "redux/actions";
+import { imageUri } from "services/image";
 
 const AboutMenu = (
   <Menu className="py-3 px-1">
@@ -141,7 +142,7 @@ const NavRight = ({ user, className, handleLogout }) => {
             <Menu className="d-flex align-item-center" mode="horizontal">
               <Menu.Item key="profile">
                 <Badge dot>
-                  <Avatar size={40} src={user?.avatar}>U</Avatar>
+                  <Avatar size={40} src={imageUri(user?.avatar)}>U</Avatar>
                 </Badge>
               </Menu.Item>
             </Menu>

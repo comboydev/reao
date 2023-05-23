@@ -13,6 +13,7 @@ import AvatarStatus from 'components/shared-components/AvatarStatus';
 import moment from 'moment';
 
 import api from 'api'
+import { imageUri } from 'services/image';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -63,7 +64,7 @@ const Profile = (props) => {
 			dataIndex: 'name',
 			render: (_, record) => (
 				<div className="d-flex">
-					<AvatarStatus src={record.avatar} name={record.nickname} subTitle={record.email} />
+					<AvatarStatus src={imageUri(record.avatar)} name={record.nickname} subTitle={record.email} />
 				</div>
 			),
 		},
@@ -207,7 +208,7 @@ const Profile = (props) => {
 				<Col sm={24} md={18} lg={16} xl={12} className="ml-sm-5">
 					<div className="d-sm-flex">
 						<div className="rounded p-2 mx-auto text-center">
-							<Avatar size={100} src={userData.avatar} icon={<UserOutlined />} />
+							<Avatar size={100} src={imageUri(userData.avatar)} icon={<UserOutlined />} />
 						</div>
 						<div className="ml-sm-4 my-auto w-100">
 							<Row className="mb-2 text-center text-sm-left">
@@ -248,7 +249,7 @@ const Profile = (props) => {
 							<Card title='身分証' className='pt-3 h-100' style={{ minHeight: '250px' }}>
 								{
 									userData.warrant
-										? <Image src={userData.warrant} />
+										? <Image src={imageUri(userData.warrant)} />
 										: <Tag className="text-capitalize mt-3 mt-md-0"
 											style={{
 												position: 'absolute',

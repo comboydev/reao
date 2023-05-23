@@ -8,6 +8,7 @@ import copy from 'copy-to-clipboard';
 import Loading from 'components/shared-components/Loading';
 import api from 'api';
 import { connect } from "react-redux";
+import { imageUri } from "services/image";
 
 const { Panel } = Collapse;
 
@@ -16,7 +17,7 @@ const columns = [
 		title: '',
 		dataIndex: 'avatar',
 		key: 'avatar',
-		render: img => <Avatar src={img}>U</Avatar>
+		render: img => <Avatar src={imageUri(img)}>U</Avatar>
 	},
 	{
 		title: 'Email',

@@ -11,6 +11,8 @@ import {
 	SIGNIN_WITH_APPLE,
 	SIGNUP_WITH_TWITTER,
 	SIGNIN_WITH_TWITTER,
+	SIGNIN_WITH_LINE,
+	SIGNUP_WITH_LINE,
 } from '../constants/Auth';
 import {
 	showAuthMessage,
@@ -274,6 +276,56 @@ export function* signInWithApple() {
 	});
 }
 
+/* ----------------------------------
+	  LINE Authentication
+-----------------------------------*/
+export function* signUpWithLine() {
+	yield takeEvery(SIGNUP_WITH_LINE, function* () {
+		try {
+			// const response = yield call(FirebaseService.signInAppleRequest);
+			// console.log(response);
+			// if (response.message) {
+			// 	yield put(showAuthMessage(response.message));
+			// } else {
+			// 	const params = { email: response.user.email };
+			// 	const { data } = yield call(api.userAuth.signUpWithSNS, params);
+			// 	if (data.statusCode === 200) {
+			// 		JwtService.setToken(data.token);
+			// 		window.location.href = APP_ENTRY_PATH;
+			// 	} else {
+			// 		yield put(showAuthMessage(data.message));
+			// 	}
+			// }
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
+
+export function* signInWithLine() {
+	yield takeEvery(SIGNIN_WITH_LINE, function* () {
+		try {
+			console.log('asdfa');
+			// const response = yield call(FirebaseService.signInAppleRequest);
+			// console.log(response);
+			// if (response.message) {
+			// 	yield put(showAuthMessage(response.message));
+			// } else {
+			// 	const params = { email: response.user.email };
+			// 	const { data } = yield call(api.userAuth.loginWithSNS, params);
+			// 	if (data.statusCode === 200) {
+			// 		JwtService.setToken(data.token);
+			// 		window.location.href = APP_ENTRY_PATH;
+			// 	} else {
+			// 		yield put(showAuthMessage(data.message));
+			// 	}
+			// }
+		} catch (error) {
+			yield put(showAuthMessage(error));
+		}
+	});
+}
+
 export default function* rootSaga() {
 	yield all([
 		fork(signUpWithEmail),
@@ -287,5 +339,7 @@ export default function* rootSaga() {
 		fork(signUpWithTwitter),
 		fork(signInWithApple),
 		fork(signUpWithApple),
+		fork(signInWithLine),
+		fork(signUpWithLine),
 	]);
 }

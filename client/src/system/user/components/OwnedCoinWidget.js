@@ -3,6 +3,7 @@ import { Button, Image } from "antd";
 import TNumberFormat from 'components/custom/TNumberFormat';
 import { tokenLink } from "contracts/hooks";
 import YenFormat from "components/custom/YenFormat";
+import { imageUri } from "services/image";
 
 const OwnedCoinWidget = ({ coin }) => {
     const history = useHistory();
@@ -18,7 +19,7 @@ const OwnedCoinWidget = ({ coin }) => {
             ><TNumberFormat value={coin.amount} /><small>枚</small></span>
             <ul className="c-coin--detail coinLabel">
                 <div className="c-coin__image">
-                    <Image src={coin.images[0]} alt="fantation" />
+                    <Image src={imageUri(coin.images[0])} alt="fantation" />
                 </div>
                 <li className="c-coin__name">
                     <dt>・コイン名:</dt>
