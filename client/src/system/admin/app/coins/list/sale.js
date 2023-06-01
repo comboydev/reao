@@ -100,7 +100,7 @@ const CoinsOnSale = (props) => {
 					<AvatarStatus
 						size={60}
 						type="square"
-						src={imageUri(record.image && record.images[0])}
+						src={imageUri(record.images && record.images[0])}
 						name={record.name}
 						subTitle={record.grade}
 					/>

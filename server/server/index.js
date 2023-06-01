@@ -37,7 +37,7 @@ app.use(compress())
 app.use(helmet())
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-app.use(express.static(path.join(__dirname, '../..')))
+app.use(express.static(path.join(__dirname, '../../upload')))
 
 app.use(adminRoute);
 app.use(userRoute);

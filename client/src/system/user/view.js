@@ -19,7 +19,6 @@ function RouteInterceptor({ children, isAuthenticated, user, fetchUser, ...rest 
         else {
           if (!user) {
             fetchUser()
-            return null
           }
           else if (user?.emailVerified === false) {
             return <Redirect to={{ pathname: '/verify/email', state: { from: location } }} />
@@ -49,7 +48,8 @@ const UserViews = (props) => {
       fetchJpy2Matic();
       fetchUser();
     }
-  }, [token, onConnectWallet, fetchJpy2Matic, fetchUser])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
 
   return (
     <main>
