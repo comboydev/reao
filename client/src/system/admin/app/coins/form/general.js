@@ -6,40 +6,50 @@ import CustomIcon from 'components/util-components/CustomIcon'
 import { PlusOutlined, MinusCircleOutlined, LoadingOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
+const { Search } = Input;
+
 const EDIT_MODE = 'edit';
 
-const GeneralField = ({ mode, coinImages, addCoinImage, removeCoinImage, handleUploadChange }) => {
-	const rules = {
-		required: [
-			{
-				required: true,
-				message: 'この項目は必須です!',
-			}
-		],
-	}
-
-	const imageUploadProps = {
-		name: 'file',
-		listType: "picture-card",
-		showUploadList: false,
-		maxCount: 5,
-		customRequest: () => {
-			return;
+const rules = {
+	required: [
+		{
+			required: true,
+			message: 'この項目は必須です!',
 		}
-	}
+	],
+}
 
-	const beforeUpload = file => {
-		const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-		if (!isJpgOrPng) {
-			message.error('You can only upload JPG/PNG file!');
-		}
-		const isLt2M = file.size / 1024 / 1024 < 5;
-		if (!isLt2M) {
-			message.error('Image must smaller than 5MB!');
-		}
-		return isJpgOrPng && isLt2M;
+const imageUploadProps = {
+	name: 'file',
+	listType: "picture-card",
+	showUploadList: false,
+	maxCount: 5,
+	customRequest: () => {
+		return;
 	}
+}
 
+const beforeUpload = file => {
+	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+	if (!isJpgOrPng) {
+		message.error('You can only upload JPG/PNG file!');
+	}
+	const isLt2M = file.size / 1024 / 1024 < 5;
+	if (!isLt2M) {
+		message.error('Image must smaller than 5MB!');
+	}
+	return isJpgOrPng && isLt2M;
+}
+
+const GeneralField = ({
+	mode,
+	loading,
+	coinImages,
+	handleAddCoinImage,
+	handleRemoveCoinImage,
+	handleUploadCoinImage,
+	handleUpdateTokenURI,
+}) => {
 	return (
 		<Row gutter={16}>
 			<Col xs={24} sm={24} md={17}>
@@ -84,6 +94,19 @@ const GeneralField = ({ mode, coinImages, addCoinImage, removeCoinImage, handleU
 						</Col>
 					</Row>
 				</Card>
+				{
+					mode === EDIT_MODE &&
+					<Card>
+						<Form.Item name="uri" label="URIの直接変更">
+							<Search
+								placeholder="URI"
+								enterButton="変更"
+								loading={loading}
+								onSearch={value => handleUpdateTokenURI(value)}
+							/>
+						</Form.Item>
+					</Card>
+				}
 			</Col>
 			<Col xs={24} sm={24} md={7}>
 				{
@@ -93,13 +116,13 @@ const GeneralField = ({ mode, coinImages, addCoinImage, removeCoinImage, handleU
 								index > 0 &&
 								<MinusCircleOutlined
 									style={{ position: 'absolute', top: '5px', right: '5px' }}
-									onClick={() => { removeCoinImage(index) }}
+									onClick={() => handleRemoveCoinImage(index)}
 								/>
 							}
 							<Dragger
 								{...imageUploadProps}
 								beforeUpload={beforeUpload}
-								onChange={e => handleUploadChange(e, index)}
+								onChange={e => handleUploadCoinImage(e, index)}
 							>
 								{
 									image.uri ?
@@ -124,7 +147,7 @@ const GeneralField = ({ mode, coinImages, addCoinImage, removeCoinImage, handleU
 						</Card>
 					))}
 
-				<Button type="dashed" onClick={addCoinImage} className="w-100">
+				<Button type="dashed" onClick={handleAddCoinImage} className="w-100">
 					<PlusOutlined /> Add Image
 				</Button>
 			</Col>

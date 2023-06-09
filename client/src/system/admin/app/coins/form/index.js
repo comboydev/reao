@@ -18,12 +18,12 @@ const pinataApiKey = '9f777d5fc7f5824afc3c';
 const pinataApiSecret = 'bcf45d4db9bb9fc0454d18dd6e26a4fd4afb2f4c1156519762117f94bdfb8a60';
 
 const CoinForm = ({ mode = CREATE_MODE, param }) => {
+	const history = useHistory();
 	const [form] = Form.useForm();
 	const [loaded, setLoaded] = useState(false);
 	const [token, setToken] = useState();
 	const [coinImages, setCoinImages] = useState([{ uri: '', loading: false }]);
 	const [loading, setLoading] = useState(false);
-	const history = useHistory();
 
 	useEffect(() => {
 		if (mode === EDIT_MODE) {
@@ -43,7 +43,7 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 		}
 	}, [form, mode, param]);
 
-	const addCoinImage = () => {
+	const handleAddCoinImage = () => {
 		if (coinImages.length >= 5) {
 			message.error("画像は最大5枚までです。");
 			return;
@@ -51,12 +51,12 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 		setCoinImages([...coinImages, { uri: '', loading: false }]);
 	}
 
-	const removeCoinImage = (index) => {
+	const handleRemoveCoinImage = (index) => {
 		coinImages.splice(index, 1);
 		setCoinImages([...coinImages]);
 	}
 
-	const handleUploadChange = async (e, idx) => {
+	const handleUploadCoinImage = async (e, idx) => {
 		let images = coinImages;
 		images[idx] = { loading: true }
 		setCoinImages([...images]);
@@ -82,7 +82,20 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 		}
 	};
 
-	const onSubmit = () => {
+	const handleUpdateTokenURI = async (uri) => {
+		if (uri === token.uri) {
+			message.warning('URIの変更か必須です。');
+			return;
+		}
+		setLoading(true)
+		const nftContract = await getContract('AQCT1155');
+		const tx = await nftContract.setUri(token.tokenId, uri);
+		await tx.wait();
+		setLoaded(false);
+		history.push(`/admin/coins/detail/${token.tokenId}`);
+	}
+
+	const handleSubmit = () => {
 		const images = []
 		coinImages.forEach(image => {
 			if (image.uri) images.push(image.uri)
@@ -156,11 +169,11 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 							<h2 className="mb-3">{mode === CREATE_MODE ? '新規発行' : `コイン編集`} </h2>
 							<div className="mb-3">
 								<Button type="primary mx-2"
-									onClick={onSubmit}
+									onClick={handleSubmit}
 									htmlType="submit"
 									loading={loading}
 								>
-									{mode === CREATE_MODE ? 'Create' : `Save`}
+									{mode === CREATE_MODE ? '新規発行' : `編集`}
 								</Button>
 							</div>
 						</Flex>
@@ -171,10 +184,12 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 						<TabPane tab="General" key="1">
 							<GeneralField
 								mode={mode}
+								loading={loading}
 								coinImages={coinImages}
-								addCoinImage={addCoinImage}
-								removeCoinImage={removeCoinImage}
-								handleUploadChange={handleUploadChange}
+								handleAddCoinImage={handleAddCoinImage}
+								handleRemoveCoinImage={handleRemoveCoinImage}
+								handleUploadCoinImage={handleUploadCoinImage}
+								handleUpdateTokenURI={handleUpdateTokenURI}
 							/>
 						</TabPane>
 					</Tabs>

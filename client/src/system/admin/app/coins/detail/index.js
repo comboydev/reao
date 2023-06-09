@@ -31,7 +31,8 @@ const DetailCoin = (props) => {
 			}
 		}
 		fetch();
-	}, [history, id])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const settings = {
 		dots: true,

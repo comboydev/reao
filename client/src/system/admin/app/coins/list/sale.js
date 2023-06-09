@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import {
 	fetchSaleHistory,
@@ -24,7 +23,6 @@ const CoinsOnSale = (props) => {
 		// loadedSaleHistory,
 	} = props;
 
-	const history = useHistory();
 	const [list, setList] = useState([]);
 	const [submit, setSubmit] = useState(false);
 
@@ -42,7 +40,7 @@ const CoinsOnSale = (props) => {
 
 	const dropdownMenu = row => (
 		<Menu key={row.id}>
-			<Menu.Item onClick={() => history.push(`/admin/marketplace/items/${row.itemId}`)} key="view">
+			<Menu.Item onClick={() => window.location.href = `/admin/marketplace/items/${row.itemId}`} key="view">
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>

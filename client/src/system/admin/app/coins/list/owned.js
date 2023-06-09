@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import {
 	fetchPurchaseHistory,
@@ -22,9 +21,7 @@ const OwnedCoins = (props) => {
 		fetchPurchaseHistory,
 	} = props;
 
-	const history = useHistory();
 	const [list, setList] = useState([]);
-
 	const ownedCoins = useSelector(({ marketplace }) => marketplace.ownedCoins)
 	const loadedOwnedCoins = useSelector(({ marketplace }) => marketplace.loadedOwnedCoins)
 
@@ -40,13 +37,13 @@ const OwnedCoins = (props) => {
 
 	const dropdownMenu = row => (
 		<Menu key={row.id}>
-			<Menu.Item onClick={() => history.push(`/admin/coins/detail/${row.tokenId}`)} key="view">
+			<Menu.Item onClick={() => window.location.href = `/admin/coins/detail/${row.tokenId}`} key="view">
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>
 				</Flex>
 			</Menu.Item>
-			<Menu.Item onClick={() => history.push(`/admin/coins/edit/${row.tokenId}`)} key="edit">
+			<Menu.Item onClick={() => window.location.href = `/admin/coins/edit/${row.tokenId}`} key="edit">
 				<Flex alignItems="center">
 					<EditOutlined />
 					<span className="ml-2">Edit</span>
