@@ -16,14 +16,8 @@ import {
 } from '../constants/Auth';
 import {
 	showAuthMessage,
-	// authenticated,
 	signOutSuccess,
-	signInWithFacebookAuthenticated,
 } from "../actions/Auth";
-
-// import {
-// 	setUser,
-// } from "../actions/App";
 
 import api from 'api';
 import FirebaseService from 'services/firebase'
@@ -59,8 +53,6 @@ export function* signInWithEmail() {
 			const { data } = yield call(api[`${roleType}Auth`].login, payload);
 			if (data.statusCode === 200) {
 				JwtService.setToken(data.token);
-				// yield put(authenticated(data.token));
-				// yield put(setUser(data.user));
 				window.location.href = APP_ENTRY_PATH
 			} else {
 				yield put(showAuthMessage(data.message));
@@ -75,7 +67,7 @@ export function* signOut() {
 	yield takeEvery(SIGNOUT, function* () {
 		try {
 			JwtService.logout();
-			yield put(signOutSuccess(null));
+			yield put(signOutSuccess());
 		} catch (err) {
 			yield put(showAuthMessage(err));
 		}

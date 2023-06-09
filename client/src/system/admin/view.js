@@ -9,6 +9,8 @@ import { ConfigProvider } from 'antd';
 import { APP_PREFIX_PATH, AUTH_PREFIX_PATH } from 'configs/AppConfig'
 import useBodyClass from 'hooks/useBodyClass';
 import { fetchUser } from "redux/actions";
+import JwtService from "services/jwt";
+
 
 function RouteInterceptor({ children, isAuthenticated, user, fetchUser, ...rest }) {
   return (
@@ -25,10 +27,15 @@ function RouteInterceptor({ children, isAuthenticated, user, fetchUser, ...rest 
             />
           )
         else {
-          if (user) return children
-          else {
+          if (!user) {
             fetchUser()
-            return null
+          }
+          else {
+            if (user.role === 'admin') return children
+            else {
+              JwtService.logout();
+              window.location.reload();
+            }
           }
         }
       }

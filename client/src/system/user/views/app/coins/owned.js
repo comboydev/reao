@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
     fetchPurchaseHistory,
     fetchOwnedCoins,
@@ -16,7 +16,6 @@ import utils from 'plugins/utils';
 import OwnedCoinWidget from "system/user/components/OwnedCoinWidget";
 import Notice from "system/user/components/Notice";
 import { shorter } from 'contracts/hooks';
-import { imageUri } from "services/image";
 
 const ButtonBar = styled.div`
     display: grid;
@@ -82,7 +81,7 @@ const columns = [
         width: 400,
         render: (_, record) =>
             <AvatarStatus size={30} type="square"
-                src={imageUri(record.image && record.images[0])}
+                src={record.image}
                 name={record.name}
             />
     },
@@ -114,15 +113,16 @@ const columns = [
 ];
 
 const OwnedCoins = (props) => {
-    const history = useHistory();
     const {
-        ownedCoins,
-        loadedOwnedCoins,
         fetchOwnedCoins,
-        purchaseHistory,
-        loadedPurchaseHistory,
         fetchPurchaseHistory,
     } = props;
+
+    const history = useHistory();
+    const ownedCoins = useSelector(({ marketplace }) => marketplace.ownedCoins)
+    const loadedOwnedCoins = useSelector(({ marketplace }) => marketplace.loadedOwnedCoins)
+    const purchaseHistory = useSelector(({ marketplace }) => marketplace.purchaseHistory)
+    const loadedPurchaseHistory = useSelector(({ marketplace }) => marketplace.loadedPurchaseHistory)
 
     useEffect(() => {
         fetchOwnedCoins();
@@ -187,8 +187,7 @@ const OwnedCoins = (props) => {
     );
 }
 
-export default connect(
-    ({ marketplace }) => (marketplace), {
+export default connect(() => ({}), {
     fetchOwnedCoins,
     fetchPurchaseHistory,
 })(OwnedCoins);

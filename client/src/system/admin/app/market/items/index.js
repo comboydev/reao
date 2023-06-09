@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Card, Table, Input, Button, Menu, Tooltip, Tag, message, notification } from 'antd';
 import { EyeOutlined, SearchOutlined, LinkOutlined } from '@ant-design/icons';
@@ -12,10 +11,8 @@ import { SOLD_STATUS } from 'constants/AppConstant';
 import Marketplace from "contracts/services/marketplace";
 import { shorter, contractLink, tokenLink } from 'contracts/hooks';
 import { fetchMarketItems, fetchMarketBalance, fetchMarketOwner } from "redux/actions";
-import { imageUri } from 'services/image';
 
 const MarketItems = (props) => {
-	const history = useHistory();
 	const [list, setList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const {
@@ -41,7 +38,7 @@ const MarketItems = (props) => {
 
 	const dropdownMenu = row => (
 		<Menu key={row.id}>
-			<Menu.Item onClick={() => history.push(`/admin/marketplace/items/${row.itemId}`)} key="view">
+			<Menu.Item onClick={() => window.location.href = `/admin/marketplace/items/${row.itemId}`} key="view">
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>
@@ -74,9 +71,9 @@ const MarketItems = (props) => {
 					<AvatarStatus
 						size={60}
 						type="square"
-						src={imageUri(record.images && record.images[0])}
+						src={record.image}
 						name={record.name}
-						subTitle={record.grade}
+						subTitle={record.grade.name}
 					/>
 				</div>
 			),

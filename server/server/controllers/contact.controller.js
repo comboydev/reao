@@ -75,7 +75,7 @@ const getMails = (req, res) => {
       data.map(async (d, k) => {
         await User.findOne({ email: d.email })
           .then(record => {
-            d = { ...d._doc, avatar: record?.avatar || '/img/user.png' };
+            d = { ...d._doc, avatar: record?.avatar };
             arr.push(d);
             if (k === (data.length - 1))
               return res.send(arr);
@@ -93,7 +93,7 @@ const getMailOne = (req, res) => {
     .then(data => {
       User.findOne({ email: data.email })
         .then(record => {
-          data = { ...data._doc, avatar: record?.avatar || '/img/user.png' };
+          data = { ...data._doc, avatar: record?.avatar };
           return res.send(data)
         })
     })

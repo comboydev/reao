@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
 	fetchPurchaseHistory,
 	fetchOwnedCoins,
@@ -13,19 +12,19 @@ import Flex from 'components/shared-components/Flex';
 import utils from 'plugins/utils';
 import { shorter, tokenLink } from 'contracts/hooks';
 import YenFormat from 'components/custom/YenFormat';
-import { imageUri } from 'services/image';
 
 const OwnedCoins = (props) => {
-	const history = useHistory();
-	const [list, setList] = useState([]);
 	const {
-		ownedCoins,
-		loadedOwnedCoins,
 		fetchOwnedCoins,
 		// purchaseHistory,
 		// loadedPurchaseHistory,
 		fetchPurchaseHistory,
 	} = props;
+
+	const [list, setList] = useState([]);
+	const ownedCoins = useSelector(({ marketplace }) => marketplace.ownedCoins)
+	const loadedOwnedCoins = useSelector(({ marketplace }) => marketplace.loadedOwnedCoins)
+
 
 	useEffect(() => {
 		fetchOwnedCoins();
@@ -38,13 +37,13 @@ const OwnedCoins = (props) => {
 
 	const dropdownMenu = row => (
 		<Menu key={row.id}>
-			<Menu.Item onClick={() => history.push(`/admin/coins/detail/${row.tokenId}`)} key="view">
+			<Menu.Item onClick={() => window.location.href = `/admin/coins/detail/${row.tokenId}`} key="view">
 				<Flex alignItems="center">
 					<EyeOutlined />
 					<span className="ml-2">View</span>
 				</Flex>
 			</Menu.Item>
-			<Menu.Item onClick={() => history.push(`/admin/coins/edit/${row.tokenId}`)} key="edit">
+			<Menu.Item onClick={() => window.location.href = `/admin/coins/edit/${row.tokenId}`} key="edit">
 				<Flex alignItems="center">
 					<EditOutlined />
 					<span className="ml-2">Edit</span>
@@ -72,9 +71,9 @@ const OwnedCoins = (props) => {
 			width: 450,
 			render: (_, record) => (
 				<AvatarStatus size={60} type="square"
-					src={imageUri(record.images && record.images[0])}
+					src={record.image}
 					name={record.name}
-					subTitle={record.grade}
+					subTitle={record.grade.name}
 				/>
 			),
 		},
@@ -147,8 +146,7 @@ const OwnedCoins = (props) => {
 	)
 }
 
-export default connect(
-	({ marketplace }) => (marketplace), {
+export default connect(() => ({}), {
 	fetchOwnedCoins,
 	fetchPurchaseHistory,
 })(OwnedCoins);

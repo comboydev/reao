@@ -3,7 +3,6 @@ import utils from 'plugins/utils';
 import { shorter10, tokenLink } from 'contracts/hooks';
 import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
-import { imageUri } from 'services/image';
 
 const OwnedCoinInfo = ({ coin }) =>
     <Row gutter={16} className="mt-4 mb-5">
@@ -16,7 +15,7 @@ const OwnedCoinInfo = ({ coin }) =>
                     className="position-absolute"
                     style={{ left: 10, top: 10 }}
                 >{coin.tokenId}</a>
-                <Image shape="circle" src={imageUri(coin.images[0])} style={{ maxWidth: '100%', width: 250 }} />
+                <Image shape="circle" src={coin.image} style={{ maxWidth: '100%', width: 250 }} />
             </Card>
         </Col>
         <Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
@@ -26,7 +25,7 @@ const OwnedCoinInfo = ({ coin }) =>
             </dl>
             <dl className="d-flex border-bottom py-3">
                 <dt style={{ width: 130 }} className="mr-md-5">グレード</dt>
-                <dd>{coin.grade}</dd>
+                <dd>{coin.grade.name}</dd>
             </dl>
             <dl className="d-flex border-bottom py-3">
                 <dt style={{ width: 130 }} className="mr-md-5">保有者</dt>

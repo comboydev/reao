@@ -9,18 +9,17 @@ import ContactSection from "system/user/components/ContactSection";
 import MarketItemInfo from 'system/user/components/MarketItemInfo';
 import { SOLD_STATUS } from 'constants/AppConstant';
 import Marketplace from 'contracts/services/marketplace';
-import { imageUri } from 'services/image';
 
 const MarketItemDetail = (props) => {
     const id = props.match.params.id
     const history = useHistory();
-    const [coin, setCoin] = useState();
+    const [item, setItem] = useState();
 
     useEffect(() => {
         async function fetch() {
             try {
                 const response = await Marketplace.getItem(id);
-                setCoin(response);
+                setItem(response);
             } catch (err) {
                 message.error("データ取得失敗しました。", 1, () =>
                     history.push('/marketplace/items'));
@@ -38,7 +37,7 @@ const MarketItemDetail = (props) => {
         slidesToScroll: 1
     };
 
-    if (!coin) return <Loading cover="page" />;
+    if (!item) return <Loading cover="page" />;
     return (
         <>
             <section className="p-card">
@@ -49,31 +48,31 @@ const MarketItemDetail = (props) => {
                 <div className="coin-detail--container">
                     <div>
                         <div className="coin-detail--banner">
-                            <div className="l-ttl">{SOLD_STATUS[coin.isSold ? 1 : 0].label}</div>
-                            <div className="r-ttl">{coin?.name}</div>
+                            <div className="l-ttl">{SOLD_STATUS[item.isSold ? 1 : 0].label}</div>
+                            <div className="r-ttl">{item.name}</div>
                         </div>
 
-                        <MarketItemInfo item={coin} />
+                        <MarketItemInfo item={item} />
 
                         <div className='mt-5 py-3 pre-wrap' style={{ fontSize: 16, textAlign: 'justify' }}>
                             <h2 className="c-title mb-4">コインについて</h2>
-                            <p>{coin?.coinDescription}</p>
+                            <p>{item.description}</p>
                         </div>
 
                         <div className='mt-5 py-3 pre-wrap' style={{ fontSize: 16, textAlign: 'justify' }}>
                             <h2 className="c-title mb-4">グレードについて</h2>
                             <div>
-                                {coin.images.slice(1).length > 0 &&
+                                {item.images.slice(1).length > 0 &&
                                     <div className="pe-sm-4 pb-sm-4 float-sm-left mx-auto w-100" style={{ maxWidth: 350 }}>
                                         <Slider {...settings}>
-                                            {coin.images.slice(1).map((slide, k) =>
-                                                <img key={k} src={imageUri(slide)} alt='coinImage' />
+                                            {item.images.slice(1).map((slide, k) =>
+                                                <img key={k} src={slide} alt='coinImage' />
                                             )}
                                         </Slider>
                                     </div>
                                 }
                                 <p className='pre-wrap mt-3' style={{ fontSize: 16, textAlign: 'justify' }}>
-                                    {coin?.gradeDescription}
+                                    {item.grade.description}
                                 </p>
                             </div>
                         </div>

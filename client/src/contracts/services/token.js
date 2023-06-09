@@ -1,5 +1,32 @@
 import { getContract, getAccount } from 'contracts/hooks';
-import api from 'api';
+
+export const fetchMetaData = async (uri) => {
+    const data = {
+        name: '',
+        description: '',
+        image: '',
+        images: [],
+        grade: {
+            name: '',
+            description: '',
+        },
+        refPrice: null,
+    }
+    try {
+        const response = await fetch(uri).then(response => response.json());
+        data.name = response.name
+        data.description = response.description
+        data.image = response.image
+        data.images = response.extra?.images || []
+        data.grade.name = response.extra?.grade.name
+        data.grade.description = response.extra?.grade.description
+        data.refPrice = response.extra?.ref_price
+    } catch (err) {
+        console.log(err)
+    } finally {
+        return data
+    }
+}
 
 const Token = {
     getTokensOf: async () => {
@@ -8,7 +35,7 @@ const Token = {
         const response = await tokenContract.tokensOf(account);
         const tokens = await Promise.all(
             response.map(async token => {
-                const { data } = await api.coin.detail(token.uri);
+                const data = await fetchMetaData(token.uri);
                 const totalSupply = await tokenContract.totalSupply(token.tokenId);
                 return ({
                     ...data,
@@ -27,7 +54,7 @@ const Token = {
         const tokenContract = await getContract('AQCT1155');
         const account = await getAccount();
         const token = await tokenContract.token(account, id);
-        const { data } = await api.coin.detail(token.uri);
+        const data = await fetchMetaData(token.uri);
         const totalSupply = await tokenContract.totalSupply(id);
         return {
             ...data,
@@ -39,6 +66,5 @@ const Token = {
         };
     }
 }
-
 
 export default Token;

@@ -18,26 +18,26 @@ export const NETWORK_SCAN = {
 export const CONTRACTS_BY_NETWORK = {
   [Networks.MainNet]: {
     AQCT1155: {
-      address: '0xc8658D671DA61FE97A9d3F0A9B13f9Bbd9192611',
+      address: '0x822e0Eb1f14962b06582BA6eA1e48FB4499eD497',
       abi: AQCT1155.abi,
-      fromBlock: 42823786,
+      fromBlock: 43694889,
     },
     FantationMarket: {
-      address: '0x3299D1c0e3820101F5Be8a87fe470Ba353D875Cf',
+      address: '0xD87E0d2a7ad1388c6C05Bc0916A79E65B043C2D5',
       abi: FantationMarket.abi,
-      fromBlock: 43005227,
+      fromBlock: 43695152,
     },
   },
   [Networks.Testnet]: {
     AQCT1155: {
-      address: '0xde5b44D6028379871E95FD032E7e61C5A70d5669',
+      address: '0x0C4Dbc2D70FcFe69d17EFC403c32acfD9fC8eA83',
       abi: AQCT1155.abi,
-      fromBlock: 32322972,
+      fromBlock: 36517064,
     },
     FantationMarket: {
-      address: '0x16D07A420a4B0E810dac69F61a836F6f08ea23cd',
+      address: '0x442693cA13176A9F180D5a318456AC8DB1183B77',
       abi: FantationMarket.abi,
-      fromBlock: 32322221,
+      fromBlock: 36518168,
     },
   },
 };

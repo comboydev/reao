@@ -12,7 +12,6 @@
     "ethers": "^5.7.2",
     "firebase": "^8.2.0",
     "framer-motion": "^2.9.5",
-    "ipfs-http-client": "^56.0.1",
     "jquery": "^3.6.0",
     "line-login": "^1.0.14",
     "lodash": "^4.17.20",

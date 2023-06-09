@@ -13,7 +13,6 @@ import ContactSection from "system/user/components/ContactSection";
 import OwnedCoinInfo from 'system/user/components/OwnedCoinInfo';
 // import AvatarStatus from 'components/shared-components/AvatarStatus';
 import Token from 'contracts/services/token';
-import { imageUri } from 'services/image';
 
 const CoinDetail = (props) => {
     const id = props.match.params.id
@@ -150,14 +149,14 @@ const CoinDetail = (props) => {
                     <div>
                         <div className="coin-detail--banner">
                             <div className="l-ttl">保有中</div>
-                            <div className="r-ttl">{coin?.name}</div>
+                            <div className="r-ttl">{coin.name}</div>
                         </div>
 
                         <OwnedCoinInfo coin={coin} />
 
                         <div className='mt-5 py-3 pre-wrap' style={{ fontSize: 16, textAlign: 'justify' }}>
                             <h2 className="c-title mb-4">コインについて</h2>
-                            <p>{coin?.coinDescription}</p>
+                            <p>{coin.description}</p>
                         </div>
 
                         <div className='mt-5 py-3 pre-wrap' style={{ fontSize: 16, textAlign: 'justify' }}>
@@ -167,13 +166,13 @@ const CoinDetail = (props) => {
                                     <div className="pe-sm-4 pb-sm-4 float-sm-left mx-auto w-100" style={{ maxWidth: 350 }}>
                                         <Slider {...settings}>
                                             {coin?.images.slice(1).map((slide, k) =>
-                                                <img key={k} src={imageUri(slide)} alt='coinImage' />
+                                                <img key={k} src={slide} alt='coinImage' />
                                             )}
                                         </Slider>
                                     </div>
                                 }
                                 <p className='pre-wrap mt-3' style={{ fontSize: 16, textAlign: 'justify' }}>
-                                    {coin?.gradeDescription}
+                                    {coin.grade.description}
                                 </p>
                             </div>
                         </div>

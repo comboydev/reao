@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { fetchMarketItems } from "redux/actions";
 import { Checkbox } from "antd";
 import MarketItemWidget from "system/user/components/MarketItemWidget";
 import Loading from "components/shared-components/Loading";
 import Preparation from "system/user/pages/preparation";
 
-const MarketItems = (props) => {
+const MarketItems = ({ fetchMarketItems }) => {
     const [checked, setChecked] = useState(false);
-    const {
-        walletAccount,
-        marketItems,
-        loadedMarketItems,
-        fetchMarketItems,
-    } = props;
+
+    const walletAccount = useSelector(({ marketplace }) => marketplace.walletAccount)
+    const marketItems = useSelector(({ marketplace }) => marketplace.marketItems)
+    const loadedMarketItems = useSelector(({ marketplace }) => marketplace.loadedMarketItems)
 
     useEffect(() => {
         fetchMarketItems();
-    }, [fetchMarketItems]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (!loadedMarketItems) return <Loading cover="page" />;
     if (loadedMarketItems && marketItems.length === 0) {
@@ -48,7 +47,6 @@ const MarketItems = (props) => {
     );
 }
 
-export default connect(
-    ({ marketplace }) => (marketplace), {
+export default connect(() => ({}), {
     fetchMarketItems,
 })(MarketItems);
