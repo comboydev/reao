@@ -4,7 +4,6 @@ import {
 import { ImageSvg } from 'assets/svg/icon';
 import CustomIcon from 'components/util-components/CustomIcon'
 import { PlusOutlined, MinusCircleOutlined, LoadingOutlined } from '@ant-design/icons';
-import { imageUri } from 'services/image';
 
 const { Dragger } = Upload;
 const EDIT_MODE = 'edit';
@@ -48,14 +47,14 @@ const GeneralField = ({ mode, coinImages, addCoinImage, removeCoinImage, handleU
 					<Form.Item name="name" label="コイン名" rules={rules.required}>
 						<Input placeholder="Coin Name" />
 					</Form.Item>
-					<Form.Item name="grade" label="グレード" rules={rules.required}>
+					<Form.Item name="gradeName" label="グレード" rules={rules.required}>
 						<Input placeholder="Grade" />
 					</Form.Item>
-					<Form.Item name="coinDescription" label="コインの説明" rules={rules.required}>
-						<Input.TextArea rows={4} placeholder="Describe Coin" />
+					<Form.Item name="description" label="コインの説明" rules={rules.required}>
+						<Input.TextArea rows={4} placeholder="Coin Description" />
 					</Form.Item>
 					<Form.Item name="gradeDescription" label="グレードの説明" rules={rules.required}>
-						<Input.TextArea rows={4} placeholder="Describe Grade" />
+						<Input.TextArea rows={4} placeholder="Grade Description" />
 					</Form.Item>
 				</Card>
 				<Card>
@@ -104,7 +103,7 @@ const GeneralField = ({ mode, coinImages, addCoinImage, removeCoinImage, handleU
 							>
 								{
 									image.uri ?
-										<img src={imageUri(image.uri)} alt="avatar" className="img-fluid" />
+										<img src={image.uri} alt="avatar" className="img-fluid" />
 										: (
 											!image.loading ?
 												<div>

@@ -10,7 +10,6 @@ import ListTokenModal from 'components/custom/modals/ListTokenModal';
 import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
 import Token from 'contracts/services/token';
-import { imageUri } from 'services/image';
 
 const DetailCoin = (props) => {
 	const id = props.match.params.id
@@ -28,7 +27,7 @@ const DetailCoin = (props) => {
 			} catch (err) {
 				console.log(err);
 				message.error("データ取得失敗しました。", 1,
-					() => history.push('/admin/coins'));
+					() => history.push('/admin/coins/owned'));
 			}
 		}
 		fetch();
@@ -129,7 +128,7 @@ const DetailCoin = (props) => {
 					<Row gutter={16}>
 						<Col xs={24} md={10} className="mx-auto mb-3">
 							<div className="rounded p-2 mx-auto text-center">
-								<Image shape="circle" src={imageUri(coin.images[0])} style={{ maxWidth: '100%', width: 250 }} />
+								<Image shape="circle" src={coin.image} style={{ maxWidth: '100%', width: 250 }} />
 							</div>
 						</Col>
 						<Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
@@ -139,7 +138,7 @@ const DetailCoin = (props) => {
 							</div>
 							<div className="d-flex border-bottom py-3">
 								<span style={{ width: 130 }} className="me-md-4">グレード</span>
-								<span>{coin.grade}</span>
+								<span>{coin.grade.name}</span>
 							</div>
 							<div className="d-flex border-bottom py-3">
 								<span style={{ width: 150 }} className="me-md-4">発行数 / 保有枠数</span>
@@ -180,7 +179,7 @@ const DetailCoin = (props) => {
 					coin.images.slice(1).length > 0 ?
 						<Row gutter={16}>
 							<Card title='コインについて' className='py-3 mt-3 mt-md-0 pre-wrap'>
-								{coin.coinDescription}
+								{coin.description}
 							</Card>
 							<Col xs={24} sm={24} md={10}>
 								<Card className="pb-3">
@@ -188,7 +187,7 @@ const DetailCoin = (props) => {
 										{coin.images.slice(1).map(function (slide, k) {
 											return (
 												<img key={k}
-													src={imageUri(slide)}
+													src={slide}
 													alt="fantation"
 													style={{
 														width: '100%',
@@ -202,7 +201,7 @@ const DetailCoin = (props) => {
 							</Col>
 							<Col xs={24} sm={24} md={14}>
 								<Card title='グレードについて' className='py-3 pre-wrap'>
-									{coin.gradeDescription}
+									{coin.grade.description}
 								</Card>
 							</Col>
 						</Row>
@@ -210,12 +209,12 @@ const DetailCoin = (props) => {
 						<Row gutter={16}>
 							<Col xs={24} sm={24} md={12}>
 								<Card title='コインについて' className='py-3 pre-wrap'>
-									{coin.coinDescription}
+									{coin.description}
 								</Card>
 							</Col>
 							<Col xs={24} sm={24} md={12}>
 								<Card title='グレードについて' className='py-3 pre-wrap'>
-									{coin.gradeDescription}
+									{coin.grade.description}
 								</Card>
 							</Col>
 						</Row>

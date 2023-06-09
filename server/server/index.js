@@ -10,7 +10,6 @@ import db from "./models"
 import adminRoute from "./routes/admin.routes";
 import userRoute from "./routes/user.routes";
 import imageRoute from "./routes/image.routes";
-import coinRoute from "./routes/coin.routes";
 import { fileURLToPath } from 'url'
 
 const config = require('./config');
@@ -42,7 +41,6 @@ app.use(express.static(path.join(__dirname, '../../upload')))
 app.use(adminRoute);
 app.use(userRoute);
 app.use(imageRoute);
-app.use(coinRoute);
 
 const mongouri = `mongodb://${config.mongodb.HOST}:${config.mongodb.PORT}/${config.mongodb.DB}`;
 db.mongoose.connect(mongouri, {

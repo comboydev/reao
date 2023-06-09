@@ -1,6 +1,6 @@
 import { getContract, getAccount, simpleProvider, getContractInfo, getProvider } from 'contracts/hooks';
 import { ethers } from 'ethers';
-import api from 'api';
+import { fetchMetaData } from './token';
 
 const Marketplace = {
     getBalance: async () => {
@@ -61,7 +61,8 @@ const Marketplace = {
         const response = await marketplace.allItems();
         const items = await Promise.all(
             response.map(async item => {
-                const { data } = await api.coin.detail(item.uri);
+                const tokenUri = await tokenContract.uri(item.tokenId);
+                const data = await fetchMetaData(tokenUri);
                 const totalSupply = await tokenContract.totalSupply(item.tokenId);
                 return ({
                     ...data,
@@ -87,7 +88,8 @@ const Marketplace = {
         const response = await marketplace.itemsOf(account);
         const items = await Promise.all(
             response.map(async item => {
-                const { data } = await api.coin.detail(item.uri);
+                const tokenUri = await tokenContract.uri(item.tokenId);
+                const data = await fetchMetaData(tokenUri);
                 const totalSupply = await tokenContract.totalSupply(item.tokenId);
                 return ({
                     ...data,
@@ -110,7 +112,8 @@ const Marketplace = {
         const tokenContract = await getContract('AQCT1155');
         const marketplace = await getContract('FantationMarket');
         const item = await marketplace.item(id);
-        const { data } = await api.coin.detail(item.uri);
+        const tokenUri = await tokenContract.uri(item.tokenId);
+        const data = await fetchMetaData(tokenUri);
         const totalSupply = await tokenContract.totalSupply(item.tokenId);
         return ({
             ...data,
@@ -181,7 +184,7 @@ const extractLogs = async (logs) => {
             const block = await simpleProvider.getBlock(log.blockNumber);
             const tokenId = parseInt(log.topics[1], 16);
             const tokenUri = await tokenContract.uri(tokenId);
-            const { data } = await api.coin.detail(tokenUri);
+            const data = await fetchMetaData(tokenUri);
             const price = parseInt(ethers.utils.hexDataSlice(log.data, 0, 32), 16);
             const amount = parseInt(ethers.utils.hexDataSlice(log.data, 32, 64), 16);
             return {

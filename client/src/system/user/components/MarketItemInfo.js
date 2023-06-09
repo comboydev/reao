@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Row, Col, Card, Image, Tooltip, Button } from 'antd';
 import PurchaseModal from "components/custom/modals/PurchaseModal";
 import utils from 'plugins/utils';
 import { shorter10, tokenLink } from 'contracts/hooks';
 import YenFormat from "components/custom/YenFormat";
 import TNumberFormat from "components/custom/TNumberFormat";
-import { imageUri } from "services/image";
 
 const MarketItemInfo = (props) => {
-    const { item, jpy2Matic, walletAccount } = props
+    const { item } = props
     const [visible, setVisible] = useState(false);
+
+    const jpy2Matic = useSelector(({ marketplace }) => marketplace.jpy2Matic);
+    const walletAccount = useSelector(({ marketplace }) => marketplace.walletAccount);
+
     return (
         <Row gutter={16} className="mt-4 mb-2">
             <Col xs={24} md={10} className="mx-auto mb-3">
@@ -22,7 +25,7 @@ const MarketItemInfo = (props) => {
                         className="position-absolute"
                         style={{ left: 10, top: 10 }}
                     >{item.tokenId}</a>
-                    <Image shape="circle" src={imageUri(item.images[0])} style={{ maxWidth: '100%', width: 250 }} />
+                    <Image shape="circle" src={item.image} style={{ maxWidth: '100%', width: 250 }} />
                 </Card>
             </Col>
             <Col xs={24} md={14} className="mx-auto">
@@ -32,7 +35,7 @@ const MarketItemInfo = (props) => {
                 </dl>
                 <dl className="d-flex border-bottom py-3">
                     <dt style={{ width: 130 }} className="mr-md-5">グレード</dt>
-                    <dd>{item.grade}</dd>
+                    <dd>{item.grade.name}</dd>
                 </dl>
                 <dl className="d-flex border-bottom py-3">
                     <dt style={{ width: 130 }} className="mr-md-5">販売者</dt>
@@ -87,6 +90,4 @@ const MarketItemInfo = (props) => {
     )
 }
 
-export default connect(
-    ({ marketplace }) => (marketplace)
-)(MarketItemInfo);
+export default MarketItemInfo

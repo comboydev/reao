@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
     fetchSaleHistory,
     fetchCoinsOnSale,
@@ -16,7 +16,6 @@ import YenFormat from "components/custom/YenFormat";
 import TNumberFormat from "components/custom/TNumberFormat";
 import Notice from "system/user/components/Notice";
 import { shorter } from "contracts/hooks";
-import { imageUri } from "services/image";
 
 const ButtonBar = styled.div`
     display: grid;
@@ -82,7 +81,7 @@ const columns = [
         width: 400,
         render: (_, record) =>
             <AvatarStatus size={30} type="square"
-                src={imageUri(record.images && record.images[0])}
+                src={record.image}
                 name={record.name}
             />
     },
@@ -114,15 +113,16 @@ const columns = [
 ];
 
 const CoinsOnSale = (props) => {
-    const history = useHistory();
     const {
-        coinsOnSale,
-        loadedCoinsOnSale,
         fetchCoinsOnSale,
-        saleHistory,
-        loadedSaleHistory,
         fetchSaleHistory,
     } = props;
+
+    const history = useHistory();
+    const coinsOnSale = useSelector(({ marketplace }) => marketplace.coinsOnSale)
+    const loadedCoinsOnSale = useSelector(({ marketplace }) => marketplace.loadedCoinsOnSale)
+    const saleHistory = useSelector(({ marketplace }) => marketplace.saleHistory)
+    const loadedSaleHistory = useSelector(({ marketplace }) => marketplace.loadedSaleHistory)
 
     useEffect(() => {
         fetchCoinsOnSale();
@@ -187,8 +187,7 @@ const CoinsOnSale = (props) => {
     );
 }
 
-export default connect(
-    ({ marketplace }) => (marketplace), {
+export default connect(() => ({}), {
     fetchCoinsOnSale,
     fetchSaleHistory,
 })(CoinsOnSale);

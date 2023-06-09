@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
 	fetchPurchaseHistory,
 	fetchOwnedCoins,
@@ -13,19 +13,21 @@ import Flex from 'components/shared-components/Flex';
 import utils from 'plugins/utils';
 import { shorter, tokenLink } from 'contracts/hooks';
 import YenFormat from 'components/custom/YenFormat';
-import { imageUri } from 'services/image';
 
 const OwnedCoins = (props) => {
-	const history = useHistory();
-	const [list, setList] = useState([]);
 	const {
-		ownedCoins,
-		loadedOwnedCoins,
 		fetchOwnedCoins,
 		// purchaseHistory,
 		// loadedPurchaseHistory,
 		fetchPurchaseHistory,
 	} = props;
+
+	const history = useHistory();
+	const [list, setList] = useState([]);
+
+	const ownedCoins = useSelector(({ marketplace }) => marketplace.ownedCoins)
+	const loadedOwnedCoins = useSelector(({ marketplace }) => marketplace.loadedOwnedCoins)
+
 
 	useEffect(() => {
 		fetchOwnedCoins();
@@ -72,9 +74,9 @@ const OwnedCoins = (props) => {
 			width: 450,
 			render: (_, record) => (
 				<AvatarStatus size={60} type="square"
-					src={imageUri(record.images && record.images[0])}
+					src={record.image}
 					name={record.name}
-					subTitle={record.grade}
+					subTitle={record.grade.name}
 				/>
 			),
 		},
@@ -147,8 +149,7 @@ const OwnedCoins = (props) => {
 	)
 }
 
-export default connect(
-	({ marketplace }) => (marketplace), {
+export default connect(() => ({}), {
 	fetchOwnedCoins,
 	fetchPurchaseHistory,
 })(OwnedCoins);

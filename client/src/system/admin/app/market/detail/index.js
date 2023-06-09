@@ -2,27 +2,26 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom"
 import { Row, Col, Card, Image, message } from 'antd';
 import PageHeaderAlt from 'components/layout-components/PageHeaderAlt'
-// import AvatarStatus from 'components/shared-components/AvatarStatus';
+import Loading from "components/shared-components/Loading";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import TNumberFormat from 'components/custom/TNumberFormat';
 import YenFormat from 'components/custom/YenFormat';
 import Marketplace from 'contracts/services/marketplace';
-import { imageUri } from 'services/image';
 
 const DetailMarketItem = (props) => {
 	const id = props.match.params.id
 	const history = useHistory();
 
 	const [loaded, setLoaded] = useState(false);
-	const [coin, setCoin] = useState();
+	const [item, setItem] = useState();
 
 	useEffect(() => {
 		async function fetch() {
 			try {
 				const response = await Marketplace.getItem(id);
-				setCoin(response);
+				setItem(response);
 				setLoaded(true);
 			} catch (err) {
 				message.error("データ取得失敗しました。", 1,
@@ -116,7 +115,7 @@ const DetailMarketItem = (props) => {
 	// 	},
 	// ];
 
-	if (!loaded) return null;
+	if (!loaded) return <Loading cover="page" />;
 	return (
 		<>
 			<PageHeaderAlt background="/img/app/back2.jpg" cssClass="bg-primary" overlap>
@@ -127,27 +126,27 @@ const DetailMarketItem = (props) => {
 					<Row gutter={16}>
 						<Col xs={24} md={10} className="mx-auto mb-3">
 							<div className="rounded p-2 mx-auto text-center">
-								<Image shape="circle" src={imageUri(coin.images[0])} style={{ maxWidth: '100%', width: 250 }} />
+								<Image shape="circle" src={item.image} style={{ maxWidth: '100%', width: 250 }} />
 							</div>
 						</Col>
 						<Col xs={24} md={14} className="mx-auto" style={{ fontSize: 16 }}>
 							<div className="d-flex border-top border-bottom py-3">
 								<span style={{ width: 130 }} className="me-md-4">コイン名</span>
-								<span className="text-primary font-weight-bold" style={{ fontSize: 18 }}>{coin.name}</span>
+								<span className="text-primary font-weight-bold" style={{ fontSize: 18 }}>{item.name}</span>
 							</div>
 							<div className="d-flex border-bottom py-3">
 								<span style={{ width: 130 }} className="me-md-4">グレード</span>
-								<span>{coin.grade}</span>
+								<span>{item.grade.name}</span>
 							</div>
 							<div className="d-flex border-bottom py-3">
 								<span style={{ width: 130 }} className="me-md-4">発行数 / 販売数</span>
 								<span>
 									<TNumberFormat
-										value={`${coin.totalSupply}`}
+										value={`${item.totalSupply}`}
 										className="mr-1"
 									/> /
 									<TNumberFormat
-										value={`${coin.amount}`}
+										value={`${item.amount}`}
 										className="mx-1"
 									/>枚
 								</span>
@@ -155,31 +154,31 @@ const DetailMarketItem = (props) => {
 							<div className="d-flex border-bottom py-3">
 								<span style={{ width: 130 }} className="me-md-4">参考取引価格</span>
 								<span>
-									<YenFormat value={coin.refPrice} />
+									<YenFormat value={item.refPrice} />
 									～
 								</span>
 							</div>
 							<h3 className='pt-3 text-center mb-4'>オーナー権価格:
 								<span style={{ fontSize: 40, marginLeft: 20 }} className="d-block d-md-inline text-bold">
-									<YenFormat value={coin.price} />
+									<YenFormat value={item.price} />
 								</span>
 							</h3>
 						</Col>
 					</Row>
 				</Card>
 				{
-					coin.images.slice(1).length > 0 ?
+					item.images.slice(1).length > 0 ?
 						<Row gutter={16}>
 							<Card title='コインについて' className='py-3 mt-3 mt-md-0 pre-wrap'>
-								{coin.coinDescription}
+								{item.description}
 							</Card>
 							<Col xs={24} sm={24} md={10}>
 								<Card className="pb-3">
 									<Slider {...settings}>
-										{coin.images.slice(1).map(function (slide, k) {
+										{item.images.slice(1).map(function (slide, k) {
 											return (
 												<img key={k}
-													src={imageUri(slide)}
+													src={slide}
 													alt="fantation"
 													style={{
 														width: '100%',
@@ -193,7 +192,7 @@ const DetailMarketItem = (props) => {
 							</Col>
 							<Col xs={24} sm={24} md={14}>
 								<Card title='グレードについて' className='py-3 pre-wrap'>
-									{coin.gradeDescription}
+									{item.grade.description}
 								</Card>
 							</Col>
 						</Row>
@@ -201,18 +200,18 @@ const DetailMarketItem = (props) => {
 						<Row gutter={16}>
 							<Col xs={24} sm={24} md={12}>
 								<Card title='コインについて' className='py-3 pre-wrap'>
-									{coin.coinDescription}
+									{item.description}
 								</Card>
 							</Col>
 							<Col xs={24} sm={24} md={12}>
 								<Card title='グレードについて' className='py-3 pre-wrap'>
-									{coin.gradeDescription}
+									{item.grade.description}
 								</Card>
 							</Col>
 						</Row>
 				}
 				{/* <Card title='オーナー権を保有するユーザーリスト' className='py-3 mt-3 mt-md-0'>
-					<Table columns={tableColumns} dataSource={coin.owners} rowKey="id"/>
+					<Table columns={tableColumns} dataSource={item.owners} rowKey="id"/>
 				</Card> */}
 			</div>
 		</>

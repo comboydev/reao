@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
 	fetchSaleHistory,
 	fetchCoinsOnSale,
@@ -15,20 +15,21 @@ import { SOLD_STATUS } from 'constants/AppConstant';
 import Marketplace from 'contracts/services/marketplace';
 import { getContractAddress, shorter, tokenLink } from 'contracts/hooks';
 import YenFormat from 'components/custom/YenFormat';
-import { imageUri } from 'services/image';
 
 const CoinsOnSale = (props) => {
+	const {
+		fetchCoinsOnSale,
+		fetchSaleHistory,
+		// saleHistory,
+		// loadedSaleHistory,
+	} = props;
+
 	const history = useHistory();
 	const [list, setList] = useState([]);
 	const [submit, setSubmit] = useState(false);
-	const {
-		coinsOnSale,
-		loadedCoinsOnSale,
-		fetchCoinsOnSale,
-		// saleHistory,
-		// loadedSaleHistory,
-		fetchSaleHistory,
-	} = props;
+
+	const coinsOnSale = useSelector(({ marketplace }) => marketplace.coinsOnSale)
+	const loadedCoinsOnSale = useSelector(({ marketplace }) => marketplace.loadedCoinsOnSale)
 
 	useEffect(() => {
 		fetchCoinsOnSale();
@@ -100,9 +101,9 @@ const CoinsOnSale = (props) => {
 					<AvatarStatus
 						size={60}
 						type="square"
-						src={imageUri(record.images && record.images[0])}
+						src={record.image}
 						name={record.name}
-						subTitle={record.grade}
+						subTitle={record.grade.name}
 					/>
 				</div>
 			),
@@ -199,8 +200,7 @@ const CoinsOnSale = (props) => {
 	)
 }
 
-export default connect(
-	({ marketplace }) => (marketplace), {
+export default connect(() => ({}), {
 	fetchCoinsOnSale,
 	fetchSaleHistory,
 })(CoinsOnSale);

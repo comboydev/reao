@@ -3,7 +3,6 @@ import authJwt from "../middlewares/authJwt";
 import AdminCtrl from "../controllers/admin.controller";
 import BankCtrl from "../controllers/bank.controller";
 import RewardCtrl from "../controllers/reward.controller";
-import coinCtrl from "../controllers/coin.controller";
 import contactCtrl from "../controllers/contact.controller";
 
 const router = express.Router();
@@ -48,13 +47,6 @@ router.route("/api/admin/affiliate/reward-group/update/:groupID")
     .put([authJwt.verify, authJwt.isAdmin], RewardCtrl.update);
 router.route("/api/admin/affiliate/reward-group/delete/:groupID")
     .delete([authJwt.verify, authJwt.isAdmin], RewardCtrl.deleteOne);
-
-router.route("/api/admin/coins/store")
-    .post([authJwt.verify, authJwt.isAdmin], coinCtrl.store);
-router.route("/api/admin/coins/:id/update")
-    .put([authJwt.verify, authJwt.isAdmin], coinCtrl.update);
-router.route("/api/admin/coins/bulkDelete")
-    .post([authJwt.verify, authJwt.isAdmin], coinCtrl.bulkDelete);
 
 router.route("/api/admin/mails/get")
     .get([authJwt.verify, authJwt.isAdmin], contactCtrl.getMails);
