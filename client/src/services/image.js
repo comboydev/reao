@@ -14,7 +14,9 @@ const ImageService = {
 }
 
 export const imageUri = (url) => {
-    return `${API_URL}${url}`
+    const includeProtocol = String(url).search("://") > 0
+    if (includeProtocol) return url
+    else return `${API_URL}${url}`
 }
 
 export default ImageService;
