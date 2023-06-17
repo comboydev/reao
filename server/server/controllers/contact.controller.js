@@ -164,7 +164,7 @@ const sendReplyMail = (req, res) => {
   // note replied
   if (mail) {
     Contact
-      .findOneAndUpdate({ _id: mail._id }, { label: "replied" }).exec();
+      .findOneAndUpdate({ _id: mail.id }, { label: "replied" }).exec();
   }
   // send mail
 
