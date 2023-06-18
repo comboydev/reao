@@ -6,7 +6,6 @@ import CustomIcon from 'components/util-components/CustomIcon'
 import { PlusOutlined, MinusCircleOutlined, LoadingOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
-const { Search } = Input;
 
 const EDIT_MODE = 'edit';
 
@@ -43,12 +42,10 @@ const beforeUpload = file => {
 
 const GeneralField = ({
 	mode,
-	loading,
 	coinImages,
 	handleAddCoinImage,
 	handleRemoveCoinImage,
 	handleUploadCoinImage,
-	handleUpdateTokenURI,
 }) => {
 	return (
 		<Row gutter={16}>
@@ -94,19 +91,6 @@ const GeneralField = ({
 						</Col>
 					</Row>
 				</Card>
-				{
-					mode === EDIT_MODE &&
-					<Card>
-						<Form.Item name="uri" label="URIの直接変更">
-							<Search
-								placeholder="URI"
-								enterButton="変更"
-								loading={loading}
-								onSearch={value => handleUpdateTokenURI(value)}
-							/>
-						</Form.Item>
-					</Card>
-				}
 			</Col>
 			<Col xs={24} sm={24} md={7}>
 				{

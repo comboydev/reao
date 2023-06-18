@@ -7,15 +7,15 @@ import Loading from "components/shared-components/Loading";
 import GeneralField from './general';
 import { getContract } from 'contracts/hooks';
 import TokenService from 'contracts/services/token';
-import axios from "axios";
+import ImageService, { imageUri } from 'services/image';
 
 const { TabPane } = Tabs;
 
 const CREATE_MODE = 'create'
 const EDIT_MODE = 'edit'
 
-const pinataApiKey = '9f777d5fc7f5824afc3c';
-const pinataApiSecret = 'bcf45d4db9bb9fc0454d18dd6e26a4fd4afb2f4c1156519762117f94bdfb8a60';
+// const pinataApiKey = '9f777d5fc7f5824afc3c';
+// const pinataApiSecret = 'bcf45d4db9bb9fc0454d18dd6e26a4fd4afb2f4c1156519762117f94bdfb8a60';
 
 const CoinForm = ({ mode = CREATE_MODE, param }) => {
 	const history = useHistory();
@@ -56,44 +56,47 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 		setCoinImages([...coinImages]);
 	}
 
+	// const handleUploadCoinImage = async (e, idx) => {
+	// 	let images = coinImages;
+	// 	images[idx] = { loading: true }
+	// 	setCoinImages([...images]);
+	// 	try {
+	// 		const formData = new FormData();
+	// 		formData.append('file', e.file.originFileObj);
+
+	// 		const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+	// 		const response = await axios.post(url, formData, {
+	// 			headers: {
+	// 				'Content-Type': 'multipart/form-data',
+	// 				'pinata_api_key': pinataApiKey,
+	// 				'pinata_secret_api_key': pinataApiSecret,
+	// 			},
+	// 		});
+
+	// 		const uri = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+	// 		let images = coinImages;
+	// 		images[idx] = { uri, loading: false }
+	// 		setCoinImages([...images]);
+	// 	} catch (err) {
+	// 		message.error('エラーが発生しました。');
+	// 	}
+	// };
+
 	const handleUploadCoinImage = async (e, idx) => {
 		let images = coinImages;
 		images[idx] = { loading: true }
 		setCoinImages([...images]);
 		try {
-			const formData = new FormData();
-			formData.append('file', e.file.originFileObj);
-
-			const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
-			const response = await axios.post(url, formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-					'pinata_api_key': pinataApiKey,
-					'pinata_secret_api_key': pinataApiSecret,
-				},
-			});
-
-			const uri = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-			let images = coinImages;
-			images[idx] = { uri, loading: false }
-			setCoinImages([...images]);
+			ImageService.getBase64(e.file.originFileObj, async (base64) => {
+				const { data } = await ImageService.upload(base64);
+				let images = coinImages;
+				images[idx] = { uri: imageUri(data.uri), loading: false }
+				setCoinImages([...images]);
+			})
 		} catch (err) {
 			message.error('エラーが発生しました。');
 		}
 	};
-
-	const handleUpdateTokenURI = async (uri) => {
-		if (uri === token.uri) {
-			message.warning('URIの変更か必須です。');
-			return;
-		}
-		setLoading(true)
-		const nftContract = await getContract('AQCT1155');
-		const tx = await nftContract.setUri(token.tokenId, uri);
-		await tx.wait();
-		setLoaded(false);
-		history.push(`/admin/coins/detail/${token.tokenId}`);
-	}
 
 	const handleSubmit = () => {
 		const images = []
@@ -122,17 +125,7 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 					}
 				}
 
-				const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
-				const response = await axios.post(url, metadata, {
-					headers: {
-						'Content-Type': 'application/json',
-						'pinata_api_key': pinataApiKey,
-						'pinata_secret_api_key': pinataApiSecret,
-					},
-					pinataMetadata: { name: 'metadata.json' },
-				});
-				const uri = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-
+				const uri = JSON.stringify(metadata)
 				try {
 					const nftContract = await getContract('AQCT1155');
 					if (mode === EDIT_MODE) {
@@ -184,12 +177,10 @@ const CoinForm = ({ mode = CREATE_MODE, param }) => {
 						<TabPane tab="General" key="1">
 							<GeneralField
 								mode={mode}
-								loading={loading}
 								coinImages={coinImages}
 								handleAddCoinImage={handleAddCoinImage}
 								handleRemoveCoinImage={handleRemoveCoinImage}
 								handleUploadCoinImage={handleUploadCoinImage}
-								handleUpdateTokenURI={handleUpdateTokenURI}
 							/>
 						</TabPane>
 					</Tabs>

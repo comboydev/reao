@@ -62,10 +62,10 @@ const Marketplace = {
         const items = await Promise.all(
             response.map(async item => {
                 const tokenUri = await tokenContract.uri(item.tokenId);
-                const data = await fetchMetaData(tokenUri);
+                const metadata = await fetchMetaData(tokenUri);
                 const totalSupply = await tokenContract.totalSupply(item.tokenId);
                 return ({
-                    ...data,
+                    ...metadata,
                     itemId: item.itemId,
                     tokenId: item.tokenId.toNumber(),
                     price: item.price.toNumber(),
@@ -89,10 +89,10 @@ const Marketplace = {
         const items = await Promise.all(
             response.map(async item => {
                 const tokenUri = await tokenContract.uri(item.tokenId);
-                const data = await fetchMetaData(tokenUri);
+                const metadata = await fetchMetaData(tokenUri);
                 const totalSupply = await tokenContract.totalSupply(item.tokenId);
                 return ({
-                    ...data,
+                    ...metadata,
                     itemId: item.itemId,
                     tokenId: item.tokenId.toNumber(),
                     price: item.price.toNumber(),
@@ -113,10 +113,10 @@ const Marketplace = {
         const marketplace = await getContract('FantationMarket');
         const item = await marketplace.item(id);
         const tokenUri = await tokenContract.uri(item.tokenId);
-        const data = await fetchMetaData(tokenUri);
+        const metadata = await fetchMetaData(tokenUri);
         const totalSupply = await tokenContract.totalSupply(item.tokenId);
         return ({
-            ...data,
+            ...metadata,
             itemId: item.itemId,
             tokenId: item.tokenId.toNumber(),
             price: item.price.toNumber(),
@@ -184,11 +184,11 @@ const extractLogs = async (logs) => {
             const block = await simpleProvider.getBlock(log.blockNumber);
             const tokenId = parseInt(log.topics[1], 16);
             const tokenUri = await tokenContract.uri(tokenId);
-            const data = await fetchMetaData(tokenUri);
+            const metadata = await fetchMetaData(tokenUri);
             const price = parseInt(ethers.utils.hexDataSlice(log.data, 0, 32), 16);
             const amount = parseInt(ethers.utils.hexDataSlice(log.data, 32, 64), 16);
             return {
-                ...data,
+                ...metadata,
                 seller: ethers.utils.hexStripZeros(log.topics[2], 32),
                 buyer: ethers.utils.hexStripZeros(log.topics[3], 32),
                 price,

@@ -13,7 +13,8 @@ export const fetchMetaData = async (uri) => {
         refPrice: null,
     }
     try {
-        const response = await fetch(uri).then(response => response.json());
+        // const response = await fetch(uri).then(response => response.json());
+        const response = JSON.parse(uri);
         data.name = response.name
         data.description = response.description
         data.image = response.image
@@ -35,10 +36,10 @@ const Token = {
         const response = await tokenContract.tokensOf(account);
         const tokens = await Promise.all(
             response.map(async token => {
-                const data = await fetchMetaData(token.uri);
+                const metadata = await fetchMetaData(token.uri);
                 const totalSupply = await tokenContract.totalSupply(token.tokenId);
                 return ({
-                    ...data,
+                    ...metadata,
                     uri: token.uri,
                     amount: token.amount.toNumber(),
                     tokenId: token.tokenId.toNumber(),
@@ -54,10 +55,10 @@ const Token = {
         const tokenContract = await getContract('AQCT1155');
         const account = await getAccount();
         const token = await tokenContract.token(account, id);
-        const data = await fetchMetaData(token.uri);
+        const metadata = await fetchMetaData(token.uri);
         const totalSupply = await tokenContract.totalSupply(id);
         return {
-            ...data,
+            ...metadata,
             uri: token.uri,
             amount: token.amount.toNumber(),
             tokenId: token.tokenId.toNumber(),
