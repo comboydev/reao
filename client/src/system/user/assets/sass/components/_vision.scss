@@ -1,0 +1,56 @@
+.p-vision{
+    padding-top: 130px;
+    margin: calc(-130px + 3.484375vw) 18.75vw 9.8125vw;
+    @include mq(){
+        padding-top: 100px;
+        margin-top: calc(-100px + 3.484375vw);
+    }
+    @include mq(sm2){
+        padding: 100px 20px 20px;
+        margin: 0 0 100px;
+    }
+}
+
+.c-visionarticle{
+    text-align: center;
+    width: 100%;
+    h1{
+        font-size: 2.604166vw;
+        line-height: 1.5;
+        color: $text-color-braun;
+        font-family: $yuMincho;
+        margin-bottom: 4.375vw;
+    }
+    h2{
+        font-size: 1.875vw;
+        line-height: 1.5;
+        color: $text-color-black;
+        font-family: $yuMincho;
+    }
+}
+
+@media screen and (max-width: 750px){
+    .c-visionarticle{
+        margin-bottom: calc((50/750)*100)+vw;
+        h1{
+            font-size: calc((40/750)*100)+vw;
+            // line-height: 3.4895833vw;
+        }
+        h2{
+            font-size: calc((25/750)*100)+vw;
+        }
+        &::before{
+            display: none;
+        }
+    }
+}
+
+.c-popularList-item{
+    text-align: left;
+}
+
+.c-popularList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

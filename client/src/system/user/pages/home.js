@@ -20,14 +20,14 @@ const HomeJP = () => {
                 <ul className="mv_slide">
                     <li className="c-mv"></li>
                     <article className="c-mvarticle">
-                        <p className="c-mvarticle__text">
-                            1万円から始める
+                        <p className="c-mvarticle__small">
+                            今の投資に物足りなさや将来への不安を感じているあなたへ
                         </p>
                         <p className="c-mvarticle__text">
-                            アンティークコインへの投資
+                            1万円から始められる現物投資
                         </p>
                         <p className="c-mvarticle__small">
-                            少額からアンティークコインの共同オーナー権を保有し、
+                            小額からアンティークコインの共同オーナー権を保有し、
                         </p>
                         <p className="c-mvarticle__small">
                             投資ができるプラットフォーム
@@ -43,13 +43,197 @@ const HomeJP = () => {
             <section className="p-feature" id="p-feature">
                 <article className="c-featurearticle">
                     <h1>
-                        FANTATIONの特徴
+                        FANTATIONとは？
                     </h1>
                     <h2>
-                        1万円からアンティークコインのオーナーになれて<br />
-                        様々な優待が受けられます
+                        <p>絵画や工芸品のように美術品として価値が高い現物資産である</p>
+                        <p>アンティークコインを1万円から購入でき、共同オーナーになれる</p>
+                        <p>日本初の会員制プラットフォーム</p>
                     </h2>
+                    <br/>
+                    <h2>従来は、１コイン１オーナーが当然で、<br/>希少性の高いコインを購入するためには高額な費用が必要でしたが、<br/>「FANTAION」であれば複数人で共同保有できるので<br/>少額からの購入ができるようになりました。</h2>
+                    <br/>
+                    <h2>アンティークコインのオーナー権を得ることで<br/>「売買・鑑賞・管理」の3つの優待サービスが受けられます。</h2>               
                 </article>
+            </section>
+            <section className="p-vision" id="p-vision">
+                <article className="c-visionarticle">
+                    <h1>
+                        FANTATIONのビジョン
+                    </h1>
+                    <h2>
+                        <p>世界最古の現物資産であるアンティークコインを</p>
+                        <p>最先端のITテクノロジーを活用して、</p>
+                        <p>もっと身近に！誰でも気軽に！手軽に！</p>
+                        <p>投資として始められる<b className="c-assetsheader">共同購入</b>という方法があることを</p>
+                        <p>世の中に広めてまいります。</p>
+                    </h2>
+                    <br/>
+                </article>
+            </section>
+            <section className="p-use" id="p-use">
+                <div className="c-use--img">
+                    <div className="c-use--img__inner"></div>
+                </div>
+                <article className="c-usearticle">
+                    <h1>
+                        FANTATIONのご利用はこんな方に選ばれています
+                    </h1>
+                </article>
+                <div className="c-use">
+                    <ul>
+                        <li>
+                        希少な現物資産を所有したいが<br />維持が大変だと感じている
+                        </li>
+                        <li>
+                        日本円から<br />現物資産に置き換えたい
+                        </li>
+                        <li>
+                        欲しいアンティークコインが<br />複数あるが資金が乏しい<br />
+                        </li>
+                        <li>
+                        初心者なので専門家に相談して<br />コインを保有したい
+                        </li>
+                        <li>
+                        コインオーナーとして売買も<br />管理も専門家に任せたい
+                        </li>
+                        <li>
+                        コイン投資をしたいが<br />自分で管理・保管するのは不安
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section className="p-media" id="p-media">
+                <article className="c-media-article">
+                    <h1>
+                        掲載メディア
+                    </h1>
+                </article>
+                <ul className="c-media-list">
+                    <li><div className="c-media-logo"><img src="/img/home/media/asahi.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/bizocean.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/infoseek.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/linenews.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/nordot.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/reuters.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/sankeibiz.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/sanspo.png" alt="fantation" /></div></li>
+                    <li><div className="c-media-logo"><img src="/img/home/media/zaikei.png" alt="fantation" /></div></li>
+                </ul>
+            </section>
+            <section className="p-assets" id="p-assets">
+                <h1 className="c-assetsheader">
+                    資産としての<br />アンティークコインの魅力
+                </h1>
+                <article className="c-assetsarticle">
+                    <div className="c-assetsarticle_1">
+                        <p>
+                            全世界で約300万人、
+                        </p>
+                        <p>
+                            市場規模は1兆円以上
+                        </p>
+                        <div className="c-assetsarticle__sub">
+                            アンティークコインのマーケットは、特定の国や地域ではなく、世界中にあります。コレクターは全世界で約300万人、市場規模は1兆円以上といわれており、そのコレクター達がアンティークコインの価値を不動なものにしています。そのため値上がりすることはあっても値下がりすることはあまりないのが特徴です。
+                        </div>
+                    </div>
+                    <div>
+                        <p>
+                            時間が経てば経つほど
+                        </p>
+                        <p>
+                            増す希少性
+                        </p>
+                        <div className="c-assetsarticle__sub">
+                            値上がりする理由のひとつに、希少性があります。製造期間があるコインは現在、製造されていないため、増えることはあり得ません。その一方、焼失や劣化によって数が減る可能性はあります。つまり、時間が経てば経つほど希少性は増していきます。しかも、コレクターの許に渡ると市場へは出回りにくくなります。そのため、コレクターが増えれば増えるほど、希少性は高まります。
+                        </div>
+                    </div>
+                </article>
+                <article className="c-assetsarticle--content">
+                    <div className="c-assetsarticle--content__inner">
+                        <div>
+                            <h1>
+                                右肩上がりの相場
+                            </h1>
+                            <p>
+                                アンティークコイン市場の指標はいろいろありますが、最大のシェアを誇るUSコインの2000年から2021年まで、21年間の推移を示すグラフです。右肩上がりに相場が動いているのがわかります。
+                            </p>
+                        </div>
+                        <div>
+                            <h2>
+                                数万円から22億円まで
+                            </h2>
+                            <p>
+                                アンティークコインには、数万円で購入できるものから22億するものまであります。当然、高価になればなるほど投資価値は高まります。とはいえ、限られた資産家でなければ高額なアンティークコインに投資はできません。しかし、【FANTATION】なら、1万円から共同オーナー権を保有できます。
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <section className="p-charm" id="p-charm">
+                <article className="c-charmarticle">
+                    <h1>
+                        コレクションとしての<br />
+                        アンティークコインの魅力
+                    </h1>
+                    <p className="c-charmarticle__text">
+                        世界的な富豪のロスチャイルド家の繁栄は、マイアー・アムシェル・ロートシルト（1744～1812）がフランクフルトで古銭業を始めたことが起こりです。<br />ロスチャイルド家はアンティークコインから莫大な富を築いたといえます。<br />
+                        しかも、アンティークコインは「ポケットに入る財産」と言われており、1億円であっても、たった1枚のコインで持ち運ぶことが可能です。<br />例えばアートやクラシックカーなどは安全な場所へ移動するのは容易ではないでしょう。<br />しかし、アンティークコインなら造作もありません。<br />
+                        また、アートやクラシックカーと違って、メンテナンスの必要がないことも特徴です。「スラブ」というケースに入れて保管することで破損のリスクは回避できます。
+                    </p>
+                    <article className="c-charmarticle--1">
+                        <h2>
+                            高騰する価値
+                        </h2>
+                        <p className="c-charmarticle--1__text">
+                            もうひとつの魅力は「資産価値」です。<br />2002年に開かれたオークションの落札価格と、15年後の2017年の<br />落札価格を比較してみると、1821年に鋳造されたジョージ3世のクラウン銀貨、<br />通称「スリーグレイセス」が98万円から1650万円。<br />
+                            1826年に鋳造されたジョージ4世の5ポンド金貨が98万円から1010万円。<br />
+                            1839年に鋳造されたヴィクトリア女王の5ポンド金貨、通称「ウナとライオン」が<br />150万円から1750万円。と価値が高騰しています。
+                        </p>
+                    </article>
+                    <article className="c-charmarticle--2">
+                        <h2>
+                            高い安定性
+                        </h2>
+                        <p className="c-charmarticle--2__text">
+                            アンティークコイン市場はリーマンショックでも安定を保ちました。<br />アンティークコイン市場は一度も「大暴落」を経験したことがありません。<br />
+                            アンティークコインは、ロマンあふれる歴史的な魅力と、実質的な資産価値の魅力の両方で人気となっています。
+                        </p>
+                    </article>
+                </article>
+            </section>
+
+            <section className="p-antiquecoin" id="p-antiquecoin">
+                <article className="c-antiquecoinarticle--header">
+                    <h1>
+                        アンティークコインはもう、<br />
+                        一部のコレクターの<br className="c-spBr" />ものではない
+                    </h1>
+                </article>
+                <article className="c-antiquecoinarticle">
+                    <p>
+                        美術館・博物館でアンティークコインを目にしたことはあるでしょう。あの、美術館・博物館が展示していたアンティークコインが自分のものになるとしたら？
+                    </p>
+                    <br />
+                    <p>
+                        憧れだった、イギリスのヴィクトリア「ウナとライオン」5ポンド金貨（1839年）や、オーストリアのフランツ・ヨーゼフ1世治世60周年記念「雲上の女神」100コロナ金貨（1908年）など、歴史的な価値を持つアンティークコインを誰でも保有することができるとしたら？
+                    </p>
+                    <br />
+                    <p>
+                        それを可能にするのが、<br className="c-spBr" />FANTATIONです。
+                    </p>
+                    <button className="c-btn c-btn--signup--long c-btn--signup--long--antiquecoin" onClick={() => history.push("/register")}>
+                        <p className="c-btn-text">
+                            まずは会員登録（無料）
+                        </p>
+                    </button>
+                </article>
+            </section>
+            
+            <section className="p-feature" id="p-feature">
+                <h1 className="c-assetsheader">コインオーナー様がご利用いただける</h1>
+                <h1 className="c-assetsheader">３つのご優待サービス</h1>
                 <div className="c-featureitem">
                     <div>
                         <p className="c-featureitem--trade">
@@ -76,39 +260,9 @@ const HomeJP = () => {
                         </p>
                     </div>
                 </div>
+
             </section>
-            <section className="p-use" id="p-use">
-                <div className="c-use--img">
-                    <div className="c-use--img__inner"></div>
-                </div>
-                <article className="c-usearticle">
-                    <h1>
-                        FANTATIONのご利用はこんな方に向いています
-                    </h1>
-                </article>
-                <div className="c-use">
-                    <ul>
-                        <li>
-                            希少なアンティークコインを<br />手軽に所有したい
-                        </li>
-                        <li>
-                            希少なコインを<br />複数保有したい
-                        </li>
-                        <li>
-                            初心者なので専門家に<br />相談してみたい
-                        </li>
-                        <li>
-                            コインオーナーとして<br />優待を受けたい
-                        </li>
-                        <li>
-                            安全にアンティークコインを<br />保管したい
-                        </li>
-                        <li>
-                            日本円から現物資産に<br />置き換えたい
-                        </li>
-                    </ul>
-                </div>
-            </section>
+
             <section className="p-coin" id="p-coin">
                 <article className="c-coinarticle">
                     <h1>
@@ -250,131 +404,8 @@ const HomeJP = () => {
                     </button>
                 </div>
             </section>
-            <section className="p-assets" id="p-assets">
-                <h1 className="c-assetsheader">
-                    資産としての<br />アンティークコインの魅力
-                </h1>
-                <article className="c-assetsarticle">
-                    <div className="c-assetsarticle_1">
-                        <p>
-                            全世界で約300万人、
-                        </p>
-                        <p>
-                            市場規模は1兆円以上
-                        </p>
-                        <div className="c-assetsarticle__sub">
-                            アンティークコインのマーケットは、特定の国や地域ではなく、世界中にあります。コレクターは全世界で約300万人、市場規模は1兆円以上といわれており、そのコレクター達がアンティークコインの価値を不動なものにしています。そのため値上がりすることはあっても値下がりすることはあまりないのが特徴です。
-                        </div>
-                    </div>
-                    <div>
-                        <p>
-                            時間が経てば経つほど
-                        </p>
-                        <p>
-                            増す希少性
-                        </p>
-                        <div className="c-assetsarticle__sub">
-                            値上がりする理由のひとつに、希少性があります。製造期間があるコインは現在、製造されていないため、増えることはあり得ません。その一方、焼失や劣化によって数が減る可能性はあります。つまり、時間が経てば経つほど希少性は増していきます。しかも、コレクターの許に渡ると市場へは出回りにくくなります。そのため、コレクターが増えれば増えるほど、希少性は高まります。
-                        </div>
-                    </div>
-                </article>
-                <article className="c-assetsarticle--content">
-                    <div className="c-assetsarticle--content__inner">
-                        <div>
-                            <h1>
-                                右肩上がりの相場
-                            </h1>
-                            <p>
-                                アンティークコイン市場の指標はいろいろありますが、最大のシェアを誇るUSコインの2000年から2021年まで、21年間の推移を示すグラフです。右肩上がりに相場が動いているのがわかります。
-                            </p>
-                        </div>
-                        <div>
-                            <h2>
-                                数万円から22億円まで
-                            </h2>
-                            <p>
-                                アンティークコインには、数万円で購入できるものから22億するものまであります。当然、高価になればなるほど投資価値は高まります。とはいえ、限られた資産家でなければ高額なアンティークコインに投資はできません。しかし、【FANTATION】なら、1万円から共同オーナー権を保有できます。
-                            </p>
-                        </div>
-                    </div>
-                </article>
-            </section>
-            <section className="p-charm" id="p-charm">
-                <article className="c-charmarticle">
-                    <h1>
-                        コレクションとしての<br />
-                        アンティークコインの魅力
-                    </h1>
-                    <p className="c-charmarticle__text">
-                        世界的な富豪のロスチャイルド家の繁栄は、マイアー・アムシェル・ロートシルト（1744～1812）がフランクフルトで古銭業を始めたことが起こりです。<br />ロスチャイルド家はアンティークコインから莫大な富を築いたといえます。<br />
-                        しかも、アンティークコインは「ポケットに入る財産」と言われており、1億円であっても、たった1枚のコインで持ち運ぶことが可能です。<br />例えばアートやクラシックカーなどは安全な場所へ移動するのは容易ではないでしょう。<br />しかし、アンティークコインなら造作もありません。<br />
-                        また、アートやクラシックカーと違って、メンテナンスの必要がないことも特徴です。「スラブ」というケースに入れて保管することで破損のリスクは回避できます。
-                    </p>
-                    <article className="c-charmarticle--1">
-                        <h2>
-                            高騰する価値
-                        </h2>
-                        <p className="c-charmarticle--1__text">
-                            もうひとつの魅力は「資産価値」です。<br />2002年に開かれたオークションの落札価格と、15年後の2017年の<br />落札価格を比較してみると、1821年に鋳造されたジョージ3世のクラウン銀貨、<br />通称「スリーグレイセス」が98万円から1650万円。<br />
-                            1826年に鋳造されたジョージ4世の5ポンド金貨が98万円から1010万円。<br />
-                            1839年に鋳造されたヴィクトリア女王の5ポンド金貨、通称「ウナとライオン」が<br />150万円から1750万円。と価値が高騰しています。
-                        </p>
-                    </article>
-                    <article className="c-charmarticle--2">
-                        <h2>
-                            高い安定性
-                        </h2>
-                        <p className="c-charmarticle--2__text">
-                            アンティークコイン市場はリーマンショックでも安定を保ちました。<br />アンティークコイン市場は一度も「大暴落」を経験したことがありません。<br />
-                            アンティークコインは、ロマンあふれる歴史的な魅力と、実質的な資産価値の魅力の両方で人気となっています。
-                        </p>
-                    </article>
-                </article>
-            </section>
-            <section className="p-antiquecoin" id="p-antiquecoin">
-                <article className="c-antiquecoinarticle--header">
-                    <h1>
-                        アンティークコインはもう、<br />
-                        一部のコレクターの<br className="c-spBr" />ものではない
-                    </h1>
-                </article>
-                <article className="c-antiquecoinarticle">
-                    <p>
-                        美術館・博物館でアンティークコインを目にしたことはあるでしょう。あの、美術館・博物館が展示していたアンティークコインが自分のものになるとしたら？
-                    </p>
-                    <br />
-                    <p>
-                        憧れだった、イギリスのヴィクトリア「ウナとライオン」5ポンド金貨（1839年）や、オーストリアのフランツ・ヨーゼフ1世治世60周年記念「雲上の女神」100コロナ金貨（1908年）など、歴史的な価値を持つアンティークコインを誰でも保有することができるとしたら？
-                    </p>
-                    <br />
-                    <p>
-                        それを可能にするのが、<br className="c-spBr" />FANTATIONです。
-                    </p>
-                    <button className="c-btn c-btn--signup--long c-btn--signup--long--antiquecoin" onClick={() => history.push("/register")}>
-                        <p className="c-btn-text">
-                            まずは会員登録（無料）
-                        </p>
-                    </button>
-                </article>
-            </section>
-            <section className="p-media" id="p-media">
-                <article className="c-media-article">
-                    <h1>
-                        掲載メディア
-                    </h1>
-                </article>
-                <ul className="c-media-list">
-                    <li><div className="c-media-logo"><img src="/img/home/media/asahi.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/bizocean.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/infoseek.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/linenews.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/nordot.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/reuters.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/sankeibiz.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/sanspo.png" alt="fantation" /></div></li>
-                    <li><div className="c-media-logo"><img src="/img/home/media/zaikei.png" alt="fantation" /></div></li>
-                </ul>
-            </section>
+            
+            
             <section className="p-flow" id="p-flow">
                 <article className="c-flowarticle">
                     <h1>
@@ -508,35 +539,6 @@ const HomeJP = () => {
                         希少性が高いコインは残存枚数や保存状態、デザイン性などが高く、コレクターの間でも注目されているコインです。そのため、価値が下がることはほとんどありません。
                     </li>
                 </ul>
-            </section>
-            <section className="p-news" id="p-news">
-                <div className="p-newsWrapper">
-                    <h1 className="c-qa--header">新着情報</h1>
-                    <span>サービスについてもっと知りたい方へ</span>
-                    <ul className="p-newsList">
-                        <li><a href="#" className="p-newsList--item">
-                            <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション" /></figure>
-                            <div className="p-newsList--item__txtBox">
-                                <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
-                                <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
-                            </div>
-                        </a></li>
-                        <li><a href="#" className="p-newsList--item">
-                            <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション" /></figure>
-                            <div className="p-newsList--item__txtBox">
-                                <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
-                                <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
-                            </div>
-                        </a></li>
-                        <li><a href="#" className="p-newsList--item">
-                            <figure><img src="/img/home/news_thumnail.png" alt="万円から始める本格アートコレクション" /></figure>
-                            <div className="p-newsList--item__txtBox">
-                                <p className="ttl">バンクシーやKAWSのオーナーに1万円からなれる？！ANDARTで有名アートのオーナーになろう</p>
-                                <p>資産としてのアート アート作品は「観る」もの、と思い込んでいませんか？ 実は 「買う」という選択肢もあります。日本人はアートを「観る」ことが大好きな国民と言われ、美術館の企画展には多くの人が詰めかけますが、アートを「買う」という文化は ...</p>
-                            </div>
-                        </a></li>
-                    </ul>
-                </div>
             </section>
 
             <section className="p-contact" id="p-contact">
