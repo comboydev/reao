@@ -1,4 +1,4 @@
-# Fantation: NFT marketplace
+# reao: NFT marketplace
 
 ### Build frontend
 
